@@ -1,0 +1,96 @@
+/* Fusion design system tokens (copied from the bound design system) */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/effects.css';
+@import './tokens/base.css';
+@import './tokens/salt-support.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--salt-palette-background-secondary);
+}
+
+/* App-level aliases onto Fusion (Salt) tokens.
+   Applied on .salt-theme so Salt's own token scope is the source of truth. */
+.salt-theme {
+  --salt-color-plum-100: var(--salt-color-purple-100);
+  --salt-color-plum-500: var(--salt-color-purple-500);
+  --salt-color-plum-600: var(--salt-color-purple-800);
+
+  --bg: var(--salt-palette-background-secondary);
+  --panel: var(--salt-palette-background-primary);
+  --panel2: var(--salt-palette-background-secondary);
+  --line: var(--salt-color-gray-200);
+  --line2: var(--salt-color-gray-100);
+  --ink: var(--salt-content-primary-foreground);
+  --muted: var(--salt-content-secondary-foreground);
+  --faint: var(--salt-color-gray-500);
+  --accent: var(--salt-palette-accent);
+  --accent-strong: var(--salt-palette-accent-strong);
+  --accent-soft: var(--salt-palette-accent-weakest);
+  --accent-line: var(--salt-palette-accent-weaker);
+  --frontier: var(--salt-color-blue-600);
+  --open: var(--salt-color-green-500);
+  --internal: var(--salt-color-orange-500);
+  --amber-soft: var(--salt-palette-warning-weakest);
+  --c1: var(--salt-color-indigo-500);
+  --c2: var(--salt-color-purple-500);
+  --c3: var(--salt-color-teal-500);
+  --c4: var(--salt-color-orange-500);
+  --sans: var(--salt-typography-fontFamily-sans);
+  --mono: var(--salt-typography-fontFamily-mono);
+  --heading: var(--salt-typography-fontFamily-display);
+
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+h1 {
+  font-family: var(--heading);
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+a {
+  color: var(--salt-palette-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--salt-palette-accent-strong);
+  text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--salt-color-gray-300);
+  border-radius: 6px;
+  border: 3px solid var(--salt-palette-background-secondary);
+}
+
+@keyframes trayup {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.row-hover:hover {
+  background: var(--panel2);
+}
