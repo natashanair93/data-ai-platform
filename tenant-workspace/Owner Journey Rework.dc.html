@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+  <script src="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--surface-secondary); font-family: var(--font-body); color: var(--text-primary); }
+    a { color: var(--accent-strong); }
+    a:hover { color: var(--accent); }
+  </style>
+</helmet>
+
+<section style="padding: 40px 44px 70px; display: flex; flex-direction: column; gap: 34px;">
+  <div style="max-width: 900px;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px;">Turn 11 · sketch, not built</div>
+    <h1 style="font-family: var(--font-heading); font-size: 32px; margin: 0 0 10px;">Owner journey, reworked around products</h1>
+    <p style="margin: 0; font-size: 14.5px; line-height: 22px; color: var(--text-secondary);">Four sketches: <a href="#11a">11a</a> the end-to-end flow, <a href="#11b">11b</a> the two product-install paths side by side, <a href="#11c">11c</a> gaps and breaks against what is built today, <a href="#11d">11d</a> the teams-vs-projects question. Nothing here is wired — pick a direction and I will build it into the prototype.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+
+    <div id="11a" style="flex: 1 1 620px; min-width: 560px; background: var(--surface-primary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 26px 28px 30px;">
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--accent-strong); background: var(--salt-color-blue-100); border-radius: 999px; padding: 4px 10px;">11a</span>
+        <h2 style="font-family: var(--font-heading); font-size: 20px; margin: 0;">End-to-end flow</h2>
+      </div>
+      <p style="margin: 0 0 22px; font-size: 13.5px; line-height: 20px; color: var(--text-secondary);">Products replace projects as the thing an owner provisions. Access is decided per product, not per container.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+
+        <div style="display: flex; gap: 14px;">
+          <div style="width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+          <div style="flex: 1; min-width: 0; border: 1px solid var(--border-subtle); border-radius: 9px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Catalog · Select a use case</div>
+            <div style="font-size: 12.5px; line-height: 18px; color: var(--text-secondary); margin-bottom: 10px;">Owner sees <strong>+ New</strong> beside the heading. Mine / Available / Requested tabs unchanged.</div>
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px dashed var(--border-medium); border-radius: 7px; padding: 9px 12px; background: var(--surface-secondary);">
+              <span style="font-family: var(--font-heading); font-size: 13px;">Select a use case</span>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.6px; color: #fff; background: var(--accent); border-radius: 5px; padding: 5px 10px;">+ NEW</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px;">
+          <div style="width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+          <div style="flex: 1; min-width: 0; border: 1px solid var(--border-subtle); border-radius: 9px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">New use case · every field required</div>
+            <div style="font-size: 12.5px; line-height: 18px; color: var(--text-secondary); margin-bottom: 10px;">Name, description, phase, AI/ML, GenAI, business objective (Feasibility only). Members block submit until all three roles are present.</div>
+            <div style="display: flex; flex-direction: column; gap: 7px;">
+              <div style="display: flex; align-items: center; gap: 9px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px 11px; font-size: 12.5px;">
+                <span style="width: 15px; height: 15px; border-radius: 999px; border: 4px solid var(--salt-color-olive-600);"></span>
+                <span>Use case lead · <span style="color: var(--text-tertiary);">A. Rivera</span></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 9px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px 11px; font-size: 12.5px;">
+                <span style="width: 15px; height: 15px; border-radius: 999px; border: 4px solid var(--salt-color-olive-600);"></span>
+                <span>Use case sponsor · <span style="color: var(--text-tertiary);">J. Whitfield</span></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 9px; border: 1px solid #e8a33d; background: #fffaf3; border-radius: 6px; padding: 8px 11px; font-size: 12.5px;">
+                <span style="width: 15px; height: 15px; border-radius: 999px; border: 1.5px solid #e8a33d;"></span>
+                <span style="color: #a4560f;">Developer lead · required before submit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px;">
+          <div style="width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+          <div style="flex: 1; min-width: 0; border: 1px solid var(--border-subtle); border-radius: 9px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Submitted · awaiting sponsor</div>
+            <div style="font-size: 12.5px; line-height: 18px; color: var(--text-secondary); margin-bottom: 10px;">Detail page shows the pending banner. Nothing to install yet — the products tab is locked, not hidden.</div>
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px solid #e8a33d; border-left: 4px solid #e8a33d; background: #fffaf3; border-radius: 7px; padding: 10px 12px; font-size: 12.5px;">
+              <span style="font-weight: 700;">Awaiting approval</span>
+              <span style="color: var(--text-secondary);">— products unlock on approval</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px;">
+          <div style="width: 26px; height: 26px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</div>
+          <div style="flex: 1; min-width: 0; border: 1px solid var(--border-subtle); border-radius: 9px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Admin · manage use cases and requests</div>
+            <div style="font-size: 12.5px; line-height: 18px; color: var(--text-secondary); margin-bottom: 10px;">One home for the owner: use cases they own, their status, and every inbound request (access, product, re-approval).</div>
+            <div style="border: 1px solid var(--border-subtle); border-radius: 7px; overflow: hidden; font-size: 12px;">
+              <div style="display: flex; gap: 14px; padding: 8px 12px; background: var(--surface-secondary); color: var(--text-tertiary); font-weight: 700; letter-spacing: 0.4px;">
+                <span style="flex: 1;">USE CASE</span><span style="width: 84px;">PHASE</span><span style="width: 78px;">STATUS</span><span style="width: 70px;">REQUESTS</span>
+              </div>
+              <div style="display: flex; gap: 14px; padding: 9px 12px; border-top: 1px solid var(--separator);">
+                <span style="flex: 1;">Client Communications</span><span style="width: 84px; color: var(--text-secondary);">Feasibility</span><span style="width: 78px; color: var(--salt-color-olive-600);">Approved</span><span style="width: 70px; color: var(--accent-strong); font-weight: 700;">3 open</span>
+              </div>
+              <div style="display: flex; gap: 14px; padding: 9px 12px; border-top: 1px solid var(--separator);">
+                <span style="flex: 1;">Trade Surveillance</span><span style="width: 84px; color: var(--text-secondary);">Ideation</span><span style="width: 78px; color: #a4560f;">Pending</span><span style="width: 70px; color: var(--text-tertiary);">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px;">
+          <div style="width: 26px; height: 26px; border-radius: 999px; background: var(--salt-color-olive-600); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">5</div>
+          <div style="flex: 1; min-width: 0; border: 1px solid var(--border-subtle); border-radius: 9px; padding: 14px 16px;">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Approved · products tab on the use case</div>
+            <div style="font-size: 12.5px; line-height: 18px; color: var(--text-secondary); margin-bottom: 10px;">SageMaker and GenAI Gateway are already there, marked <em>always provided</em>. The rest are installable.</div>
+            <div style="display: flex; flex-direction: column; gap: 7px; font-size: 12.5px;">
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 9px 11px; background: var(--surface-secondary);">
+                <span style="font-weight: 600;">SageMaker</span><span style="flex: 1;"></span><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary);">ALWAYS PROVIDED</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 9px 11px; background: var(--surface-secondary);">
+                <span style="font-weight: 600;">GenAI Gateway</span><span style="flex: 1;"></span><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary);">ALWAYS PROVIDED</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 9px 11px;">
+                <span style="font-weight: 600;">EKS Notebooks</span><span style="flex: 1;"></span><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.6px; color: #fff; background: var(--accent); border-radius: 5px; padding: 5px 9px;">INSTALL</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 9px 11px;">
+                <span style="font-weight: 600;">Bedrock</span><span style="flex: 1;"></span><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.6px; color: #fff; background: var(--accent); border-radius: 5px; padding: 5px 9px;">INSTALL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="11b" style="flex: 1 1 560px; min-width: 520px; background: var(--surface-primary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 26px 28px 30px;">
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--accent-strong); background: var(--salt-color-blue-100); border-radius: 999px; padding: 4px 10px;">11b</span>
+        <h2 style="font-family: var(--font-heading); font-size: 20px; margin: 0;">Two install paths, one sheet</h2>
+      </div>
+      <p style="margin: 0 0 20px; font-size: 13.5px; line-height: 20px; color: var(--text-secondary);">The product decides the hosting default and how much the owner has to answer. Same panel, progressively longer.</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+        <div style="flex: 1 1 240px; min-width: 230px; border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden;">
+          <div style="padding: 12px 14px; background: var(--surface-secondary); border-bottom: 1px solid var(--separator);">
+            <div style="font-size: 13.5px; font-weight: 700;">EKS Notebooks</div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--accent-strong); margin-top: 3px;">FASTEST PATH · 2 STEPS</div>
+          </div>
+          <div style="padding: 13px 14px; display: flex; flex-direction: column; gap: 11px; font-size: 12.5px; line-height: 18px;">
+            <div><span style="font-weight: 600;">Hosting</span><div style="color: var(--text-secondary);">Managed by Platform, preselected. Shown as a fact with a "change" link, not a question.</div></div>
+            <div><span style="font-weight: 600;">Who gets access?</span>
+              <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+                <div style="display: flex; align-items: center; gap: 8px; border: 1px solid var(--accent); background: var(--salt-color-blue-100); border-radius: 6px; padding: 7px 10px;">
+                  <span style="width: 13px; height: 13px; border-radius: 999px; border: 4px solid var(--accent);"></span> Everyone on the use case (6)
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 7px 10px;">
+                  <span style="width: 13px; height: 13px; border-radius: 999px; border: 1.5px solid var(--border-strong);"></span> A subset — pick people
+                </div>
+              </div>
+            </div>
+            <div style="border-top: 1px solid var(--separator); padding-top: 10px; color: var(--text-tertiary);">No advanced configuration. Install completes immediately.</div>
+          </div>
+        </div>
+
+        <div style="flex: 1 1 240px; min-width: 230px; border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden;">
+          <div style="padding: 12px 14px; background: var(--surface-secondary); border-bottom: 1px solid var(--separator);">
+            <div style="font-size: 13.5px; font-weight: 700;">Bedrock</div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #a4560f; margin-top: 3px;">LOB PATH · 4 STEPS</div>
+          </div>
+          <div style="padding: 13px 14px; display: flex; flex-direction: column; gap: 11px; font-size: 12.5px; line-height: 18px;">
+            <div><span style="font-weight: 600;">Hosting</span><div style="color: var(--text-secondary);">Managed by your LOB, forced by the product.</div></div>
+            <div><span style="font-weight: 600;">LOB details</span>
+              <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 5px;">
+                <div style="border: 1px solid var(--border-subtle); border-radius: 6px; padding: 7px 10px; color: var(--text-tertiary);">Cost center ▾</div>
+                <div style="border: 1px solid var(--border-subtle); border-radius: 6px; padding: 7px 10px; color: var(--text-tertiary);">AWS account ID ▾</div>
+                <div style="border: 1px solid var(--border-subtle); border-radius: 6px; padding: 7px 10px; color: var(--text-tertiary);">Region ▾ <span style="font-size: 11px;">(after account)</span></div>
+              </div>
+            </div>
+            <div><span style="font-weight: 600;">Who gets access?</span><div style="color: var(--text-secondary);">Explicit pick — no "everyone" default for a LOB product.</div></div>
+            <div><span style="font-weight: 600;">Advanced configuration</span><div style="color: var(--text-secondary);">Inline accordion, resumable. Install is <em>Provisioning</em> until it is done.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 8px; background: var(--surface-secondary); padding: 12px 14px; font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">
+        <strong style="color: var(--text-primary);">Both at once (4.4.3):</strong> one panel, the LOB path wins. Multi-select products, answer LOB details once, then a per-product access step. EKS inherits the LOB answers instead of asking again.
+      </div>
+
+      <div style="margin-top: 18px;">
+        <div style="font-size: 13.5px; font-weight: 700; margin-bottom: 8px;">Access picker (5.1 / 5.2)</div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden; font-size: 12.5px;">
+          <div style="padding: 9px 12px; border-bottom: 1px solid var(--separator); color: var(--text-tertiary);">Search people…</div>
+          <div style="padding: 7px 12px; background: var(--surface-secondary); font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary);">ON THIS USE CASE</div>
+          <div style="padding: 8px 12px; border-top: 1px solid var(--separator);">A. Rivera <span style="color: var(--text-tertiary);">· use case lead</span></div>
+          <div style="padding: 8px 12px; border-top: 1px solid var(--separator);">S. Chen <span style="color: var(--text-tertiary);">· member</span></div>
+          <div style="padding: 7px 12px; background: var(--surface-secondary); font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); border-top: 1px solid var(--separator);">EVERYONE ELSE</div>
+          <div style="padding: 8px 12px; border-top: 1px solid var(--separator); display: flex; align-items: center; gap: 8px;">
+            <span>M. Osei</span>
+            <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; color: #a4560f; background: #fdf3e6; border-radius: 999px; padding: 3px 8px;">NEEDS RE-APPROVAL</span>
+          </div>
+        </div>
+        <div style="margin-top: 10px; font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">Picking anyone from the second group adds them to the use case and sends the sponsor a <strong>re-approval</strong> for the membership change only. The product install proceeds for everyone already approved — it does not sit blocked.</div>
+      </div>
+    </div>
+
+    <div id="11c" style="flex: 1 1 560px; min-width: 520px; background: var(--surface-primary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 26px 28px 30px;">
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--accent-strong); background: var(--salt-color-blue-100); border-radius: 999px; padding: 4px 10px;">11c</span>
+        <h2 style="font-family: var(--font-heading); font-size: 20px; margin: 0;">Gaps and breaks</h2>
+      </div>
+      <p style="margin: 0 0 20px; font-size: 13.5px; line-height: 20px; color: var(--text-secondary);">Against the prototype as built. Each one needs a decision from you, not just code.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="8">
+          <div style="border: 1px solid var(--border-subtle); border-left: 4px solid {{ g.edge }}; border-radius: 8px; padding: 12px 15px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px; flex-wrap: wrap;">
+              <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; color: {{ g.tagColor }}; background: {{ g.tagBg }}; border-radius: 999px; padding: 3px 9px;">{{ g.kind }}</span>
+              <span style="font-size: 13.5px; font-weight: 600;">{{ g.title }}</span>
+            </div>
+            <div style="font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">{{ g.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div id="11d" style="flex: 1 1 560px; min-width: 520px; background: var(--surface-primary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 26px 28px 30px;">
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--accent-strong); background: var(--salt-color-blue-100); border-radius: 999px; padding: 4px 10px;">11d</span>
+        <h2 style="font-family: var(--font-heading); font-size: 20px; margin: 0;">Teams instead of projects?</h2>
+      </div>
+      <p style="margin: 0 0 20px; font-size: 13.5px; line-height: 20px; color: var(--text-secondary);">Open question 6. Three ways to answer it, cheapest first.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 15px 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span style="font-size: 13.5px; font-weight: 700;">D1 · No container. Access lives on the product.</span>
+            <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; color: var(--salt-color-olive-600);">SIMPLEST</span>
+          </div>
+          <div style="font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">Use case → people, use case → products, product → who has access. No projects, no teams. Every ask you have described fits this model. Cost: the "6 people, 4 products" grid gets wide once there are many of each, and there is nowhere to express "the fraud squad" as a reusable idea.</div>
+        </div>
+        <div style="border: 1px solid var(--accent); background: var(--salt-color-blue-100); border-radius: 9px; padding: 15px 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span style="font-size: 13.5px; font-weight: 700;">D2 · Teams as saved people-groups, opt-in.</span>
+            <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; color: var(--accent-strong);">RECOMMENDED</span>
+          </div>
+          <div style="font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">Start at D1. In the access picker, "Save these 4 as a team" appears once a subset is chosen. A team is a named list of use-case people — nothing more: no hosting, no products, no approval of its own. Next install offers <em>Fraud squad (4)</em> as one row. Teams only exist for owners who needed them.</div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 15px 16px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <span style="font-size: 13.5px; font-weight: 700;">D3 · Teams as real subtenants (today's projects, renamed).</span>
+            <span style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; color: #a4560f;">HEAVIEST</span>
+          </div>
+          <div style="font-size: 12.5px; line-height: 19px; color: var(--text-secondary);">A team owns its own hosting, products, and access. This is what the prototype has now under the name "project". It matches the member journey (request access to a project) but forces the owner through a container before they can install anything — the friction you just flagged.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; border: 1px solid var(--border-subtle); border-left: 4px solid #e8a33d; background: #fffaf3; border-radius: 8px; padding: 13px 15px; font-size: 12.5px; line-height: 19px;">
+        <strong>The collision to settle first:</strong> the member journey requests access to a <em>project</em>. If owners stop creating projects, members need something else to request — the use case itself, or a product within it. D2 answers this as "request access to the use case, then the owner grants products"; D3 keeps projects and the collision goes away but the owner flow stays heavy.
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1500,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  renderVals() {
+    const K = {
+      break: { kind: "BREAK", edge: "#d1495b", tagColor: "#d1495b", tagBg: "#fdeef0" },
+      gap: { kind: "GAP", edge: "#e8a33d", tagColor: "#a4560f", tagBg: "#fdf3e6" },
+      question: { kind: "DECISION", edge: "var(--accent)", tagColor: "var(--accent-strong)", tagBg: "var(--salt-color-blue-100)" },
+    };
+    const g = (k, title, body) => ({ ...K[k], title, body });
+    return {
+      gaps: [
+        g("break", "Projects are load-bearing everywhere else",
+          "Products, advanced configuration, hosting, and the member request flow all hang off a project today. Removing the project from the owner flow orphans all four unless products attach directly to the use case."),
+        g("break", "Members request access to projects",
+          "If an owner never creates a project, an available use case has nothing to request. The member catalog rows, the request modal, and the Requested tab all assume at least one project exists."),
+        g("break", "Hosting moves from project to product",
+          "Managed by LOB / by Platform is a project property in the build. Per 4.4 it is really a product property (EKS → Platform, Bedrock → LOB). Cost center / AWS account / region need to move with it — and be asked once per use case, not once per product."),
+        g("gap", "\"All fields required\" is not enforced",
+          "Submit only needs a name today. Need required-field validation plus the three-role rule (use case lead, dev lead, sponsor) with inline errors, and a clear statement of whether Save draft can bypass it."),
+        g("gap", "Admin has no use-case management surface",
+          "Admin currently shows the tenant's detail page with a Requests tab. Step 4 wants a list of use cases the owner owns, with status and request counts, and a way in from any row."),
+        g("gap", "Re-approval on adding an outside person is unmodelled",
+          "There is a note in the project form, but no second approval object. Need: what exactly the sponsor sees (membership delta only?), what stays usable while it is pending, and whether the person can use the product before approval."),
+        g("gap", "Install has no in-progress state",
+          "A LOB product with unfinished advanced configuration is neither installed nor available. Needs a third state — Provisioning / Needs configuration — visible in Model Experimentation and Quick Launch."),
+        g("question", "Always-provided products and access",
+          "Do SageMaker and GenAI Gateway grant access to everyone on the use case automatically, forever? If so, access picking only exists for installed products, which simplifies 5.1 considerably."),
+        g("question", "Who can install — owner only, or delegated contributor?",
+          "Delegation exists in the build for products and configuration. Confirm whether a contributor can also pick who gets access, since that is effectively granting entitlements."),
+        g("question", "Does an approved use case ever need re-approval for a new product?",
+          "4.x implies no — approval unlocks installation. But a LOB product spends real money via a cost center. Confirm sponsor is not in that loop."),
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+  <script src="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: #e9edf0; font-family: var(--font-body); color: var(--text-primary); }
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { color: var(--salt-color-blue-700, #004a85); }
+  </style>
+</helmet>
+<section style="padding: 40px 40px 0; display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap;">
+
+  <!-- ============ OPTION 6a ============ -->
+  <div id="6a" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">6a</span>
+      <span style="font-weight: 600; font-size: 15px;">Add project lives on the use-case card + as the last row of the project list.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px;">
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; overflow: hidden;">
+        <div style="padding: 16px 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+            <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-106300</span>
+            <span style="flex: 1;"></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border-medium); color: var(--text-primary); border-radius: 6px; padding: 6px 13px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">+ ADD PROJECT</span>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 13px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;">VIEW →</span>
+          </div>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Fraud Management Platform</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">8 projects · Phase: Production (Pilot Testing)</div>
+        </div>
+        <div style="background: var(--surface-secondary); border-top: 1px solid var(--separator);">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Card Fraud Scoring</span><span style="color: var(--text-tertiary); font-size: 12px;">14 members</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Merchant Anomaly Watch</span><span style="color: var(--text-tertiary); font-size: 12px;">9 members</span></div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 20px; border-bottom: 1px solid var(--separator); font-size: 12.5px; color: var(--text-secondary); cursor: pointer;">
+            <span style="letter-spacing: 3px; color: var(--text-tertiary); font-weight: 700;">•••</span>
+            <span style="font-weight: 600;">6 more projects</span>
+            <span style="color: var(--text-tertiary);">▾</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13px; color: var(--accent-strong); font-weight: 600; cursor: pointer;">+ Add a project to this use case</div>
+        </div>
+      </div>
+      <div style="margin-top: 14px; font-size: 12.5px; color: var(--text-tertiary); font-style: italic;">Both entry points open the same "New project" request flyout (6b →). For use cases you're not yet a member of, the button reads "+ Propose project".</div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>UX change:</strong> two affordances, one action — a header button for people who arrive knowing they want to add, and a trailing list row for people who scan projects first and don't find what they need ("not here → create it"). Non-members see it as a proposal (request bundled with owner approval) rather than a direct add. The ••• "6 more projects" row sits between the top-2 and the add row, so the tray always ends with the same two rows: overflow, then add.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 6b ============ -->
+  <div id="6b" style="width: 900px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">6b</span>
+      <span style="font-weight: 600; font-size: 15px;">The "New project" request — same flyout panel, form state.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px; display: flex; gap: 24px;">
+      <div style="flex: 1; min-width: 0; color: var(--text-tertiary); font-size: 13px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--border-medium); border-radius: 9px; min-height: 380px;">Catalog list stays in place (dimmed)</div>
+      <div style="width: 380px; flex-shrink: 0; border-left: 1px solid var(--separator); padding-left: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 6px;"><span style="color: var(--text-tertiary); font-size: 12px;">‹</span><span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">NEW PROJECT</span></span>
+          <span style="color: var(--text-tertiary); font-size: 14px;">✕</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 19px; margin-bottom: 4px;">Add project</div>
+        <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 18px;">to <span style="font-weight: 600;">Fraud Management Platform</span> · <span style="font-family: var(--font-mono);">UC-106300</span></div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); margin-bottom: 5px;">PROJECT NAME</div>
+        <div style="border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 9px 12px; font-size: 13.5px; margin-bottom: 14px;">Synthetic Identity Detection</div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); margin-bottom: 5px;">DESCRIPTION</div>
+        <div style="border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: var(--text-tertiary); min-height: 52px; margin-bottom: 14px;">What will this project do?</div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); margin-bottom: 5px;">EXPERIENCES NEEDED</div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;">
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600;">AI Builder ✓</span>
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600;">Guardrails ✓</span>
+          <span style="border: 1px solid var(--border-medium); color: var(--text-secondary); border-radius: 999px; padding: 4px 12px; font-size: 12px;">Notebooks</span>
+          <span style="border: 1px solid var(--border-medium); color: var(--text-secondary); border-radius: 999px; padding: 4px 12px; font-size: 12px;">Evaluations</span>
+        </div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); margin-bottom: 5px;">JUSTIFICATION</div>
+        <div style="border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: var(--text-tertiary); margin-bottom: 18px;">Why does this belong in this use case?</div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span style="background: var(--accent); color: #fff; border-radius: 6px; padding: 8px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px;">SUBMIT FOR APPROVAL</span>
+          <span style="font-size: 12px; color: var(--text-tertiary);">Goes to the use-case owner</span>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>UX change:</strong> reuses the flyout shell as a form (breadcrumb ‹ back to the use case), so adding a project never leaves the catalog. Submitting creates the project in "Pending owner approval" state — it appears in the tray with a PENDING chip, same state language as access requests.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 5a ============ -->
+  <div id="5a" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">5a</span>
+      <span style="font-weight: 600; font-size: 15px;">4c at scale — top 2 projects shown, rest behind an inline expander.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px;">
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; padding: 16px 20px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+          <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-106300</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Fraud Management Platform</div>
+        <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">8 projects · Phase: Production (Pilot Testing)</div>
+      </div>
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 14px 18px; margin-bottom: 10px; margin-left: 26px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span>
+          <span style="font-family: var(--font-heading); font-weight: 600; font-size: 14.5px;">Card Fraud Scoring</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12px; color: var(--text-tertiary);">14 members</span>
+          <span style="background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 1px 8px; font-size: 10.5px; font-weight: 600;">2 teammates</span>
+        </div>
+      </div>
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 14px 18px; margin-bottom: 10px; margin-left: 26px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span>
+          <span style="font-family: var(--font-heading); font-weight: 600; font-size: 14.5px;">Merchant Anomaly Watch</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12px; color: var(--text-tertiary);">9 members</span>
+        </div>
+      </div>
+      <div style="margin-left: 26px; padding: 10px 18px; border: 1px dashed var(--border-medium); border-radius: 9px; font-size: 13px; font-weight: 600; color: var(--accent-strong); cursor: pointer; margin-bottom: 20px;">Show all 8 projects ▾</div>
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+          <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104880</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">KYC Review</div>
+        <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">2 projects · Phase: Feasibility</div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>How it scales:</strong> each use case shows its top 2 projects (ranked by teammates/recency); the dashed expander reveals the rest inline. Project rows compress to one line — pill, name, members, teammate signal — so even 8 expanded projects stay scannable. Flyouts unchanged from 4c.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 5b ============ -->
+  <div id="5b" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">5b</span>
+      <span style="font-weight: 600; font-size: 15px;">4c with projects docked INSIDE the use-case card — capped list, scroll past the cap.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px;">
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; overflow: hidden;">
+        <div style="padding: 16px 20px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+            <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-106300</span>
+            <span style="flex: 1;"></span>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 13px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;">VIEW →</span>
+          </div>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Fraud Management Platform</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">8 projects · Phase: Production (Pilot Testing)</div>
+        </div>
+        <div style="background: var(--surface-secondary); border-top: 1px solid var(--separator); max-height: 178px; overflow-y: auto;">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Card Fraud Scoring</span><span style="color: var(--text-tertiary); font-size: 12px;">14 members</span><span style="color: var(--salt-color-plum-600); font-size: 11px; font-weight: 700;">2 TEAMMATES</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Merchant Anomaly Watch</span><span style="color: var(--text-tertiary); font-size: 12px;">9 members</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Chargeback Copilot</span><span style="color: var(--text-tertiary); font-size: 12px;">6 members</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--separator); font-size: 13px;"><span style="font-weight: 600; flex: 1;">Mule Account Detection</span><span style="color: var(--text-tertiary); font-size: 12px;">11 members</span></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13px;"><span style="font-weight: 600; flex: 1;">ATO Signal Fusion</span><span style="color: var(--text-tertiary); font-size: 12px;">7 members</span></div>
+        </div>
+        <div style="padding: 10px 20px; border-top: 1px solid var(--separator); font-size: 12.5px; color: var(--text-tertiary); text-align: center;">Scroll for 3 more · every row opens the project flyout</div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>How it scales:</strong> the use-case card owns a docked, internally scrolling project tray — the page length stays constant no matter how many projects a use case has (5, 8, or 50). Keeps 4c's one-click flyout at both levels; loses the indent-as-sibling look, projects read as contents of the card.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 4a ============ -->
+  <div id="4a" style="width: 1280px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">4a</span>
+      <span style="font-weight: 600; font-size: 15px;">Use-case result cards (exact catalog pattern) — flyout drills use case → project.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px; display: flex; gap: 24px;">
+      <div style="flex: 1; min-width: 0;">
+        <h1 style="font-family: var(--font-heading); font-size: 24px; margin: 0 0 4px;">Use cases</h1>
+        <p style="margin: 0 0 18px; font-size: 13px; color: var(--text-secondary);">Mine (2) · <span style="color: var(--accent-strong); font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 8px;">Available (4)</span></p>
+        <!-- use case result card, catalog-style -->
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; padding: 18px 22px; margin-bottom: 14px; background: var(--salt-color-blue-50, #f0f7fc);">
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+                <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104102</span>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16.5px; margin-bottom: 4px;">Trade Surveillance</div>
+              <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">Alert triage, case narratives and evidence citation for markets surveillance.</div>
+              <div style="display: flex; gap: 18px; font-size: 12px; color: var(--text-tertiary);">
+                <span>2 projects</span><span>Phase: Development</span><span>3 teammates here</span>
+              </div>
+            </div>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 8px 16px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.6px; flex-shrink: 0;">VIEW →</span>
+          </div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; padding: 18px 22px;">
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+                <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104880</span>
+              </div>
+              <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16.5px; margin-bottom: 4px;">KYC Review</div>
+              <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">Document intelligence and screening support for KYC operations.</div>
+              <div style="display: flex; gap: 18px; font-size: 12px; color: var(--text-tertiary);">
+                <span>2 projects</span><span>Phase: Feasibility</span>
+              </div>
+            </div>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 8px 16px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.6px; flex-shrink: 0;">VIEW →</span>
+          </div>
+        </div>
+      </div>
+      <!-- use case flyout -->
+      <div style="width: 360px; flex-shrink: 0; border-left: 1px solid var(--separator); padding-left: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+          <span style="color: var(--text-tertiary); font-size: 14px;">✕</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 20px; margin-bottom: 4px;">Trade Surveillance</div>
+        <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px;">UC-104102 ⧉</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <span style="background: var(--accent); color: #fff; border-radius: 6px; padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px;">VIEW</span>
+          <span style="border: 1px solid var(--border-medium); border-radius: 6px; padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-primary);">FAVORITE</span>
+        </div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">DESCRIPTION</div>
+        <p style="margin: 0 0 18px; font-size: 13px; line-height: 19px;">Alert triage, case narratives and evidence citation for markets surveillance.</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PHASE</div>
+        <div style="display: flex; align-items: center; margin-bottom: 4px;">
+          <span style="width: 16px; height: 16px; border-radius: 50%; background: var(--status-success, #1d7f36); flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--status-success, #1d7f36);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; background: var(--status-success, #1d7f36); flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--border-medium);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--accent); background: #fff; flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--border-medium);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--border-medium); background: #fff; flex-shrink: 0;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-tertiary); margin-bottom: 20px;">
+          <span>Ideation</span><span>Feasibility</span><span style="color: var(--accent-strong); font-weight: 700;">Development</span><span>Production</span>
+        </div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PROJECTS (2)</div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; cursor: pointer;">
+          <div style="font-weight: 600; font-size: 13.5px;">Alert Triage Agent <span style="float: right; color: var(--text-tertiary);">›</span></div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">12 members · AI Builder, Guardrails</div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; cursor: pointer;">
+          <div style="font-weight: 600; font-size: 13.5px;">Case Narrative Drafting <span style="float: right; color: var(--text-tertiary);">›</span></div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">6 members · Notebooks, Evaluations</div>
+        </div>
+        <div style="margin-top: 14px; font-size: 12px; color: var(--text-tertiary); font-style: italic;">Clicking a project swaps this panel to the project flyout (see 4a′ →)</div>
+      </div>
+      <!-- project flyout state -->
+      <div style="width: 340px; flex-shrink: 0; border-left: 1px solid var(--separator); padding-left: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 6px;"><span style="color: var(--text-tertiary); font-size: 12px;">‹</span><span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span></span>
+          <span style="color: var(--text-tertiary); font-size: 14px;">✕</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 20px; margin-bottom: 4px;">Alert Triage Agent</div>
+        <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px;">in <span style="font-weight: 600;">Trade Surveillance</span> · <span style="font-family: var(--font-mono);">UC-104102</span></div>
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <span style="background: var(--accent); color: #fff; border-radius: 6px; padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px;">REQUEST ACCESS</span>
+        </div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">DESCRIPTION</div>
+        <p style="margin: 0 0 18px; font-size: 13px; line-height: 19px;">Triages surveillance alerts and drafts case narratives.</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">PHASE</div>
+        <p style="margin: 0 0 18px; font-size: 13px;">Production (Pilot Testing)</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PEOPLE (12)</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+          <div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">A. Rivera</span><span style="color: var(--text-tertiary); font-size: 12px;">Owner</span></div>
+          <div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">T. Okafor</span><span style="color: var(--text-tertiary); font-size: 12px;">Contributor</span></div>
+          <div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">S. Chen</span><span style="color: var(--text-tertiary); font-size: 12px;">Member</span></div>
+          <div style="color: var(--accent-strong); font-size: 12.5px; font-weight: 600;">Show all 12 →</div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> identical to the catalog — use cases are just another entity type with accent-border result cards and the same flyout anatomy (pill · title · ID · actions · description · metadata). Projects don't appear in the list at all; you reach them through the use-case flyout (breadcrumb ‹ back). Cleanest reuse, but project discovery is two clicks deep.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 4b ============ -->
+  <div id="4b" style="width: 1280px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">4b</span>
+      <span style="font-weight: 600; font-size: 15px;">Keep 3a's grouped layout — band click opens use-case flyout, project card click opens project flyout.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px; display: flex; gap: 24px;">
+      <div style="flex: 1; min-width: 0;">
+        <h1 style="font-family: var(--font-heading); font-size: 24px; margin: 0 0 18px;">Use cases</h1>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 10px; margin-bottom: 10px; border-radius: 7px; background: var(--salt-color-blue-100); outline: 2px solid var(--accent); cursor: pointer;">
+          <span style="font-weight: 700; font-size: 13.5px;">Trade Surveillance</span>
+          <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104102</span>
+          <span style="background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 600;">3 teammates</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12px; color: var(--accent-strong); font-weight: 600;">Selected — flyout open ▸</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px; cursor: pointer;">
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15px; margin-bottom: 4px;">Alert Triage Agent</div>
+            <div style="font-size: 12.5px; color: var(--text-tertiary);">12 members · AI Builder, Guardrails</div>
+          </div>
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px; cursor: pointer;">
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15px; margin-bottom: 4px;">Case Narrative Drafting</div>
+            <div style="font-size: 12.5px; color: var(--text-tertiary);">6 members · Notebooks, Evaluations</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 10px; margin-bottom: 10px;">
+          <span style="font-weight: 700; font-size: 13.5px;">KYC Review</span>
+          <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104880</span>
+          <span style="flex: 1; border-bottom: 1px solid var(--separator);"></span>
+          <span style="font-size: 12px; color: var(--text-tertiary);">2 projects</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px;">
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15px; margin-bottom: 4px;">Beneficial Owner Extraction</div>
+            <div style="font-size: 12.5px; color: var(--text-tertiary);">9 members · Knowledge Builder, Evaluations</div>
+          </div>
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px;">
+            <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15px; margin-bottom: 4px;">Screening Copilot</div>
+            <div style="font-size: 12.5px; color: var(--text-tertiary);">7 members · AI Builder, Guardrails</div>
+          </div>
+        </div>
+      </div>
+      <div style="width: 360px; flex-shrink: 0; border-left: 1px solid var(--separator); padding-left: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+          <span style="color: var(--text-tertiary); font-size: 14px;">✕</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 20px; margin-bottom: 4px;">Trade Surveillance</div>
+        <div style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px;">UC-104102 ⧉</div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">DESCRIPTION</div>
+        <p style="margin: 0 0 18px; font-size: 13px; line-height: 19px;">Alert triage, case narratives and evidence citation for markets surveillance.</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PHASE</div>
+        <div style="display: flex; align-items: center; margin-bottom: 4px;">
+          <span style="width: 16px; height: 16px; border-radius: 50%; background: var(--status-success, #1d7f36); flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--status-success, #1d7f36);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; background: var(--status-success, #1d7f36); flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--border-medium);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--accent); background: #fff; flex-shrink: 0;"></span>
+          <span style="flex: 1; height: 2px; background: var(--border-medium);"></span>
+          <span style="width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--border-medium); background: #fff; flex-shrink: 0;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-tertiary); margin-bottom: 20px;">
+          <span>Ideation</span><span>Feasibility</span><span style="color: var(--accent-strong); font-weight: 700;">Development</span><span>Production</span>
+        </div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PROJECTS (2)</div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px;">
+          <div style="font-weight: 600; font-size: 13.5px;">Alert Triage Agent <span style="float: right; color: var(--text-tertiary);">›</span></div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">12 members</div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px 14px;">
+          <div style="font-weight: 600; font-size: 13.5px;">Case Narrative Drafting <span style="float: right; color: var(--text-tertiary);">›</span></div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">6 members</div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> keeps 3a's project-forward browsing AND adds the catalog flyout at both levels — selected band highlights blue, one flyout panel serves both entities. Densest information; the band needs a clear affordance so people know it's clickable.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 4c ============ -->
+  <div id="4c" style="width: 1280px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">4c</span>
+      <span style="font-weight: 600; font-size: 15px;">Mixed-entity list — use cases and projects as sibling result cards, entity-type filter on the left.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 28px 32px; display: flex; gap: 24px;">
+      <div style="width: 170px; flex-shrink: 0; font-size: 13px;">
+        <div style="font-weight: 600; font-size: 14px; margin-bottom: 10px;">Entity</div>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;"><span style="width: 14px; height: 14px; border-radius: 3px; background: var(--accent);"></span> Use cases</div>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;"><span style="width: 14px; height: 14px; border-radius: 3px; background: var(--accent);"></span> Projects</div>
+      </div>
+      <div style="flex: 1; min-width: 0;">
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-olive-500, #6c8343); border-radius: 9px; padding: 16px 20px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+            <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-104102</span>
+          </div>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Trade Surveillance</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">2 projects · Phase: Development</div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 16px 20px; margin-bottom: 12px; margin-left: 26px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span>
+            <span style="font-size: 11.5px; color: var(--text-tertiary);">in Trade Surveillance</span>
+          </div>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Alert Triage Agent</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">12 members · AI Builder, Guardrails</div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 16px 20px; margin-left: 26px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span>
+            <span style="font-size: 11.5px; color: var(--text-tertiary);">in Trade Surveillance</span>
+          </div>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 15.5px;">Case Narrative Drafting</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-top: 4px;">6 members · Notebooks, Evaluations</div>
+        </div>
+      </div>
+      <div style="width: 340px; flex-shrink: 0; border-left: 1px solid var(--separator); padding-left: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">PROJECT</span>
+          <span style="color: var(--text-tertiary); font-size: 14px;">✕</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-weight: 600; font-size: 20px; margin-bottom: 4px;">Case Narrative Drafting</div>
+        <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px;">in <span style="font-weight: 600;">Trade Surveillance</span> · <span style="font-family: var(--font-mono);">UC-104102</span></div>
+        <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+          <span style="border: 1px solid var(--border-medium); border-radius: 6px; padding: 7px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary);">PENDING APPROVAL</span>
+        </div>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">DESCRIPTION</div>
+        <p style="margin: 0 0 18px; font-size: 13px; line-height: 19px;">Drafts case narratives citing trade and comms evidence.</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 6px;">PHASE</div>
+        <p style="margin: 0 0 18px; font-size: 13px;">Development</p>
+        <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">PEOPLE (6)</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+          <div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">M. Delgado</span><span style="color: var(--text-tertiary); font-size: 12px;">Owner</span></div>
+          <div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">J. Park</span><span style="color: var(--text-tertiary); font-size: 12px;">Contributor</span></div>
+          <div style="color: var(--accent-strong); font-size: 12.5px; font-weight: 600;">Show all 6 →</div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> everything is a result card, so BOTH levels are one click from a flyout and the left filter gains an Entity facet (use cases / projects) exactly like the catalog's Entity Type. Indent + "in Trade Surveillance" keeps the hierarchy readable; longest list of the three options.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 3a ============ -->
+  <div id="3a" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">3a</span>
+      <span style="font-weight: 600; font-size: 15px;">Slim use-case bands, big project cards — hierarchy kept, emphasis flipped to projects.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Use cases</h1>
+      <p style="margin: 0 0 18px; font-size: 14px; color: var(--text-secondary); max-width: 680px;">A use case is a governed workspace for a business problem. Each contains projects — the teams and products you actually join.</p>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <span style="flex: 1; display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-medium); border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: var(--text-tertiary);">⌕ Search projects across all use cases…</span>
+        <span style="font-size: 12.5px; color: var(--text-tertiary);">Filter: My team ▾</span>
+      </div>
+      <div style="display: flex; gap: 28px; border-bottom: 1px solid var(--separator); margin-bottom: 20px;">
+        <span style="padding: 10px 2px; font-size: 14.5px; font-weight: 600; color: var(--accent-strong); border-bottom: 2px solid var(--accent); cursor: pointer;">Mine (2)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">Available (4)</span>
+      </div>
+      <!-- use case band 1 -->
+      <div style="display: flex; align-items: center; gap: 12px; padding: 8px 2px; margin-bottom: 10px;">
+        <span style="font-weight: 700; font-size: 13px; letter-spacing: 0.3px;">CDAO - General Purpose</span>
+        <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-100001</span>
+        <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 1px 9px; font-size: 10.5px; font-weight: 700;">DEFAULT</span>
+        <span style="flex: 1; border-bottom: 1px solid var(--separator);"></span>
+        <span style="font-size: 12px; color: var(--text-tertiary);">1 project</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px;">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 18px 20px;">
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">General Purpose Workspace</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px;">Default workspace for every member. Explore, prototype, learn.</div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-tertiary);">
+            <span>1,240 members</span><span>·</span><span>AI Builder, Notebooks</span>
+            <span style="flex: 1;"></span>
+            <span style="font-size: 11.5px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+          </div>
+        </div>
+      </div>
+      <!-- use case band 2 -->
+      <div style="display: flex; align-items: center; gap: 12px; padding: 8px 2px; margin-bottom: 10px;">
+        <span style="font-weight: 700; font-size: 13px; letter-spacing: 0.3px;">Client Communications</span>
+        <span style="font-family: var(--font-mono); font-size: 11.5px; color: var(--text-tertiary);">UC-103334</span>
+        <span style="flex: 1; border-bottom: 1px solid var(--separator);"></span>
+        <span style="font-size: 12px; color: var(--text-tertiary);">2 projects</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 18px 20px;">
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">Advisor Email Copilot</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px;">Drafts advisor-client emails with governed tone and citations.</div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-tertiary);">
+            <span>8 members</span><span>·</span><span>Agent Studio, Evals</span>
+            <span style="flex: 1;"></span>
+            <span style="font-size: 11.5px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+          </div>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 18px 20px;">
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">Meeting Summarization</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px;">Summarizes advisor meetings into CRM-ready notes.</div>
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-tertiary);">
+            <span>5 members</span><span>·</span><span>Notebooks, Playground</span>
+            <span style="flex: 1;"></span>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 5px 11px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">JOIN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> hierarchy preserved but inverted in weight — use case compresses to a one-line band you scan past; projects carry the visual detail and the CTA. Project search at top cuts across use cases entirely. Band + grid repeats cleanly for any number of use cases.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 3b ============ -->
+  <div id="3b" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">3b</span>
+      <span style="font-weight: 600; font-size: 15px;">Two-pane — use-case rail on the left to scan, project detail cards on the right.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Use cases</h1>
+      <p style="margin: 0 0 22px; font-size: 14px; color: var(--text-secondary); max-width: 680px;">Scan use cases on the left; browse and join their projects on the right.</p>
+      <div style="display: grid; grid-template-columns: 280px 1fr; gap: 22px; align-items: start;">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden;">
+          <div style="padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); border-bottom: 1px solid var(--separator);">MINE</div>
+          <div style="padding: 12px 14px; border-bottom: 1px solid var(--separator); font-size: 13.5px;"><span style="font-weight: 600;">CDAO - General Purpose</span><br><span style="font-size: 11.5px; color: var(--text-tertiary);">1 project · default</span></div>
+          <div style="padding: 12px 14px; border-bottom: 1px solid var(--separator); background: var(--salt-color-blue-100); border-left: 3px solid var(--accent); font-size: 13.5px;"><span style="font-weight: 600;">Client Communications</span><br><span style="font-size: 11.5px; color: var(--text-tertiary);">2 projects · member</span></div>
+          <div style="padding: 10px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); border-bottom: 1px solid var(--separator);">AVAILABLE</div>
+          <div style="padding: 12px 14px; border-bottom: 1px solid var(--separator); font-size: 13.5px;"><span style="font-weight: 600;">Trade Surveillance</span><br><span style="font-size: 11.5px; color: var(--salt-color-plum-600);">3 teammates here</span></div>
+          <div style="padding: 12px 14px; font-size: 13.5px;"><span style="font-weight: 600;">KYC Review</span><br><span style="font-size: 11.5px; color: var(--text-tertiary);">3 projects</span></div>
+        </div>
+        <div>
+          <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;">
+            <h3 style="font-family: var(--font-heading); font-size: 19px; margin: 0;">Client Communications</h3>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-103334</span>
+            <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700;">MEMBER</span>
+          </div>
+          <p style="margin: 0 0 16px; font-size: 13px; color: var(--text-secondary);">Agentic drafting and summarization for advisor-client communications.</p>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 20px; display: flex; align-items: center; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; font-size: 15px; margin-bottom: 2px;">Advisor Email Copilot</div>
+                <div style="font-size: 12.5px; color: var(--text-secondary);">8 members · Agent Studio, Evaluations · Owner: A. Rivera</div>
+              </div>
+              <span style="font-size: 11.5px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+            </div>
+            <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 20px; display: flex; align-items: center; gap: 16px;">
+              <div style="flex: 1;">
+                <div style="font-weight: 600; font-size: 15px; margin-bottom: 2px;">Meeting Summarization</div>
+                <div style="font-size: 12.5px; color: var(--text-secondary);">5 members · Notebooks, Prompt Playground · Owner: T. Okafor</div>
+              </div>
+              <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 13px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">JOIN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> fastest use-case scanning (whole tenant list always visible, grouped Mine/Available so tabs disappear) and the right pane gives projects full width for team/owner/product detail. Costs a selection step — you see one use case's projects at a time, so cross-use-case project browsing needs the search box.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 2a ============ -->
+  <div id="2a" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">2a</span>
+      <span style="font-weight: 600; font-size: 15px;">Project-first grid — projects are the cards; use case is just a pill on each.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Projects</h1>
+      <p style="margin: 0 0 22px; font-size: 14px; color: var(--text-secondary); max-width: 680px;">A project is where the work happens — a team of people and the products they build with. Every project belongs to a use case (its governance tenant), shown as a tag.</p>
+      <div style="display: flex; align-items: center; gap: 28px; border-bottom: 1px solid var(--separator); margin-bottom: 24px;">
+        <span style="padding: 10px 2px; font-size: 14.5px; font-weight: 600; color: var(--accent-strong); border-bottom: 2px solid var(--accent); cursor: pointer;">My projects (2)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">Recommended (3)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">All (12)</span>
+        <span style="flex: 1;"></span>
+        <span style="font-size: 12.5px; color: var(--text-tertiary); padding: 10px 0;">Group by use case ▢</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+        <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 18px 20px;">
+          <span style="display: inline-flex; background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px;">CDAO - GENERAL PURPOSE</span>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">General Purpose Workspace</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 14px;">Default workspace for every member. Explore, prototype, learn.</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-bottom: 14px;">1,240 members · AI Builder · Notebooks</div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER — DEFAULT</span>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 18px 20px;">
+          <span style="display: inline-flex; background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px;">CLIENT COMMUNICATIONS</span>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">Advisor Email Copilot</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 14px;">Drafts advisor-client emails with governed tone and citations.</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-bottom: 14px;">8 members · Agent Studio · Evaluations</div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+        </div>
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 18px 20px; background: var(--surface-secondary);">
+          <span style="display: inline-flex; background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px;">TRADE SURVEILLANCE</span>
+          <div style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; margin-bottom: 4px;">Alert Triage Agent</div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 14px;">Triages surveillance alerts and drafts case narratives.</div>
+          <div style="font-size: 12.5px; color: var(--text-tertiary); margin-bottom: 14px;">12 members · 3 teammates here</div>
+          <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 13px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">REQUEST ACCESS</span>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> matches how members actually think ("join that team's project"); use case demoted to a governance tag, with an optional group-by for people who need the tenant view. Card grid caps how much metadata fits — deep detail moves to a project flyout (same pattern as the catalog).
+    </div>
+  </div>
+
+  <!-- ============ OPTION 2b ============ -->
+  <div id="2b" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">2b</span>
+      <span style="font-weight: 600; font-size: 15px;">Project table — sortable rows, use case as a column, one CTA column for access state.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Projects</h1>
+      <p style="margin: 0 0 22px; font-size: 14px; color: var(--text-secondary); max-width: 680px;">A project is where the work happens — a team of people and the products they build with. Every project belongs to a use case (its governance tenant).</p>
+      <div style="display: flex; align-items: center; gap: 28px; border-bottom: 1px solid var(--separator); margin-bottom: 0;">
+        <span style="padding: 10px 2px; font-size: 14.5px; font-weight: 600; color: var(--accent-strong); border-bottom: 2px solid var(--accent); cursor: pointer;">All (12)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">My projects (2)</span>
+        <span style="flex: 1;"></span>
+        <span style="font-size: 12.5px; color: var(--text-tertiary); padding: 10px 0;">Sort: Recommended ▾</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.4fr 130px; gap: 12px; padding: 12px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-tertiary); border-bottom: 1px solid var(--separator);">
+        <span>PROJECT</span><span>USE CASE</span><span>TEAM</span><span>PRODUCTS</span><span></span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.4fr 130px; gap: 12px; padding: 14px 8px; font-size: 13.5px; border-bottom: 1px solid var(--separator); align-items: center;">
+        <span style="font-weight: 600;">General Purpose Workspace <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 1px 8px; font-size: 10.5px; font-weight: 700; margin-left: 6px;">DEFAULT</span></span>
+        <span style="color: var(--text-secondary);">CDAO - General Purpose</span>
+        <span style="color: var(--text-secondary);">1,240</span>
+        <span style="color: var(--text-secondary);">AI Builder, Notebooks</span>
+        <span style="font-size: 11.5px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.4fr 130px; gap: 12px; padding: 14px 8px; font-size: 13.5px; border-bottom: 1px solid var(--separator); align-items: center;">
+        <span style="font-weight: 600;">Advisor Email Copilot</span>
+        <span style="color: var(--text-secondary);">Client Communications</span>
+        <span style="color: var(--text-secondary);">8</span>
+        <span style="color: var(--text-secondary);">Agent Studio, Evals</span>
+        <span style="font-size: 11.5px; font-weight: 700; color: var(--salt-color-olive-600); letter-spacing: 0.5px;">MEMBER</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.4fr 130px; gap: 12px; padding: 14px 8px; font-size: 13.5px; border-bottom: 1px solid var(--separator); align-items: center;">
+        <span style="font-weight: 600;">Alert Triage Agent <span style="background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 1px 8px; font-size: 10.5px; font-weight: 600; margin-left: 6px;">3 teammates</span></span>
+        <span style="color: var(--text-secondary);">Trade Surveillance</span>
+        <span style="color: var(--text-secondary);">12</span>
+        <span style="color: var(--text-secondary);">Agent Studio, Guardrails</span>
+        <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer; justify-self: start;">REQUEST</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 2fr 1.4fr 1fr 1.4fr 130px; gap: 12px; padding: 14px 8px; font-size: 13.5px; align-items: center;">
+        <span style="font-weight: 600;">Case Narrative Drafting</span>
+        <span style="color: var(--text-secondary);">Trade Surveillance</span>
+        <span style="color: var(--text-secondary);">6</span>
+        <span style="color: var(--text-secondary);">Notebooks, Evals</span>
+        <span style="font-size: 11.5px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.5px;">PENDING</span>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> densest and most scalable — sortable by team size, teammates, use case; access state lives in one column so Mine/Available tabs become optional. Least "browsable" feel; better for power users than first-time members.
+    </div>
+  </div>
+</section>
+
+<section style="padding: 24px 40px 40px; display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap;">
+
+  <!-- ============ OPTION 1a ============ -->
+  <div id="1a" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">1a</span>
+      <span style="font-weight: 600; font-size: 15px;">Two tabs — Mine / Available. Use case = card, projects = rows inside it.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Use cases</h1>
+      <p style="margin: 0 0 22px; font-size: 14px; color: var(--text-secondary); max-width: 640px;">A use case is a governed workspace for a business problem. Each use case contains projects — a team of people plus the products and experiences they work with.</p>
+      <div style="display: flex; gap: 28px; border-bottom: 1px solid var(--separator); margin-bottom: 24px;">
+        <span style="padding: 10px 2px; font-size: 14.5px; font-weight: 600; color: var(--accent-strong); border-bottom: 2px solid var(--accent); cursor: pointer;">Mine (2)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">Available (4)</span>
+      </div>
+      <!-- default use case card -->
+      <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent); border-radius: 9px; padding: 22px 26px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h3 style="font-family: var(--font-heading); font-size: 18px; margin: 0;">CDAO - General Purpose</h3>
+              <span style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary);">UC-100001</span>
+              <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">DEFAULT</span>
+            </div>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-secondary);">Every member's starting tenant. Explore the catalog, prototype, and learn the platform.</p>
+          </div>
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 3px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0;">MEMBER</span>
+        </div>
+        <div style="border-top: 1px solid var(--separator); margin-top: 16px; padding-top: 6px;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 10px 0;">
+            <span style="width: 30px; height: 30px; border-radius: 8px; background: var(--salt-color-blue-100); color: var(--accent-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">GP</span>
+            <span style="font-weight: 600; font-size: 14px; flex: 1;">General Purpose Workspace</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">1,240 members</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">AI Builder · Notebooks · Evaluations</span>
+          </div>
+        </div>
+      </div>
+      <!-- approved use case card -->
+      <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 22px 26px;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h3 style="font-family: var(--font-heading); font-size: 18px; margin: 0;">Client Communications</h3>
+              <span style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary);">UC-103334</span>
+            </div>
+            <p style="margin: 0; font-size: 13.5px; color: var(--text-secondary);">Agentic drafting and summarization for advisor-client communications.</p>
+          </div>
+          <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 3px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; flex-shrink: 0;">MEMBER</span>
+        </div>
+        <div style="border-top: 1px solid var(--separator); margin-top: 16px; padding-top: 6px;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--separator);">
+            <span style="width: 30px; height: 30px; border-radius: 8px; background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">AE</span>
+            <span style="font-weight: 600; font-size: 14px; flex: 1;">Advisor Email Copilot</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">8 members</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">Agent Studio · Evaluations</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 10px 0;">
+            <span style="width: 30px; height: 30px; border-radius: 8px; background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">MS</span>
+            <span style="font-weight: 600; font-size: 14px; flex: 1;">Meeting Summarization</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">5 members</span>
+            <span style="font-size: 12.5px; color: var(--text-tertiary);">Notebooks · Prompt Playground</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> simplest mental model; "Available" mixes recommended and everything else, so discovery relies on search/sort. Access is requested at project level (row hover shows a Request access button).
+    </div>
+  </div>
+
+  <!-- ============ OPTION 1b ============ -->
+  <div id="1b" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">1b</span>
+      <span style="font-weight: 600; font-size: 15px;">Three tabs — Mine / Recommended / All. Projects as mini-cards with per-project access.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Use cases</h1>
+      <p style="margin: 0 0 22px; font-size: 14px; color: var(--text-secondary); max-width: 640px;">A use case is a governed workspace for a business problem. Each use case contains projects — a team of people plus the products and experiences they work with.</p>
+      <div style="display: flex; gap: 28px; border-bottom: 1px solid var(--separator); margin-bottom: 24px;">
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">Mine (2)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; font-weight: 600; color: var(--accent-strong); border-bottom: 2px solid var(--accent); cursor: pointer;">Recommended (1)</span>
+        <span style="padding: 10px 2px; font-size: 14.5px; color: var(--text-secondary); cursor: pointer;">All available (4)</span>
+      </div>
+      <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 22px 26px;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h3 style="font-family: var(--font-heading); font-size: 18px; margin: 0;">Trade Surveillance</h3>
+              <span style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary);">UC-104102</span>
+            </div>
+            <p style="margin: 0 0 8px; font-size: 13.5px; color: var(--text-secondary);">Alert triage, case narratives and evidence citation for markets surveillance.</p>
+            <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 600;">3 of your teammates are members</span>
+          </div>
+          <span style="font-size: 12.5px; color: var(--text-tertiary); flex-shrink: 0;">Owner: Markets Surveillance</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px;">
+            <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 4px;">Alert Triage Agent</div>
+            <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px;">12 members · Agent Studio · Guardrails</div>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">REQUEST ACCESS</span>
+          </div>
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; padding: 16px 18px;">
+            <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 4px;">Case Narrative Drafting</div>
+            <div style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 12px;">6 members · Notebooks · Evaluations</div>
+            <span style="display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border-medium); color: var(--text-secondary); border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">PENDING APPROVAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> "Recommended" gives the team-graph signal a home and makes cold-start discovery easier; costs one more tab and needs a rule for what qualifies. Per-project CTAs make the access unit explicit, including pending state.
+    </div>
+  </div>
+
+  <!-- ============ OPTION 1c ============ -->
+  <div id="1c" style="width: 1000px; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+      <span style="background: #16191c; color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; font-weight: 700;">1c</span>
+      <span style="font-weight: 600; font-size: 15px;">No tabs — one scannable page with grouped sections and collapsed use-case rows.</span>
+    </div>
+    <div style="background: var(--surface-primary); border-radius: 12px; border: 1px solid var(--border-subtle); padding: 32px 36px 40px;">
+      <h1 style="font-family: var(--font-heading); font-size: 28px; margin: 0 0 6px;">Use cases</h1>
+      <p style="margin: 0 0 26px; font-size: 14px; color: var(--text-secondary); max-width: 640px;">A use case is a governed workspace for a business problem. Each use case contains projects — a team of people plus the products and experiences they work with.</p>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">YOUR USE CASES</div>
+      <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-bottom: 26px;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--separator);">
+          <span style="color: var(--text-tertiary); font-size: 12px;">▸</span>
+          <span style="font-weight: 600; font-size: 14.5px;">CDAO - General Purpose</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-100001</span>
+          <span style="background: var(--salt-color-blue-100); color: var(--accent-strong); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 700;">DEFAULT</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12.5px; color: var(--text-tertiary);">1 project</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 20px;">
+          <span style="color: var(--text-tertiary); font-size: 12px;">▾</span>
+          <span style="font-weight: 600; font-size: 14.5px;">Client Communications</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-103334</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12.5px; color: var(--text-tertiary);">2 projects</span>
+        </div>
+        <div style="background: var(--surface-secondary); padding: 6px 20px 14px 46px;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 8px 0; font-size: 13.5px;">
+            <span style="font-weight: 600; flex: 1;">Advisor Email Copilot</span>
+            <span style="color: var(--text-tertiary); font-size: 12.5px;">8 members · Agent Studio · Evaluations</span>
+            <span style="color: var(--salt-color-olive-600); font-size: 12px; font-weight: 700;">MEMBER</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 8px 0; font-size: 13.5px;">
+            <span style="font-weight: 600; flex: 1;">Meeting Summarization</span>
+            <span style="color: var(--text-tertiary); font-size: 12.5px;">5 members · Notebooks · Prompt Playground</span>
+            <span style="display: inline-flex; background: var(--accent); color: #fff; border-radius: 6px; padding: 5px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">JOIN</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">RECOMMENDED FOR YOU</div>
+      <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-bottom: 26px;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 20px;">
+          <span style="color: var(--text-tertiary); font-size: 12px;">▸</span>
+          <span style="font-weight: 600; font-size: 14.5px;">Trade Surveillance</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-104102</span>
+          <span style="background: var(--salt-color-plum-100); color: var(--salt-color-plum-600); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">3 teammates</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12.5px; color: var(--text-tertiary);">2 projects</span>
+        </div>
+      </div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-bottom: 10px;">ALL AVAILABLE</div>
+      <div style="border: 1px solid var(--border-subtle); border-radius: 9px;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--separator);">
+          <span style="color: var(--text-tertiary); font-size: 12px;">▸</span>
+          <span style="font-weight: 600; font-size: 14.5px;">KYC Review</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-104880</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12.5px; color: var(--text-tertiary);">3 projects</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 20px;">
+          <span style="color: var(--text-tertiary); font-size: 12px;">▸</span>
+          <span style="font-weight: 600; font-size: 14.5px;">Ops Risk Reporting</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">UC-105210</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 12.5px; color: var(--text-tertiary);">1 project</span>
+        </div>
+      </div>
+    </div>
+    <div style="background: #f2f4f6; border-radius: 9px; padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 20px;">
+      <strong>Trade-offs:</strong> everything on one page — no tab ambiguity, sections can grow/shrink independently, and rows scale to many use cases. Denser and less card-like; projects only appear on expand, so it's a two-step scan.
+    </div>
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

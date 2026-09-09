@@ -1,0 +1,46 @@
+/* ============================================================
+   RADIUS & ELEVATION — Salt "rounded" corners ("low" density
+   curve scale) and light-mode shadow ramp.
+   ============================================================ */
+:root {
+  /* Curve scale (low density) */
+  --salt-curve-0: 0; /* @kind radius */
+  --salt-curve-50: 3px;
+  --salt-curve-100: 6px;
+  --salt-curve-150: 9px;
+  --salt-curve-200: 12px;
+  --salt-curve-250: 15px;
+  --salt-curve-999: 999px;
+
+  /* Semantic radii */
+  --radius-none: 0;
+  --radius-sm: 3px;     /* pills-in-tables, small chips */
+  --radius-control: 6px;/* buttons, inputs, selects */
+  --radius-card: 9px;   /* catalog cards, guide tiles, panels */
+  --radius-lg: 12px;    /* large surfaces, dialogs */
+  --radius-pill: 999px; /* category pills / tags */
+
+  /* Shadows (light mode) */
+  --shadow-lowest: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lower: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-low: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+  --shadow-medium-low: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+
+  /* Semantic elevation */
+  --elevation-card: none;                 /* resting cards use border, not shadow */
+  --elevation-card-hover: var(--shadow-low);
+  --elevation-menu: var(--shadow-low);
+  --elevation-dialog: var(--shadow-medium);
+
+  /* Focus ring (Salt uses a solid 2px accent outline offset) */
+  --focus-ring: 0 0 0 2px var(--surface-primary), 0 0 0 4px var(--accent);
+  --focus-outline: 2px solid var(--accent);
+
+  /* Motion */
+  --duration-instant: 75ms; /* @kind other */
+  --duration-fast: 150ms; /* @kind other */
+  --duration-medium: 250ms; /* @kind other */
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --easing-decelerate: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+}

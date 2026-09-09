@@ -1,0 +1,180 @@
+/* ============================================================
+   COLOR — Salt "next" theme, light mode.
+   Base palette scales are copied verbatim from Salt; semantic
+   aliases below are what product/app code should consume.
+   ============================================================ */
+:root {
+  /* ---- Gray ---- */
+  --salt-color-gray-100: #e6e9eb;
+  --salt-color-gray-200: #d3d5d8;
+  --salt-color-gray-300: #b1b5b9;
+  --salt-color-gray-400: #91959a;
+  --salt-color-gray-500: #72777d;
+  --salt-color-gray-600: #5f646a;
+  --salt-color-gray-700: #4c5157;
+  --salt-color-gray-800: #3a3f44;
+  --salt-color-gray-900: #292e33;
+
+  /* ---- Blue (accent / primary) ---- */
+  --salt-color-blue-100: #eaf6ff;
+  --salt-color-blue-200: #c7deff;
+  --salt-color-blue-300: #9abdf5;
+  --salt-color-blue-400: #669ce8;
+  --salt-color-blue-500: #0078cf;
+  --salt-color-blue-600: #005ea6;
+  --salt-color-blue-700: #00457e;
+  --salt-color-blue-800: #002d59;
+  --salt-color-blue-900: #001736;
+
+  /* ---- Green (positive) ---- */
+  --salt-color-green-100: #eaf5f2;
+  --salt-color-green-200: #b8e5d1;
+  --salt-color-green-400: #53b087;
+  --salt-color-green-500: #00875d;
+  --salt-color-green-600: #006b48;
+  --salt-color-green-700: #005637;
+
+  /* ---- Red (negative) ---- */
+  --salt-color-red-100: #ffecea;
+  --salt-color-red-200: #ffc1ba;
+  --salt-color-red-400: #ff5d57;
+  --salt-color-red-500: #e52135;
+  --salt-color-red-600: #ba1729;
+  --salt-color-red-700: #910d1e;
+
+  /* ---- Orange (warning) ---- */
+  --salt-color-orange-100: #ffecd9;
+  --salt-color-orange-200: #ffc6a1;
+  --salt-color-orange-400: #eb7b39;
+  --salt-color-orange-500: #c75300;
+  --salt-color-orange-600: #9e4200;
+  --salt-color-orange-700: #813600;
+
+  /* ---- Teal (info accent) ---- */
+  --salt-color-teal-100: #dbf5f7;
+  --salt-color-teal-400: #4ca1c2;
+  --salt-color-teal-500: #1b7f9e;
+  --salt-color-teal-600: #12647e;
+
+  /* ---- Purple (visited) ---- */
+  --salt-color-purple-200: #f0d6f5;
+  --salt-color-purple-800: #491552;
+
+  /* ---- Named backgrounds ---- */
+  --salt-color-background-snow: #ffffff;
+  --salt-color-background-marble: #f5f7f8;
+  --salt-color-background-limestone: #faf8f2;
+  --salt-color-background-titanium: #e2e4e5;
+
+  /* ============================================================
+     SEMANTIC ALIASES — consume these in product code
+     ============================================================ */
+
+  /* Accent / primary */
+  --accent: var(--salt-color-blue-500);
+  --accent-strong: var(--salt-color-blue-600);
+  --accent-stronger: var(--salt-color-blue-700);
+  --accent-weak: var(--salt-color-blue-400);
+  --accent-weaker: var(--salt-color-blue-200);
+  --accent-weakest: var(--salt-color-blue-100);
+
+  /* Text / foreground */
+  --text-primary: #000000;
+  --text-secondary: var(--salt-color-gray-700);
+  --text-tertiary: var(--salt-color-gray-500);
+  --text-disabled: rgba(0, 0, 0, 0.4);
+  --text-primary-alt: #ffffff;      /* on dark / accent fills */
+  --text-accent: var(--salt-color-blue-600);
+  --text-link: var(--salt-color-blue-600);
+  --text-link-visited: var(--salt-color-purple-800);
+
+  /* Surfaces / backgrounds */
+  --surface-primary: var(--salt-color-background-snow);      /* app canvas / cards */
+  --surface-secondary: var(--salt-color-background-marble);  /* subtle panels, sidebar */
+  --surface-tertiary: var(--salt-color-background-limestone);
+  --surface-hover: rgba(0, 0, 0, 0.04);
+  --surface-selected: var(--salt-color-blue-100);
+
+  /* Borders / separators */
+  --border-subtle: rgba(0, 0, 0, 0.1);       /* card / container border */
+  --border-medium: rgba(0, 0, 0, 0.15);
+  --border-strong: var(--salt-color-gray-400);
+  --separator: var(--salt-color-gray-200);
+
+  /* Neutral (secondary controls) */
+  --neutral: var(--salt-color-gray-500);
+  --neutral-strong: var(--salt-color-gray-600);
+  --neutral-weaker: var(--salt-color-gray-200);
+  --neutral-weakest: var(--salt-color-gray-100);
+
+  /* Status */
+  --status-info: var(--salt-color-blue-500);
+  --status-info-bg: var(--salt-color-blue-100);
+  --status-success: var(--salt-color-green-500);
+  --status-success-strong: var(--salt-color-green-600);
+  --status-success-bg: var(--salt-color-green-100);
+  --status-warning: var(--salt-color-orange-500);
+  --status-warning-strong: var(--salt-color-orange-600);
+  --status-warning-bg: var(--salt-color-orange-100);
+  --status-error: var(--salt-color-red-500);
+  --status-error-strong: var(--salt-color-red-600);
+  --status-error-bg: var(--salt-color-red-100);
+
+  /* ============================================================
+     CATEGORICAL PALETTE — Salt categorical colors (Cat-1…20).
+     Platform groups these into domains (see domain tokens below).
+     Only the shades the platform uses are declared.
+     ============================================================ */
+  --salt-color-cobalt-500: #4676bf;  /* Cat-1  */
+  --salt-color-cider-100:  #ffebd9;  --salt-color-cider-500: #ab6528; /* Cat-2  */
+  --salt-color-plum-100:   #f5e0ff;  --salt-color-plum-500:  #9f55c2; --salt-color-plum-600: #8343a1; /* Cat-3 */
+  --salt-color-aqua-100:   #dcf7f7;  --salt-color-aqua-500:  #2a8285; /* Cat-4  */
+  --salt-color-slate-100:  #e1e8f7;  --salt-color-slate-500: #697694; --salt-color-slate-600: #545f7a; /* Cat-5 */
+  --salt-color-rose-100:   #ffe3f9;  --salt-color-rose-500:  #b0549d; /* Cat-6  */
+  --salt-color-olive-100:  #eaf0df;  --salt-color-olive-500: #6d7c4d; --salt-color-olive-600: #58673a; /* Cat-7 */
+  --salt-color-indigo-100: #e7e3ff;  --salt-color-indigo-500:#7665cf; /* Cat-9  */
+  --salt-color-jade-100:   #e1f5e6;  --salt-color-jade-500:  #2d8543; /* Cat-10 */
+  --salt-color-autumn-100: #ffe9d9;  --salt-color-autumn-500:#bd5a13; --salt-color-autumn-600: #994912; /* Cat-12 */
+  --salt-color-lavender-100:#faebfa; --salt-color-lavender-500:#946694; /* Cat-13 */
+  --salt-color-ocean-100:  #e3fbff;  --salt-color-ocean-500: #008094; --salt-color-ocean-600: #006a7a; /* Cat-14 */
+  --salt-color-smoke-100:  #f2f5fa;  --salt-color-smoke-500: #72757a; /* Cat-15 */
+  --salt-color-fuchsia-100:#ffe8f7;  --salt-color-fuchsia-500:#c24795; /* Cat-16 */
+  --salt-color-lime-100:   #eff5dc;  --salt-color-lime-500:  #667d15; /* Cat-17 */
+  --salt-color-fur-100:    #fff4eb;  --salt-color-fur-500:   #996a45; /* Cat-18 */
+  --salt-color-violet-100: #edefff;  --salt-color-violet-500:#636ebf; /* Cat-19 */
+  --salt-color-forest-100: #edfaf5;  --salt-color-forest-500:#23855e; /* Cat-20 */
+
+  /* ============================================================
+     DOMAIN COLORS — each catalog area maps to a category family.
+     Data=teal · AI/ML=purple · Governance=green · Technical=brown ·
+     Documentation=slate.  Each has: -fill (weakest bg), -border/-text
+     (mid) and -bold (solid). Use via the Pill component.
+     ============================================================ */
+  --domain-data-fill: var(--salt-color-ocean-100);
+  --domain-data-text: var(--salt-color-ocean-600);
+  --domain-data-bold: var(--salt-color-ocean-500);
+
+  --domain-ai-fill: var(--salt-color-plum-100);
+  --domain-ai-text: var(--salt-color-plum-600);
+  --domain-ai-bold: var(--salt-color-plum-500);
+
+  --domain-governance-fill: var(--salt-color-olive-100);
+  --domain-governance-text: var(--salt-color-olive-600);
+  --domain-governance-bold: var(--salt-color-olive-500);
+
+  --domain-technical-fill: var(--salt-color-autumn-100);
+  --domain-technical-text: var(--salt-color-autumn-600);
+  --domain-technical-bold: var(--salt-color-autumn-500);
+
+  --domain-documentation-fill: var(--salt-color-slate-100);
+  --domain-documentation-text: var(--salt-color-slate-600);
+  --domain-documentation-bold: var(--salt-color-slate-500);
+
+  /* Entity-type → domain accent (used on pills & catalog icons).
+     Datasets/dashboards/products = Data; models/agents/skills = AI/ML. */
+  --category-dataset: var(--domain-data-text);
+  --category-dashboard: var(--domain-data-text);
+  --category-product: var(--domain-data-text);
+  --category-model: var(--domain-ai-text);
+  --category-agent: var(--domain-ai-text);
+}

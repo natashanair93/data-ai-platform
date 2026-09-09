@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+  <script src="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: #e9edef; font-family: var(--font-body); color: var(--text-primary); }
+    a { color: var(--accent-strong); }
+    a:hover { color: var(--accent); }
+  </style>
+</helmet>
+
+<section style="padding: 40px; display: flex; flex-direction: column; gap: 14px;">
+  <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;">
+    <h1 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">Fixing the hierarchy — team and products belong to a project</h1>
+    <span style="font-size: 13.5px; color: #4C5157;">You're right: a flat 4-track rail flattens a nested model. Two ways to keep it honest — <a href="#10a">10a</a> nested rail · <a href="#10b">10b</a> project switcher.</span>
+  </div>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
+
+    <!-- ============ 10a ============ -->
+    <div id="10a" style="width: 980px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">10A</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Nested rail: use case level above, project level inside</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 880px;">Only two things live at use case level — the submission and its approval. Everything else is per project, indented under the project it belongs to. The rail is still non-linear, but now the nesting matches reality: team, products and configuration repeat per project and each project can sit at a different stage.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 26px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <span style="font-family: var(--font-heading); font-size: 15px;">Trade Surveillance</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: #7c8288;">UC-107411</span>
+          <span style="flex: 1;"></span>
+          <a href="#10a" style="font-size: 13px; text-decoration: none;">Save and exit</a>
+        </div>
+        <div style="display: flex; align-items: stretch;">
+          <aside style="width: 300px; flex-shrink: 0; padding: 22px 16px; border-right: 1px solid rgba(0,0,0,0.08);">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin: 0 8px 10px;">USE CASE</div>
+            <div style="display: flex; gap: 12px; padding: 10px 10px; border-radius: 8px;">
+              <span style="width: 18px; height: 18px; margin-top: 1px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+              </span>
+              <span style="flex: 1;">
+                <span style="display: block; font-size: 14px;">Details submitted</span>
+                <span style="display: block; font-size: 11.5px; color: #7c8288;">Jul 24 · editable</span>
+              </span>
+            </div>
+            <div style="display: flex; gap: 12px; padding: 10px 10px; border-radius: 8px;">
+              <span style="width: 18px; height: 18px; margin-top: 1px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 13 }}" style="color: #a4560f;" hint-size="13px,13px"></x-import>
+              </span>
+              <span style="flex: 1;">
+                <span style="display: block; font-size: 14px;">Sponsor approval</span>
+                <span style="display: block; font-size: 11.5px; color: #a4560f;">With A. Rivera</span>
+              </span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin: 18px 8px 10px;">
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">PROJECTS</span>
+              <span style="flex: 1;"></span>
+              <a href="#10a" style="font-size: 12px; text-decoration: none;">+ New</a>
+            </div>
+
+            <div style="border-radius: 9px; background: #f2f8fd; padding: 10px 10px 8px; margin-bottom: 8px;">
+              <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 13.5px; font-weight: 700; flex: 1;">Alert Triage Agent</span>
+                <span style="font-size: 11px; color: #005EA6;">2 of 3</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 6px; border-left: 2px solid #cfe3f3;">
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px;">
+                  <span style="width: 16px; height: 16px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 9 }}" hint-size="9px,9px"></x-import>
+                  </span> Team
+                </span>
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px; background: #fff; border-radius: 6px; font-weight: 700;">
+                  <span style="width: 16px; height: 16px; border-radius: 999px; border: 2px solid var(--accent); flex-shrink: 0;"></span> Products
+                </span>
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px; color: #7c8288;">
+                  <span style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 12 }}" style="color: #9aa1a8;" hint-size="12px,12px"></x-import>
+                  </span> Configuration
+                </span>
+              </div>
+            </div>
+
+            <div style="border-radius: 9px; padding: 10px 10px 8px;">
+              <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 13.5px; font-weight: 600; flex: 1;">Case Narrative Drafting</span>
+                <span style="font-size: 11px; color: #7c8288;">0 of 3</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 6px; border-left: 2px solid rgba(0,0,0,0.08);">
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px;">
+                  <span style="width: 16px; height: 16px; border-radius: 999px; border: 1.5px solid #b6bcc2; flex-shrink: 0;"></span> Team
+                </span>
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px; color: #7c8288;">
+                  <span style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 12 }}" style="color: #9aa1a8;" hint-size="12px,12px"></x-import>
+                  </span> Products
+                </span>
+                <span style="display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 13px; color: #9aa1a8;">
+                  <span style="width: 16px; height: 16px;"></span> Managed by Platform — no config
+                </span>
+              </div>
+            </div>
+          </aside>
+
+          <main style="flex: 1; min-width: 0; padding: 28px 34px 34px;">
+            <div style="font-size: 12.5px; color: #7c8288; margin-bottom: 6px;">Alert Triage Agent · federated</div>
+            <h2 style="font-family: var(--font-heading); font-size: 23px; margin: 0 0 8px;">Products</h2>
+            <p style="margin: 0 0 24px; font-size: 14px; line-height: 21px; color: #4C5157; max-width: 520px;">Install what this project needs. Configuration opens per product once installed, because this project is federated.</p>
+
+            <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden; margin-bottom: 22px;">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <span style="font-size: 14px; font-weight: 600; flex: 1;">SageMaker</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: #1d7f36;">
+                  <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 11 }}" hint-size="11px,11px"></x-import> Installed &amp; configured
+                </span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <span style="font-size: 14px; font-weight: 600; flex: 1;">EKS Notebooks</span>
+                <span style="font-size: 12.5px; color: #a4560f;">Needs cluster and role</span>
+                <a href="#10a" style="font-size: 13px; text-decoration: none;">Configure</a>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px;">
+                <span style="font-size: 14px; color: #4C5157; flex: 1;">Databricks</span>
+                <a href="#10a" style="font-size: 13px; text-decoration: none;">Install</a>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 18px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Configure EKS Notebooks</x-import>
+              <a href="#10a" style="font-size: 13px; text-decoration: none;">Delegate to a contributor</a>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 10b ============ -->
+    <div id="10b" style="width: 980px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">10B</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Use case header + project switcher, one stepper per project</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 880px;">Drops the rail entirely. The use case is a status header; you pick a project and get its own three-item stepper. Non-linear across projects, honest within one — and it scales past a handful of projects, where a nested rail gets long.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="padding: 24px 30px 0;">
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 6px;">
+            <h2 style="font-family: var(--font-heading); font-size: 23px; margin: 0;">Trade Surveillance</h2>
+            <span style="font-family: var(--font-mono); font-size: 12.5px; color: #7c8288;">UC-107411</span>
+            <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; color: #a4560f;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 13 }}" hint-size="13px,13px"></x-import> Awaiting sponsor approval — products locked
+            </span>
+            <span style="flex: 1;"></span>
+            <a href="#10b" style="font-size: 13px; text-decoration: none;">Edit use case</a>
+          </div>
+          <div style="display: flex; gap: 26px; border-bottom: 1px solid rgba(0,0,0,0.08); margin-top: 18px;">
+            <span style="padding: 10px 2px; font-size: 14px; font-weight: 600; color: #005EA6; border-bottom: 2px solid #0078CF;">Alert Triage Agent</span>
+            <span style="padding: 10px 2px; font-size: 14px; color: #4C5157;">Case Narrative Drafting</span>
+            <span style="padding: 10px 2px; font-size: 14px; color: #005EA6;">+ New project</span>
+          </div>
+        </div>
+
+        <div style="padding: 24px 30px 30px;">
+          <div style="display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;">
+            <span style="display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 7px 16px 7px 10px; font-size: 13px;">
+              <span style="width: 18px; height: 18px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+              </span> Team · 3 people
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 9px; border: 1px solid #0078CF; background: #f2f8fd; border-radius: 999px; padding: 7px 16px 7px 10px; font-size: 13px; font-weight: 600;">
+              <span style="width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--accent);"></span> Products
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 7px 16px 7px 10px; font-size: 13px; color: #7c8288;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 12 }}" style="color: #9aa1a8;" hint-size="12px,12px"></x-import> Configuration · federated only
+            </span>
+          </div>
+
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 380px;">
+              <h3 style="font-family: var(--font-heading); font-size: 19px; margin: 0 0 8px;">Products for this project</h3>
+              <p style="margin: 0 0 18px; font-size: 13.5px; line-height: 20px; color: #4C5157;">Pick now, install on approval. This project is federated, so you own configuration.</p>
+              <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                  <span style="width: 15px; height: 15px; border-radius: 4px; background: var(--accent);"></span>
+                  <span style="font-size: 13.5px; font-weight: 600; flex: 1;">SageMaker</span>
+                  <span style="font-size: 12px; color: #7c8288;">Queued</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                  <span style="width: 15px; height: 15px; border-radius: 4px; background: var(--accent);"></span>
+                  <span style="font-size: 13.5px; font-weight: 600; flex: 1;">EKS Notebooks</span>
+                  <span style="font-size: 12px; color: #7c8288;">Queued</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px;">
+                  <span style="width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid #9aa1a8;"></span>
+                  <span style="font-size: 13.5px; color: #4C5157; flex: 1;">Databricks</span>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 18px; margin-top: 22px;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Queue 2 products</x-import>
+                <a href="#10b" style="font-size: 13px; text-decoration: none;">Delegate install and config</a>
+              </div>
+            </div>
+            <div style="width: 280px; border-left: 1px solid rgba(0,0,0,0.08); padding-left: 20px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 10px;">THIS PROJECT</div>
+              <p style="margin: 0 0 14px; font-size: 12.5px; line-height: 18px; color: #4C5157;">Federated · owned by your team. Triage of surveillance alerts with case narratives.</p>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 8px;">TEAM</div>
+              <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px;">
+                <span>N. Nair · Contributor</span>
+                <span>S. Chen · Member</span>
+                <span>M. Delgado · Member</span>
+              </div>
+              <a href="#10b" style="display: inline-block; margin-top: 12px; font-size: 13px; text-decoration: none;">Manage team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding: 40px; display: flex; flex-direction: column; gap: 14px;">
+  <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;">
+    <h1 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">7A refined — non-linear tracker, one clear action per screen</h1>
+    <span style="font-size: 13.5px; color: #4C5157;">Same rail, far less noise. <a href="#9a">9a</a> tracker · <a href="#9b">9b</a> new project · <a href="#9c">9c</a> products after approval.</span>
+  </div>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
+
+    <!-- ============ 9a ============ -->
+    <div id="9a" style="width: 980px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">9A</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Tracker rail — pick any unlocked track</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 880px;">Rail entries are tracks, not steps: each is <strong>done</strong>, <strong>open</strong>, or <strong>locked with a stated reason</strong>. Submission is the only hard prerequisite; teams stay editable forever; products unlock on approval and carry advanced configuration inside them. One primary button per screen, secondary actions as plain links.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 26px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <span style="font-family: var(--font-heading); font-size: 15px;">Trade Surveillance</span>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: #7c8288;">UC-107411</span>
+          <span style="flex: 1;"></span>
+          <a href="#9a" style="font-size: 13px; text-decoration: none;">Save and exit</a>
+        </div>
+        <div style="display: flex; align-items: stretch;">
+          <aside style="width: 288px; flex-shrink: 0; padding: 24px 18px; border-right: 1px solid rgba(0,0,0,0.08);">
+            <div style="font-size: 12px; color: #7c8288; margin-bottom: 16px;">2 of 4 tracks complete</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+
+              <div style="display: flex; gap: 12px; padding: 11px 12px; border-radius: 8px;">
+                <span style="width: 18px; height: 18px; margin-top: 1px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+                </span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 14px;">Use case</span>
+                  <span style="display: block; font-size: 11.5px; color: #7c8288;">Submitted Jul 24</span>
+                </span>
+              </div>
+
+              <div style="display: flex; gap: 12px; padding: 11px 12px; border-radius: 8px;">
+                <span style="width: 18px; height: 18px; margin-top: 1px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+                </span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 14px;">Projects</span>
+                  <span style="display: block; font-size: 11.5px; color: #7c8288;">2 · always editable</span>
+                </span>
+              </div>
+
+              <div style="display: flex; gap: 12px; padding: 11px 12px; border-radius: 8px; background: #f2f8fd;">
+                <span style="width: 18px; height: 18px; margin-top: 1px; border-radius: 999px; border: 2px solid var(--accent); flex-shrink: 0;"></span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 14px; font-weight: 700;">Teams</span>
+                  <span style="display: block; font-size: 11.5px; color: #005EA6;">1 of 2 projects staffed</span>
+                </span>
+              </div>
+
+              <div style="display: flex; gap: 12px; padding: 11px 12px; border-radius: 8px;">
+                <span style="width: 18px; height: 18px; margin-top: 1px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 13 }}" style="color: #9aa1a8;" hint-size="13px,13px"></x-import>
+                </span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 14px; color: #7c8288;">Products</span>
+                  <span style="display: block; font-size: 11.5px; color: #9aa1a8;">Unlocks when the sponsor approves</span>
+                  <span style="display: block; font-size: 11.5px; color: #9aa1a8;">Includes advanced configuration</span>
+                </span>
+              </div>
+            </div>
+
+            <div style="margin-top: 22px; padding: 14px 14px 16px; border-radius: 9px; background: #F5F7F8;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 13 }}" style="color: #a4560f;" hint-size="13px,13px"></x-import>
+                <span style="font-size: 12.5px; font-weight: 700;">With the sponsor</span>
+              </div>
+              <p style="margin: 0 0 8px; font-size: 12px; line-height: 17px; color: #4C5157;">A. Rivera, since Jul 24. Keep building teams meanwhile.</p>
+              <a href="#9a" style="font-size: 12.5px; text-decoration: none;">Nudge sponsor</a>
+            </div>
+          </aside>
+
+          <main style="flex: 1; min-width: 0; padding: 30px 34px 34px;">
+            <h2 style="font-family: var(--font-heading); font-size: 23px; margin: 0 0 8px;">Teams</h2>
+            <p style="margin: 0 0 26px; font-size: 14px; line-height: 21px; color: #4C5157; max-width: 520px;">Add people per project. In a project a person is a contributor or a member — never both.</p>
+
+            <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 18px 20px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <span style="font-size: 15px; font-weight: 600; flex: 1;">Alert Triage Agent</span>
+                <span style="font-size: 12.5px; color: #7c8288;">1 contributor · 2 members</span>
+                <a href="#9a" style="font-size: 13px; text-decoration: none;">Manage</a>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 5px 12px 5px 6px; font-size: 12.5px;">
+                  <span style="width: 22px; height: 22px; border-radius: 999px; background: #eaf4fb; color: #005EA6; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;">NN</span>
+                  N. Nair · Contributor
+                </span>
+                <span style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 5px 12px 5px 6px; font-size: 12.5px;">
+                  <span style="width: 22px; height: 22px; border-radius: 999px; background: #F5F7F8; color: #4C5157; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;">SC</span>
+                  S. Chen · Member
+                </span>
+              </div>
+            </div>
+
+            <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+              <span style="font-size: 15px; font-weight: 600; flex: 1;">Case Narrative Drafting</span>
+              <span style="font-size: 12.5px; color: #7c8288;">No people yet</span>
+              <a href="#9a" style="font-size: 13px; text-decoration: none;">Add people</a>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px; margin-top: 30px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Add people to Case Narrative Drafting</x-import>
+              <a href="#9b" style="font-size: 13px; text-decoration: none;">New project</a>
+              <a href="#9a" style="font-size: 13px; text-decoration: none;">Delegate to a contributor</a>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 9b ============ -->
+    <div id="9b" style="width: 520px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">9B</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">New project — hosting decides configuration</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157;">Owner or contributor. Federated projects carry their own product configuration; Platform-managed ones don't, and the form says so before submit.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 26px 28px;">
+        <h3 style="font-family: var(--font-heading); font-size: 19px; margin: 0 0 20px;">New project</h3>
+
+        <div style="font-size: 12px; color: #4C5157; margin-bottom: 6px;">Name</div>
+        <div style="border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #0078CF; border-radius: 6px; padding: 10px 12px; font-size: 13.5px; color: #9aa1a8; margin-bottom: 18px;">Enter project name</div>
+
+        <div style="font-size: 12px; color: #4C5157; margin-bottom: 6px;">Description</div>
+        <div style="border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #c8ced2; border-radius: 6px; padding: 10px 12px; font-size: 13.5px; color: #9aa1a8; height: 58px; margin-bottom: 22px;">What will this project do?</div>
+
+        <div style="font-size: 12px; color: #4C5157; margin-bottom: 10px;">Where does this project run?</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+          <span style="display: flex; gap: 12px; align-items: flex-start; border: 1px solid #0078CF; background: #f7fbfe; border-radius: 9px; padding: 13px 15px;">
+            <span style="width: 15px; height: 15px; margin-top: 2px; border-radius: 999px; border: 4px solid var(--accent); flex-shrink: 0;"></span>
+            <span>
+              <span style="display: block; font-size: 13.5px; font-weight: 600;">Federated</span>
+              <span style="display: block; font-size: 12.5px; line-height: 18px; color: #4C5157;">Your team owns the environment. You configure each installed product — clusters, roles, endpoints.</span>
+            </span>
+          </span>
+          <span style="display: flex; gap: 12px; align-items: flex-start; border: 1px solid rgba(0,0,0,0.12); border-radius: 9px; padding: 13px 15px;">
+            <span style="width: 15px; height: 15px; margin-top: 2px; border-radius: 999px; border: 1.5px solid #9aa1a8; flex-shrink: 0;"></span>
+            <span>
+              <span style="display: block; font-size: 13.5px; font-weight: 600;">Managed by Platform</span>
+              <span style="display: block; font-size: 12.5px; line-height: 18px; color: #4C5157;">Platform runs and configures products for you. No configuration track appears.</span>
+            </span>
+          </span>
+        </div>
+
+        <div style="display: flex; gap: 10px; padding: 12px 14px; border: 1px solid #0078CF; border-radius: 8px; background: #f7fbfe; margin-bottom: 22px;">
+          <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="info" size="{{ 14 }}" style="color: #005EA6; flex-shrink: 0; margin-top: 2px;" hint-size="14px,14px"></x-import>
+          <span style="font-size: 12.5px; line-height: 18px; color: #4C5157;">Products can be installed once the use case is approved. You can add people to this project right away.</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 18px;">
+          <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Create project</x-import>
+          <a href="#9a" style="font-size: 13px; text-decoration: none;">Save draft</a>
+          <a href="#9a" style="font-size: 13px; text-decoration: none;">Cancel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 9c ============ -->
+    <div id="9c" style="width: 620px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">9C</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Products track after approval — config lives inside</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157;">Install and configure in one place. Configuration only appears for federated projects, and can be delegated per product.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 26px 28px;">
+        <h3 style="font-family: var(--font-heading); font-size: 21px; margin: 0 0 6px;">Products</h3>
+        <p style="margin: 0 0 22px; font-size: 13.5px; line-height: 20px; color: #4C5157;">Approved Jul 26. Install per project; configure federated projects after install.</p>
+
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 10px;">ALERT TRIAGE AGENT · FEDERATED</div>
+        <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden; margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+            <span style="font-size: 13.5px; font-weight: 600; flex: 1;">SageMaker</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #1d7f36;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 11 }}" hint-size="11px,11px"></x-import> Installed &amp; configured
+            </span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+            <span style="font-size: 13.5px; font-weight: 600; flex: 1;">EKS Notebooks</span>
+            <span style="font-size: 12px; color: #a4560f;">Needs configuration</span>
+            <a href="#9c" style="font-size: 13px; text-decoration: none;">Configure</a>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 13px 16px;">
+            <span style="font-size: 13.5px; color: #4C5157; flex: 1;">Databricks</span>
+            <a href="#9c" style="font-size: 13px; text-decoration: none;">Install</a>
+          </div>
+        </div>
+
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 10px;">CASE NARRATIVE DRAFTING · MANAGED BY PLATFORM</div>
+        <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 13px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+          <span style="font-size: 13.5px; font-weight: 600; flex: 1;">SageMaker</span>
+          <span style="font-size: 12px; color: #7c8288;">Platform configures this</span>
+          <a href="#9c" style="font-size: 13px; text-decoration: none;">Install</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 18px;">
+          <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Configure EKS Notebooks</x-import>
+          <a href="#9c" style="font-size: 13px; text-decoration: none;">Delegate configuration</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding: 40px; display: flex; flex-direction: column; gap: 14px;">
+  <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;">
+    <h1 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">Approval wait time before products can be installed</h1>
+    <span style="font-size: 13.5px; color: #4C5157;">Use case and projects/teams are unblocked; product install is gated. <a href="#8a">8a</a>, <a href="#8b">8b</a>.</span>
+  </div>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
+
+    <!-- ============ 8a ============ -->
+    <div id="8a" style="width: 940px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">8A</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Gate banner + locked task cards (extends 7b)</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 860px;">The hub stays the home base. A single amber gate banner states what's pending, who holds it and when it's expected; product and configuration cards are locked with an explicit reason, while projects and teams keep working. Delegation can be pre-assigned during the wait so install starts the moment the gate lifts.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="padding: 26px 30px 0;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px;">
+            <span style="background: #eef3e6; color: #5a7211; border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+            <span style="font-family: var(--font-mono); font-size: 12.5px; color: #7c8288;">UC-107411</span>
+            <span style="background: #fdf0e3; color: #a4560f; border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 600;">Submitted · awaiting sponsor approval</span>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-size: 25px; margin: 0 0 18px;">Trade Surveillance</h2>
+
+          <div style="display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; border: 1px solid #e8a33d; border-left: 4px solid #e8a33d; border-radius: 9px; background: #fffaf3; margin-bottom: 22px; flex-wrap: wrap;">
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 16 }}" style="color: #a4560f; flex-shrink: 0; margin-top: 2px;" hint-size="16px,16px"></x-import>
+            <div style="flex: 1; min-width: 280px;">
+              <div style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">Products unlock after sponsor approval</div>
+              <p style="margin: 0; font-size: 13px; line-height: 19px; color: #4C5157;">With A. Rivera (sponsor) since Jul 24. Typical turnaround is 2–3 business days. You can keep adding projects and people now — installs queue until approval lands.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Nudge sponsor</x-import>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Notify me</x-import>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: 0 30px 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #1d7f36; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #1d7f36;">DONE</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Use case details</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">Submitted Jul 24. Edits reset the approval.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">View submission</span>
+          </div>
+          <div style="border: 1px solid #0078CF; border-left: 4px solid #0078CF; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; background: #f7fbfe;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #005EA6;">AVAILABLE NOW</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Projects &amp; teams</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">2 projects · 1 has a team. Nothing here waits on the sponsor.</span>
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Continue setup</x-import>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #d3d8db; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; background: #fafbfc;">
+            <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 11 }}" hint-size="11px,11px"></x-import> LOCKED
+            </span>
+            <span style="font-family: var(--font-heading); font-size: 16px; color: #7c8288;">Products &amp; services</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #7c8288; flex: 1;">Pick products now and queue the install, or assign it to a contributor to run on approval.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Pre-select &amp; queue</span>
+          </div>
+        </div>
+
+        <div style="margin: 0 30px 30px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden;">
+          <div style="padding: 12px 18px; background: #F5F7F8; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; border-bottom: 1px solid rgba(0,0,0,0.08);">QUEUED FOR INSTALL — RUNS AUTOMATICALLY ON APPROVAL</div>
+          <div style="display: grid; grid-template-columns: minmax(160px, 1.4fr) 1fr 150px; gap: 12px; padding: 12px 18px; align-items: center; font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+            <span style="font-weight: 600;">SageMaker</span>
+            <span style="color: #7c8288; font-size: 12.5px;">Alert Triage Agent</span>
+            <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 12 }}" hint-size="12px,12px"></x-import> QUEUED
+            </span>
+          </div>
+          <div style="display: grid; grid-template-columns: minmax(160px, 1.4fr) 1fr 150px; gap: 12px; padding: 12px 18px; align-items: center; font-size: 13.5px;">
+            <span style="font-weight: 600;">EKS Notebooks</span>
+            <span style="color: #7c8288; font-size: 12.5px;">Alert Triage Agent · config delegated to T. Okafor</span>
+            <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 12 }}" hint-size="12px,12px"></x-import> QUEUED
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 8b ============ -->
+    <div id="8b" style="width: 940px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">8B</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Two-phase timeline: "before approval" and "after approval"</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 860px;">The wait becomes part of the model rather than an interruption. Work is split into what's possible now and what unlocks later, with the approval gate drawn between them — so an owner who creates a use case with no team yet still sees a sane, honest path.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 26px 30px 30px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px;">
+          <span style="font-family: var(--font-heading); font-size: 20px;">Trade Surveillance · setup</span>
+          <span style="font-family: var(--font-mono); font-size: 12.5px; color: #7c8288;">UC-107411</span>
+          <span style="flex: 1;"></span>
+          <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Save and exit</x-import>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #005EA6;">PHASE 1 — AVAILABLE NOW</span>
+          <span style="flex: 1; height: 1px; background: rgba(0,0,0,0.1);"></span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 26px;">
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 15px 17px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="width: 18px; height: 18px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+              </span>
+              <span style="font-size: 14px; font-weight: 600;">Use case</span>
+            </div>
+            <p style="margin: 0; font-size: 12.5px; line-height: 18px; color: #4C5157;">Submitted Jul 24 · sponsor A. Rivera</p>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 15px 17px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="width: 18px; height: 18px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;">
+                <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import>
+              </span>
+              <span style="font-size: 14px; font-weight: 600;">Projects</span>
+            </div>
+            <p style="margin: 0; font-size: 12.5px; line-height: 18px; color: #4C5157;">2 created · optional at submission</p>
+          </div>
+          <div style="border: 1px solid #0078CF; border-radius: 9px; padding: 15px 17px; background: #f7fbfe;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="width: 18px; height: 18px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;">3</span>
+              <span style="font-size: 14px; font-weight: 600;">Teams</span>
+            </div>
+            <p style="margin: 0 0 10px; font-size: 12.5px; line-height: 18px; color: #4C5157;">1 of 2 projects staffed. Contributor or member — never both.</p>
+            <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">Add people</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px; padding: 15px 18px; border: 1px dashed #e8a33d; border-radius: 9px; background: #fffaf3; margin-bottom: 26px; flex-wrap: wrap;">
+          <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="clock" size="{{ 15 }}" style="color: #a4560f;" hint-size="15px,15px"></x-import>
+          <span style="font-size: 13.5px; font-weight: 700;">Approval gate</span>
+          <span style="font-size: 13px; color: #4C5157; flex: 1; min-width: 220px;">Waiting on sponsor since Jul 24 · expected by Jul 29. Nothing below can start until this clears.</span>
+          <span style="font-size: 13px; font-weight: 600; color: #005EA6;">View approval trail</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">PHASE 2 — UNLOCKS AFTER APPROVAL</span>
+          <span style="flex: 1; height: 1px; background: rgba(0,0,0,0.1);"></span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 15px 17px; background: #fafbfc;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 13 }}" style="color: #9aa1a8;" hint-size="13px,13px"></x-import>
+              <span style="font-size: 14px; font-weight: 600; color: #7c8288;">Install products</span>
+            </div>
+            <p style="margin: 0 0 10px; font-size: 12.5px; line-height: 18px; color: #7c8288;">Choose now, install on approval.</p>
+            <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">Pre-select products</span>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 15px 17px; background: #fafbfc;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 13 }}" style="color: #9aa1a8;" hint-size="13px,13px"></x-import>
+              <span style="font-size: 14px; font-weight: 600; color: #7c8288;">Configure products</span>
+            </div>
+            <p style="margin: 0 0 10px; font-size: 12.5px; line-height: 18px; color: #7c8288;">Clusters, roles, endpoints per product.</p>
+            <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">Assign to contributor</span>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 15px 17px; background: #fafbfc;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="locked" size="{{ 13 }}" style="color: #9aa1a8;" hint-size="13px,13px"></x-import>
+              <span style="font-size: 14px; font-weight: 600; color: #7c8288;">Open to members</span>
+            </div>
+            <p style="margin: 0; font-size: 12.5px; line-height: 18px; color: #7c8288;">Members can request access once products exist.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding: 40px; display: flex; flex-direction: column; gap: 14px;">
+  <div style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;">
+    <h1 style="font-family: var(--font-heading); font-size: 26px; margin: 0;">Owner: create a use case, projects, teams and products</h1>
+    <span style="font-size: 13.5px; color: #4C5157;">Three ways to sequence creation, partial saves and delegation. Reference <a href="#7a">7a</a>, <a href="#7b">7b</a>, <a href="#7c">7c</a>.</span>
+  </div>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start;">
+
+    <!-- ============ 7a ============ -->
+    <div id="7a" style="width: 940px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">7A</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Guided wizard with a persistent step rail</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 860px;">Linear but escapable. The rail is the source of truth for completeness — every step can be saved as a draft or handed to a contributor, and the owner can exit at any point without losing the use case.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="height: 54px; display: flex; align-items: center; gap: 14px; padding: 0 22px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+          <span style="font-family: var(--font-heading); font-size: 15px;">Platform</span>
+          <span style="color: #b6bcc2;">/</span>
+          <span style="font-size: 13.5px; color: #4C5157;">New use case</span>
+          <span style="flex: 1;"></span>
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #4C5157; background: #F5F7F8; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 4px 12px;">OWNER</span>
+        </div>
+        <div style="display: flex; align-items: stretch;">
+          <aside style="width: 300px; flex-shrink: 0; background: #F5F7F8; padding: 24px 20px; border-right: 1px solid rgba(0,0,0,0.08);">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 10px;">SETUP PROGRESS</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <div style="flex: 1; height: 6px; border-radius: 999px; background: #dfe4e7; overflow: hidden;">
+                <div style="width: 40%; height: 100%; background: var(--accent);"></div>
+              </div>
+              <span style="font-size: 12px; font-weight: 700; color: #005EA6;">40%</span>
+            </div>
+            <p style="margin: 0 0 18px; font-size: 12px; color: #7c8288;">2 of 5 complete · 1 delegated</p>
+
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.08);">
+                <span style="width: 20px; height: 20px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 11 }}" hint-size="11px,11px"></x-import></span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600;">1 · Use case</span>
+                  <span style="display: block; font-size: 11.5px; color: #7c8288;">Submitted for sponsor approval</span>
+                </span>
+              </div>
+              <div style="display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #fff; border: 1px solid rgba(0,0,0,0.08);">
+                <span style="width: 20px; height: 20px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 11 }}" hint-size="11px,11px"></x-import></span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600;">2 · Projects</span>
+                  <span style="display: block; font-size: 11.5px; color: #7c8288;">2 projects created</span>
+                </span>
+              </div>
+              <div style="display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #eaf4fb; border: 1px solid #0078CF;">
+                <span style="width: 20px; height: 20px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 700;">3 · Teams</span>
+                  <span style="display: block; font-size: 11.5px; color: #005EA6;">In progress — 1 of 2 projects</span>
+                </span>
+              </div>
+              <div style="display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px;">
+                <span style="width: 20px; height: 20px; border-radius: 999px; border: 1.5px dashed #9aa1a8; color: #7c8288; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600;">4 · Products</span>
+                  <span style="display: block; font-size: 11.5px; color: #b5651d;">Delegated to T. Okafor</span>
+                </span>
+              </div>
+              <div style="display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px;">
+                <span style="width: 20px; height: 20px; border-radius: 999px; border: 1.5px solid #d3d8db; color: #9aa1a8; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">5</span>
+                <span style="flex: 1;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600; color: #7c8288;">5 · Product configuration</span>
+                  <span style="display: block; font-size: 11.5px; color: #9aa1a8;">Blocked until products install</span>
+                </span>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; color: #7c8288;">You can leave at any time. Everything saves as a draft under Mine.</span>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Save and finish later</x-import>
+            </div>
+          </aside>
+
+          <main style="flex: 1; min-width: 0; padding: 26px 30px 30px;">
+            <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 4px;">
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #0078CF; margin-bottom: 6px;">STEP 3 OF 5</div>
+                <h2 style="font-family: var(--font-heading); font-size: 22px; margin: 0 0 6px;">Teams</h2>
+                <p style="margin: 0; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 560px;">Add people to each project. A person is either a contributor or a member in a project — never both.</p>
+              </div>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Delegate this step</x-import>
+            </div>
+
+            <div style="margin-top: 22px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden;">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: #F5F7F8; border-bottom: 1px solid rgba(0,0,0,0.08);">
+                <span style="font-weight: 600; font-size: 14px;">Alert Triage Agent</span>
+                <span style="background: #eaf4fb; color: #005EA6; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">3 people</span>
+                <span style="flex: 1;"></span>
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #1d7f36;">READY</span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(150px, 1.4fr) 120px 1fr 30px; gap: 12px; padding: 10px 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <span>NAME</span><span>SID</span><span>ROLE IN PROJECT</span><span></span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(150px, 1.4fr) 120px 1fr 30px; gap: 12px; padding: 11px 18px; align-items: center; font-size: 13.5px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <span style="font-weight: 600;">N. Nair</span>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: #4C5157;">O820412</span>
+                <span style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #c8ced2; border-radius: 6px; padding: 6px 10px; font-size: 13px;">Contributor <span style="color: #7c8288; display: flex;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="chevron-down" size="{{ 11 }}" hint-size="11px,11px"></x-import></span></span>
+                <span style="color: #9aa1a8; display: flex; justify-content: flex-end;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="close" size="{{ 13 }}" hint-size="13px,13px"></x-import></span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(150px, 1.4fr) 120px 1fr 30px; gap: 12px; padding: 11px 18px; align-items: center; font-size: 13.5px;">
+                <span style="font-weight: 600;">S. Chen</span>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: #4C5157;">E930114</span>
+                <span style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #c8ced2; border-radius: 6px; padding: 6px 10px; font-size: 13px;">Member <span style="color: #7c8288; display: flex;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="chevron-down" size="{{ 11 }}" hint-size="11px,11px"></x-import></span></span>
+                <span style="color: #9aa1a8; display: flex; justify-content: flex-end;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="close" size="{{ 13 }}" hint-size="13px,13px"></x-import></span>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; overflow: hidden;">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 12px 18px;">
+                <span style="font-weight: 600; font-size: 14px;">Case Narrative Drafting</span>
+                <span style="background: #F5F7F8; color: #7c8288; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">No people yet</span>
+                <span style="flex: 1;"></span>
+                <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Add people</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.08);">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Back</x-import>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 12.5px; color: #7c8288;">Products can be installed by you or your contributor</span>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Continue to products</x-import>
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 22px 26px;">
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 12px;">DELEGATION SHEET — SHOWN FROM ANY STEP</div>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 300px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 16px 18px;">
+            <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 6px;">Hand off to a contributor</div>
+            <p style="margin: 0 0 14px; font-size: 13px; line-height: 19px; color: #4C5157;">Pick who takes over and what they can do. You stay the owner and get notified when it's done.</p>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+              <span style="display: flex; align-items: center; gap: 10px; border: 1px solid #0078CF; background: #eaf4fb; border-radius: 8px; padding: 10px 12px;"><span style="width: 15px; height: 15px; border-radius: 4px; background: var(--accent);"></span> Install products &amp; services</span>
+              <span style="display: flex; align-items: center; gap: 10px; border: 1px solid #0078CF; background: #eaf4fb; border-radius: 8px; padding: 10px 12px;"><span style="width: 15px; height: 15px; border-radius: 4px; background: var(--accent);"></span> Configure each product</span>
+              <span style="display: flex; align-items: center; gap: 10px; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 12px;"><span style="width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid #9aa1a8;"></span> Create, add and remove project members</span>
+            </div>
+          </div>
+          <div style="width: 320px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 16px 18px; background: #F5F7F8;">
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 10px;">CONTRIBUTOR</div>
+            <div style="display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 10px 12px; font-size: 13.5px;">
+              <span style="width: 26px; height: 26px; border-radius: 999px; background: #eaf4fb; color: #005EA6; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">TO</span>
+              <span style="flex: 1;">T. Okafor <span style="font-family: var(--font-mono); font-size: 11.5px; color: #7c8288;">I204551</span></span>
+            </div>
+            <p style="margin: 12px 0 0; font-size: 12.5px; line-height: 18px; color: #4C5157;">Scope: <strong>Trade Surveillance</strong> — both projects. Revoke any time from the use case detail page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 7b ============ -->
+    <div id="7b" style="width: 940px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">7B</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">Create the use case, then a setup hub of task cards</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 860px;">The use case form stays a short modal (as in your screenshots). Submitting drops the owner on the use case page in "Setup" mode: non-linear cards, each one doable now, later, or by someone else. Best when owners fan work out in parallel.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="padding: 26px 30px 0;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px;">
+            <span style="background: #eef3e6; color: #5a7211; border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">USE CASE</span>
+            <span style="font-family: var(--font-mono); font-size: 12.5px; color: #7c8288;">UC-107411</span>
+            <span style="background: #eaf4fb; color: #005EA6; border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 600;">Feasibility</span>
+            <span style="background: #fdf0e3; color: #a4560f; border-radius: 999px; padding: 3px 12px; font-size: 11.5px; font-weight: 600;">Setup in progress</span>
+          </div>
+          <h2 style="font-family: var(--font-heading); font-size: 25px; margin: 0 0 8px;">Trade Surveillance</h2>
+          <p style="margin: 0 0 20px; font-size: 14px; line-height: 21px; color: #4C5157; max-width: 640px;">Alert triage, case narratives and evidence citation for markets surveillance.</p>
+
+          <div style="display: flex; align-items: center; gap: 16px; padding: 14px 18px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; background: #F5F7F8; margin-bottom: 22px;">
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">Setup completeness · 3 of 6 tasks</div>
+              <div style="display: flex; gap: 6px;">
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #1d7f36;"></span>
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #1d7f36;"></span>
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #1d7f36;"></span>
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #e8a33d;"></span>
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #dfe4e7;"></span>
+                <span style="flex: 1; height: 6px; border-radius: 999px; background: #dfe4e7;"></span>
+              </div>
+            </div>
+            <span style="font-size: 12.5px; color: #4C5157;">Members can join once a project has a team</span>
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Save and exit</x-import>
+          </div>
+        </div>
+
+        <div style="padding: 0 30px 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #1d7f36; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #1d7f36;">DONE</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Use case details</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">Name, description, phase, AI/ML and GenAI answers, business objective, use case leads.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Edit</span>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #1d7f36; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #1d7f36;">DONE · 2 PROJECTS</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Projects</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">Alert Triage Agent · Case Narrative Drafting</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Add another project</span>
+          </div>
+          <div style="border: 1px solid #0078CF; border-left: 4px solid #0078CF; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; background: #f7fbfe;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #005EA6;">NEXT · 1 OF 2 PROJECTS</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Teams</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">Case Narrative Drafting has no people yet. Contributors and members are set per project.</span>
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Add people</x-import>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #e8a33d; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #a4560f;">DELEGATED</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Products &amp; services</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">T. Okafor is installing SageMaker, Databricks and EKS Notebooks.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Take back · Message</span>
+          </div>
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #d3d8db; border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #9aa1a8;">WAITING ON PRODUCTS</span>
+            <span style="font-family: var(--font-heading); font-size: 16px; color: #7c8288;">Product configuration</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #7c8288; flex: 1;">Endpoints, roles and workspace settings per installed product.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #9aa1a8;">Delegated with install</span>
+          </div>
+          <div style="border: 1px dashed rgba(0,0,0,0.2); border-radius: 9px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; background: #F5F7F8;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288;">OPTIONAL</span>
+            <span style="font-family: var(--font-heading); font-size: 16px;">Delegation</span>
+            <span style="font-size: 12.5px; line-height: 18px; color: #4C5157; flex: 1;">Give a contributor product install, configuration, or member management — per project.</span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Manage delegation</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 24px 26px;">
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: #7c8288; margin-bottom: 14px;">CATALOG ENTRY POINT + THE CREATE MODAL</div>
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 300px; border: 1px solid rgba(0,0,0,0.1); border-radius: 9px; padding: 18px 20px;">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+              <div style="flex: 1;">
+                <h3 style="font-family: var(--font-heading); font-size: 20px; margin: 0 0 6px;">Select a Use Case</h3>
+                <p style="margin: 0; font-size: 13px; color: #4C5157;">Pick the use case you want to work in, or stand up a new one.</p>
+              </div>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">+ New</x-import>
+            </div>
+            <div style="display: flex; gap: 24px; border-bottom: 1px solid rgba(0,0,0,0.08); margin-top: 18px;">
+              <span style="padding: 9px 2px; font-size: 13.5px; font-weight: 600; color: #005EA6; border-bottom: 2px solid #0078CF;">Mine (3)</span>
+              <span style="padding: 9px 2px; font-size: 13.5px; color: #4C5157;">Drafts (1)</span>
+              <span style="padding: 9px 2px; font-size: 13.5px; color: #4C5157;">Available (5)</span>
+            </div>
+            <div style="border: 1px solid rgba(0,0,0,0.1); border-left: 4px solid #e8a33d; border-radius: 9px; padding: 14px 16px; margin-top: 14px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                <span style="background: #fdf0e3; color: #a4560f; border-radius: 999px; padding: 2px 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;">DRAFT</span>
+                <span style="font-family: var(--font-mono); font-size: 12px; color: #7c8288;">UC-107411</span>
+              </div>
+              <div style="font-weight: 600; font-size: 14.5px; margin-bottom: 4px;">Trade Surveillance</div>
+              <div style="font-size: 12.5px; color: #7c8288;">3 of 6 setup tasks · resume where you left off</div>
+            </div>
+          </div>
+          <div style="width: 430px; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); padding: 22px 24px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+              <span style="font-family: var(--font-heading); font-size: 17px;">New use case</span>
+              <span style="background: #eaf4fb; color: #005EA6; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">Ideation</span>
+              <span style="background: #f6ecf7; color: #7a3d8a; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">AI/ML</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #7c8288; margin-bottom: 5px;">NAME</div>
+            <div style="border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #0078CF; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: #9aa1a8; margin-bottom: 14px; display: flex; justify-content: space-between;"><span>Enter name</span><span style="font-size: 11.5px;">0 / 100</span></div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #7c8288; margin-bottom: 5px;">DESCRIPTION</div>
+            <div style="border: 1px solid rgba(0,0,0,0.15); border-bottom: 2px solid #c8ced2; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: #9aa1a8; height: 54px; margin-bottom: 14px;">Enter description</div>
+            <div style="display: flex; gap: 18px; margin-bottom: 14px; flex-wrap: wrap;">
+              <div style="min-width: 130px;">
+                <div style="font-size: 12px; color: #4C5157; margin-bottom: 6px;">Phase</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 4px solid var(--accent);"></span> Ideation</span>
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 1.5px solid #9aa1a8;"></span> Feasibility</span>
+                </div>
+              </div>
+              <div style="min-width: 100px;">
+                <div style="font-size: 12px; color: #4C5157; margin-bottom: 6px;">Uses AI/ML?</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 4px solid var(--accent);"></span> Yes</span>
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 1.5px solid #9aa1a8;"></span> No</span>
+                </div>
+              </div>
+              <div style="min-width: 100px;">
+                <div style="font-size: 12px; color: #4C5157; margin-bottom: 6px;">Uses GenAI?</div>
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 1.5px solid #9aa1a8;"></span> Yes</span>
+                  <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 14px; height: 14px; border-radius: 999px; border: 4px solid var(--accent);"></span> No</span>
+                </div>
+              </div>
+            </div>
+            <div style="border: 1px solid #0078CF; border-radius: 8px; background: #f7fbfe; padding: 11px 13px; font-size: 12.5px; line-height: 18px; color: #4C5157; margin-bottom: 16px;">Register agentic systems after the sponsor approves this use case.</div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #7c8288; margin-bottom: 5px;">USE CASE LEADS</div>
+            <div style="border: 1px solid #b8402f; border-radius: 6px; padding: 9px 12px; font-size: 13.5px; color: #9aa1a8; background: #fdf2f1;">Enter name or SID</div>
+            <p style="margin: 6px 0 16px; font-size: 12px; color: #b8402f;">Needs a use case lead, sponsor (active MD) and developer lead — all full-time.</p>
+            <div style="display: flex; align-items: center; gap: 10px; justify-content: flex-end;">
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Save draft</x-import>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Submit</x-import>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 7c ============ -->
+    <div id="7c" style="width: 940px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="background: #16191c; color: #fff; border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.6px;">7C</span>
+        <span style="font-family: var(--font-heading); font-size: 18px;">One build page: use case summary + per-project checklists</span>
+      </div>
+      <p style="margin: 0 0 4px; font-size: 13.5px; line-height: 20px; color: #4C5157; max-width: 860px;">Everything on one scroll. The use case collapses to a summary bar once saved; each project is an accordion carrying its own three-item checklist (team, products, configuration) with its own delegate control — so two projects can be at different stages without the owner losing the thread.</p>
+
+      <div style="background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 18px 26px; background: #F5F7F8; border-bottom: 1px solid rgba(0,0,0,0.08); flex-wrap: wrap;">
+          <span style="width: 26px; height: 26px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 13 }}" hint-size="13px,13px"></x-import></span>
+          <div style="flex: 1; min-width: 220px;">
+            <div style="font-family: var(--font-heading); font-size: 17px;">Trade Surveillance</div>
+            <div style="font-size: 12.5px; color: #7c8288;">UC-107411 · Feasibility · AI/ML · Sponsor: A. Rivera · Leads set</div>
+          </div>
+          <span style="font-size: 13px; font-weight: 600; color: #005EA6;">Edit use case</span>
+          <span style="width: 1px; height: 22px; background: rgba(0,0,0,0.12);"></span>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 12.5px; color: #4C5157;">Readiness</span>
+            <div style="width: 120px; height: 6px; border-radius: 999px; background: #dfe4e7; overflow: hidden;">
+              <div style="width: 55%; height: 100%; background: var(--accent);"></div>
+            </div>
+            <span style="font-size: 12.5px; font-weight: 700; color: #005EA6;">55%</span>
+          </div>
+        </div>
+
+        <div style="padding: 22px 26px 26px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <span style="font-family: var(--font-heading); font-size: 16px;">Projects (2)</span>
+            <span style="flex: 1;"></span>
+            <span style="font-size: 13px; font-weight: 600; color: #005EA6;">+ Add project</span>
+          </div>
+
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: #fff; border-bottom: 1px solid rgba(0,0,0,0.08); flex-wrap: wrap;">
+              <span style="color: #7c8288; display: flex;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="chevron-down" size="{{ 12 }}" hint-size="12px,12px"></x-import></span>
+              <span style="font-weight: 600; font-size: 15px;">Alert Triage Agent</span>
+              <span style="background: #eef3e6; color: #5a7211; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">Ready for members</span>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 12.5px; color: #7c8288;">3 people · 3 products</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;">
+              <div style="padding: 16px 18px; border-right: 1px solid rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                  <span style="width: 18px; height: 18px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import></span>
+                  <span style="font-size: 13.5px; font-weight: 600;">Team</span>
+                </div>
+                <p style="margin: 0 0 10px; font-size: 12.5px; line-height: 18px; color: #4C5157;">1 contributor, 2 members. Roles are exclusive per project.</p>
+                <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">Manage team</span>
+              </div>
+              <div style="padding: 16px 18px; border-right: 1px solid rgba(0,0,0,0.06);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                  <span style="width: 18px; height: 18px; border-radius: 999px; background: #1d7f36; color: #fff; display: flex; align-items: center; justify-content: center;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="checkmark" size="{{ 10 }}" hint-size="10px,10px"></x-import></span>
+                  <span style="font-size: 13.5px; font-weight: 600;">Products</span>
+                </div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+                  <span style="border: 1px solid rgba(0,0,0,0.12); border-radius: 999px; padding: 2px 10px; font-size: 11.5px;">SageMaker</span>
+                  <span style="border: 1px solid rgba(0,0,0,0.12); border-radius: 999px; padding: 2px 10px; font-size: 11.5px;">GenAI Gateway</span>
+                  <span style="border: 1px solid rgba(0,0,0,0.12); border-radius: 999px; padding: 2px 10px; font-size: 11.5px;">EKS Notebooks</span>
+                </div>
+                <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">Install more</span>
+              </div>
+              <div style="padding: 16px 18px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                  <span style="width: 18px; height: 18px; border-radius: 999px; background: #e8a33d; color: #fff; display: flex; align-items: center; justify-content: center;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="warning" size="{{ 11 }}" hint-size="11px,11px"></x-import></span>
+                  <span style="font-size: 13.5px; font-weight: 600;">Configuration</span>
+                </div>
+                <p style="margin: 0 0 10px; font-size: 12.5px; line-height: 18px; color: #4C5157;">EKS Notebooks needs a cluster and role. <strong>Delegated to T. Okafor.</strong></p>
+                <span style="font-size: 12.5px; font-weight: 600; color: #005EA6;">View handoff</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; flex-wrap: wrap;">
+              <span style="color: #7c8288; display: flex;"><x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Icon" name="chevron-right" size="{{ 12 }}" hint-size="12px,12px"></x-import></span>
+              <span style="font-weight: 600; font-size: 15px;">Case Narrative Drafting</span>
+              <span style="background: #fdf0e3; color: #a4560f; border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600;">Draft · 0 of 3</span>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 12.5px; color: #7c8288;">No people · no products</span>
+              <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Continue setup</x-import>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 14px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.08); flex-wrap: wrap;">
+            <span style="font-size: 12.5px; color: #4C5157; flex: 1; min-width: 240px;">A project is live for members once it has a team. Products and configuration can land later, by you or a contributor.</span>
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" hint-size="auto,36px">Delegate remaining work</x-import>
+            <x-import component-from-global-scope="DataAIPlatformDesignSystem_fa7517.Button" appearance="solid" sentiment="accented" hint-size="auto,36px">Publish use case</x-import>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+</body>
+</html>

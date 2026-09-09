@@ -1,0 +1,48 @@
+/* ============================================================
+   TYPOGRAPHY — Salt font families + "low" density type scale
+   (the comfortable, generous scale used for this web product).
+   ============================================================ */
+:root {
+  /* ---- Font families ---- */
+  --salt-typography-fontFamily-openSans: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif; /* @kind font */
+  /* Amplitude substitute (proprietary; nearest Google Fonts match) */
+  --salt-typography-fontFamily-amplitude: "Archivo", "Open Sans", system-ui, sans-serif; /* @kind font */
+  --salt-typography-fontFamily-ptMono: "PT Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; /* @kind font */
+
+  /* Semantic families */
+  --font-body: var(--salt-typography-fontFamily-openSans);
+  --font-heading: var(--salt-typography-fontFamily-amplitude);
+  --font-display: var(--salt-typography-fontFamily-amplitude);
+  --font-mono: var(--salt-typography-fontFamily-ptMono);
+  --font-serif-display: "PT Serif", Georgia, "Times New Roman", serif; /* marketing serif headings */
+
+  /* ---- Weights ---- */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ---- Type scale (px / line-height) ---- */
+  --text-display1-size: 84px;   --text-display1-line: 109px;
+  --text-display2-size: 68px;   --text-display2-line: 88px;
+  --text-display3-size: 54px;   --text-display3-line: 70px;
+  --text-display4-size: 42px;   --text-display4-line: 55px;
+
+  --text-h1-size: 32px;   --text-h1-line: 42px;
+  --text-h2-size: 24px;   --text-h2-line: 32px;
+  --text-h3-size: 18px;   --text-h3-line: 24px;
+  --text-h4-size: 14px;   --text-h4-line: 18px;
+
+  --text-body-size: 14px;    --text-body-line: 18px;
+  --text-label-size: 12px;   --text-label-line: 16px;
+  --text-notation-size: 12px; --text-notation-line: 16px;
+
+  /* ---- Action / button text (Salt signature: uppercase, tracked) ---- */
+  --text-action-transform: uppercase;
+  --text-action-letterspacing: 0.6px;
+  --text-action-weight: var(--font-weight-semibold);
+
+  --text-letterspacing: 0;
+}

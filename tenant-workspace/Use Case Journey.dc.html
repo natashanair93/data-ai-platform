@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+  <link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+  <script src="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--surface-primary); font-family: var(--font-body); color: var(--text-primary); }
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { color: var(--accent-stronger); text-decoration: underline; }
+    input, select, textarea { font-family: var(--font-body); font-size: 13.5px; color: var(--text-primary); }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; background: var(--surface-primary);">
+
+  <div style="height: 56px; display: flex; align-items: center; gap: 16px; padding: 0 24px; border-bottom: 1px solid var(--border-subtle); position: sticky; top: 0; background: var(--surface-primary); z-index: 20;">
+    <span style="display: flex; flex-direction: column; gap: 4px; cursor: pointer;"><span style="width: 17px; height: 1.5px; background: var(--text-secondary);"></span><span style="width: 17px; height: 1.5px; background: var(--text-secondary);"></span><span style="width: 17px; height: 1.5px; background: var(--text-secondary);"></span></span>
+    <span style="font-family: var(--font-heading); font-weight: 700; font-size: 16px;">Platform</span>
+    <span style="border: 1px solid var(--border-medium); border-radius: 6px; padding: 6px 12px; font-size: 12.5px; color: var(--text-secondary); cursor: pointer;">CDAO - General Purpose ▾</span>
+    <span style="flex: 1;"></span>
+    <sc-if value="{{ pending }}" hint-placeholder-val="{{ true }}">
+      <span onClick="{{ approve }}" title="Prototype control" style="border: 1px dashed var(--salt-color-orange-600, #a1541b); color: var(--salt-color-orange-600, #a1541b); border-radius: 999px; padding: 5px 13px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">DEMO: APPROVE AS SPONSOR</span>
+    </sc-if>
+    <span style="border: 1px solid var(--border-medium); border-radius: 999px; padding: 5px 14px; font-size: 12px; color: var(--text-secondary); cursor: pointer;">Owner ▾</span>
+  </div>
+
+  <!-- ============ FORM ============ -->
+  <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width: 880px; margin: 0 auto; padding: 32px 24px 64px;">
+      <div style="font-size: 12.5px; color: var(--accent-strong); cursor: pointer;">‹ Use cases</div>
+      <div style="font-family: var(--font-heading); font-weight: 700; font-size: 32px; margin-top: 14px;">New use case</div>
+      <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Tell us what you're building and who sponsors it. You'll install products once it's approved.</div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 26px; margin-top: 28px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Name</div>
+          <input value="{{ form.name }}" onChange="{{ setName }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; background: #fff;" />
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Phase</div>
+          <select value="{{ form.phase }}" onChange="{{ setPhase }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; background: #fff;">
+            <option value="Ideation">Ideation</option>
+            <option value="Development">Development</option>
+            <option value="Production">Production</option>
+          </select>
+        </div>
+        <div style="grid-column: span 2;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">What is it for?</div>
+          <textarea value="{{ form.purpose }}" onChange="{{ setPurpose }}" rows="2" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; resize: vertical; background: #fff;"></textarea>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Development LOB</div>
+          <select value="{{ form.lob }}" onChange="{{ setLob }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; background: #fff;">
+            <option value="AWM">AWM</option>
+            <option value="CIB">CIB</option>
+            <option value="CCB">CCB</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Sponsor</div>
+          <input value="{{ form.sponsor }}" onChange="{{ setSponsor }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; background: #fff;" />
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Uses AI/ML</div>
+          <div style="display: flex; gap: 8px;">
+            <span onClick="{{ setAiYes }}" style="{{ aiYesStyle }}">Yes</span>
+            <span onClick="{{ setAiNo }}" style="{{ aiNoStyle }}">No</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 7px;">Name your team</div>
+          <input value="{{ form.teamName }}" onChange="{{ setTeamName }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; outline: none; background: #fff;" />
+          <div style="font-size: 11.5px; color: var(--text-tertiary); margin-top: 6px;">Everyone you add starts here.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px;">
+        <span style="border: 1px solid var(--border-medium); border-radius: 6px; padding: 11px 18px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">SAVE &amp; FINISH LATER</span>
+        <span onClick="{{ submit }}" style="background: var(--accent); color: #fff; border-radius: 6px; padding: 11px 20px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">SUBMIT FOR APPROVAL</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ USE CASE PAGE ============ -->
+  <sc-if value="{{ isPage }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 28px 24px 80px;">
+      <div style="font-size: 12.5px; color: var(--accent-strong); cursor: pointer;">‹ Use cases</div>
+      <div style="margin-top: 14px;">
+        <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 4px 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;">USE CASE</span>
+      </div>
+      <div style="font-family: var(--font-heading); font-weight: 700; font-size: 32px; letter-spacing: -0.01em; margin-top: 12px;">{{ form.name }}</div>
+      <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px; max-width: 720px;">{{ form.purpose }}</div>
+      <div style="display: flex; align-items: center; gap: 16px; margin-top: 14px; font-size: 13px;">
+        <span style="background: var(--salt-color-olive-100); color: var(--salt-color-olive-600); border-radius: 999px; padding: 3px 12px; font-weight: 600;">{{ form.phase }}</span>
+        <span style="{{ statusStyle }}">{{ statusLabel }}</span>
+        <span style="font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary);">{{ ucId }}</span>
+      </div>
+
+      <div style="display: flex; gap: 30px; margin-top: 26px; border-bottom: 1px solid var(--border-subtle); font-size: 14.5px;">
+        <span onClick="{{ goOverview }}" style="{{ tab.overview }}">Overview</span>
+        <span onClick="{{ goProducts }}" style="{{ tab.products }}">Products &amp; access</span>
+        <span onClick="{{ goActivity }}" style="{{ tab.activity }}">AI Activity</span>
+        <span onClick="{{ goRequests }}" style="{{ tab.requests }}">Requests</span>
+      </div>
+
+      <!-- OVERVIEW -->
+      <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 24px; align-items: start;">
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden;">
+            <div style="padding: 15px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-family: var(--font-heading); font-weight: 700; font-size: 16px;">Use case details</span>
+              <span style="font-size: 12.5px; color: var(--accent-strong); cursor: pointer;">Request a change</span>
+            </div>
+            <div style="padding: 6px 20px 16px;">
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Use case ID</span><span style="font-family: var(--font-mono); font-size: 13px;">{{ ucId }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Phase</span><span>{{ form.phase }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Sponsor</span><span>{{ form.sponsor }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Development LOB</span><span>{{ form.lob }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Uses AI/ML</span><span>{{ aiLabel }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 13.5px;"><span style="color: var(--text-secondary);">Products</span><span>{{ installedCount }}</span></div>
+            </div>
+          </div>
+
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; overflow: hidden;">
+            <div style="padding: 15px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <span style="display: flex; align-items: baseline; gap: 10px;">
+                <span style="font-family: var(--font-heading); font-weight: 700; font-size: 16px;">Members</span>
+                <span style="font-size: 12.5px; color: var(--text-tertiary);">{{ teamSummary }}</span>
+              </span>
+              <span onClick="{{ toggleEdit }}" style="{{ editBtnStyle }}">{{ editBtnLabel }}</span>
+            </div>
+            <div style="padding: 6px 20px 8px;">
+              <sc-for list="{{ memberRows }}" as="m" hint-placeholder-count="3">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 13.5px;">
+                  <span style="font-weight: 600; flex: 1;">{{ m.name }}</span>
+                  <span style="font-size: 12px; color: var(--text-tertiary);">{{ m.role }}</span>
+                  <sc-if value="{{ m.removable }}" hint-placeholder-val="{{ false }}">
+                    <span onClick="{{ m.onRemove }}" style="font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--salt-color-red-600, #a8232a); cursor: pointer;">REMOVE</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ editing }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 8px; padding: 14px 0 16px;">
+                  <input value="{{ newMember }}" onChange="{{ setNewMember }}" placeholder="Add by name or SID" style="flex: 1; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 9px 12px; outline: none; background: #fff;" />
+                  <span onClick="{{ addMember }}" style="background: var(--accent); color: #fff; border-radius: 6px; padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer; white-space: nowrap;">ADD</span>
+                </div>
+              </sc-if>
+            </div>
+            <div style="background: var(--surface-secondary); border-top: 1px solid var(--border-subtle); padding: 12px 20px; font-size: 12.5px; color: var(--text-secondary);">Everyone here can use any product open to the whole use case.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- PRODUCTS -->
+      <sc-if value="{{ isProducts }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: 24px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.7px; color: var(--text-tertiary);">{{ availableNowLabel }}</div>
+          <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-top: 11px; overflow: hidden;">
+            <div style="display: grid; grid-template-columns: 1.4fr 0.9fr 1.6fr 28px; gap: 18px; padding: 10px 20px; background: var(--surface-secondary); border-bottom: 1px solid var(--border-subtle); font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary);">
+              <span>PRODUCT</span><span>HOSTING</span><span>WHO CAN USE IT</span><span></span>
+            </div>
+            <sc-for list="{{ installedRows }}" as="p" hint-placeholder-count="2">
+              <div style="display: grid; grid-template-columns: 1.4fr 0.9fr 1.6fr 28px; gap: 18px; padding: 15px 20px; border-bottom: 1px solid var(--border-subtle); align-items: center; font-size: 13.5px;">
+                <span style="font-weight: 600;">{{ p.name }}</span>
+                <span style="color: var(--text-secondary); font-size: 12.5px;">{{ p.hosting }}</span>
+                <span style="{{ p.accessStyle }}">{{ p.access }}</span>
+                <span style="color: var(--text-tertiary); cursor: pointer;">›</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ hasPendingInstalls }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.7px; color: var(--salt-color-orange-600, #a1541b); margin-top: 28px;">{{ pendingLabel }}</div>
+            <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-top: 11px; overflow: hidden;">
+              <sc-for list="{{ pendingRows }}" as="p" hint-placeholder-count="1">
+                <div style="display: grid; grid-template-columns: 1.4fr 0.9fr 1.6fr 28px; gap: 18px; padding: 15px 20px; border-bottom: 1px solid var(--border-subtle); align-items: center; font-size: 13.5px;">
+                  <span style="font-weight: 600;">{{ p.name }}</span>
+                  <span style="color: var(--text-secondary); font-size: 12.5px;">{{ p.hosting }}</span>
+                  <span style="{{ p.accessStyle }}">{{ p.access }}</span>
+                  <span style="color: var(--text-tertiary);"></span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 28px;">
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.7px; color: var(--text-tertiary);">{{ exploreLabel }}</span>
+            <sc-if value="{{ pending }}" hint-placeholder-val="{{ true }}">
+              <span style="font-size: 12.5px; color: var(--salt-color-orange-600, #a1541b);">{{ lockNote }}</span>
+            </sc-if>
+          </div>
+          <div style="{{ exploreListStyle }}">
+            <sc-for list="{{ exploreRows }}" as="p" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: 1.3fr 2.1fr auto; gap: 18px; padding: 14px 20px; border-bottom: 1px solid var(--border-subtle); align-items: center; font-size: 13.5px;">
+                <span style="font-weight: 600;">{{ p.name }}</span>
+                <span style="color: var(--text-secondary); font-size: 12.5px;">{{ p.desc }}</span>
+                <span style="display: flex; gap: 8px;">
+                  <span style="border: 1px solid var(--border-medium); background: #fff; border-radius: 6px; padding: 8px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">DOCUMENTATION</span>
+                  <span onClick="{{ p.onInstall }}" style="{{ p.installStyle }}">INSTALL</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ACTIVITY -->
+      <sc-if value="{{ isActivity }}" hint-placeholder-val="{{ false }}">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-top: 24px; padding: 64px 20px; text-align: center; color: var(--text-tertiary); font-size: 13.5px;">No AI activity yet. Model and agent calls appear here once a product is in use.</div>
+      </sc-if>
+
+      <!-- REQUESTS -->
+      <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
+        <div style="border: 1px solid var(--border-subtle); border-radius: 9px; margin-top: 24px; overflow: hidden;">
+          <sc-for list="{{ requestRows }}" as="r" hint-placeholder-count="1">
+            <div style="display: grid; grid-template-columns: 1.6fr 1.2fr auto; gap: 18px; padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); align-items: center; font-size: 13.5px;">
+              <span style="font-weight: 600;">{{ r.title }}</span>
+              <span style="color: var(--text-secondary); font-size: 12.5px;">{{ r.detail }}</span>
+              <span style="{{ r.stateStyle }}">{{ r.state }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- ============ INSTALL FLOW ============ -->
+  <sc-if value="{{ installOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.32); z-index: 40; display: flex; justify-content: flex-end;">
+      <div style="width: 520px; max-width: 100%; background: var(--surface-primary); height: 100%; overflow-y: auto; box-shadow: -4px 0 24px rgba(0,0,0,0.14);">
+        <div style="padding: 22px 26px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+          <div>
+            <div style="font-family: var(--font-heading); font-weight: 700; font-size: 20px;">Install {{ install.name }}</div>
+            <div style="font-size: 13px; color: var(--text-secondary); margin-top: 5px;">{{ install.desc }}</div>
+          </div>
+          <span onClick="{{ closeInstall }}" style="font-size: 18px; color: var(--text-tertiary); cursor: pointer; line-height: 1;">✕</span>
+        </div>
+
+        <div style="padding: 24px 26px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary);">HOSTING</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 11px;">
+            <div onClick="{{ setHostingPlatform }}" style="{{ hostPlatformStyle }}">
+              <div style="font-size: 13.5px; font-weight: 600;">Platform managed</div>
+              <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px;">Shared capacity. Installs immediately.</div>
+            </div>
+            <div onClick="{{ setHostingLob }}" style="{{ hostLobStyle }}">
+              <div style="font-size: 13.5px; font-weight: 600;">LOB managed</div>
+              <div style="font-size: 12.5px; color: var(--text-secondary); margin-top: 3px;">Dedicated to your LOB. Your sponsor approves it.</div>
+            </div>
+          </div>
+
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-top: 26px;">WHO CAN USE IT</div>
+          <select value="{{ install.access }}" onChange="{{ setAccess }}" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; margin-top: 11px; outline: none; background: #fff;">
+            <option value="all">Everyone on the use case</option>
+            <option value="some">Only some people</option>
+          </select>
+
+          <sc-if value="{{ install.restricted }}" hint-placeholder-val="{{ false }}">
+            <div style="background: var(--surface-secondary); border-radius: 9px; padding: 16px 18px; margin-top: 14px;">
+              <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary);">WHAT WOULD YOU LIKE TO CALL THIS TEAM?</div>
+              <input value="{{ install.teamName }}" onChange="{{ setInstallTeam }}" placeholder="e.g. Advisor Copilot" style="width: 100%; box-sizing: border-box; border: 1px solid var(--border-medium); border-bottom: 2px solid var(--border-strong); border-radius: 6px; padding: 9px 12px; margin-top: 9px; outline: none; background: #fff;" />
+              <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.6px; color: var(--text-tertiary); margin-top: 16px;">PICK FROM YOUR MEMBERS</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 9px;">
+                <sc-for list="{{ pickRows }}" as="p" hint-placeholder-count="3">
+                  <span onClick="{{ p.onToggle }}" style="{{ p.style }}">{{ p.name }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ install.needsSponsor }}" hint-placeholder-val="{{ false }}">
+            <div style="border: 1px solid var(--border-subtle); border-left: 4px solid var(--salt-color-orange-500, #c26a1c); border-radius: 9px; padding: 14px 16px; margin-top: 20px; font-size: 12.5px; color: var(--text-secondary); line-height: 18px;">LOB managed installs go to {{ form.sponsor }} for approval. The product appears in your list as pending until then.</div>
+          </sc-if>
+        </div>
+
+        <div style="padding: 18px 26px 26px; border-top: 1px solid var(--border-subtle);">
+          <sc-if value="{{ showInstallHint }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 12.5px; color: var(--salt-color-orange-600, #a1541b); margin-bottom: 12px;">Name the team and pick at least one member.</div>
+          </sc-if>
+          <div style="display: flex; justify-content: flex-end; gap: 12px;">
+            <span onClick="{{ closeInstall }}" style="border: 1px solid var(--border-medium); border-radius: 6px; padding: 11px 18px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.6px; cursor: pointer;">CANCEL</span>
+            <span onClick="{{ confirmInstall }}" style="{{ installCtaStyle }}">{{ installCta }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startOn&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;form&quot;,&quot;usecase&quot;],&quot;default&quot;:&quot;form&quot;,&quot;tsType&quot;:&quot;'form' | 'usecase'&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;startApproved&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+const CATALOG = [
+  { name: 'EKS Notebooks', desc: 'Managed Jupyter on dedicated compute', managed: 'platform' },
+  { name: 'Databricks', desc: 'Lakehouse workspace for data engineering', managed: 'lob' },
+  { name: 'CometML', desc: 'Experiment tracking and model registry', managed: 'lob' },
+  { name: 'Feature Store', desc: 'Shared feature registry and serving', managed: 'platform' }
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'form',
+    tab: 'overview',
+    approved: false,
+    editing: false,
+    newMember: '',
+    form: {
+      name: 'Client Communications',
+      phase: 'Development',
+      purpose: 'Agentic drafting and summarization for advisor-client communications.',
+      lob: 'AWM',
+      sponsor: 'T. Okafor',
+      aiml: true,
+      teamName: 'Client Comms team'
+    },
+    members: [
+      { name: 'A. Rivera', role: 'Owner' },
+      { name: 'J. Okafor', role: 'Contributor' },
+      { name: 'M. Chen', role: 'Member' }
+    ],
+    installed: [
+      { name: 'SageMaker', hosting: 'Shared', access: 'all', team: null },
+      { name: 'GenAI Gateway', hosting: 'Shared', access: 'all', team: null }
+    ],
+    installOpen: false,
+    install: null
+  };
+
+  componentDidMount() {
+    if (this.props.startOn === 'usecase') this.setState({ screen: 'page' });
+    if (this.props.startApproved) this.setState({ approved: true });
+  }
+
+  f(key, v) { this.setState(s => ({ form: Object.assign({}, s.form, { [key]: v }) })); }
+
+  chip(on) {
+    return 'border-radius:6px;padding:9px 17px;font-size:13px;cursor:pointer;' +
+      (on ? 'border:1px solid var(--accent);background:var(--accent-weakest);color:var(--accent-strong);font-weight:600;'
+          : 'border:1px solid var(--border-medium);color:var(--text-secondary);');
+  }
+
+  tabStyle(on) {
+    return 'padding-bottom:11px;cursor:pointer;' +
+      (on ? 'color:var(--accent-strong);font-weight:600;border-bottom:2px solid var(--accent);'
+          : 'color:var(--text-secondary);');
+  }
+
+  openInstall(p) {
+    this.setState({
+      installOpen: true,
+      install: { name: p.name, desc: p.desc, managed: p.managed, hosting: p.managed, access: 'all', teamName: '', picked: [] }
+    });
+  }
+
+  patchInstall(patch) { this.setState(s => ({ install: Object.assign({}, s.install, patch) })); }
+
+  installValid(i) {
+    if (!i) return false;
+    if (i.access !== 'some') return true;
+    return i.teamName.trim().length > 0 && i.picked.length > 0;
+  }
+
+  confirmInstall() {
+    const i = this.state.install;
+    if (!this.installValid(i)) return;
+    const restricted = i.access === 'some';
+    this.setState(s => ({
+      installOpen: false,
+      install: null,
+      installed: s.installed.concat([{
+        name: i.name,
+        hosting: i.hosting === 'lob' ? 'Dedicated' : 'Shared',
+        access: restricted ? 'some' : 'all',
+        team: restricted ? i.teamName.trim() : null,
+        teamCount: restricted ? i.picked.length : null,
+        pendingSponsor: i.hosting === 'lob'
+      }])
+    }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const pending = !s.approved;
+    const installedNames = s.installed.map(p => p.name);
+    const explore = CATALOG.filter(p => installedNames.indexOf(p.name) < 0);
+    const live = s.installed.filter(p => !p.pendingSponsor);
+    const waiting = s.installed.filter(p => p.pendingSponsor);
+    const canConfirm = this.installValid(s.install);
+    const i = s.install || { name: '', desc: '', access: 'all', teamName: '', hosting: 'platform', picked: [] };
+
+    return {
+      isForm: s.screen === 'form',
+      isPage: s.screen === 'page',
+      isOverview: s.screen === 'page' && s.tab === 'overview',
+      isProducts: s.screen === 'page' && s.tab === 'products',
+      isActivity: s.screen === 'page' && s.tab === 'activity',
+      isRequests: s.screen === 'page' && s.tab === 'requests',
+      pending,
+      form: s.form,
+      ucId: 'UC-103334',
+      aiLabel: s.form.aiml ? 'Yes' : 'No',
+      installedCount: s.installed.length + ' installed',
+      teamSummary: s.form.teamName + ' · ' + s.members.length,
+      editing: s.editing,
+      newMember: s.newMember,
+
+      statusLabel: pending ? 'Pending approval' : 'Active',
+      statusStyle: 'display:inline-flex;align-items:center;gap:7px;font-weight:600;color:' +
+        (pending ? 'var(--salt-color-orange-600,#a1541b)' : 'var(--text-primary)') +
+        ';',
+
+      tab: {
+        overview: this.tabStyle(s.tab === 'overview'),
+        products: this.tabStyle(s.tab === 'products'),
+        activity: this.tabStyle(s.tab === 'activity'),
+        requests: this.tabStyle(s.tab === 'requests')
+      },
+      goOverview: () => this.setState({ tab: 'overview' }),
+      goProducts: () => this.setState({ tab: 'products' }),
+      goActivity: () => this.setState({ tab: 'activity' }),
+      goRequests: () => this.setState({ tab: 'requests' }),
+
+      setName: e => this.f('name', e.target.value),
+      setPhase: e => this.f('phase', e.target.value),
+      setPurpose: e => this.f('purpose', e.target.value),
+      setLob: e => this.f('lob', e.target.value),
+      setSponsor: e => this.f('sponsor', e.target.value),
+      setTeamName: e => this.f('teamName', e.target.value),
+      setAiYes: () => this.f('aiml', true),
+      setAiNo: () => this.f('aiml', false),
+      aiYesStyle: this.chip(s.form.aiml),
+      aiNoStyle: this.chip(!s.form.aiml),
+      submit: () => this.setState({ screen: 'page', tab: 'overview' }),
+      approve: () => this.setState({ approved: true }),
+
+      toggleEdit: () => this.setState(st => ({ editing: !st.editing })),
+      editBtnLabel: s.editing ? 'DONE' : 'EDIT',
+      editBtnStyle: 'border-radius:6px;padding:7px 14px;font-size:11px;font-weight:700;letter-spacing:0.6px;cursor:pointer;' +
+        (s.editing ? 'background:var(--accent);color:#fff;' : 'border:1px solid var(--border-medium);'),
+      memberRows: s.members.map((m, idx) => ({
+        name: m.name,
+        role: m.role,
+        removable: s.editing && m.role !== 'Owner',
+        onRemove: () => this.setState(st => ({ members: st.members.filter((_, j) => j !== idx) }))
+      })),
+      setNewMember: e => this.setState({ newMember: e.target.value }),
+      addMember: () => {
+        const n = s.newMember.trim();
+        if (!n) return;
+        this.setState(st => ({ members: st.members.concat([{ name: n, role: 'Member' }]), newMember: '' }));
+      },
+
+      availableNowLabel: 'AVAILABLE TO YOU NOW · ' + live.length,
+      pendingLabel: 'AWAITING SPONSOR · ' + waiting.length,
+      hasPendingInstalls: waiting.length > 0,
+      exploreLabel: 'EXPLORE AND INSTALL · ' + explore.length,
+      lockNote: 'Installs unlock when ' + s.form.sponsor + ' approves · sent Jul 26',
+      pendingRows: waiting.map(p => ({
+        name: p.name,
+        hosting: p.hosting,
+        access: 'Requested ' + (p.access === 'all' ? 'for everyone on the use case' : 'for ' + p.team),
+        accessStyle: 'color:var(--text-secondary);'
+      })),
+      installedRows: live.map(p => ({
+        name: p.name,
+        hosting: p.hosting,
+        access: p.access === 'all' ? ('Everyone on the use case · ' + s.members.length) : (p.team + ' · ' + p.teamCount),
+        accessStyle: p.access === 'all'
+          ? 'color:var(--text-secondary);'
+          : 'background:var(--accent-weakest);color:var(--accent-strong);border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:600;justify-self:start;'
+      })),
+      exploreListStyle: 'border:1px solid var(--border-subtle);border-radius:9px;margin-top:11px;overflow:hidden;' +
+        (pending ? 'background:var(--surface-secondary);' : 'background:var(--surface-primary);'),
+      exploreRows: explore.map(p => ({
+        name: p.name,
+        desc: p.desc + (p.managed === 'lob' ? ' · LOB managed' : ''),
+        onInstall: pending ? null : () => this.openInstall(p),
+        installStyle: 'background:var(--accent);color:#fff;border-radius:6px;padding:8px 15px;font-size:11px;font-weight:700;letter-spacing:0.6px;' +
+          (pending ? 'opacity:0.4;cursor:not-allowed;' : 'cursor:pointer;')
+      })),
+
+      requestRows: [{
+        title: 'Sponsor approval for this use case',
+        detail: 'With ' + s.form.sponsor + ' · sent Jul 26',
+        state: pending ? 'Pending' : 'Approved Jul 28',
+        stateStyle: 'font-size:12.5px;font-weight:600;color:' +
+          (pending ? 'var(--salt-color-orange-600,#a1541b)' : 'var(--salt-color-olive-600,#5c7038)') + ';'
+      }],
+
+      installOpen: s.installOpen,
+      install: {
+        name: i.name,
+        desc: i.desc,
+        access: i.access,
+        teamName: i.teamName,
+        restricted: i.access === 'some',
+        needsSponsor: i.hosting === 'lob'
+      },
+      hostPlatformStyle: 'border-radius:9px;padding:13px 16px;cursor:pointer;' +
+        (i.hosting === 'platform' ? 'border:1px solid var(--accent);background:var(--accent-weakest);' : 'border:1px solid var(--border-subtle);'),
+      hostLobStyle: 'border-radius:9px;padding:13px 16px;cursor:pointer;' +
+        (i.hosting === 'lob' ? 'border:1px solid var(--accent);background:var(--accent-weakest);' : 'border:1px solid var(--border-subtle);'),
+      setHostingPlatform: () => this.patchInstall({ hosting: 'platform' }),
+      setHostingLob: () => this.patchInstall({ hosting: 'lob' }),
+      setAccess: e => this.patchInstall({ access: e.target.value }),
+      setInstallTeam: e => this.patchInstall({ teamName: e.target.value }),
+      pickRows: s.members.map(m => {
+        const on = i.picked.indexOf(m.name) >= 0;
+        return {
+          name: m.name,
+          style: 'border-radius:999px;padding:6px 13px;font-size:12.5px;cursor:pointer;' +
+            (on ? 'background:var(--accent);color:#fff;font-weight:600;' : 'background:#fff;border:1px solid var(--border-subtle);color:var(--text-secondary);'),
+          onToggle: () => this.patchInstall({
+            picked: on ? i.picked.filter(n => n !== m.name) : i.picked.concat([m.name])
+          })
+        };
+      }),
+      installCta: i.hosting === 'lob' ? 'REQUEST INSTALL' : 'INSTALL',
+      installCtaStyle: 'background:var(--accent);color:#fff;border-radius:6px;padding:11px 20px;font-size:11.5px;font-weight:700;letter-spacing:0.6px;' +
+        (canConfirm ? 'cursor:pointer;' : 'opacity:0.4;cursor:not-allowed;'),
+      showInstallHint: s.install && s.install.access === 'some' && !canConfirm,
+      closeInstall: () => this.setState({ installOpen: false, install: null }),
+      confirmInstall: () => this.confirmInstall()
+    };
+  }
+}
+
+</script>
+</body>
+</html>
