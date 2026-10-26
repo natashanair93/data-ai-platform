@@ -1,0 +1,5 @@
+/* Webfonts — Salt uses Open Sans (UI/body), Amplitude (display/headings), PT Mono (code).
+   Amplitude is a commercial JPMorgan typeface and is NOT freely available, so it is
+   substituted here with Archivo (nearest grotesque match on Google Fonts).
+   PT Serif is added for the product's occasional large marketing serif headings. */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Archivo:wght@400;500;600;700&family=PT+Mono&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap");

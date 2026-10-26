@@ -1,0 +1,41 @@
+/* ============================================================
+   SPACING & SIZING — Salt "low" density (base unit = 12px).
+   ============================================================ */
+:root {
+  --salt-spacing-100: 12px; /* base unit */
+  --salt-spacing-25: calc(0.25 * var(--salt-spacing-100));  /* 3px  */
+  --salt-spacing-50: calc(0.5 * var(--salt-spacing-100));   /* 6px  */
+  --salt-spacing-75: calc(0.75 * var(--salt-spacing-100));  /* 9px  */
+  --salt-spacing-150: calc(1.5 * var(--salt-spacing-100));  /* 18px */
+  --salt-spacing-200: calc(2 * var(--salt-spacing-100));    /* 24px */
+  --salt-spacing-250: calc(2.5 * var(--salt-spacing-100));  /* 30px */
+  --salt-spacing-300: calc(3 * var(--salt-spacing-100));    /* 36px */
+  --salt-spacing-400: calc(4 * var(--salt-spacing-100));    /* 48px */
+  --salt-spacing-500: calc(5 * var(--salt-spacing-100));    /* 60px */
+  --salt-spacing-600: calc(6 * var(--salt-spacing-100));    /* 72px */
+  --salt-spacing-800: calc(8 * var(--salt-spacing-100));    /* 96px */
+
+  /* Semantic spacing aliases */
+  --space-xs: 3px;
+  --space-sm: 6px;
+  --space-md: 12px;
+  --space-lg: 18px;
+  --space-xl: 24px;
+  --space-2xl: 36px;
+  --space-3xl: 48px;
+  --space-4xl: 72px;
+
+  /* Control heights (Salt "low" density: base control = 36px) */
+  --size-base: 36px;           /* default control / button / input height */
+  --size-base-small: 28px;
+  --size-icon: 14px;           /* default icon glyph size */
+  --size-icon-large: 20px;
+  --size-adornment: 10px;
+  --size-indicator: 4px;       /* selected tab / active bar thickness */
+
+  /* Layout */
+  --layout-sidebar-width: 264px;
+  --layout-header-height: 56px;
+  --layout-max-width: 1440px;
+  --layout-gutter: 24px;
+}

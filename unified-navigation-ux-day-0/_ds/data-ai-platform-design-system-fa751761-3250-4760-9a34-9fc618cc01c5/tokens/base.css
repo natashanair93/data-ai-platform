@@ -1,0 +1,61 @@
+/* ============================================================
+   BASE — element defaults & a few utility classes.
+   ============================================================ */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line);
+  color: var(--text-primary);
+  background: var(--surface-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* Headings default to the display/heading family; product uses accent color
+   for emphasis on many headings. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+h1 { font-size: var(--text-h1-size); line-height: var(--text-h1-line); }
+h2 { font-size: var(--text-h2-size); line-height: var(--text-h2-line); }
+h3 { font-size: var(--text-h3-size); line-height: var(--text-h3-line); }
+h4 { font-size: var(--text-h4-size); line-height: var(--text-h4-line); }
+
+/* Links */
+a { color: var(--text-link); text-decoration: none; }
+a:hover { color: var(--accent-stronger); text-decoration: underline; }
+a:visited { color: var(--text-link-visited); }
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+kbd {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1;
+  padding: 2px 5px;
+  border: 1px solid var(--border-medium);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface-secondary);
+  color: var(--text-secondary);
+}
+
+/* Utility text classes */
+.ds-display-1 { font-family: var(--font-display); font-size: var(--text-display1-size); line-height: var(--text-display1-line); font-weight: var(--font-weight-semibold); }
+.ds-display-2 { font-family: var(--font-display); font-size: var(--text-display2-size); line-height: var(--text-display2-line); font-weight: var(--font-weight-semibold); }
+.ds-display-3 { font-family: var(--font-display); font-size: var(--text-display3-size); line-height: var(--text-display3-line); font-weight: var(--font-weight-semibold); }
+.ds-serif-display { font-family: var(--font-serif-display); font-weight: var(--font-weight-bold); letter-spacing: -0.01em; }
+.ds-text-accent { color: var(--text-accent); }
+.ds-text-secondary { color: var(--text-secondary); }
+.ds-mono { font-family: var(--font-mono); }
