@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#FAF9F6;color:#16161A;font-family:'Instrument Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#16161A;text-underline-offset:3px}
+a:hover{color:#D9481F}
+input,textarea{font-family:inherit;color:inherit}
+input::placeholder,textarea::placeholder{color:#9A9AA2}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#FAF9F6">
+
+<sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Start" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:36px;padding:48px 24px;overflow:auto">
+    <div style="font-family:'Instrument Serif',serif;font-size:28px;flex:none">Fusion</div>
+    <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(44px,7vw,72px);line-height:1.02;letter-spacing:-.02em;text-align:center;max-width:900px;flex:none">What should your agent <span style="font-style:italic;color:#D9481F">do?</span></h1>
+    <div style="width:100%;max-width:820px;flex:none;display:flex;flex-direction:column;gap:14px;padding:22px 24px;border-radius:24px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12),0 30px 60px -30px rgba(22,22,26,.3)">
+      <textarea value="{{ startText }}" onChange="{{ onStartText }}" rows="3" style="border:none;outline:none;resize:none;font-size:20px;line-height:1.55;background:transparent"></textarea>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:14px;color:#5E5E66;flex:1">Describe it like you would to a colleague. You get a spec, starter cases from real traffic, and a first proof score.</span>
+        <button onClick="{{ startDraft }}" style="border:none;cursor:pointer;font-size:15px;font-weight:600;padding:12px 22px;border-radius:999px;background:#16161A;color:#FAF9F6;white-space:nowrap">Draft it</button>
+      </div>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9A9AA2;flex:none;text-align:center">PROTOTYPE · EVERY PROMPT DRAFTS THE FEEDBACK-TRIAGE EXAMPLE</div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Top bar" style="height:60px;flex:none;display:flex;align-items:center;gap:clamp(10px,1.6vw,22px);padding:0 clamp(14px,2vw,24px);overflow:hidden;border-bottom:1px solid rgba(22,22,26,.08)">
+    <div style="display:flex;align-items:center;gap:12px;white-space:nowrap">
+      <strong style="font-family:'Instrument Serif',serif;font-weight:400;font-size:24px">Fusion</strong>
+      <span style="color:#9A9AA2">/</span>
+      <span style="font-size:15px">Feedback Triage</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:3px 9px;border-radius:999px;background:#EFEDE7">{{ draftLabel }}</span>
+      <sc-if value="{{ hasLive }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;padding:3px 9px;border-radius:999px;background:#E3F1E8;color:#14593A">{{ liveLabel }}</span></sc-if>
+    </div>
+    <div style="flex:1"></div>
+    <div onClick="{{ goProof }}" style="display:flex;align-items:center;gap:12px;font-size:13px;color:#5E5E66;white-space:nowrap;cursor:pointer">
+      <span>Proof</span>
+      <div style="width:clamp(80px,14vw,200px);height:6px;border-radius:999px;background:#E6E3DC;position:relative;overflow:hidden"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ proofW }};background:{{ proofColor }};border-radius:999px;transition:width .6s cubic-bezier(.4,0,.2,1)"></div></div>
+      <span style="color:#16161A;font-weight:600;font-size:14px">{{ proofLabel }}</span>
+      <span>{{ proofSub }}</span>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E5E66;white-space:nowrap">{{ costLabel }} · {{ latLabel }}</span>
+    <button onClick="{{ openPromote }}" style="cursor:pointer;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px;border:1px solid {{ promBd }};background:{{ promBg }};color:{{ promFg }};white-space:nowrap">Promote</button>
+    <span style="width:32px;height:32px;border-radius:50%;background:#16161A;color:#FAF9F6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none">NM</span>
+  </div>
+
+  <div style="flex:1;display:flex;min-height:0">
+    <div data-screen-label="Spec" style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative">
+      <div style="height:52px;flex:none;display:flex;align-items:center;gap:8px;padding:0 clamp(20px,4vw,64px)">
+        <button onClick="{{ setSpec }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;background:{{ specBg }};color:{{ specFg }}">Spec</button>
+        <button onClick="{{ setGraph }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;background:{{ graphBg }};color:{{ graphFg }}">Graph</button>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2;margin-left:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ specNote }}</span>
+        <div style="flex:1"></div>
+        <button onClick="{{ openLibrary }}" style="cursor:pointer;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent;white-space:nowrap">+ Add capability</button>
+      </div>
+      <div style="flex:1;overflow:auto;padding:24px clamp(20px,4vw,64px) 32px;min-height:160px">
+        <sc-if value="{{ specView }}" hint-placeholder-val="{{ true }}">
+          <h2 style="margin:0 0 28px;font-family:'Instrument Serif',serif;font-weight:400;font-size:48px;letter-spacing:-.01em">Feedback Triage</h2>
+          <sc-for list="{{ clauses }}" as="cl" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:22px;max-width:780px">
+              <sc-if value="{{ cl.hasLabel }}" hint-placeholder-val="{{ false }}"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">{{ cl.label }}</div></sc-if>
+              <p style="margin:0;font-size:21px;line-height:1.95;text-wrap:pretty;color:{{ cl.color }}">
+                <sc-for list="{{ cl.parts }}" as="p" hint-placeholder-count="1">
+                  <sc-if value="{{ p.isText }}" hint-placeholder-val="{{ true }}"><span>{{ p.text }}</span></sc-if>
+                  <sc-if value="{{ p.isAgent }}" hint-placeholder-val="{{ false }}"><span onClick="{{ p.open }}" style="white-space:nowrap;display:inline-flex;align-items:center;gap:6px;padding:0 11px 0 7px;margin:0 2px;border-radius:999px;background:{{ p.bg }};color:{{ p.fg }};box-shadow:0 0 0 1px {{ p.bd }};font-size:18px;line-height:1.65;cursor:pointer;transition:background .2s,color .2s"><sc-if value="{{ p.untested }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#9A9AA2" stroke-width="1.5" stroke-dasharray="2 2.5"></circle></svg></sc-if><sc-if value="{{ p.tested }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="#E6E3DC" stroke-width="2"></circle><circle cx="7" cy="7" r="5.5" fill="none" stroke="{{ p.ring }}" stroke-width="2" stroke-dasharray="{{ p.dash }}" transform="rotate(-90 7 7)"></circle></svg></sc-if>{{ p.text }}</span></sc-if>
+                  <sc-if value="{{ p.isTool }}" hint-placeholder-val="{{ false }}"><span onClick="{{ p.open }}" style="white-space:nowrap;display:inline-flex;align-items:center;padding:0 10px;margin:0 2px;border-radius:999px;background:{{ p.bg }};color:{{ p.fg }};font-family:'JetBrains Mono',monospace;font-size:15px;line-height:1.9;cursor:pointer;transition:background .2s,color .2s">{{ p.text }}</span></sc-if>
+                </sc-for>
+              </p>
+            </div>
+          </sc-for>
+          <sc-if value="{{ drafting }}" hint-placeholder-val="{{ false }}"><div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#D9481F">writing…</div></sc-if>
+        </sc-if>
+        <sc-if value="{{ graphView }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;max-width:520px;padding-top:12px">
+            <div style="font-size:14px;color:#5E5E66;margin-bottom:18px">Read-only. The graph is derived from the spec — edit the words, and this follows.</div>
+            <sc-for list="{{ graphNodes }}" as="g" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column">
+                <div onClick="{{ g.open }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:{{ g.bg }};color:{{ g.fg }};box-shadow:inset 0 0 0 1.5px {{ g.bd }};cursor:pointer;transition:background .2s">
+                  <span style="width:10px;height:10px;border-radius:50%;background:{{ g.dot }};flex:none"></span>
+                  <span style="flex:1;font-size:16px">{{ g.name }}</span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ g.statColor }}">{{ g.stat }}</span>
+                </div>
+                <sc-if value="{{ g.hasNext }}" hint-placeholder-val="{{ true }}"><div style="width:1px;height:18px;background:rgba(22,22,26,.25);margin-left:20px"></div></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="flex:none;padding:0 clamp(20px,4vw,64px) 22px;display:flex;flex-direction:column;gap:10px">
+        <sc-if value="{{ hasBuildReply }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#3D3D44"><span style="width:7px;height:7px;border-radius:50%;background:#D9481F"></span><span>{{ buildReply }}</span><span onClick="{{ goProposals }}" style="font-weight:600;text-decoration:underline;cursor:pointer">Review</span></div>
+        </sc-if>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 8px 8px 22px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12),0 14px 36px -22px rgba(22,22,26,.4)">
+          <input value="{{ composer }}" onChange="{{ onComposer }}" onKeyDown="{{ composerKey }}" placeholder="Tell the system what should change — e.g. make it cheaper, handle Spanish, open Jira tickets" style="flex:1;border:none;outline:none;font-size:16px;background:transparent;min-width:0">
+          <button onClick="{{ sendBuild }}" style="border:none;cursor:pointer;width:40px;height:40px;border-radius:50%;background:#16161A;color:#FAF9F6;font-size:18px;flex:none">↑</button>
+        </div>
+      </div>
+
+      <sc-if value="{{ showTrace }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Trace" style="height:min(300px,38vh);flex:none;background:#F1EEE8;border-top:1px solid rgba(22,22,26,.08);display:flex;min-height:0">
+          <div style="flex:1;min-width:0;padding:18px 28px;display:flex;flex-direction:column;gap:10px;overflow:auto">
+            <div style="display:flex;align-items:baseline;gap:12px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#5E5E66">TRACE</span>
+              <span style="font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ traceTitle }}</span>
+              <span style="font-size:12px;color:#5E5E66;white-space:nowrap">Click a step to inspect its output</span>
+              <span onClick="{{ closeTrace }}" style="cursor:pointer;font-size:18px;color:#5E5E66;padding:0 4px">×</span>
+            </div>
+            <div style="display:flex;padding-left:150px;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:#9A9AA2">
+              <sc-for list="{{ ticks }}" as="tk" hint-placeholder-count="6"><span>{{ tk.label }}</span></sc-for>
+            </div>
+            <sc-for list="{{ lanes }}" as="ln" hint-placeholder-count="4">
+              <div onClick="{{ ln.select }}" style="display:flex;align-items:stretch;min-height:{{ ln.h }};border-top:1px solid rgba(22,22,26,.07);cursor:pointer;background:{{ ln.rowBg }};border-radius:8px">
+                <span style="width:150px;flex:none;font-size:14px;padding:10px 8px;font-weight:{{ ln.weight }}">{{ ln.name }}</span>
+                <div style="flex:1;position:relative">
+                  <div style="position:absolute;left:{{ ln.left }};width:{{ ln.width }};top:12px;height:16px;border-radius:999px;background:{{ ln.bg }};transition:background .2s"></div>
+                  <sc-for list="{{ ln.ghosts }}" as="gh" hint-placeholder-count="0"><div style="position:absolute;left:{{ gh.left }};width:{{ gh.width }};top:{{ gh.top }};height:3px;border-radius:999px;background:{{ gh.bg }}"></div></sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:clamp(240px,26vw,380px);flex:none;padding:18px 22px;border-left:1px solid rgba(22,22,26,.08);display:flex;flex-direction:column;gap:12px;background:#16161A;color:#FAF9F6">
+            <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:#B9B6AE">{{ selTitle }}</div>
+              <pre style="margin:0;flex:1;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;color:#ECE9E2;white-space:pre-wrap">{{ selJson }}</pre>
+              <button onClick="{{ pinSel }}" style="align-self:flex-start;border:none;cursor:pointer;font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:#FAF9F6;color:#16161A">Pin as a case</button>
+            </sc-if>
+            <sc-if value="{{ noSel }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'Instrument Serif',serif;font-size:24px;line-height:1.25">Every joint in a run is inspectable.</div>
+              <div style="font-size:14px;line-height:1.55;color:#C9C6BE">Pick a step to see exactly what it passed on. Pin it and it becomes a test case — that's all test data is.</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div data-screen-label="Right pane" style="width:clamp(360px,36vw,500px);flex:none;border-left:1px solid rgba(22,22,26,.08);display:flex;flex-direction:column;min-height:0;background:#FAF9F6">
+      <sc-if value="{{ drafting }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px 32px;display:flex;flex-direction:column;gap:20px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">DRAFTING V1</div>
+          <sc-for list="{{ draftSteps }}" as="ds" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;font-size:16px;color:{{ ds.fg }}"><span style="width:10px;height:10px;border-radius:50%;background:{{ ds.dot }};flex:none;transition:background .3s"></span>{{ ds.label }}</div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}">
+        <div style="height:52px;flex:none;display:flex;align-items:stretch;gap:2px;padding:0 12px;overflow-x:auto;border-bottom:1px solid rgba(22,22,26,.08)">
+          <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4">
+            <button onClick="{{ tb.go }}" style="border:none;background:transparent;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0 10px;font-size:14px;font-weight:600;color:{{ tb.fg }};box-shadow:inset 0 -2px 0 {{ tb.bd }};white-space:nowrap">{{ tb.label }}<sc-if value="{{ tb.hasCount }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:1px 6px;border-radius:999px;background:{{ tb.cBg }};color:#FAF9F6">{{ tb.count }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ tabTry }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:1;overflow:auto;padding:22px 24px;display:flex;flex-direction:column;gap:18px;min-height:0">
+            <sc-if value="{{ noRuns }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="font-family:'Instrument Serif',serif;font-size:30px;line-height:1.15">Talk to it like a forum user would.</div>
+                <div style="font-size:14px;line-height:1.55;color:#5E5E66">Each reply lights up the spec as it runs. Mark it right or wrong — that's your feedback loop and your test data in one move.</div>
+                <div style="display:flex;flex-direction:column;gap:8px;padding-top:6px">
+                  <sc-for list="{{ samples }}" as="sm" hint-placeholder-count="5">
+                    <button onClick="{{ sm.go }}" style="text-align:left;cursor:pointer;font-size:14px;padding:10px 14px;border-radius:12px;border:1px solid rgba(22,22,26,.12);background:#fff">{{ sm.text }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-for list="{{ runs }}" as="r" hint-placeholder-count="0">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:#16161A;color:#FAF9F6;font-size:15px;line-height:1.45">{{ r.inputLabel }}</div>
+                <div style="padding:14px 16px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px {{ r.cardBd }};display:flex;flex-direction:column;gap:10px">
+                  <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:#9A9AA2"><span>{{ r.head }}</span><span>{{ r.meta }}</span></div>
+                  <sc-if value="{{ r.running }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:#D9481F">{{ r.firingLabel }}</div></sc-if>
+                  <sc-if value="{{ r.showItems }}" hint-placeholder-val="{{ false }}">
+                    <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="1">
+                      <div style="display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:10px;align-items:baseline">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;color:#5E5E66">{{ it.kind }}</span>
+                        <span style="font-size:14px;line-height:1.4">{{ it.quote }}</span>
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;white-space:nowrap;color:{{ it.color }}">{{ it.sev }} → {{ it.route }}</span>
+                      </div>
+                    </sc-for>
+                  </sc-if>
+                  <sc-if value="{{ r.showEmpty }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:#D9481F">No items extracted.</div></sc-if>
+                  <sc-if value="{{ r.showRows }}" hint-placeholder-val="{{ false }}">
+                    <sc-for list="{{ r.rows }}" as="rw" hint-placeholder-count="3">
+                      <div style="display:flex;gap:10px;align-items:baseline;font-size:13px"><span style="width:8px;height:8px;border-radius:50%;background:{{ rw.dot }};flex:none"></span><span style="flex:1;min-width:0;color:#3D3D44">{{ rw.t }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5E5E66;white-space:nowrap">{{ rw.out }}</span></div>
+                    </sc-for>
+                    <div style="display:flex;gap:10px;align-items:center;padding-top:4px"><span style="font-size:13px;font-weight:600;flex:1">{{ r.batchSummary }}</span><button onClick="{{ r.pinAll }}" style="cursor:pointer;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent">{{ r.pinAllLabel }}</button></div>
+                  </sc-if>
+                  <sc-if value="{{ r.scopedNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#5E5E66">Scoped run — only this step executed. Doesn't count toward proof.</div></sc-if>
+                  <sc-if value="{{ r.done }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:8px;align-items:center;padding-top:10px;border-top:1px solid rgba(22,22,26,.07);flex-wrap:wrap">
+                      <span onClick="{{ r.openTrace }}" style="font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;color:#3D3D44">Trace</span>
+                      <div style="flex:1"></div>
+                      <sc-if value="{{ r.fbNone }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ r.good }}" style="cursor:pointer;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent">Looks right</button>
+                        <button onClick="{{ r.bad }}" style="cursor:pointer;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent">Wrong</button>
+                      </sc-if>
+                      <sc-if value="{{ r.fbGoodDone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#1F7A4D">Pinned as a passing case</span></sc-if>
+                      <sc-if value="{{ r.fbBadDone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#D9481F">Added as a failing case</span><button onClick="{{ r.propose }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#16161A;color:#FAF9F6">Propose fix</button></sc-if>
+                    </div>
+                    <sc-if value="{{ r.fbAsk }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span style="font-size:13px;color:#5E5E66;margin-right:4px">What was wrong?</span>
+                        <sc-for list="{{ r.reasons }}" as="rs" hint-placeholder-count="3"><button onClick="{{ rs.pick }}" style="cursor:pointer;font-size:13px;padding:6px 12px;border-radius:999px;border:none;background:#EFEDE7">{{ rs.label }}</button></sc-for>
+                      </div>
+                    </sc-if>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;padding:12px 20px 20px;border-top:1px solid rgba(22,22,26,.08);display:flex;flex-direction:column;gap:10px;position:relative">
+            <sc-if value="{{ casePicker }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;left:20px;right:20px;bottom:100%;margin-bottom:8px;max-height:320px;overflow:auto;padding:8px;border-radius:16px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12),0 20px 40px -20px rgba(22,22,26,.4);display:flex;flex-direction:column;gap:2px">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:#9A9AA2;padding:6px 10px">PINNED CASES · {{ caseCount }}</div>
+                <sc-for list="{{ pickCases }}" as="pc" hint-placeholder-count="6">
+                  <div onClick="{{ pc.go }}" style="display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:10px;cursor:pointer;font-size:13px" style-hover="background:#F1EEE8"><span style="width:8px;height:8px;border-radius:50%;background:{{ pc.dot }};flex:none"></span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ pc.text }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9A9AA2">{{ pc.cluster }}</span></div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <span style="font-family:'Instrument Serif',serif;font-size:18px;margin-right:4px">Run on</span>
+              <sc-for list="{{ sources }}" as="so" hint-placeholder-count="4"><button onClick="{{ so.go }}" style="cursor:pointer;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;border:none;background:{{ so.bg }};color:{{ so.fg }};white-space:nowrap">{{ so.label }}</button></sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 6px 6px 18px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12)">
+              <input value="{{ chatText }}" onChange="{{ onChat }}" onKeyDown="{{ chatKey }}" placeholder="Write a forum post…" style="flex:1;border:none;outline:none;font-size:15px;background:transparent;min-width:0">
+              <button onClick="{{ sendChat }}" style="border:none;cursor:pointer;width:36px;height:36px;border-radius:50%;background:#16161A;color:#FAF9F6;font-size:16px;flex:none">↑</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabProof }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;overflow:auto;padding:26px 26px 32px;display:flex;flex-direction:column;gap:22px;min-height:0">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">{{ proofEyebrow }}</div>
+              <div style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1.12">Proven on <span style="color:#1F7A4D">{{ proofLabel }}</span> of what production sends.<sc-if value="{{ hasUntested }}" hint-placeholder-val="{{ false }}"><span style="font-style:italic;color:#D9481F"> {{ untestedLabel }} has never been tested.</span></sc-if></div>
+              <div style="display:flex;align-items:center;gap:10px"><span style="font-size:13px;color:#5E5E66;flex:1">{{ evalStatus }}</span><button onClick="{{ runEval }}" style="cursor:pointer;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent;white-space:nowrap">Re-run evals</button></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ clusters }}" as="cu" hint-placeholder-count="5">
+                <div onClick="{{ cu.toggle }}" style="padding:14px 16px;border-radius:14px;background:{{ cu.bg }};cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:background .15s">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><span style="font-size:15px;font-weight:600;color:{{ cu.nameColor }}">{{ cu.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5E5E66;white-space:nowrap">{{ cu.meta }}</span></div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+                    <sc-for list="{{ cu.dots }}" as="d" hint-placeholder-count="5"><span style="width:14px;height:14px;border-radius:4px;background:{{ d.bg }};box-shadow:inset 0 0 0 1.5px {{ d.bd }}"></span></sc-for>
+                    <sc-if value="{{ cu.empty }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#D9481F;margin-left:6px">no cases — seen 212 times last month</span></sc-if>
+                  </div>
+                  <sc-if value="{{ cu.isOpen }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column;gap:10px;padding-top:8px;border-top:1px solid rgba(22,22,26,.08)">
+                      <div style="font-size:14px;line-height:1.5;color:#3D3D44">{{ cu.cause }}</div>
+                      <sc-for list="{{ cu.fails }}" as="f" hint-placeholder-count="0">
+                        <div style="padding:10px 12px;border-radius:10px;background:#fff;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px">“{{ f.text }}”</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#D9481F">expected {{ f.expect }} · got {{ f.got }}</span></div>
+                      </sc-for>
+                      <div style="display:flex;gap:8px">
+                        <sc-if value="{{ cu.canFix }}" hint-placeholder-val="{{ false }}"><button onClick="{{ cu.fix }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;background:#16161A;color:#FAF9F6">Propose fix</button></sc-if>
+                        <sc-if value="{{ cu.canGen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ cu.gen }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;background:#16161A;color:#FAF9F6">Generate 4 cases from real traffic</button></sc-if>
+                        <sc-if value="{{ cu.allPass }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#1F7A4D">All cases pass.</span></sc-if>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(22,22,26,.08);border-bottom:1px solid rgba(22,22,26,.08)">
+              <div style="padding:14px 0;display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;color:#5E5E66">Cost per run</span><span style="font-family:'Instrument Serif',serif;font-size:28px">{{ costLabel }}</span></div>
+              <div style="padding:14px 0 14px 16px;display:flex;flex-direction:column;gap:4px;border-left:1px solid rgba(22,22,26,.08)"><span style="font-size:12px;color:#5E5E66">Latency</span><span style="font-family:'Instrument Serif',serif;font-size:28px">{{ latLabel }}</span></div>
+              <div style="padding:14px 0 14px 16px;display:flex;flex-direction:column;gap:4px;border-left:1px solid rgba(22,22,26,.08)"><span style="font-size:12px;color:#5E5E66">Cases</span><span style="font-family:'Instrument Serif',serif;font-size:28px">{{ caseSummary }}</span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">EVAL HISTORY</div>
+              <sc-for list="{{ evalHist }}" as="h" hint-placeholder-count="1">
+                <div style="display:grid;grid-template-columns:64px 1fr 56px;gap:12px;align-items:center;font-size:13px"><span style="font-family:'JetBrains Mono',monospace;color:#5E5E66">#{{ h.n }} · {{ h.v }}</span><div style="height:6px;border-radius:999px;background:#E6E3DC;overflow:hidden"><div style="height:100%;width:{{ h.w }};background:#1F7A4D;border-radius:999px"></div></div><span style="font-family:'JetBrains Mono',monospace;text-align:right">{{ h.proof }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabProps }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;overflow:auto;padding:26px;display:flex;flex-direction:column;gap:18px;min-height:0">
+            <sc-if value="{{ hasProps }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2;flex:1">{{ propCount }} · NOTHING CHANGES UNTIL YOU ACCEPT</span><button onClick="{{ prevProp }}" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:1px solid rgba(22,22,26,.2);background:transparent">←</button><button onClick="{{ nextProp }}" style="cursor:pointer;width:32px;height:32px;border-radius:50%;border:1px solid rgba(22,22,26,.2);background:transparent">→</button></div>
+              <div style="position:relative;padding-bottom:{{ stackPad }}">
+                <sc-if value="{{ behind2 }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:24px;right:-0px;top:24px;bottom:0;border-radius:22px;background:#E9E6DF"></div></sc-if>
+                <sc-if value="{{ behind1 }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:12px;right:0;top:12px;bottom:12px;border-radius:22px;background:#F1EEE8;box-shadow:0 0 0 1px rgba(22,22,26,.06)"></div></sc-if>
+                <div style="position:relative;border-radius:22px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12),0 24px 50px -30px rgba(22,22,26,.35);padding:24px;display:flex;flex-direction:column;gap:18px;margin-right:24px">
+                  <span style="align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:999px;background:#EFEDE7">{{ tp.src }}</span>
+                  <div style="font-family:'Instrument Serif',serif;font-size:30px;line-height:1.12">{{ tp.title }}</div>
+                  <div style="font-size:14px;line-height:1.55;color:#5E5E66">{{ tp.why }}</div>
+                  <div style="padding:14px 16px;border-radius:14px;background:#F8F7F3;font-size:15px;line-height:1.7;display:flex;flex-direction:column;gap:6px">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:#9A9AA2">CHANGE TO SPEC</span>
+                    <sc-if value="{{ tp.hasFrom }}" hint-placeholder-val="{{ true }}"><span style="text-decoration:line-through;color:#9A9AA2">{{ tp.from }}</span></sc-if>
+                    <span style="background:#E3F1E8;color:#14593A;padding:2px 6px;border-radius:6px;align-self:flex-start">{{ tp.to }}</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(22,22,26,.08);border-bottom:1px solid rgba(22,22,26,.08)">
+                    <div style="padding:12px 0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#5E5E66">Cost</span><span style="font-family:'Instrument Serif',serif;font-size:26px;color:{{ tp.costColor }}">{{ tp.cost }}</span></div>
+                    <div style="padding:12px 0 12px 14px;display:flex;flex-direction:column;gap:2px;border-left:1px solid rgba(22,22,26,.08)"><span style="font-size:12px;color:#5E5E66">Latency</span><span style="font-family:'Instrument Serif',serif;font-size:26px;color:{{ tp.latColor }}">{{ tp.lat }}</span></div>
+                    <div style="padding:12px 0 12px 14px;display:flex;flex-direction:column;gap:2px;border-left:1px solid rgba(22,22,26,.08)"><span style="font-size:12px;color:#5E5E66">Quality</span><span style="font-family:'Instrument Serif',serif;font-size:26px;color:{{ tp.qColor }}">{{ tp.quality }}</span></div>
+                  </div>
+                  <div style="display:flex;gap:8px;align-items:center">
+                    <button onClick="{{ tp.accept }}" style="border:none;cursor:pointer;font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;background:#16161A;color:#FAF9F6">Accept</button>
+                    <button onClick="{{ tp.dismiss }}" style="border:none;cursor:pointer;font-size:14px;padding:11px 14px;border-radius:999px;background:transparent;color:#5E5E66">Dismiss</button>
+                    <span style="margin-left:auto;font-size:12px;color:#9A9AA2">{{ tp.basis }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noProps }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:12px;padding-top:12px">
+                <div style="font-family:'Instrument Serif',serif;font-size:30px;line-height:1.15">No open proposals.</div>
+                <div style="font-size:14px;line-height:1.55;color:#5E5E66">Proposals come from three places: what you ask for in the spec composer, failing clusters in Proof, and Optimize looking for savings. The AI never edits the spec silently.</div>
+              </div>
+            </sc-if>
+            <button onClick="{{ findOpt }}" style="align-self:flex-start;cursor:pointer;font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent">{{ optLabel }}</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabVers }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;overflow:auto;padding:26px;display:flex;flex-direction:column;gap:22px;min-height:0">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">STRATA</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ strata }}" as="sv" hint-placeholder-count="1">
+                <div style="padding:16px 18px;border-radius:16px;background:{{ sv.bg }};color:{{ sv.fg }};display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:16px;font-weight:600">{{ sv.label }} <span style="font-weight:400;opacity:.75">· {{ sv.status }}</span></span><span style="font-family:'JetBrains Mono',monospace;font-size:13px">{{ sv.proof }}</span></div>
+                  <div style="height:4px;border-radius:999px;background:{{ sv.track }}"><div style="width:{{ sv.w }};height:100%;border-radius:999px;background:{{ sv.bar }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">CHANGES IN {{ draftLabelU }}</div>
+              <sc-if value="{{ noLog }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;color:#5E5E66">No changes yet.</div></sc-if>
+              <sc-for list="{{ logItems }}" as="lg" hint-placeholder-count="0"><div style="display:flex;gap:10px;font-size:14px;align-items:baseline"><span style="width:6px;height:6px;border-radius:50%;background:#16161A;flex:none;transform:translateY(-2px)"></span>{{ lg.text }}</div></sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabInspect }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;overflow:auto;padding:26px;display:flex;flex-direction:column;gap:20px;min-height:0">
+            <div style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:999px;background:#EFEDE7">{{ insp.role }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:{{ insp.statColor }}">{{ insp.stat }}</span><div style="flex:1"></div><span onClick="{{ closeInspect }}" style="cursor:pointer;font-size:20px;color:#5E5E66">×</span></div>
+            <div style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1.1">{{ insp.name }}</div>
+            <sc-if value="{{ insp.isAgent }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">MODEL</span>
+                <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ insp.models }}" as="m" hint-placeholder-count="3"><button onClick="{{ m.pick }}" style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;border-radius:999px;border:none;background:{{ m.bg }};color:{{ m.fg }}">{{ m.name }}</button></sc-for></div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">{{ insp.instrLabel }}</span>
+              <textarea value="{{ insp.instr }}" onChange="{{ onInstr }}" onBlur="{{ commitInstr }}" rows="4" style="border:none;outline:none;resize:vertical;font-size:15px;line-height:1.55;padding:12px 14px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12)"></textarea>
+              <span style="font-size:12px;color:#9A9AA2">Edits re-prove the system automatically when you click away.</span>
+            </div>
+            <sc-if value="{{ insp.hasFails }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#D9481F">FAILING HERE</span>
+                <sc-for list="{{ insp.fails }}" as="ff" hint-placeholder-count="1"><div style="padding:10px 12px;border-radius:10px;background:#F1EEE8;display:flex;flex-direction:column;gap:4px"><span style="font-size:13px">“{{ ff.text }}”</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#D9481F">expected {{ ff.expect }} · got {{ ff.got }}</span></div></sc-for>
+              </div>
+            </sc-if>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-if value="{{ insp.needsCases }}" hint-placeholder-val="{{ false }}"><button onClick="{{ genStep }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;background:#16161A;color:#FAF9F6">Generate cases for this step</button></sc-if>
+              <sc-if value="{{ insp.isAgent }}" hint-placeholder-val="{{ false }}"><button onClick="{{ runScoped }}" style="cursor:pointer;font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid rgba(22,22,26,.2);background:transparent">Run just this step</button></sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ libOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLib }}" style="position:fixed;inset:0;background:rgba(22,22,26,.35);display:flex;align-items:flex-start;justify-content:center;padding-top:80px;z-index:20">
+      <div onClick="{{ stop }}" data-screen-label="Library" style="width:860px;max-height:calc(100vh - 140px);overflow:auto;border-radius:24px;background:#FAF9F6;padding:28px;display:flex;flex-direction:column;gap:18px;box-shadow:0 40px 80px -30px rgba(22,22,26,.5)">
+        <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2;flex:1">ASK THE LIBRARY · RANKED BY FIT TO YOUR SPEC, THEN EVIDENCE</span><span onClick="{{ closeLib }}" style="cursor:pointer;font-size:20px;color:#5E5E66">×</span></div>
+        <input value="{{ libQuery }}" onChange="{{ onLibQuery }}" placeholder="Describe what you need — e.g. open a Jira ticket for P1s" autofocus="true" style="border:none;outline:none;font-family:'Instrument Serif',serif;font-size:30px;padding:16px 20px;border-radius:18px;background:#fff;box-shadow:0 0 0 1px rgba(22,22,26,.12)">
+        <div style="font-size:13px;color:#5E5E66">{{ libSub }}</div>
+        <sc-for list="{{ libResults }}" as="lr" hint-placeholder-count="3">
+          <div style="padding:20px 22px;border-radius:18px;background:#fff;box-shadow:0 0 0 {{ lr.bw }} #16161A;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-size:19px;font-weight:600">{{ lr.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;border-radius:999px;background:#EFEDE7">{{ lr.kind }}</span><span style="font-size:13px;color:#5E5E66">{{ lr.owner }}</span><div style="flex:1"></div>
+              <sc-if value="{{ lr.canInsert }}" hint-placeholder-val="{{ true }}"><button onClick="{{ lr.insert }}" style="border:none;cursor:pointer;font-size:13px;font-weight:600;padding:8px 16px;border-radius:999px;background:#16161A;color:#FAF9F6">Insert into spec</button></sc-if>
+              <sc-if value="{{ lr.added }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#1F7A4D">In your spec</span></sc-if>
+              <sc-if value="{{ lr.mismatch }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#D9481F">Contract mismatch</span></sc-if>
+            </div>
+            <div style="font-size:15px;line-height:1.5;color:#3D3D44">{{ lr.fit }}</div>
+            <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;padding-top:12px;border-top:1px solid rgba(22,22,26,.08)">
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:#9A9AA2">CONTRACT</span><pre style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;color:#3D3D44;white-space:pre-wrap">{{ lr.contract }}</pre></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:#9A9AA2">EVIDENCE</span><span style="font-size:13px;line-height:1.6;color:#3D3D44">{{ lr.evidence }}</span></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ promOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePromote }}" style="position:fixed;inset:0;background:rgba(22,22,26,.35);display:flex;align-items:center;justify-content:center;z-index:20">
+      <div onClick="{{ stop }}" data-screen-label="Promote" style="width:560px;border-radius:24px;background:#FAF9F6;padding:30px;display:flex;flex-direction:column;gap:20px;box-shadow:0 40px 80px -30px rgba(22,22,26,.5)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:#9A9AA2">PROMOTE {{ draftLabelU }} TO LIVE</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:34px;line-height:1.12">Promotion is earned, not clicked.</div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ checks }}" as="ck" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(22,22,26,.07)"><span style="width:12px;height:12px;border-radius:50%;background:{{ ck.dot }};flex:none"></span><span style="flex:1;font-size:15px">{{ ck.label }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E5E66">{{ ck.detail }}</span></div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ shadowVisible }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="height:6px;border-radius:999px;background:#E6E3DC;overflow:hidden"><div style="height:100%;width:{{ shadowW }};background:#16161A;transition:width .2s"></div></div>
+            <span style="font-size:12px;color:#9A9AA2">Shadow runs on 10% of live traffic without acting. 48 hours, compressed for the prototype.</span>
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:10px;align-items:center">
+          <sc-if value="{{ canShadow }}" hint-placeholder-val="{{ false }}"><button onClick="{{ startShadow }}" style="border:none;cursor:pointer;font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;background:#16161A;color:#FAF9F6">Start shadow run</button></sc-if>
+          <sc-if value="{{ canPromote }}" hint-placeholder-val="{{ false }}"><button onClick="{{ doPromote }}" style="border:none;cursor:pointer;font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;background:#1F7A4D;color:#fff">Promote to live</button></sc-if>
+          <sc-if value="{{ blocked }}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;color:#5E5E66">{{ blockedNote }}</span></sc-if>
+          <div style="flex:1"></div>
+          <button onClick="{{ closePromote }}" style="border:none;cursor:pointer;font-size:14px;padding:11px 14px;background:transparent;color:#5E5E66">Close</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);padding:12px 20px;border-radius:999px;background:#16161A;color:#FAF9F6;font-size:14px;z-index:30;box-shadow:0 16px 40px -16px rgba(22,22,26,.6);white-space:nowrap">{{ toast }}</div>
+  </sc-if>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const AG0 = {
+  trigger: { name: 'chat message', kind: 'trigger', role: 'Trigger', instr: 'Fires on every new post in #product-forum.' },
+  intake: { name: 'Intake', kind: 'agent', role: 'Agent', model: 'balanced-m', instr: 'Extract every feature request and pain point. Keep the customer’s exact words. One item per ask.' },
+  classifier: { name: 'Severity classifier', kind: 'agent', role: 'Agent', model: 'large-reasoning', instr: 'Score each item 1 (blocking) to 4 (nice to have). Check the backlog for duplicates first.' },
+  router: { name: 'Router', kind: 'agent', role: 'Agent', model: 'fast-small', instr: 'Severity 1 → post to #triage with the quote. Everything else → weekly digest.' },
+  jira: { name: 'jira-mcp', kind: 'tool', role: 'MCP connector', instr: 'Read access to the PROD backlog. Scope: read:issues.' },
+  slack: { name: 'slack #triage', kind: 'tool', role: 'MCP connector', instr: 'Posts as Feedback Bot. Scope: chat:write.' },
+};
+const MODELS = ['fast-small', 'balanced-m', 'large-reasoning'];
+const CLU = [
+  { id: 'single', name: 'Single feature request', traffic: 34, cause: 'Straightforward asks, scored 3 and batched into the digest.' },
+  { id: 'bug', name: 'Bug report', traffic: 22, cause: 'The classifier never receives image attachments, so bugs reported with a screenshot default to severity 2 and miss #triage.' },
+  { id: 'mixed', name: 'Mixed thread, several asks', traffic: 17, cause: 'Multiple asks in one post, each extracted and scored on its own.' },
+  { id: 'frus', name: 'Frustrated, no specifics', traffic: 16, cause: 'Vague complaints get scored 3 and buried in the digest instead of reaching a person.' },
+  { id: 'lang', name: 'Non-English feedback', traffic: 11, cause: 'Intake only reads English, so nothing reaches the classifier.' },
+];
+const SEED = [
+  ['single', 'Would love dark mode on the dashboard.'], ['single', 'Can we export reports to CSV?'], ['single', 'Please add SSO for Okta.'],
+  ['single', 'A keyboard shortcut for search would help.'], ['single', 'Let me bulk-edit tags on assets.'], ['single', 'Pin favorite datasets to the home page, please.'],
+  ['bug', 'Export hangs at 90% every time.'], ['bug', 'Login loops back to sign-in on Safari.'], ['bug', 'Search returns nothing for quoted terms.'],
+  ['bug', 'Checkout button does nothing — see screenshot.'], ['bug', 'Chart labels overlap, screenshot attached.'], ['bug', 'Error banner in the attached screenshot, can’t save.'],
+  ['mixed', 'Love the new catalog. Also, filters reset when I go back.'], ['mixed', 'Dark mode please, plus the export is slow.'], ['mixed', 'Great update. Also, can we get Slack alerts?'],
+  ['mixed', 'Sharing works now, and also could we get folders?'], ['mixed', 'Nice search. Also the page crashes on Firefox.'],
+  ['frus', 'I hate that export keeps failing.'], ['frus', 'Awful: the page crashes when I filter.'], ['frus', 'Worst release yet, search is broken.'], ['frus', 'This tool is useless lately.'],
+];
+const LANG = ['La exportación se bloquea al 90%.', 'Le bouton de paiement ne marche pas.', 'Bitte einen Dark Mode hinzufügen.', '検索が動きません。'];
+const TRANS = { 'La exportación se bloquea al 90%.': 'Export freezes at 90%.', 'Le bouton de paiement ne marche pas.': 'The payment button doesn’t work.', 'Bitte einen Dark Mode hinzufügen.': 'Please add a dark mode.', '検索が動きません。': 'Search doesn’t work.', 'No funciona el login.': 'Login doesn’t work.' };
+const SAMPLES = ['Export hangs at 90% every time.', 'Checkout button does nothing — see screenshot.', 'Would love dark mode. Also, the search is broken.', 'Le bouton de paiement ne marche pas.', 'This tool is useless lately.'];
+const VARIANTS = {
+  single: ['Would love dark mode on the dashboard.', 'Dark theme please — my eyes hurt at night.', 'Any plans for a dark mode?', 'Can the dashboard follow my OS dark setting?', 'Night mode would be great.'],
+  bug: ['Export hangs at 90% every time.', 'Export freezes near the end — screenshot attached.', 'CSV export never finishes, it’s stuck.', 'Export stuck at 90%, see screenshot.', 'Exports fail on large reports.'],
+  mixed: ['Love the update. Also, filters reset.', 'Dark mode please, plus export is slow.', 'Nice. Also the page crashes on Firefox.', 'Great search. Also can we get folders?', 'Sharing works, and also tags are broken.'],
+  frus: ['This tool is useless lately.', 'Honestly the worst release yet.', 'I hate this new version.', 'Awful experience lately.', 'Garbage update.'],
+  lang: ['Le bouton de paiement ne marche pas.', 'La exportación se bloquea al 90%.', 'No funciona el login.', 'Bitte einen Dark Mode hinzufügen.', '検索が動きません。'],
+};
+const FILE = ['Exports fail on large reports.', 'Would love folders for datasets.', 'Upload button does nothing, screenshot attached.', 'This tool is useless lately.'];
+const REASONS = [{ id: 'sev', label: 'Wrong severity', blame: 'classifier' }, { id: 'miss', label: 'Missed an item', blame: 'intake' }, { id: 'route', label: 'Wrong destination', blame: 'router' }];
+const FIXP = {
+  attach: { src: 'FROM PROOF · BUG REPORT', title: 'Read screenshots before scoring.', why: 'Bug reports with a screenshot lose their severity because the classifier never sees the attachment.', from: '…keeping the customer’s own words.', to: '…keeping the customer’s own words and any attached screenshots.', cost: '+4%', lat: '+0.3s' },
+  lang: { src: 'FROM PROOF · NON-ENGLISH', title: 'Translate before extracting.', why: 'Intake only reads English, so 11% of real traffic produces nothing.', from: '…reads it and pulls out every feature request…', to: '…reads it, translates it to English if needed, and pulls out every feature request…', cost: '+10%', lat: '+0.4s' },
+  clarify: { src: 'FROM PROOF · FRUSTRATED', title: 'Send vague complaints to a person.', why: 'Complaints with no specifics get scored 3 and buried in the digest. A human can follow up.', from: 'Skip messages under four words.', to: 'Skip messages under four words. Hand vague complaints with no specifics to a human.', cost: '±0', lat: '±0' },
+  small: { src: 'FROM OPTIMIZE', title: 'Route easy items to a smaller model.', why: 'Most items are unambiguous. A small model handles them; hard ones still escalate.', from: '…using large-reasoning for every item.', to: '…using fast-small, escalating to large-reasoning below 0.6 confidence.', cost: '−62%', lat: '−2.1s' },
+  cache: { src: 'FROM OPTIMIZE', title: 'Cache backlog lookups.', why: 'The classifier queries jira-mcp for every item; the backlog changes slowly.', from: '…against the jira-mcp backlog,', to: '…against the jira-mcp backlog (cached for 10 minutes),', cost: '−8%', lat: '−0.9s' },
+};
+const LIB = [
+  { id: 'jirawriter', name: 'Jira ticket writer', kind: 'skill', owner: 'Platform Eng · v2.3', suggest: true, tags: 'jira ticket issue repro p1 bug file open create', fit: 'Accepts the classifier’s item{} as-is and reuses your jira-mcp connection — no glue step.', contract: 'in   item{ quote, severity, source }\nout  ticket{ key, url, repro[] }\nneeds jira-mcp · write:issues', evidence: '31/32 org evals pass · used in 41 systems · 0 incidents in 90 days', clause: ['For severity-1 items, ', { t: 'jirawriter' }, ' also opens a ticket with repro steps.'] },
+  { id: 'dedupe', name: 'Duplicate detector', kind: 'agent', owner: 'Data Products · v1.4', suggest: true, tags: 'duplicate dedupe similar merge same repeat', fit: 'Runs before routing to merge repeats, so the digest stops listing the same ask six times.', contract: 'in   item[]\nout  item[]  (merged, with count)', evidence: '22/24 org evals pass · used in 17 systems', clause: [{ t: 'dedupe' }, ' merges repeated asks before routing, keeping a count.'] },
+  { id: 'pii', name: 'PII redactor', kind: 'skill', owner: 'Security · v3.0', suggest: true, tags: 'pii privacy redact email name personal mask gdpr', fit: 'Strips names and emails from quotes before they leave the forum.', contract: 'in   text\nout  text (redacted) + spans[]', evidence: '48/48 org evals pass · used in 112 systems · CDO preferred', clause: [{ t: 'pii' }, ' redacts names and emails from every quote before it is posted.'] },
+  { id: 'sentiment', name: 'Sentiment scorer', kind: 'agent', owner: 'Applied AI · v0.9', tags: 'sentiment tone angry emotion mood frustrated', fit: 'Adds a tone score to each item, useful for ranking the digest.', contract: 'in   item{}\nout  item{ +tone: -1..1 }', evidence: '14/20 org evals pass · used in 9 systems', clause: [{ t: 'sentiment' }, ' adds a tone score to each item.'] },
+  { id: 'issuedrafter', name: 'Issue drafter', kind: 'agent', owner: 'Dev Tools · v1.1', mismatch: true, tags: 'jira ticket issue draft create', fit: 'Expects plain text, not item{} — would need a mapping step in front of it.', contract: 'in   text\nout  issue{ title, body }', evidence: '18/24 org evals pass · used in 6 systems' },
+  { id: 'confluence', name: 'Confluence search', kind: 'MCP', owner: 'Knowledge · v2.0', tags: 'confluence docs search wiki knowledge known issue', fit: 'Lets the classifier check known-issue pages before scoring.', contract: 'in   query\nout  page[]{ title, url, snippet }', evidence: '40/41 org evals pass · used in 63 systems', clause: [{ t: 'confluence' }, ' is checked for known-issue pages before scoring.'] },
+];
+const trunc = (t, n) => t.length > n ? t.slice(0, n - 1) + '…' : t;
+
+class Component extends DCLogic {
+  state = {
+    phase: 'start', startText: 'Triage product feedback from our forum: pull out feature requests and bugs, score severity against the Jira backlog, post P1s to Slack and batch the rest into a weekly digest.',
+    draftStep: 0, fixes: [], rules: [], extras: [], tested: {}, edits: {}, editDraft: null,
+    cases: [], evalRunning: false, evalDone: 0, evalHist: [],
+    proposals: [], customProps: {}, propIdx: 0, optRunning: false,
+    runs: [], chatText: '', source: 'type', casePicker: false, selRunId: null, selLane: null, traceOpen: false, firingId: null,
+    tab: 'try', inspectId: null, specView: 'spec', composer: '', buildReply: null, openCluster: null,
+    libOpen: false, libQuery: '', promOpen: false, shadowPct: 0, shadowRunning: false, shadowAt: -1, changeN: 0,
+    versions: [{ v: 1, status: 'draft' }], log: [], toast: null,
+  };
+  _t = []; _u = 0; _id = 0;
+  later(fn, ms) { const h = setTimeout(fn, ms); this._t.push(h); return h; }
+  componentWillUnmount() { this._t.forEach(clearTimeout); clearInterval(this._evalIv); clearInterval(this._shIv); clearInterval(this._drIv); }
+  toast(m) { clearTimeout(this._toastT); this.setState({ toast: m }); this._toastT = this.later(() => this.setState({ toast: null }), 2800); }
+  draftV(st) { return (st || this.state).versions.find(v => v.status === 'draft').v; }
+
+  agents() {
+    const s = this.state, A = {};
+    Object.keys(AG0).forEach(k => { A[k] = { ...AG0[k], ...(s.edits[k] || {}) }; });
+    s.extras.forEach(id => { const l = LIB.find(x => x.id === id); A[id] = { name: l.name, kind: 'agent', role: l.kind === 'MCP' ? 'MCP connector' : l.kind === 'skill' ? 'Skill' : 'Agent', model: 'balanced-m', instr: l.fit, isNew: true, ...(s.edits[id] || {}) }; });
+    if (s.fixes.includes('small')) A.classifier.model = 'fast-small';
+    return A;
+  }
+  pipeline() { return ['trigger', 'intake', 'classifier', ...this.state.extras, 'router']; }
+
+  analyze(text, fx) {
+    const raw = text.trim(), t = raw.toLowerCase();
+    const nonEng = /[\u3040-\u30ff\u4e00-\u9fff]/.test(raw) || /[áéíóúñçàèùâêîôûäöü]/.test(t) || /\b(la|el|le|ne|pas|bitte|einen|funciona)\b/.test(t);
+    let src = raw;
+    if (nonEng) {
+      if (!fx.has('lang')) return { cluster: 'lang', items: [], needs: 'lang', ok: false, blame: 'intake', expect: '1 item, translated' };
+      src = TRANS[raw] || raw;
+    }
+    const s = src.toLowerCase();
+    const isBug = x => /hang|crash|error|broken|does nothing|doesn.?t work|fail|bug|loop|stuck|can.?t|reset|overlap|returns nothing|slow|freez|never finishes/.test(x.toLowerCase());
+    const shot = /screenshot|attached|image/.test(s);
+    const vague = /useless|terrible|worst|awful|garbage|hate/.test(s) && !isBug(s);
+    const parts = /\b(also|plus)\b/.test(s) ? src.split(/\b(?:and also|also|plus)\b,?/i).map(x => x.replace(/^[\s,.;:]+|[\s,]+$/g, '')).filter(x => x.length > 2) : [src];
+    const cluster = nonEng ? 'lang' : parts.length > 1 ? 'mixed' : isBug(s) ? 'bug' : vague ? 'frus' : 'single';
+    if (vague) {
+      if (fx.has('clarify')) return { cluster, items: [{ kind: 'complaint', quote: src, sev: '—', route: 'Human review' }], needs: 'clarify', ok: true, blame: 'router', expect: 'hand to a human' };
+      return { cluster, items: [{ kind: 'pain point', quote: src, sev: 'S3', route: 'Weekly digest' }], needs: 'clarify', ok: false, blame: 'router', expect: 'hand to a human' };
+    }
+    const items = parts.map(p => {
+      const b = isBug(p), praise = !b && /^(love|great|nice|sharing works)/i.test(p);
+      const sev = b ? ((shot && !fx.has('attach')) ? 2 : 1) : praise ? 4 : 3;
+      return { kind: b ? 'bug' : praise ? 'praise' : 'feature', quote: nonEng ? p + ' (translated)' : p, sev: 'S' + sev, route: sev === 1 ? '#triage' : 'Weekly digest' };
+    });
+    let needs = (shot && items.some(i => i.kind === 'bug')) ? 'attach' : null;
+    if (nonEng) needs = 'lang';
+    return { cluster, items, needs, ok: !needs || fx.has(needs), blame: needs === 'attach' ? 'classifier' : needs === 'lang' ? 'intake' : null, expect: needs === 'attach' ? 'S1 → #triage' : '1 item, translated' };
+  }
+  summarize(a) { return a.items.length ? a.items.map(i => i.sev + ' → ' + i.route).join(', ') : 'no items'; }
+  mkCase(cluster, text, extra) {
+    const a = this.analyze(text, new Set());
+    return { id: 'k' + (++this._id), cluster, text, needs: a.needs, blame: a.blame, expect: a.expect, result: null, ...(extra || {}) };
+  }
+
+  metrics() {
+    const f = new Set(this.state.fixes), n = this.state.extras.length;
+    let c = 0.031; if (f.has('small')) c *= 0.38; if (f.has('cache')) c *= 0.92; if (f.has('attach')) c *= 1.04; if (f.has('lang')) c *= 1.1; c += n * 0.004;
+    let l = 6.8 - (f.has('small') ? 2.1 : 0) - (f.has('cache') ? 0.9 : 0) + (f.has('attach') ? 0.3 : 0) + (f.has('lang') ? 0.4 : 0) + n * 0.7;
+    return { cost: '$' + c.toFixed(3), lat: l.toFixed(1) + 's', c, l };
+  }
+  stats() {
+    const s = this.state;
+    const cl = CLU.map(c => { const cs = s.cases.filter(x => x.cluster === c.id); const ev = cs.filter(x => x.result); const pass = ev.filter(x => x.result === 'pass').length; return { ...c, cs, ev, pass, fail: ev.length - pass, rate: ev.length ? pass / ev.length : 0, empty: cs.length === 0 }; });
+    const proof = Math.round(cl.reduce((a, c) => a + c.traffic * c.rate, 0));
+    const untested = cl.filter(c => c.empty).reduce((a, c) => a + c.traffic, 0);
+    const failing = s.cases.filter(c => c.result === 'fail').length;
+    const untestedSteps = s.extras.filter(e => !s.tested[e]).length;
+    return { cl, proof, untested, failing, untestedSteps, evaluated: s.evalHist.length > 0 };
+  }
+
+  startDraft() {
+    this.setState({ phase: 'drafting', draftStep: 0 });
+    this._drIv = setInterval(() => {
+      const n = this.state.draftStep + 1;
+      if (n >= 6) {
+        clearInterval(this._drIv);
+        this.setState({ phase: 'ready', draftStep: 6, cases: SEED.map(([c, t]) => this.mkCase(c, t)) }, () => this.runEval(true));
+      } else this.setState({ draftStep: n });
+    }, 650);
+  }
+  scheduleEval() { clearTimeout(this._evT); this._evT = this.later(() => this.runEval(), 450); }
+  runEval(first) {
+    clearInterval(this._evalIv);
+    const total = this.state.cases.length;
+    this.setState({ evalRunning: true, evalDone: 0 });
+    this._evalIv = setInterval(() => {
+      const d = this.state.evalDone + 1;
+      if (d >= total) {
+        clearInterval(this._evalIv);
+        this.setState(st => {
+          const fx = new Set(st.fixes);
+          const cases = st.cases.map(c => ({ ...c, result: (!c.needs || fx.has(c.needs)) ? 'pass' : 'fail' }));
+          return { cases, evalRunning: false, evalDone: total };
+        }, () => {
+          const p = this.stats().proof;
+          this.setState(st => ({ evalHist: [...st.evalHist, { n: st.evalHist.length + 1, proof: p, v: 'v' + this.draftV(st) }] }));
+          if (first) { this.setState(st => ({ proposals: [...st.proposals, 'small'] })); this.toast('v1 proven at ' + p + '% · Optimize found a saving'); }
+        });
+      } else this.setState({ evalDone: d });
+    }, 45);
+  }
+
+  prop(id) { return FIXP[id] || this.state.customProps[id]; }
+  propose(ids) {
+    const s = this.state, fx = new Set(s.fixes);
+    const fresh = ids.filter(id => id && !fx.has(id));
+    if (!fresh.length) { this.toast('Already fixed — re-run evals to confirm'); return 0; }
+    const list = [...s.proposals]; fresh.forEach(id => { if (!list.includes(id)) list.push(id); });
+    this.setState({ proposals: list, propIdx: list.indexOf(fresh[0]), tab: 'props' });
+    return fresh.length;
+  }
+  accept(id) {
+    const p = this.prop(id);
+    this.setState(st => ({ fixes: [...st.fixes, id], rules: p.rule ? [...st.rules, p.rule] : st.rules, proposals: st.proposals.filter(x => x !== id), propIdx: 0, log: [...st.log, { v: this.draftV(st), text: 'Accepted: ' + p.title }], changeN: st.changeN + 1, buildReply: null }));
+    this.toast('Accepted — re-proving');
+    this.scheduleEval();
+  }
+  dismiss(id) { this.setState(st => ({ proposals: st.proposals.filter(x => x !== id), propIdx: 0 })); }
+  findOpt() {
+    this.setState({ optRunning: true });
+    this.later(() => { this.setState({ optRunning: false }); const n = this.propose(['small', 'cache'].filter(x => !this.state.fixes.includes(x))); if (!n) this.toast('No further savings found'); }, 1100);
+  }
+
+  runChat(input, opts) {
+    const text = (input || '').trim(); if (!text) return;
+    const o = opts || {}, fx = new Set(this.state.fixes), M = this.metrics();
+    const ids = o.scoped ? [o.scoped] : this.pipeline();
+    const isBatch = !!o.rows;
+    const rows = isBatch ? o.rows.map(t => ({ t, a: this.analyze(t, fx) })) : null;
+    const a = isBatch ? rows[0].a : this.analyze(text, fx);
+    const D = { trigger: 0.2, intake: fx.has('lang') ? 1.5 : 1.1, classifier: (fx.has('small') ? 0.9 : 2.2) - (fx.has('cache') ? 0.4 : 0) + (fx.has('attach') ? 0.3 : 0), router: 0.6 };
+    let t = 0; const steps = ids.map(id => { const d = D[id] || 0.7; const st = { id, start: t, dur: d }; t += d + 0.15; return st; });
+    const id = 'r' + (++this._id);
+    const run = { id, kind: isBatch ? 'batch' : 'single', input: text, label: o.label || text, a, rows, steps, total: t, firing: 0, status: 'running', fb: null, scoped: o.scoped || null, cost: M.cost };
+    this.setState(st => ({ runs: [...st.runs, run], selRunId: id, traceOpen: true, selLane: null, chatText: '', casePicker: false, tab: 'try' }));
+    const go = i => {
+      if (i >= steps.length) { this.updRun(id, { status: 'done' }); this.setState({ firingId: null }); return; }
+      this.updRun(id, { firing: i }); this.setState({ firingId: steps[i].id });
+      this.later(() => go(i + 1), steps[i].dur * 420 + 60);
+    };
+    go(0);
+  }
+  updRun(id, patch) { this.setState(st => ({ runs: st.runs.map(r => r.id === id ? { ...r, ...patch } : r) })); }
+  lastInput() { const r = [...this.state.runs].reverse().find(x => x.kind === 'single'); return r ? r.input : SAMPLES[0]; }
+  addCase(c, msg) { this.setState(st => ({ cases: [...st.cases, c], changeN: st.changeN + 1 })); if (msg) this.toast(msg); }
+
+  feedback(runId, kind) {
+    const r = this.state.runs.find(x => x.id === runId);
+    if (kind === 'good') { this.addCase({ ...this.mkCase(r.a.cluster, r.input), needs: null, blame: null, result: 'pass', src: 'chat' }, 'Pinned as a passing case'); this.updRun(runId, { fb: 'good' }); }
+    else this.updRun(runId, { fb: 'ask' });
+  }
+  pickReason(runId, rs) {
+    const s = this.state, r = s.runs.find(x => x.id === runId), fx = new Set(s.fixes), a = r.a;
+    let needs, blame, expect;
+    if (a.needs && !fx.has(a.needs)) { needs = a.needs; blame = a.blame; expect = a.expect; }
+    else {
+      needs = 'u' + (++this._u); blame = rs.blame; const q = trunc(r.input, 44);
+      const rule = rs.id === 'sev' ? 'Treat posts like “' + q + '” as severity 1.' : rs.id === 'miss' ? 'Extract every distinct ask, even short ones like “' + q + '”.' : 'Send items like “' + q + '” to #triage.';
+      expect = rs.id === 'sev' ? 'S1' : rs.id === 'miss' ? 'one more item' : '#triage';
+      this.setState(st => ({ customProps: { ...st.customProps, [needs]: { src: 'FROM YOUR FEEDBACK', title: 'Learn from your correction.', why: 'You marked “' + q + '” wrong — ' + rs.label.toLowerCase() + '.', from: '', to: rule, rule, cost: '±0', lat: '±0' } } }));
+    }
+    this.addCase({ id: 'k' + (++this._id), cluster: a.cluster, text: r.input, needs, blame, expect, result: 'fail', src: 'feedback' }, 'Added as a failing case — Proof updated');
+    this.updRun(runId, { fb: 'bad', caseNeeds: needs });
+  }
+  payload(r, lane) {
+    const a = r.a, input = r.kind === 'batch' ? r.rows[0].t : r.input;
+    if (lane === 'trigger') return { channel: '#product-forum', text: input };
+    if (lane === 'intake') return { items: a.items.map(i => ({ quote: i.quote, kind: i.kind })) };
+    if (lane === 'classifier') return { items: a.items.map((i, k) => ({ quote: trunc(i.quote, 30), severity: parseInt(i.sev.slice(1)) || null, confidence: [0.91, 0.58, 0.83][k % 3] })) };
+    if (lane === 'router') return { routes: a.items.map(i => ({ to: i.route, severity: i.sev })) };
+    return { step: (LIB.find(l => l.id === lane) || {}).name, passed_through: a.items.length };
+  }
+
+  sendBuild() {
+    const t = this.state.composer.trim(); if (!t) return;
+    const l = t.toLowerCase(); let ids = [], reply;
+    if (/cheap|cost|fast|latency|speed|smaller|save/.test(l)) ids = ['small', 'cache'];
+    else if (/screenshot|image|attach/.test(l)) ids = ['attach'];
+    else if (/language|spanish|french|german|translat|english|japanese/.test(l)) ids = ['lang'];
+    else if (/vague|human|person|clarif|escalat/.test(l)) ids = ['clarify'];
+    else if (/jira|ticket|duplicate|dedupe|pii|redact|privacy|sentiment|tone|confluence|wiki/.test(l)) { this.setState({ composer: '', libOpen: true, libQuery: t, buildReply: null }); return; }
+    else { const id = 'u' + (++this._u); const rule = /[.!?]$/.test(t) ? t : t + '.'; this.setState(st => ({ customProps: { ...st.customProps, [id]: { src: 'FROM YOUR INSTRUCTION', title: 'Add a rule.', why: 'You asked: “' + trunc(t, 80) + '”. It will be proved against all cases once accepted.', from: '', to: rule, rule, cost: '±0', lat: '±0' } } }), () => { this.propose([id]); }); this.setState({ composer: '', buildReply: 'Drafted a proposal from your instruction.' }); return; }
+    ids = ids.filter(x => !this.state.fixes.includes(x));
+    if (ids.length) { this.propose(ids); reply = 'Drafted ' + ids.length + ' proposal' + (ids.length > 1 ? 's' : '') + ' — nothing changes until you accept.'; }
+    else reply = 'That’s already in the spec.';
+    this.setState({ composer: '', buildReply: reply });
+  }
+  insertLib(id) {
+    const l = LIB.find(x => x.id === id);
+    this.setState(st => ({ extras: [...st.extras, id], tested: { ...st.tested, [id]: false }, libOpen: false, changeN: st.changeN + 1, log: [...st.log, { v: this.draftV(st), text: 'Added ' + l.name }], tab: 'inspect', inspectId: id }));
+    this.toast('Added ' + l.name + ' — untested until it has cases');
+  }
+  genStep(id) {
+    const texts = ['Export hangs again, plus the same export bug as last week.', 'Dark mode please. Also dark mode please!', 'Contact me at ana@corp.com about the checkout bug.'];
+    this.setState(st => ({ tested: { ...st.tested, [id]: true }, cases: [...st.cases, ...texts.map(t => ({ ...this.mkCase('mixed', t), needs: null, blame: null }))], changeN: st.changeN + 1 }));
+    this.toast('Generated 3 cases for this step — proving');
+    this.scheduleEval();
+  }
+  genCluster(cid) {
+    this.setState(st => ({ cases: [...st.cases, ...LANG.map(t => this.mkCase(cid, t))], changeN: st.changeN + 1 }));
+    this.toast('Pulled 4 non-English posts from real traffic — proving');
+    this.scheduleEval();
+  }
+  setModel(id, m) {
+    if (id === 'classifier') {
+      const has = this.state.fixes.includes('small');
+      if (m === 'fast-small' && !has) this.setState(st => ({ fixes: [...st.fixes, 'small'], proposals: st.proposals.filter(x => x !== 'small') }));
+      if (m !== 'fast-small' && has) this.setState(st => ({ fixes: st.fixes.filter(x => x !== 'small') }));
+    }
+    this.setState(st => ({ edits: { ...st.edits, [id]: { ...(st.edits[id] || {}), model: m } }, changeN: st.changeN + 1, log: [...st.log, { v: this.draftV(st), text: this.agents()[id].name + ' → ' + m }] }));
+    this.scheduleEval();
+  }
+  commitInstr() {
+    const s = this.state, id = s.inspectId; if (s.editDraft == null || !id) return;
+    const A = this.agents(); if (s.editDraft === A[id].instr) { this.setState({ editDraft: null }); return; }
+    this.setState(st => ({ edits: { ...st.edits, [id]: { ...(st.edits[id] || {}), instr: st.editDraft } }, editDraft: null, changeN: st.changeN + 1, log: [...st.log, { v: this.draftV(st), text: 'Edited ' + A[id].name + ' instructions' }] }));
+    this.toast('Instructions updated — re-proving');
+    this.scheduleEval();
+  }
+  startShadow() {
+    this.setState({ shadowRunning: true, shadowPct: 0 });
+    clearInterval(this._shIv);
+    this._shIv = setInterval(() => {
+      const p = this.state.shadowPct + 4;
+      if (p >= 100) { clearInterval(this._shIv); this.setState(st => ({ shadowPct: 100, shadowRunning: false, shadowAt: st.changeN })); }
+      else this.setState({ shadowPct: p });
+    }, 90);
+  }
+  doPromote() {
+    const p = this.stats().proof;
+    this.setState(st => {
+      const dv = this.draftV(st);
+      const versions = st.versions.map(v => v.status === 'live' ? { ...v, status: 'retired' } : v.status === 'draft' ? { ...v, status: 'live', proof: p } : v);
+      return { versions: [...versions, { v: dv + 1, status: 'draft' }], promOpen: false, shadowPct: 0, shadowAt: -1, log: [...st.log, { v: dv + 1, text: 'Branched from v' + dv }] };
+    });
+    this.toast('v' + this.draftV() + ' is live · editing a new draft');
+  }
+
+  renderVals() {
+    const s = this.state, A = this.agents(), S = this.stats(), M = this.metrics(), fx = new Set(s.fixes);
+    const dv = this.draftV(), live = s.versions.find(v => v.status === 'live');
+    const drafting = s.phase === 'drafting', ready = s.phase === 'ready';
+    const stop = e => e.stopPropagation();
+    const openTok = id => () => this.setState({ tab: 'inspect', inspectId: id, editDraft: null });
+    const tokVis = id => {
+      const a = A[id];
+      const fire = s.firingId === id || (id === 'jira' && s.firingId === 'classifier') || (id === 'slack' && s.firingId === 'router');
+      if (a.kind === 'tool') return { isTool: true, isAgent: false, isText: false, text: a.name, open: openTok(id), bg: fire ? '#16161A' : '#EFEDE7', fg: fire ? '#FAF9F6' : '#16161A' };
+      let ring = '#1F7A4D', dash = '35 35', untested = false;
+      if (a.isNew && !s.tested[id]) untested = true;
+      else if (!S.evaluated || s.evalRunning) ring = '#9A9AA2';
+      else { const tot = s.cases.filter(c => c.result).length; const f = s.cases.filter(c => c.result === 'fail' && c.blame === id).length; if (f) { ring = '#D9481F'; dash = (34.6 * (tot - f) / tot).toFixed(1) + ' 35'; } }
+      const insp = s.tab === 'inspect' && s.inspectId === id;
+      return { isAgent: true, isTool: false, isText: false, text: a.name, open: openTok(id), untested, tested: !untested, ring, dash, bg: fire ? '#16161A' : insp ? '#F1EEE8' : '#fff', fg: fire ? '#FAF9F6' : '#16161A', bd: fire ? '#16161A' : insp ? '#16161A' : 'rgba(22,22,26,.14)' };
+    };
+    const c1 = ['When a ', { t: 'trigger' }, ' arrives from the product forum, ', { t: 'intake' }, fx.has('lang') ? ' reads it, translates it to English if needed, and pulls out every feature request and pain point, keeping the customer’s own words' : ' reads it and pulls out every feature request and pain point, keeping the customer’s own words', fx.has('attach') ? ' and any attached screenshots.' : '.'];
+    const c2 = [{ t: 'classifier' }, ' scores each item 1–4 against the ', { t: 'jira' }, fx.has('cache') ? ' backlog (cached for 10 minutes), ' : ' backlog, ', fx.has('small') ? 'using fast-small and escalating to large-reasoning below 0.6 confidence.' : 'using large-reasoning for every item.'];
+    const c3 = ['Then ', { t: 'router' }, ' files severity-1 items straight to ', { t: 'slack' }, ' and batches the rest into a weekly digest.'];
+    const c4 = ['Never paraphrase quotes. Skip messages under four words.' + (fx.has('clarify') ? ' Hand vague complaints with no specifics to a human.' : '') + s.rules.map(r => ' ' + r).join('')];
+    let raw = [{ id: 'c1', label: 'FLOW', parts: c1 }, { id: 'c2', parts: c2 }, ...s.extras.map(e => ({ id: e, parts: LIB.find(l => l.id === e).clause })), { id: 'c3', parts: c3 }, { id: 'c4', label: 'ALWAYS', parts: c4 }];
+    if (drafting) raw = raw.slice(0, Math.min(s.draftStep, raw.length));
+    const clauses = raw.map(cl => ({ hasLabel: !!cl.label, label: cl.label, color: '#16161A', parts: cl.parts.map(p => typeof p === 'string' ? { isText: true, isAgent: false, isTool: false, text: p } : tokVis(p.t)) }));
+
+    const order = [...this.pipeline(), 'jira', 'slack'];
+    const graphNodes = order.map((id, i) => { const v = tokVis(id), a = A[id]; const f = s.cases.filter(c => c.result === 'fail' && c.blame === id).length; const tot = s.cases.filter(c => c.result).length;
+      return { name: a.name, open: v.open, hasNext: i < order.length - 3, bg: v.bg === '#16161A' ? '#16161A' : a.kind === 'tool' ? '#EFEDE7' : '#fff', fg: v.fg, bd: f ? '#D9481F' : 'rgba(22,22,26,.1)', dot: a.kind === 'tool' ? '#9A9AA2' : v.untested ? 'transparent' : f ? '#D9481F' : '#1F7A4D', stat: a.kind === 'tool' ? 'connector' : a.kind === 'trigger' ? 'trigger' : v.untested ? 'untested' : tot ? (tot - f) + '/' + tot : '—', statColor: f ? '#D9481F' : '#5E5E66' }; });
+
+    const sel = s.runs.find(r => r.id === s.selRunId);
+    let lanes = [], ticks = [], traceTitle = '', selTitle = '', selJson = '';
+    if (sel) {
+      const T = sel.total, done = sel.status === 'done';
+      ticks = Array.from({ length: Math.ceil(T) + 1 }, (_, i) => ({ label: i + 's' }));
+      lanes = sel.steps.map((st, i) => {
+        const fin = done || i < sel.firing, act = !done && i === sel.firing;
+        const blamed = done && sel.kind === 'single' && !sel.a.ok && sel.a.blame === st.id;
+        const L = st.start / T * 100, W = Math.max(st.dur / T * 100, 2);
+        const ghosts = sel.kind === 'batch' && fin ? sel.rows.map((rw, j) => ({ left: L + '%', width: (W * (0.75 + ((j * 37 + i * 13) % 45) / 100)).toFixed(1) + '%', top: (34 + j * 6) + 'px', bg: (!rw.a.ok && rw.a.blame === st.id) ? '#D9481F' : 'rgba(22,22,26,.28)' })) : [];
+        return { name: A[st.id].name, left: L + '%', width: W + '%', bg: blamed || act ? '#D9481F' : fin ? '#16161A' : '#DDD9D1', ghosts, h: sel.kind === 'batch' ? (40 + sel.rows.length * 6) + 'px' : '40px', rowBg: s.selLane === st.id ? 'rgba(22,22,26,.05)' : 'transparent', weight: s.selLane === st.id ? 600 : 400, select: () => this.setState({ selLane: st.id }) };
+      });
+      traceTitle = (sel.scoped ? 'Scoped · ' : '') + sel.label + ' · ' + sel.total.toFixed(1) + 's';
+      if (s.selLane) { selTitle = A[s.selLane].name.toUpperCase() + ' → OUTPUT'; selJson = JSON.stringify(this.payload(sel, s.selLane), null, 2); }
+    }
+
+    const tabs = [{ id: 'try', label: 'Try it' }, { id: 'proof', label: 'Proof', count: S.failing, warn: true }, { id: 'props', label: 'Proposals', count: s.proposals.length }, { id: 'vers', label: 'Versions' }];
+    if (s.inspectId && A[s.inspectId]) tabs.push({ id: 'inspect', label: A[s.inspectId].name });
+    const tabsV = tabs.map(t => ({ label: t.label, hasCount: !!t.count, count: t.count, cBg: t.warn ? '#D9481F' : '#16161A', fg: s.tab === t.id ? '#16161A' : '#9A9AA2', bd: s.tab === t.id ? '#16161A' : 'transparent', go: () => this.setState({ tab: t.id }) }));
+
+    const runs = s.runs.map(r => {
+      const done = r.status === 'done';
+      const items = r.a.items.map(i => ({ ...i, color: i.sev === 'S1' ? '#D9481F' : '#3D3D44' }));
+      const rows = r.rows ? r.rows.map(rw => ({ t: rw.t, out: this.summarize(rw.a), dot: rw.a.ok ? '#1F7A4D' : '#D9481F' })) : [];
+      const okN = r.rows ? r.rows.filter(x => x.a.ok).length : 0;
+      return {
+        inputLabel: r.label, head: r.kind === 'batch' ? 'BATCH · ' + r.rows.length + ' INPUTS' : r.scoped ? 'SCOPED · ' + A[r.scoped].name.toUpperCase() : 'SYSTEM RESPONSE',
+        meta: done ? r.total.toFixed(1) + 's · ' + r.cost : 'running', running: !done, firingLabel: 'Running ' + (A[(r.steps[r.firing] || {}).id] || { name: '' }).name + '…',
+        showItems: done && r.kind === 'single' && items.length > 0, items, showEmpty: done && r.kind === 'single' && items.length === 0,
+        showRows: done && r.kind === 'batch', rows, batchSummary: okN + ' of ' + rows.length + ' handled as expected', pinAllLabel: r.pinned ? 'Pinned' : 'Pin all as cases',
+        pinAll: () => { if (r.pinned) return; this.setState(st => ({ cases: [...st.cases, ...r.rows.map(rw => this.mkCase(rw.a.cluster, rw.t))], changeN: st.changeN + 1 })); this.updRun(r.id, { pinned: true }); this.toast('Pinned ' + r.rows.length + ' cases — proving'); this.scheduleEval(); },
+        scopedNote: done && !!r.scoped, done,
+        openTrace: () => this.setState({ selRunId: r.id, traceOpen: true, selLane: null }),
+        fbNone: done && r.kind === 'single' && !r.scoped && !r.fb, good: () => this.feedback(r.id, 'good'), bad: () => this.feedback(r.id, 'bad'),
+        fbAsk: r.fb === 'ask', reasons: REASONS.map(rs => ({ label: rs.label, pick: () => this.pickReason(r.id, rs) })),
+        fbGoodDone: r.fb === 'good', fbBadDone: r.fb === 'bad', propose: () => this.propose([r.caseNeeds]),
+        cardBd: r.id === s.selRunId ? 'rgba(22,22,26,.5)' : 'rgba(22,22,26,.1)',
+      };
+    });
+    const sources = [
+      { id: 'type', label: 'Typed message', go: () => this.setState({ source: 'type', casePicker: false }) },
+      { id: 'case', label: 'A pinned case', go: () => this.setState(st => ({ source: 'case', casePicker: !st.casePicker })) },
+      { id: 'synth', label: '5 synthetic variants', go: () => { const base = this.state.chatText.trim() || this.lastInput(); const cl = this.analyze(base, new Set()).cluster; this.setState({ source: 'type' }); this.runChat(base, { rows: VARIANTS[cl], label: '5 synthetic variants of “' + trunc(base, 40) + '”' }); } },
+      { id: 'file', label: 'q2-feedback.csv', go: () => { this.setState({ source: 'type' }); this.runChat(FILE[0], { rows: FILE, label: 'Uploaded q2-feedback.csv · 4 rows' }); } },
+    ].map(so => ({ ...so, bg: s.source === so.id ? '#16161A' : '#EFEDE7', fg: s.source === so.id ? '#FAF9F6' : '#16161A' }));
+    const pickCases = s.cases.map(c => ({ text: c.text, cluster: CLU.find(x => x.id === c.cluster).name.split(' ')[0].toLowerCase(), dot: c.result === 'fail' ? '#D9481F' : c.result === 'pass' ? '#1F7A4D' : '#9A9AA2', go: () => this.runChat(c.text) }));
+
+    const clusters = S.cl.map(c => {
+      const isOpen = s.openCluster === c.id;
+      const dots = c.empty ? [1, 2, 3].map(() => ({ bg: 'transparent', bd: '#D9481F' })) : c.cs.map(k => ({ bg: k.result === 'pass' ? '#1F7A4D' : k.result === 'fail' ? '#D9481F' : '#DDD9D1', bd: 'transparent' }));
+      const failsC = c.cs.filter(k => k.result === 'fail');
+      return { name: c.name, meta: c.traffic + '% of traffic' + (c.ev.length ? ' · ' + c.pass + '/' + c.ev.length : ''), nameColor: c.empty ? '#D9481F' : '#16161A', bg: isOpen ? '#F1EEE8' : 'transparent', dots, empty: c.empty, isOpen,
+        toggle: () => this.setState({ openCluster: isOpen ? null : c.id }),
+        cause: c.empty ? 'Real traffic contains this behavior, but no case covers it. Proof can’t vouch for it.' : failsC.length ? c.cause : 'Every case in this cluster passes on the current draft.',
+        fails: failsC.map(k => ({ text: trunc(k.text, 70), expect: k.expect || 'different output', got: this.summarize(this.analyze(k.text, fx)) })),
+        canFix: failsC.length > 0, fix: e => { stop(e); this.propose([...new Set(failsC.map(k => k.needs))]); },
+        canGen: c.empty, gen: e => { stop(e); this.genCluster(c.id); }, allPass: !c.empty && !failsC.length };
+    });
+
+    const pi = Math.min(s.propIdx, Math.max(0, s.proposals.length - 1));
+    const pid = s.proposals[pi], P = pid ? this.prop(pid) : null;
+    const qn = pid ? s.cases.filter(c => c.needs === pid).length : 0;
+    const tp = P ? { src: P.src, title: P.title, why: P.why, hasFrom: !!P.from, from: P.from, to: P.to, cost: P.cost, lat: P.lat, quality: qn ? '+' + qn + ' cases' : '±0', costColor: P.cost[0] === '−' ? '#1F7A4D' : P.cost[0] === '+' ? '#D9481F' : '#16161A', latColor: P.lat[0] === '−' ? '#1F7A4D' : P.lat[0] === '+' ? '#D9481F' : '#16161A', qColor: qn ? '#1F7A4D' : '#16161A', basis: 'Predicted on ' + s.cases.length + ' cases', accept: () => this.accept(pid), dismiss: () => this.dismiss(pid) } : {};
+    const n = s.proposals.length;
+
+    const strata = [...s.versions].reverse().map(v => { const isD = v.status === 'draft', isL = v.status === 'live'; const pr = isD ? S.proof : v.proof || 0;
+      return { label: 'v' + v.v, status: isD ? 'draft · editing' : isL ? 'live' : 'retired', proof: pr + '%', w: pr + '%', bg: isD ? '#16161A' : isL ? '#E3F1E8' : '#F5F3EE', fg: isD ? '#FAF9F6' : isL ? '#14593A' : '#5E5E66', track: isD ? 'rgba(250,249,246,.15)' : 'rgba(22,22,26,.08)', bar: isD ? '#6FCF97' : '#1F7A4D' }; });
+    const logItems = s.log.filter(l => l.v === dv);
+
+    const ia = s.inspectId ? A[s.inspectId] : null;
+    let insp = {};
+    if (ia) { const id = s.inspectId, v = tokVis(id); const f = s.cases.filter(c => c.result === 'fail' && c.blame === id);
+      insp = { name: ia.name, role: ia.role, isAgent: ia.kind === 'agent', instrLabel: ia.kind === 'agent' ? 'INSTRUCTIONS' : 'CONFIGURATION', instr: s.editDraft != null ? s.editDraft : ia.instr,
+        stat: ia.kind === 'tool' ? 'connected' : ia.kind === 'trigger' ? 'live trigger' : v.untested ? 'untested' : f.length ? f.length + ' failing case' + (f.length > 1 ? 's' : '') : 'proven', statColor: f.length || v.untested ? '#D9481F' : '#1F7A4D',
+        models: MODELS.map(m => ({ name: m, bg: ia.model === m ? '#16161A' : '#EFEDE7', fg: ia.model === m ? '#FAF9F6' : '#16161A', pick: () => this.setModel(id, m) })),
+        hasFails: f.length > 0, fails: f.map(k => ({ text: trunc(k.text, 70), expect: k.expect || 'different output', got: this.summarize(this.analyze(k.text, fx)) })), needsCases: !!ia.isNew && !s.tested[id] };
+    }
+
+    const lq = s.libQuery.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    const lib = LIB.map(l => ({ l, sc: lq.length ? lq.filter(w => l.tags.includes(w) || l.name.toLowerCase().includes(w)).length : (l.suggest ? 1 : 0) })).filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc);
+    const libResults = lib.map((x, i) => { const l = x.l, added = s.extras.includes(l.id);
+      return { name: l.name, kind: l.kind, owner: l.owner, fit: l.fit, contract: l.contract, evidence: l.evidence, added, mismatch: !!l.mismatch, canInsert: !added && !l.mismatch, insert: () => this.insertLib(l.id), bw: i === 0 && !l.mismatch ? '1.5px' : '0px' }; });
+
+    const shadowOk = s.shadowPct >= 100 && s.shadowAt === s.changeN;
+    const pre = S.proof >= 90 && S.failing === 0 && S.untestedSteps === 0 && !s.evalRunning;
+    const checks = [
+      { label: 'Proof at or above 90%', ok: S.proof >= 90, detail: S.proof + '% now' },
+      { label: 'No failing cases', ok: S.failing === 0, detail: S.failing + ' failing' },
+      { label: 'Every step has cases', ok: S.untestedSteps === 0, detail: S.untestedSteps ? S.untestedSteps + ' untested' : 'all tested' },
+      { label: 'Shadowed on live traffic', ok: shadowOk, detail: shadowOk ? '0 regressions' : s.shadowRunning ? s.shadowPct + '%' : 'not run' },
+    ].map(c => ({ ...c, dot: c.ok ? '#1F7A4D' : '#DDD9D1' }));
+    const promoteReady = pre && shadowOk;
+
+    const evStatus = s.evalRunning ? 'Re-proving… ' + s.evalDone + ' of ' + s.cases.length + ' cases' : S.evaluated ? 'Last proven moments ago on ' + s.cases.length + ' cases · auto-runs after every change' : 'Not proven yet';
+
+    return {
+      isStart: s.phase === 'start', isApp: s.phase !== 'start', drafting, ready, stop,
+      startText: s.startText, onStartText: e => this.setState({ startText: e.target.value }), startDraft: () => this.startDraft(),
+      draftSteps: ['Wrote the spec from your description', 'Connected jira-mcp and slack #triage', 'Pulled 21 real posts from #product-forum as starter cases', 'Proving against the last 30 days of traffic'].map((l, i) => ({ label: l, dot: s.draftStep > i + 1 ? '#1F7A4D' : s.draftStep === i + 1 ? '#D9481F' : '#DDD9D1', fg: s.draftStep >= i + 1 ? '#16161A' : '#9A9AA2' })),
+      draftLabel: 'v' + dv + ' draft', draftLabelU: 'V' + dv + ' DRAFT', hasLive: !!live, liveLabel: live ? 'v' + live.v + ' live' : '',
+      proofW: S.proof + '%', proofColor: s.evalRunning ? '#9A9AA2' : '#1F7A4D', proofLabel: S.proof + '%', proofSub: s.evalRunning ? 're-proving…' : S.untested ? S.untested + '% untested' : S.failing ? S.failing + ' failing' : 'all clear',
+      costLabel: M.cost, latLabel: M.lat, goProof: () => this.setState({ tab: 'proof' }),
+      openPromote: () => this.setState({ promOpen: true }), promBg: promoteReady ? '#1F7A4D' : pre ? '#16161A' : 'transparent', promFg: pre ? '#FAF9F6' : '#9A9AA2', promBd: pre ? 'transparent' : 'rgba(22,22,26,.2)',
+      specView: s.specView === 'spec', graphView: s.specView === 'graph', setSpec: () => this.setState({ specView: 'spec' }), setGraph: () => this.setState({ specView: 'graph' }),
+      specBg: s.specView === 'spec' ? '#16161A' : 'transparent', specFg: s.specView === 'spec' ? '#FAF9F6' : '#5E5E66', graphBg: s.specView === 'graph' ? '#16161A' : 'transparent', graphFg: s.specView === 'graph' ? '#FAF9F6' : '#5E5E66',
+      specNote: drafting ? 'DRAFTING…' : 'SOURCE OF TRUTH · CLICK ANY STEP',
+      openLibrary: () => this.setState({ libOpen: true, libQuery: '' }), clauses, graphNodes,
+      composer: s.composer, onComposer: e => this.setState({ composer: e.target.value }), composerKey: e => { if (e.key === 'Enter') this.sendBuild(); }, sendBuild: () => this.sendBuild(),
+      hasBuildReply: !!s.buildReply, buildReply: s.buildReply, goProposals: () => this.setState({ tab: 'props', buildReply: null }),
+      showTrace: ready && s.traceOpen && !!sel, traceTitle, ticks, lanes, hasSel: !!s.selLane && !!sel, noSel: !s.selLane, selTitle, selJson,
+      closeTrace: () => this.setState({ traceOpen: false }),
+      pinSel: () => { this.addCase({ ...this.mkCase(sel.a.cluster, sel.kind === 'batch' ? sel.rows[0].t : sel.input), needs: null, blame: null, result: 'pass', src: 'trace' }, 'Pinned ' + A[s.selLane].name + ' output as a passing case'); },
+      tabs: tabsV, tabTry: s.tab === 'try', tabProof: s.tab === 'proof', tabProps: s.tab === 'props', tabVers: s.tab === 'vers', tabInspect: s.tab === 'inspect' && !!ia,
+      noRuns: s.runs.length === 0, runs, samples: SAMPLES.map(t => ({ text: t, go: () => this.runChat(t) })), sources, casePicker: s.casePicker, pickCases, caseCount: s.cases.length,
+      chatText: s.chatText, onChat: e => this.setState({ chatText: e.target.value }), chatKey: e => { if (e.key === 'Enter') this.runChat(this.state.chatText); }, sendChat: () => this.runChat(this.state.chatText),
+      proofEyebrow: 'V' + dv + ' DRAFT · ' + s.cases.length + ' CASES · VS. LAST 30 DAYS OF TRAFFIC', hasUntested: S.untested > 0, untestedLabel: S.untested + '%', evalStatus: evStatus, runEval: () => this.runEval(),
+      clusters, caseSummary: (s.cases.length - S.failing) + '/' + s.cases.length, evalHist: [...s.evalHist].reverse().slice(0, 8).map(h => ({ ...h, w: h.proof + '%', proof: h.proof + '%' })),
+      hasProps: n > 0, noProps: n === 0, propCount: (pi + 1) + ' OF ' + n, tp, behind1: n > 1, behind2: n > 2, stackPad: n > 2 ? '24px' : n > 1 ? '12px' : '0px',
+      nextProp: () => this.setState({ propIdx: (pi + 1) % n }), prevProp: () => this.setState({ propIdx: (pi - 1 + n) % n }),
+      findOpt: () => this.findOpt(), optLabel: s.optRunning ? 'Looking for savings…' : 'Find savings',
+      strata, logItems, noLog: logItems.length === 0,
+      insp, closeInspect: () => this.setState({ tab: 'try', inspectId: null }), onInstr: e => this.setState({ editDraft: e.target.value }), commitInstr: () => this.commitInstr(),
+      runScoped: () => this.runChat(this.lastInput(), { scoped: s.inspectId }), genStep: () => this.genStep(s.inspectId),
+      libOpen: s.libOpen, libQuery: s.libQuery, onLibQuery: e => this.setState({ libQuery: e.target.value }), closeLib: () => this.setState({ libOpen: false }), libResults,
+      libSub: lq.length ? libResults.length + ' fit · ' + LIB.length + ' considered' : 'Suggested for this spec',
+      promOpen: s.promOpen, closePromote: () => this.setState({ promOpen: false }), checks,
+      shadowVisible: s.shadowRunning || s.shadowPct > 0, shadowW: s.shadowPct + '%',
+      canShadow: pre && !shadowOk && !s.shadowRunning, startShadow: () => this.startShadow(), canPromote: promoteReady, doPromote: () => this.doPromote(),
+      blocked: !pre, blockedNote: 'Fix what’s unchecked, then shadow.',
+      hasToast: !!s.toast, toast: s.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>

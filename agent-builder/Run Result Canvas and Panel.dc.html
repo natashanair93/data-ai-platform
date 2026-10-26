@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-navy-800: var(--salt-color-blue-700);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #F7F7FB; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<!-- ==================== THE MODEL ==================== -->
+<section style="padding:40px 40px 8px; display:flex; flex-direction:column; gap:24px;">
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:940px;">
+    <div style="font-size:24px; font-weight:700; letter-spacing:-.01em;">Canvas + panel, output types, and the failure model</div>
+    <div style="font-size:14px; line-height:1.55; color:var(--fusion-text-secondary);">Your question about downstream has a sharper answer than yes, and it changes the whole design. Research below, then options. Canvas + panel: <a href="#3a">3a</a> · <a href="#3b">3b</a> · <a href="#3c">3c</a>. Output types: <a href="#4a">4a</a> · <a href="#4b">4b</a> · <a href="#4c">4c</a> · <a href="#4d">4d</a>.</div>
+  </div>
+
+  <!-- Finding 1: two verdicts -->
+  <div style="max-width:940px; display:flex; flex-direction:column; gap:12px; padding:20px 22px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:15px; line-height:1.35; font-weight:700;">Finding 1 — a green trace is not a good answer</div>
+    <div style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">The failure mode every observability vendor warns about: an agent runs eighteen steps, calls the same search tool six times, never finds the file, and reports success. Every span returns 200, latency is normal, token use is unremarkable — the dashboard shows a healthy agent while the product is broken. Structural tracing cannot see semantic failure.</div>
+    <div style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">So your requirement 1 ("nothing breaks") and requirement 3 ("evals") are <strong>two independent verdicts</strong>, and the card has to be able to say <em>ran fine, quality failed</em>. One combined status light would be a lie in exactly the case that matters most.</div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; padding-top:4px;">
+      <div style="flex:1; min-width:180px; padding:11px 13px; background:var(--fusion-green-100); border-radius:var(--fusion-radius-md);">
+        <div style="font-size:12px; font-weight:700; color:var(--fusion-green-600);">RAN ✓ · QUALITY ✓</div>
+        <div style="font-size:12px; line-height:1.45; color:var(--fusion-green-600); padding-top:3px;">Ship candidate.</div>
+      </div>
+      <div style="flex:1; min-width:180px; padding:11px 13px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md);">
+        <div style="font-size:12px; font-weight:700; color:var(--fusion-amber-600);">RAN ✓ · QUALITY ✕</div>
+        <div style="font-size:12px; line-height:1.45; color:var(--fusion-amber-600); padding-top:3px;">The dangerous one. Nothing looks broken.</div>
+      </div>
+      <div style="flex:1; min-width:180px; padding:11px 13px; background:var(--fusion-red-100); border-radius:var(--fusion-radius-md);">
+        <div style="font-size:12px; font-weight:700; color:var(--fusion-red-600);">RAN ✕</div>
+        <div style="font-size:12px; line-height:1.45; color:var(--fusion-red-600); padding-top:3px;">Crashed. No quality verdict is possible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Finding 2: answer to the downstream question -->
+  <div style="max-width:940px; display:flex; flex-direction:column; gap:12px; padding:20px 22px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:15px; line-height:1.35; font-weight:700;">Finding 2 — your downstream question: yes for crashes, <em>no</em> for bad output</div>
+    <div style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">Two different propagation behaviors, and conflating them is the trap:</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; gap:12px; padding:13px 15px; background:var(--fusion-bg); border-radius:var(--fusion-radius-md);">
+        <span style="flex:none; width:76px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-red-600);">HARD STOP</span>
+        <span style="flex:1; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">Tool 403s, model errors, schema mismatch. Execution halts. Downstream agents <strong>never ran</strong> — they are not failed, and painting them red blames the wrong agent. They need a third state: <strong>blocked</strong>.</span>
+      </div>
+      <div style="display:flex; gap:12px; padding:13px 15px; background:var(--fusion-bg); border-radius:var(--fusion-radius-md);">
+        <span style="flex:none; width:76px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-amber-600);">SOFT DRIFT</span>
+        <span style="flex:1; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">An intent step returns "billing inquiry" when the customer asked about cancellation. Every downstream step — retrieval, generation, tool selection — follows that wrong signal faithfully and returns green. Downstream <strong>did</strong> run, and its output is worthless. When the final answer is wrong, the root cause is usually a misleading intermediate several steps earlier.</span>
+      </div>
+    </div>
+    <div style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">Design consequence: the canvas must be able to mark a node green-but-suspect and propagate an amber "downstream of a problem" state, not just a red stop. And the panel should name the <strong>first</strong> bad step, never the last one to run.</div>
+  </div>
+
+  <!-- Finding 3: node states -->
+  <div style="max-width:940px; display:flex; flex-direction:column; gap:14px; padding:20px 22px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:15px; line-height:1.35; font-weight:700;">Finding 3 — five node states, and edges carry state too</div>
+    <div style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">Per-node execution state on a canvas is a known primitive — running, succeeded, failed, skipped — and it needs edge-state propagation, not just node badges. Adding the soft-drift case gives five. One caution: greying-out already means "disabled by the user" in most builders, so blocked can't rely on dimming alone; it carries a label.</div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; width:150px;">
+        <div style="position:relative; width:132px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-green-100);">
+          <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-green-600); color:#fff; display:grid; place-items:center;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+          </span>
+          <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11.5px; font-weight:700;">FeedbackAnalyzer</div>
+          <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px;">1.8s · $0.006</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-green-600);">RAN OK</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; width:150px;">
+        <div style="position:relative; width:132px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-amber-100);">
+          <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-amber-600); color:#fff; display:grid; place-items:center; font-size:11px; font-weight:700;">!</span>
+          <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11.5px; font-weight:700;">RecommendationGen</div>
+          <div style="font-size:10px; color:var(--fusion-amber-600); padding-top:2px;">Ran · quality failed</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-amber-600); text-align:center;">SOFT — EVAL FAILED</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; width:150px;">
+        <div style="position:relative; width:132px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-red-100);">
+          <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-red-600); color:#fff; display:grid; place-items:center;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </span>
+          <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11.5px; font-weight:700;">RecommendationGen</div>
+          <div style="font-size:10px; color:var(--fusion-red-600); padding-top:2px;">Stopped at step 2</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-red-600);">FAILED</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; width:150px;">
+        <div style="position:relative; width:132px; padding:9px 11px; background:var(--fusion-bg); border:1.5px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-md); opacity:.7;">
+          <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11.5px; font-weight:700; color:var(--fusion-text-secondary);">ActionPlanPrioritizer</div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">NEVER RAN</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); text-align:center;">BLOCKED UPSTREAM</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; width:150px;">
+        <div style="width:132px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+          <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11.5px; font-weight:700; color:var(--fusion-text-secondary);">Summarizer</div>
+          <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px;">Not in this run</div>
+        </div>
+        <span style="font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); text-align:center;">OUT OF SCOPE</span>
+      </div>
+
+    </div>
+    <div style="display:flex; gap:20px; flex-wrap:wrap; padding-top:4px; border-top:1px solid var(--fusion-border);">
+      <div style="display:flex; align-items:center; gap:9px; padding-top:12px;">
+        <span style="width:44px; height:3px; background:var(--fusion-green-600); border-radius:2px;"></span>
+        <span style="font-size:12px; color:var(--fusion-text-secondary);">Data flowed</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:9px; padding-top:12px;">
+        <span style="width:44px; height:0; border-top:3px dashed var(--fusion-border-strong);"></span>
+        <span style="font-size:12px; color:var(--fusion-text-secondary);">Nothing flowed — run stopped here</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:9px; padding-top:12px;">
+        <span style="width:44px; height:3px; background:var(--fusion-amber-600); border-radius:2px;"></span>
+        <span style="font-size:12px; color:var(--fusion-text-secondary);">Data flowed, but it's suspect</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== OUTPUT TYPES ==================== -->
+<section style="padding:32px 40px 8px; display:flex; flex-direction:column; gap:22px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:940px;">
+    <div style="font-size:22px; font-weight:700; letter-spacing:-.01em;">The missing fourth block — agent output</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">One slot in the result card, four renderings driven by the agent's declared output type. The verdict/metrics/evals rows never change shape; only this block does.</div>
+  </div>
+
+  <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start;">
+
+    <div id="4a" style="width:388px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="display:inline-grid; place-items:center; min-width:24px; height:20px; padding:0 7px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.06em;">4a</span>
+        <span style="white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">TEXT — CHAT RESPONSE</span>
+      </div>
+      <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:13px 14px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; gap:7px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+          <span style="flex:1;"></span>
+          <button style="background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700); white-space:nowrap;" style-hover="text-decoration:underline;">COPY</button>
+        </div>
+        <div style="font-size:13.5px; line-height:1.55;">Three themes dominate Q2 feedback: onboarding friction (68 mentions), billing confusion (41), and mobile performance (33). Onboarding complaints cluster on the SSO step.</div>
+      </div>
+      <div style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">Full weight, no truncation under ~4 lines. This is the answer — it shouldn't sit in a collapsed section or a monospace box.</div>
+    </div>
+
+    <div id="4b" style="width:388px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="display:inline-grid; place-items:center; min-width:24px; height:20px; padding:0 7px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.06em;">4b</span>
+        <span style="white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">FILE — PDF / DOCX / XLSX</span>
+      </div>
+      <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:13px 14px; display:flex; flex-direction:column; gap:9px;">
+        <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+        <div style="display:flex; align-items:center; gap:11px;">
+          <span style="flex:none; width:38px; height:46px; border-radius:3px; background:var(--fusion-red-100); border:1px solid var(--fusion-red-600); display:grid; place-items:center; font-size:9px; font-weight:700; letter-spacing:.04em; color:var(--fusion-red-600);">PDF</span>
+          <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Q2_feedback_summary.pdf</span>
+            <span style="font-size:11.5px; color:var(--fusion-text-muted);">4 pages · 128 KB</span>
+          </span>
+          <button style="flex:none; height:28px; padding:0 12px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:transparent; color:var(--fusion-blue-700); font-size:11px; font-weight:700; letter-spacing:.05em; white-space:nowrap;" style-hover="background:var(--fusion-blue-50);">OPEN</button>
+        </div>
+      </div>
+      <div style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">A file is an artifact, not a message — so it gets a file card with type, weight and an open action. Preview opens in the details view, not inline in a 420px panel.</div>
+    </div>
+
+    <div id="4c" style="width:388px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="display:inline-grid; place-items:center; min-width:24px; height:20px; padding:0 7px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.06em;">4c</span>
+        <span style="white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">STRUCTURED — ROWS / JSON</span>
+      </div>
+      <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:13px 14px; display:flex; flex-direction:column; gap:9px;">
+        <div style="display:flex; align-items:center; gap:7px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+          <span style="flex:1;"></span>
+          <span style="font-size:11.5px; color:var(--fusion-text-secondary); white-space:nowrap;">6 themes · 14 rows in</span>
+        </div>
+        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); overflow:hidden;">
+          <div style="display:flex; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border);">
+            <span style="flex:2; padding:6px 9px; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">THEME</span>
+            <span style="flex:1; padding:6px 9px; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">COUNT</span>
+          </div>
+          <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+            <span style="flex:2; padding:6px 9px; font-size:12.5px;">Onboarding friction</span>
+            <span style="flex:1; padding:6px 9px; font-size:12.5px; font-family:var(--fusion-font-mono);">68</span>
+          </div>
+          <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+            <span style="flex:2; padding:6px 9px; font-size:12.5px;">Billing confusion</span>
+            <span style="flex:1; padding:6px 9px; font-size:12.5px; font-family:var(--fusion-font-mono);">41</span>
+          </div>
+          <div style="display:flex;">
+            <span style="flex:2; padding:6px 9px; font-size:12.5px; color:var(--fusion-text-muted);">+ 4 more</span>
+            <span style="flex:1; padding:6px 9px;"></span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">Three rows then a count. Enough to see the shape is right; the rest is the details view. Also carries the in/out row counts you asked for earlier.</div>
+    </div>
+
+    <div id="4d" style="width:388px; display:flex; flex-direction:column; gap:10px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="display:inline-grid; place-items:center; min-width:24px; height:20px; padding:0 7px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.06em;">4d</span>
+        <span style="white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">ACTION-ONLY — NO ARTIFACT</span>
+      </div>
+      <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:13px 14px; display:flex; flex-direction:column; gap:9px;">
+        <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:13px;">
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1;">Posted to <span style="font-weight:600;">#product-feedback</span></span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:13px;">
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1;">Created 3 Jira tickets</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--fusion-amber-600); background:var(--fusion-amber-100); border-radius:var(--fusion-radius-sm); padding:6px 9px;">
+            <svg style="flex:none;" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+            <span style="flex:1;">Simulated — no real writes in test mode</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">Some agents produce side effects, not content. List what it <em>did</em>, and say plainly that test mode didn't really do it — otherwise the user can't tell.</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ==================== CANVAS + PANEL ==================== -->
+<section style="padding:32px 40px 8px; display:flex; flex-direction:column; gap:22px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:940px;">
+    <div style="font-size:22px; font-weight:700; letter-spacing:-.01em;">How canvas and panel divide the work</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">The principle in all three: <strong>canvas answers "where", panel answers "what and why"</strong>. Per-step facts belong on the node; per-run facts belong in the card. Never print the same number twice.</div>
+  </div>
+
+  <!-- 3a -->
+  <div id="3a" style="display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; align-items:flex-start; gap:9px;">
+      <span style="flex:none; display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3a</span>
+      <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Pass — badges on canvas, totals in panel</span>
+    </div>
+    <div style="display:flex; gap:0; align-items:stretch; width:1000px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden; background:var(--fusion-surface);">
+      <!-- canvas -->
+      <div style="flex:1; min-width:0; background:#FBFBFD; background-image:radial-gradient(var(--fusion-border) 1px, transparent 1px); background-size:16px 16px; padding:20px 16px; display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); background:var(--fusion-green-100); border-radius:var(--fusion-radius-full); padding:4px 10px;">RUN v3 · ALL PASSED</span>
+          <span style="flex:1;"></span>
+          <span style="font-size:11px; color:var(--fusion-text-muted);">click a node to scope the panel</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0; padding-top:6px;">
+          <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:5px;">
+            <span style="width:34px; height:34px; border-radius:50%; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); box-shadow:0 0 0 3px var(--fusion-green-100); display:grid; place-items:center; color:var(--fusion-purple-600);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l1.8-3.2A8.5 8.5 0 1 1 21 11.5z"></path></svg>
+            </span>
+            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">TRIGGER</span>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-green-100);">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-green-600); color:#fff; display:grid; place-items:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            </span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">FeedbackAnalyzer</div>
+            <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px; white-space:nowrap;">1.8s · $0.006</div>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-green-100);">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-green-600); color:#fff; display:grid; place-items:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            </span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">RecommendationGen</div>
+            <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px; white-space:nowrap;">2.1s · $0.005</div>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 3px var(--fusion-green-100);">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-green-600); color:#fff; display:grid; place-items:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            </span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">ActionPlanPrioritizer</div>
+            <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px; white-space:nowrap;">1.1s · $0.003</div>
+          </div>
+        </div>
+      </div>
+      <!-- panel -->
+      <div style="flex:none; width:420px; border-left:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column;">
+        <div style="flex:none; padding:11px 13px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+        </div>
+        <div style="flex:1; padding:14px; display:flex; flex-direction:column; gap:11px;">
+          <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:13px 14px; display:flex; flex-direction:column; gap:11px;">
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="width:20px; height:20px; flex:none; border-radius:50%; background:var(--fusion-green-100); color:var(--fusion-green-600); display:grid; place-items:center;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+              </span>
+              <span style="font-size:14px; font-weight:700;">Passed</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">5.0s</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">$0.014</span>
+              <span style="flex:1;"></span>
+              <button aria-label="More run actions" style="flex:none; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg>
+              </button>
+            </div>
+            <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+              <span style="display:inline-flex; align-items:center; gap:5px; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-green-100); color:var(--fusion-green-600); font-size:11.5px; font-weight:600; white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                Bias 0.02</span>
+              <span style="display:inline-flex; align-items:center; gap:5px; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-green-100); color:var(--fusion-green-600); font-size:11.5px; font-weight:600; white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                Toxicity 0.00</span>
+              <button style="display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); border:1px dashed var(--fusion-border-strong); background:transparent; color:var(--fusion-text-secondary); font-size:11.5px; font-weight:600; white-space:nowrap;" style-hover="border-color:var(--fusion-blue-700); color:var(--fusion-blue-700);">+ Eval</button>
+            </div>
+            <div style="border-top:1px solid var(--fusion-border); padding-top:10px; display:flex; flex-direction:column; gap:7px;">
+              <div style="display:flex; align-items:center; gap:7px;">
+                <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+                <span style="flex:1;"></span>
+                <button style="background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700); white-space:nowrap;" style-hover="text-decoration:underline;">COPY</button>
+              </div>
+              <div style="font-size:13.5px; line-height:1.55;">Three themes dominate Q2: onboarding friction (68), billing confusion (41), mobile performance (33).</div>
+            </div>
+            <div style="border-top:1px solid var(--fusion-border); padding-top:10px; display:flex; align-items:center; gap:8px;">
+              <button style="flex:none; height:32px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">OPTIMIZE</button>
+              <button style="flex:none; height:32px; padding:0 14px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:transparent; color:var(--fusion-blue-700); font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">BUILD</button>
+              <span style="flex:1;"></span>
+              <button style="flex:none; display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0 2px; font-size:11.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); white-space:nowrap;">
+                SEE DETAILS
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:1000px; font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Per-node latency and cost sit under each node name — that's the "where did the 5 seconds go" question, and it can only be answered spatially. The panel carries the totals, the evals (which score the run, not a step), the output, and the actions. Green rings plus green edges make "all clear" readable at a glance without reading a single number.</div>
+  </div>
+
+  <!-- 3b -->
+  <div id="3b" style="display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; align-items:flex-start; gap:9px;">
+      <span style="flex:none; display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3b</span>
+      <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Hard failure — first bad step, rest blocked</span>
+    </div>
+    <div style="display:flex; gap:0; align-items:stretch; width:1000px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden; background:var(--fusion-surface);">
+      <div style="flex:1; min-width:0; background:#FBFBFD; background-image:radial-gradient(var(--fusion-border) 1px, transparent 1px); background-size:16px 16px; padding:20px 16px; display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600); background:var(--fusion-red-100); border-radius:var(--fusion-radius-full); padding:4px 10px; white-space:nowrap;">RUN v3 · STOPPED AT STEP 2 OF 3</span>
+          <span style="flex:1;"></span>
+          <button style="height:26px; padding:0 11px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:10.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;" style-hover="background:var(--fusion-blue-50);">RERUN FROM HERE</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:0; padding-top:6px;">
+          <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:5px; opacity:.55;">
+            <span style="width:34px; height:34px; border-radius:50%; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); display:grid; place-items:center; color:var(--fusion-purple-600);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l1.8-3.2A8.5 8.5 0 1 1 21 11.5z"></path></svg>
+            </span>
+            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">TRIGGER</span>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px; opacity:.55;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); opacity:.55;">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-green-600); color:#fff; display:grid; place-items:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            </span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">FeedbackAnalyzer</div>
+            <div style="font-size:10px; color:var(--fusion-text-muted); padding-top:2px; white-space:nowrap;">1.8s · $0.004</div>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px; opacity:.55;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1.5px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 4px var(--fusion-red-100);">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-red-600); color:#fff; display:grid; place-items:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            </span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">RecommendationGen</div>
+            <div style="font-size:10px; font-weight:700; color:var(--fusion-red-600); padding-top:2px; white-space:nowrap;">Tool 403</div>
+          </div>
+          <span style="flex:none; width:26px; height:0; border-top:3px dashed var(--fusion-border-strong);"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-bg); border:1.5px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-md); opacity:.7;">
+            <div style="font-size:11.5px; font-weight:700; color:var(--fusion-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">ActionPlanPrioritizer</div>
+            <div style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px; white-space:nowrap;">NEVER RAN</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none; width:420px; border-left:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column;">
+        <div style="flex:none; padding:11px 13px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+        </div>
+        <div style="flex:1; padding:14px; display:flex; flex-direction:column; gap:11px;">
+          <div style="border:1px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:13px 14px; display:flex; flex-direction:column; gap:11px;">
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="width:20px; height:20px; flex:none; border-radius:50%; background:var(--fusion-red-100); color:var(--fusion-red-600); display:grid; place-items:center;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+              </span>
+              <span style="font-size:14px; font-weight:700;">Failed</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">2.1s</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">$0.004</span>
+              <span style="flex:1;"></span>
+              <button aria-label="More run actions" style="flex:none; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg>
+              </button>
+            </div>
+            <div style="font-size:12.5px; line-height:1.5;"><button style="background:none; border:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">RecommendationGenerator</button> <span style="color:var(--fusion-text-secondary);">stopped on step 2 of 3 — tool <span style="font-family:var(--fusion-font-mono);">confluence_search</span> returned 403, credentials expired.</span></div>
+            <div style="display:flex; align-items:flex-start; gap:8px; background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:8px 10px;">
+              <svg style="flex:none; margin-top:1px; color:var(--fusion-text-muted);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+              <span style="flex:1; font-size:12px; line-height:1.45; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">ActionPlanPrioritizer never ran.</strong> No output and no eval scores for this run.</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+              <span style="display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-bg); color:var(--fusion-text-muted); font-size:11.5px; font-weight:600; white-space:nowrap;">Bias — not run</span>
+              <span style="display:inline-flex; align-items:center; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-bg); color:var(--fusion-text-muted); font-size:11.5px; font-weight:600; white-space:nowrap;">Toxicity — not run</span>
+            </div>
+            <div style="border-top:1px solid var(--fusion-border); padding-top:10px; display:flex; align-items:center; gap:8px;">
+              <button style="flex:none; height:32px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">OPTIMIZE</button>
+              <button style="flex:none; height:32px; padding:0 14px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:transparent; color:var(--fusion-blue-700); font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">BUILD</button>
+              <span style="flex:1;"></span>
+              <button style="flex:none; display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0 2px; font-size:11.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); white-space:nowrap;">
+                SEE DETAILS
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:1000px; font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Everything that ran fine dims to 55% so the one red node is the only thing with contrast — the canvas answers "where" in a single glance. The dashed edge and NEVER RAN label are the honest rendering of your question: that agent isn't broken, it was never reached. The panel's agent name is a link that selects the node, and the node's RERUN FROM HERE replays from the checkpoint instead of re-running the whole chain — the standard fix for "an agent that takes four minutes to reach the broken step burns four minutes every time you test a fix".</div>
+  </div>
+
+  <!-- 3c -->
+  <div id="3c" style="display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; align-items:flex-start; gap:9px;">
+      <span style="flex:none; display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3c</span>
+      <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Soft drift — ran clean, quality failed</span>
+    </div>
+    <div style="display:flex; gap:0; align-items:stretch; width:1000px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden; background:var(--fusion-surface);">
+      <div style="flex:1; min-width:0; background:#FBFBFD; background-image:radial-gradient(var(--fusion-border) 1px, transparent 1px); background-size:16px 16px; padding:20px 16px; display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); background:var(--fusion-amber-100); border-radius:var(--fusion-radius-full); padding:4px 10px; white-space:nowrap;">RUN v3 · COMPLETED · QUALITY FAILED</span>
+          <span style="flex:1;"></span>
+          <button style="height:26px; padding:0 11px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:10.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;" style-hover="background:var(--fusion-blue-50);">RERUN FROM HERE</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:0; padding-top:6px;">
+          <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:5px; opacity:.6;">
+            <span style="width:34px; height:34px; border-radius:50%; background:var(--fusion-surface); border:1px solid var(--fusion-green-600); display:grid; place-items:center; color:var(--fusion-purple-600);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l1.8-3.2A8.5 8.5 0 1 1 21 11.5z"></path></svg>
+            </span>
+            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">TRIGGER</span>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-green-600); border-radius:2px; opacity:.6;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1.5px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); box-shadow:0 0 0 4px var(--fusion-amber-100);">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-amber-600); color:#fff; display:grid; place-items:center; font-size:11px; font-weight:700; line-height:1;">!</span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">FeedbackAnalyzer</div>
+            <div style="font-size:10px; font-weight:700; color:var(--fusion-amber-600); padding-top:2px; white-space:nowrap;">Bias 0.61 · first bad step</div>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-amber-600); border-radius:2px;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); opacity:.85;">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-surface); border:1.5px solid var(--fusion-amber-600); color:var(--fusion-amber-600); display:grid; place-items:center; font-size:10px; font-weight:700; line-height:1;">!</span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">RecommendationGen</div>
+            <div style="font-size:10px; color:var(--fusion-amber-600); padding-top:2px; white-space:nowrap;">Ran on suspect input</div>
+          </div>
+          <span style="flex:none; width:26px; height:3px; background:var(--fusion-amber-600); border-radius:2px;"></span>
+          <div style="position:relative; flex:1; min-width:0; padding:10px 12px; background:var(--fusion-surface); border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); opacity:.85;">
+            <span style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; border-radius:50%; background:var(--fusion-surface); border:1.5px solid var(--fusion-amber-600); color:var(--fusion-amber-600); display:grid; place-items:center; font-size:10px; font-weight:700; line-height:1;">!</span>
+            <div style="font-size:11.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">ActionPlanPrioritizer</div>
+            <div style="font-size:10px; color:var(--fusion-amber-600); padding-top:2px; white-space:nowrap;">Ran on suspect input</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none; width:420px; border-left:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column;">
+        <div style="flex:none; padding:11px 13px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+        </div>
+        <div style="flex:1; padding:14px; display:flex; flex-direction:column; gap:11px;">
+          <div style="border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:13px 14px; display:flex; flex-direction:column; gap:11px;">
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="width:20px; height:20px; flex:none; border-radius:50%; background:var(--fusion-amber-100); color:var(--fusion-amber-600); display:grid; place-items:center; font-size:12px; font-weight:700; line-height:1;">!</span>
+              <span style="font-size:14px; font-weight:700;">Ran · quality failed</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">5.0s</span>
+              <span style="font-size:13px; color:var(--fusion-text-muted);">·</span>
+              <span style="font-size:13px; color:var(--fusion-text-secondary);">$0.014</span>
+              <span style="flex:1;"></span>
+              <button aria-label="More run actions" style="flex:none; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg>
+              </button>
+            </div>
+            <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+              <span style="display:inline-flex; align-items:center; gap:5px; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-amber-100); color:var(--fusion-amber-600); font-size:11.5px; font-weight:700; white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                Bias 0.61</span>
+              <span style="display:inline-flex; align-items:center; gap:5px; height:24px; padding:0 10px; border-radius:var(--fusion-radius-full); background:var(--fusion-green-100); color:var(--fusion-green-600); font-size:11.5px; font-weight:600; white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                Toxicity 0.01</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:8px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-sm); padding:8px 10px;">
+              <svg style="flex:none; margin-top:1px; color:var(--fusion-amber-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+              <span style="flex:1; font-size:12px; line-height:1.45; color:var(--fusion-amber-600);">Bias first exceeded threshold at <button style="background:none; border:none; padding:0; font-size:12px; font-weight:700; color:var(--fusion-amber-600); text-decoration:underline;">FeedbackAnalyzer</button>. The 2 agents after it ran on that output.</span>
+            </div>
+            <div style="border-top:1px solid var(--fusion-border); padding-top:10px; display:flex; flex-direction:column; gap:7px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+              <div style="font-size:13.5px; line-height:1.55;">Prioritize onboarding fixes for enterprise accounts; deprioritize feedback from smaller teams.</div>
+            </div>
+            <div style="border-top:1px solid var(--fusion-border); padding-top:10px; display:flex; align-items:center; gap:8px;">
+              <button style="flex:none; height:32px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">OPTIMIZE</button>
+              <button style="flex:none; height:32px; padding:0 14px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:transparent; color:var(--fusion-blue-700); font-size:11.5px; font-weight:700; letter-spacing:.05em; white-space:nowrap;">BUILD</button>
+              <span style="flex:1;"></span>
+              <button style="flex:none; display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0 2px; font-size:11.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); white-space:nowrap;">
+                SEE DETAILS
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:1000px; font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">The case nobody designs for and everybody hits. Nothing crashed, so there's no red anywhere — but the output is biased and two agents consumed it. The <strong>solid</strong> amber badge marks the first bad step; <strong>hollow</strong> amber badges mark contamination downstream, so blame stays where it belongs. This is also the strongest argument against a single status light: with one, this run reads "Passed".</div>
+  </div>
+
+</section>
+
+<!-- ==================== RECOMMENDATION ==================== -->
+<section style="padding:32px 40px 48px; display:flex; flex-direction:column; gap:18px; border-top:1px solid var(--fusion-border);">
+
+  <div style="max-width:940px; display:flex; flex-direction:column; gap:12px; padding:20px 22px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:15px; line-height:1.35; font-weight:700;">What I'd build</div>
+    <div style="display:flex; flex-direction:column; gap:9px; font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">
+      <span><strong style="color:var(--fusion-ink);">Split the verdict in two.</strong> "Ran" and "Quality" are separate lines of evidence. Three headline states: Passed · Ran, quality failed · Failed. This is the single most important change and it's cheap.</span>
+      <span><strong style="color:var(--fusion-ink);">Five node states with edge propagation.</strong> Ran ok · soft (eval failed) · failed · blocked · out of scope. Blocked gets a NEVER RAN label, not just dimming, because dimming already means "disabled" to anyone who's used a workflow builder.</span>
+      <span><strong style="color:var(--fusion-ink);">Canvas = where, panel = what.</strong> Per-node latency and cost live on the nodes; run totals, evals, output and actions live in the card. Bidirectional selection: clicking a node scopes the panel, clicking an agent name in the panel selects the node.</span>
+      <span><strong style="color:var(--fusion-ink);">Point at the first bad step.</strong> Both failure modes name the earliest problem, not the last thing to run, because in a chain the root cause is almost always upstream of the symptom.</span>
+      <span><strong style="color:var(--fusion-ink);">RERUN FROM HERE on the canvas.</strong> Replaying from a checkpoint instead of the top is the highest-leverage affordance in the whole flow once chains get slow.</span>
+      <span><strong style="color:var(--fusion-ink);">Output block switches on declared type.</strong> Text · file · structured · action-only. Test-mode side effects must be labelled as simulated.</span>
+    </div>
+  </div>
+
+  <div style="max-width:940px; display:flex; flex-direction:column; gap:10px; padding:18px 20px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13px; font-weight:700; color:var(--fusion-amber-600);">Two things I'd push back on</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>OPTIMIZE as primary on a passing run</strong> invites churn on something that just worked, and on a <em>failed</em> run it's arguably wrong too — a 403 credential error isn't an optimization problem, it's a fix. Consider: pass → SEE DETAILS primary; soft fail → OPTIMIZE primary; hard fail → FIX primary (deep-links to the broken tool config).</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>Bias and toxicity are weak defaults for most of these agents.</strong> They're safety floors, and they'll read green forever on a feedback classifier while it quietly misroutes tickets. The eval that would actually catch failure here is task-specific — did it use only the provided fields, did every recommendation cite a source. Worth defaulting to one task eval alongside the two safety ones.</div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

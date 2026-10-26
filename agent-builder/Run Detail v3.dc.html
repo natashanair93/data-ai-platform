@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-navy-800: var(--salt-color-blue-700);
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: var(--fusion-bg); }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<div style="height:100vh; display:flex; flex-direction:column; background:var(--fusion-bg);">
+
+  <!-- header -->
+  <div style="flex:none; height:56px; padding:0 24px; display:flex; align-items:center; gap:18px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border);">
+    <span style="flex:none; font-family:var(--font-heading, var(--fusion-font)); font-size:19px; font-weight:700; letter-spacing:-.01em;">Fusion</span>
+    <div style="flex:1; min-width:0; display:flex; align-items:center; gap:7px; font-size:13px; color:var(--fusion-text-secondary);">
+      <span style="white-space:nowrap;">Agent Builder</span>
+      <span style="color:var(--fusion-text-muted);">/</span>
+      <span style="white-space:nowrap;">Client Meeting Prep</span>
+      <span style="color:var(--fusion-text-muted);">/</span>
+      <span style="white-space:nowrap; font-weight:700; color:var(--fusion-ink);">Run #128</span>
+    </div>
+    <span style="flex:none; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ runId }}</span>
+  </div>
+
+  <!-- run header -->
+  <div style="flex:none; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); padding:14px 24px 12px; display:flex; flex-direction:column; gap:12px;">
+    <div style="display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:320px; display:flex; flex-direction:column; gap:4px;">
+        <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ runKicker }}</span>
+        <span style="font-size:18px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">{{ runTitle }}</span>
+        <span style="max-width:660px; font-size:13px; line-height:1.55; color:var(--fusion-text-secondary);">{{ runInput }}</span>
+      </div>
+      <div style="flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:7px;">
+        <div style="display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px;">
+          <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+            <button onClick="{{ m.onClick }}" title="{{ m.title }}" style="white-space:nowrap; height:28px; padding:0 15px; border:none; border-radius:var(--fusion-radius-full); background:{{ m.bg }}; color:{{ m.color }}; font-size:12.5px; font-weight:{{ m.weight }}; box-shadow:{{ m.shadow }};">{{ m.label }}</button>
+          </sc-for>
+        </div>
+        <span style="white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">{{ runStamp }}</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:stretch; gap:10px; flex-wrap:wrap;">
+      <div style="flex:none; display:flex; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); overflow:hidden;">
+        <sc-for list="{{ verdicts }}" as="v" hint-placeholder-count="2">
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 14px; background:{{ v.bg }}; border-left:{{ v.sep }};">
+            <span style="flex:none; width:19px; height:19px; border-radius:50%; display:grid; place-items:center; background:{{ v.iconBg }}; color:{{ v.tone }}; font-size:12px; font-weight:700;">{{ v.glyph }}</span>
+            <div style="display:flex; flex-direction:column;">
+              <span style="white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">{{ v.label }}</span>
+              <span style="white-space:nowrap; font-size:12.5px; font-weight:700; color:{{ v.tone }};">{{ v.text }}</span>
+            </div>
+            <span style="max-width:280px; font-size:11.5px; line-height:1.4; color:var(--fusion-text-secondary);">{{ v.why }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:1; min-width:240px; display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.onClick }}" title="{{ c.title }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:7px; height:27px; padding:0 12px; border:1px solid {{ c.border }}; border-radius:var(--fusion-radius-full); background:{{ c.bg }}; color:{{ c.color }}; font-size:11.5px; font-weight:600;">
+            <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">{{ c.dim }}</span>
+            {{ c.value }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div style="flex:1; min-height:0; display:flex;">
+
+    <!-- tree -->
+    <div style="flex:none; width:266px; border-right:1px solid var(--fusion-border); background:var(--fusion-surface); display:flex; flex-direction:column; min-height:0;">
+      <div style="flex:none; padding:12px 16px 8px; display:flex; flex-direction:column; gap:2px;">
+        <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RUN STRUCTURE</span>
+        <span style="font-size:11.5px; color:var(--fusion-text-muted);">{{ treeMeta }}</span>
+      </div>
+      <div style="flex:1; min-height:0; overflow-y:auto; padding:2px 8px 10px; display:flex; flex-direction:column; gap:1px;">
+        <sc-for list="{{ treeItems }}" as="t" hint-placeholder-count="10">
+          <button onClick="{{ t.onClick }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:9px; padding:{{ t.pad }}; border:none; border-left:3px solid {{ t.leftBar }}; border-radius:var(--fusion-radius-sm); background:{{ t.bg }};">
+            <span style="flex:none; width:8px; height:8px; border-radius:50%; background:{{ t.dot }};"></span>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-weight:{{ t.weight }}; color:{{ t.color }};">{{ t.label }}</span>
+            <span style="flex:none; white-space:nowrap; font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ t.ms }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="flex:none; border-top:1px solid var(--fusion-border); padding:11px 16px 13px; display:flex; flex-direction:column; gap:6px;">
+        <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="3">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="flex:none; width:8px; height:8px; border-radius:50%; background:{{ lg.dot }};"></span>
+            <span style="flex:1; min-width:0; font-size:11.5px; color:var(--fusion-text-secondary);">{{ lg.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ================= STORY ================= -->
+    <sc-if value="{{ isStory }}" hint-placeholder-val="{{ true }}">
+      <div ref="{{ scrollRef }}" style="flex:1; min-width:0; min-height:0; overflow-y:auto; position:relative; padding:18px 26px 60px;">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column;">
+
+          <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:0 0 12px 44px;">
+            <span style="flex:none; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">WHAT HAPPENED, IN ORDER</span>
+            <span style="flex:1; min-width:240px; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">{{ storyIntro }}</span>
+          </div>
+
+          <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="6">
+            <div style="display:flex; align-items:stretch; gap:16px;">
+              <div style="flex:none; width:28px; display:flex; flex-direction:column; align-items:center;">
+                <sc-if value="{{ b.hasMark }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--fusion-surface); border:2px solid {{ b.markBorder }}; color:{{ b.markColor }}; font-size:11px; font-weight:700;">{{ b.mark }}</span>
+                </sc-if>
+                <span style="flex:1; width:2px; background:{{ b.rail }}; margin-top:4px;"></span>
+              </div>
+
+              <div style="flex:1; min-width:0; padding-bottom:14px; display:flex; flex-direction:column; gap:10px;">
+
+                <!-- marker line (split / rejoin) -->
+                <sc-if value="{{ b.isMarker }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap:10px; padding:2px 0;">
+                    <span style="flex:none; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ b.markerText }}</span>
+                    <span style="flex:1; height:1px; background:var(--fusion-border);"></span>
+                  </div>
+                </sc-if>
+
+                <!-- one or two step cards -->
+                <sc-if value="{{ b.isCards }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid; grid-template-columns:{{ b.cols }}; gap:14px; align-items:start;">
+                    <sc-for list="{{ b.cards }}" as="c" hint-placeholder-count="1">
+                      <div ref="{{ c.ref }}" style="position:relative; display:flex; flex-direction:column; gap:9px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-left:{{ c.accent }}; border-radius:var(--fusion-radius-md); padding:15px 18px 16px; box-shadow:{{ c.ring }}; transition:box-shadow 150ms cubic-bezier(0.4,0,0.2,1);">
+
+                        <sc-if value="{{ c.hasMenu }}" hint-placeholder-val="{{ true }}">
+                          <div style="position:absolute; top:10px; right:10px;">
+                            <button onClick="{{ c.toggleMenu }}" aria-label="Step actions" style="width:28px; height:28px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-full); background:{{ c.menuBg }}; color:var(--fusion-text-muted);">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="19" cy="12" r="1.7"></circle></svg>
+                            </button>
+                            <sc-if value="{{ c.menuOpen }}" hint-placeholder-val="{{ false }}">
+                              <div style="position:absolute; top:32px; right:0; z-index:30; min-width:206px; padding:5px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); box-shadow:var(--shadow-low, 0 6px 20px rgba(20,40,70,.14)); display:flex; flex-direction:column; gap:1px;">
+                                <sc-for list="{{ c.menuItems }}" as="mi" hint-placeholder-count="4">
+                                  <button onClick="{{ mi.onClick }}" style="width:100%; text-align:left; padding:8px 10px; border:none; border-radius:var(--fusion-radius-sm); background:none; font-size:12.5px; font-weight:500; color:var(--fusion-ink);" style-hover="background:var(--fusion-blue-50);">{{ mi.label }}</button>
+                                </sc-for>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </sc-if>
+
+                        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding-right:32px;">
+                          <span style="flex:none; font-size:9.5px; line-height:1; font-weight:700; letter-spacing:.06em; color:{{ c.kindColor }}; background:{{ c.kindBg }}; border-radius:3px; padding:4px 6px;">{{ c.kind }}</span>
+                          <span style="flex:none; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ c.eyebrow }}</span>
+                        </div>
+
+                        <sc-if value="{{ c.hasTitle }}" hint-placeholder-val="{{ true }}">
+                          <span style="font-size:15.5px; line-height:1.3; font-weight:700; padding-right:32px;">{{ c.title }}</span>
+                        </sc-if>
+
+                        <sc-if value="{{ c.hasQuote }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size:14px; line-height:1.6; background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:12px 14px;">{{ c.quote }}</span>
+                        </sc-if>
+
+                        <sc-if value="{{ c.hasSummary }}" hint-placeholder-val="{{ true }}">
+                          <span style="font-size:13.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ c.summary }}</span>
+                        </sc-if>
+
+                        <sc-if value="{{ c.hasDeltas }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:flex; gap:7px; flex-wrap:wrap;">
+                            <sc-for list="{{ c.deltas }}" as="d" hint-placeholder-count="2">
+                              <span style="white-space:nowrap; font-size:11.5px; font-weight:500; color:var(--fusion-text-secondary); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:4px 9px;">{{ d.text }}</span>
+                            </sc-for>
+                          </div>
+                        </sc-if>
+
+                        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                          <sc-for list="{{ c.vitals }}" as="v" hint-placeholder-count="3">
+                            <span style="white-space:nowrap; font:400 11.5px var(--fusion-font-mono); color:{{ v.color }};">{{ v.text }}</span>
+                          </sc-for>
+                        </div>
+
+                        <!-- the one flag component, two flavours -->
+                        <sc-for list="{{ c.flags }}" as="f" hint-placeholder-count="0">
+                          <div style="display:flex; flex-direction:column; gap:4px; border:1px solid var(--fusion-border); border-left:4px solid {{ f.tone }}; border-radius:var(--fusion-radius-md); background:{{ f.bg }}; padding:11px 14px;">
+                            <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:{{ f.tone }};">{{ f.kind }}</span>
+                            <span style="font-size:13.5px; font-weight:700; line-height:1.35;">{{ f.title }}</span>
+                            <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ f.body }}</span>
+                            <div style="display:flex; gap:14px; flex-wrap:wrap; padding-top:4px;">
+                              <sc-for list="{{ f.actions }}" as="fa" hint-placeholder-count="2">
+                                <button onClick="{{ fa.onClick }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:{{ fa.color }};" style-hover="text-decoration:underline;">{{ fa.label }}</button>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </sc-for>
+
+                        <!-- sub-agent -->
+                        <sc-if value="{{ c.hasSub }}" hint-placeholder-val="{{ false }}">
+                          <div style="border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                            <button onClick="{{ c.toggleSub }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:9px; padding:10px 13px; border:none; background:none;">
+                              <span style="flex:none; font-size:10px; font-weight:700; letter-spacing:.08em; color:var(--fusion-purple-600);">{{ c.subKicker }}</span>
+                              <span style="flex:1; min-width:0; text-align:right; font-size:11.5px; color:var(--fusion-text-muted);">{{ c.subMeta }}</span>
+                            </button>
+                            <sc-if value="{{ c.subOpen }}" hint-placeholder-val="{{ false }}">
+                              <div style="border-top:1px solid var(--fusion-border); display:flex; flex-direction:column;">
+                                <sc-for list="{{ c.subSteps }}" as="ss" hint-placeholder-count="3">
+                                  <div style="display:flex; gap:11px; padding:9px 13px; border-bottom:{{ ss.divider }};">
+                                    <span style="flex:none; width:14px; font-size:10.5px; font-weight:700; color:var(--fusion-text-muted); padding-top:2px;">{{ ss.n }}</span>
+                                    <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                                      <span style="font-size:12.5px; font-weight:700;">{{ ss.t }}</span>
+                                      <span style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">{{ ss.d }}</span>
+                                    </div>
+                                  </div>
+                                </sc-for>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </sc-if>
+
+                        <!-- rung 1: data in → out -->
+                        <sc-if value="{{ c.hasData }}" hint-placeholder-val="{{ true }}">
+                          <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); background:var(--fusion-bg); overflow:hidden;">
+                            <button onClick="{{ c.toggleData }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:9px; padding:9px 13px; border:none; background:none;">
+                              <svg style="flex:none; color:var(--fusion-text-muted); transform:{{ c.dataRotate }}; transition:transform 150ms cubic-bezier(0.4,0,0.2,1);" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+                              <span style="flex:none; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">{{ c.dataLabel }}</span>
+                              <span style="flex:1; min-width:0; text-align:right; font-size:11.5px; color:var(--fusion-text-muted);">{{ c.dataHint }}</span>
+                            </button>
+                            <sc-if value="{{ c.dataOpen }}" hint-placeholder-val="{{ false }}">
+                              <div style="border-top:1px solid var(--fusion-border); padding:12px 13px; display:flex; flex-direction:column; gap:9px;">
+                                <div style="display:grid; grid-template-columns:{{ c.dataCols }}; gap:12px;">
+                                  <sc-for list="{{ c.payloads }}" as="p" hint-placeholder-count="2">
+                                    <div style="min-width:0; display:flex; flex-direction:column; gap:6px;">
+                                      <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ p.caps }}</span>
+                                      <div style="display:flex; flex-direction:column; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); padding:10px 11px; overflow-x:auto;">
+                                        <sc-for list="{{ p.lines }}" as="ln" hint-placeholder-count="4">
+                                          <span style="white-space:pre; font:400 11.5px/1.65 var(--fusion-font-mono); color:{{ ln.color }}; background:{{ ln.bg }}; opacity:{{ ln.opacity }};">{{ ln.t }}</span>
+                                        </sc-for>
+                                      </div>
+                                    </div>
+                                  </sc-for>
+                                </div>
+                                <sc-if value="{{ c.hasDataNote }}" hint-placeholder-val="{{ false }}">
+                                  <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                                    <span style="flex:none; font-size:11.5px; color:var(--fusion-text-muted);">{{ c.dataNote }}</span>
+                                    <sc-for list="{{ c.dataLinks }}" as="dl" hint-placeholder-count="2">
+                                      <button onClick="{{ dl.onClick }}" style="border:none; background:none; padding:0; font-size:12px; font-weight:700; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">{{ dl.label }}</button>
+                                    </sc-for>
+                                  </div>
+                                </sc-if>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </sc-if>
+
+                        <!-- rung 2: inspect -->
+                        <sc-if value="{{ c.hasInspect }}" hint-placeholder-val="{{ true }}">
+                          <div style="border:1px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                            <button onClick="{{ c.toggleInspect }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:9px; padding:8px 13px; border:none; background:none;">
+                              <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4-4"></path></svg>
+                              <span style="flex:none; font-size:12px; font-weight:700; color:{{ c.inspectColor }};">Inspect · what the machine saw</span>
+                              <span style="flex:1; min-width:0; text-align:right; font-size:11px; color:var(--fusion-text-muted);">{{ c.inspectHint }}</span>
+                            </button>
+                            <sc-if value="{{ c.inspectOpen }}" hint-placeholder-val="{{ false }}">
+                              <div style="display:flex; flex-direction:column;">
+                                <sc-for list="{{ c.inspectSections }}" as="isec" hint-placeholder-count="2">
+                                  <div style="display:flex; flex-direction:column; gap:5px; padding:10px 13px; border-top:1px solid var(--fusion-border);">
+                                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                                      <span style="flex:none; font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ isec.k }}</span>
+                                      <span style="flex:none; font:400 11px var(--fusion-font-mono); color:{{ isec.tokColor }};">{{ isec.tok }}</span>
+                                    </div>
+                                    <span style="font:400 11.5px/1.65 var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ isec.p }}</span>
+                                  </div>
+                                </sc-for>
+                                <div style="display:flex; gap:18px; flex-wrap:wrap; padding:10px 13px; border-top:1px solid var(--fusion-border); background:var(--fusion-bg);">
+                                  <sc-for list="{{ c.ladder }}" as="lr" hint-placeholder-count="2">
+                                    <button onClick="{{ lr.onClick }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">{{ lr.label }}</button>
+                                  </sc-for>
+                                </div>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+
+                <!-- loop chapter -->
+                <sc-if value="{{ b.isChapter }}" hint-placeholder-val="{{ false }}">
+                  <div ref="{{ b.ref }}" style="border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-bg); padding:15px 17px 16px; display:flex; flex-direction:column; gap:11px; box-shadow:{{ b.ring }};">
+                    <div style="display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap;">
+                      <div style="flex:1; min-width:220px; display:flex; flex-direction:column; gap:3px;">
+                        <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ b.chapterEyebrow }}</span>
+                        <span style="font-size:15.5px; font-weight:700;">{{ b.chapterTitle }}</span>
+                      </div>
+                      <div style="flex:none; display:flex; align-items:center; gap:9px;">
+                        <span style="font-size:9.5px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">ATTEMPT</span>
+                        <div style="display:flex; gap:5px;">
+                          <sc-for list="{{ b.attempts }}" as="at" hint-placeholder-count="4">
+                            <button onClick="{{ at.onClick }}" title="{{ at.title }}" style="width:28px; height:28px; border-radius:50%; border:1.5px solid {{ at.border }}; background:{{ at.bg }}; color:{{ at.color }}; font-size:12px; font-weight:700; box-shadow:{{ at.ring }};">{{ at.n }}</button>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </div>
+                    <span style="font-size:13.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ b.chapterSummary }}</span>
+                    <div style="display:flex; gap:7px; flex-wrap:wrap;">
+                      <sc-for list="{{ b.chapterDeltas }}" as="cd" hint-placeholder-count="3">
+                        <span style="white-space:nowrap; font-size:11.5px; font-weight:500; color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); padding:4px 9px;">{{ cd.text }}</span>
+                      </sc-for>
+                    </div>
+
+                    <sc-for list="{{ b.chapterFlags }}" as="cf" hint-placeholder-count="0">
+                      <div style="display:flex; flex-direction:column; gap:4px; border:1px solid var(--fusion-border); border-left:4px solid {{ cf.tone }}; border-radius:var(--fusion-radius-md); background:{{ cf.bg }}; padding:11px 14px;">
+                        <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:{{ cf.tone }};">{{ cf.kind }}</span>
+                        <span style="font-size:13.5px; font-weight:700; line-height:1.35;">{{ cf.title }}</span>
+                        <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ cf.body }}</span>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap; padding-top:4px;">
+                          <sc-for list="{{ cf.actions }}" as="cfa" hint-placeholder-count="1">
+                            <button onClick="{{ cfa.onClick }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:{{ cfa.color }};" style-hover="text-decoration:underline;">{{ cfa.label }}</button>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-for>
+
+                    <div style="display:flex; flex-direction:column; gap:9px; padding-top:2px;">
+                      <sc-for list="{{ b.innerSteps }}" as="ins" hint-placeholder-count="2">
+                        <div style="display:flex; align-items:stretch; gap:12px;">
+                          <div style="flex:none; width:24px; display:flex; flex-direction:column; align-items:center;">
+                            <span style="flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center; background:var(--fusion-surface); border:2px solid {{ ins.markBorder }}; color:{{ ins.markColor }}; font-size:10.5px; font-weight:700;">{{ ins.n }}</span>
+                            <span style="flex:1; width:2px; background:{{ ins.rail }}; margin-top:4px;"></span>
+                          </div>
+                          <div style="flex:1; min-width:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:13px 15px; display:flex; flex-direction:column; gap:7px;">
+                            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                              <span style="flex:none; font-size:9.5px; line-height:1; font-weight:700; letter-spacing:.06em; color:{{ ins.kindColor }}; background:{{ ins.kindBg }}; border-radius:3px; padding:4px 6px;">{{ ins.kind }}</span>
+                              <span style="flex:1; min-width:0; font-size:13.5px; font-weight:700;">{{ ins.title }}</span>
+                              <span style="flex:none; font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ ins.meta }}</span>
+                            </div>
+                            <sc-if value="{{ ins.skipped }}" hint-placeholder-val="{{ false }}">
+                              <span style="font-size:12.5px; line-height:1.55; font-style:italic; color:var(--fusion-text-muted);">{{ ins.skipNote }}</span>
+                            </sc-if>
+                            <sc-if value="{{ ins.hasBody }}" hint-placeholder-val="{{ true }}">
+                              <div style="display:flex; flex-direction:column; gap:4px; border-left:3px solid {{ ins.tone }}; padding-left:11px;">
+                                <span style="font-size:13px; font-weight:700; color:{{ ins.tone }};">{{ ins.headline }}</span>
+                                <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ ins.body }}</span>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <!-- final output -->
+                <sc-if value="{{ b.isOutput }}" hint-placeholder-val="{{ false }}">
+                  <div ref="{{ b.ref }}" style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-left:4px solid var(--fusion-navy-800); border-radius:var(--fusion-radius-md); padding:15px 18px 16px; display:flex; flex-direction:column; gap:12px; box-shadow:{{ b.ring }};">
+                    <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">THE RESULT</span>
+                    <div style="display:flex; align-items:center; gap:13px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:12px 14px;">
+                      <span style="flex:none; width:38px; height:38px; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-50); color:var(--fusion-blue-700); display:grid; place-items:center;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                      </span>
+                      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:14px; font-weight:700;">{{ outputFile }}</span>
+                        <span style="font-size:11.5px; color:var(--fusion-text-muted);">{{ outputMeta }}</span>
+                      </div>
+                      <button style="flex:none; white-space:nowrap; height:30px; padding:0 13px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">OPEN PREVIEW</button>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:2px; border-top:1px solid var(--fusion-border); padding-top:11px;">
+                      <sc-for list="{{ finalEvals }}" as="fe" hint-placeholder-count="3">
+                        <button onClick="{{ fe.onClick }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:12px; padding:7px 8px; margin:0 -8px; border:none; border-radius:var(--fusion-radius-sm); background:{{ fe.bg }};" style-hover="background:var(--fusion-bg);">
+                          <span style="flex:none; width:132px; font-size:12.5px; color:var(--fusion-text-secondary);">{{ fe.name }}</span>
+                          <span style="flex:none; width:128px; font:500 11.5px var(--fusion-font-mono); color:{{ fe.tone }};">{{ fe.score }}</span>
+                          <span style="flex:1; min-width:0; font-size:12.5px; color:var(--fusion-text-muted);">{{ fe.why }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:9px; border-top:1px solid var(--fusion-border); padding-top:11px;">
+                      <svg style="flex:none; color:var(--fusion-green-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                      <span style="flex:none; font-size:12.5px; font-weight:700; color:var(--fusion-green-600);">{{ safetyLine }}</span>
+                      <span style="flex:1; min-width:0; font-size:12px; color:var(--fusion-text-muted);">{{ safetyNote }}</span>
+                    </div>
+                  </div>
+                </sc-if>
+
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ================= TRACE ================= -->
+    <sc-if value="{{ isTrace }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:var(--fusion-bg);">
+        <div style="flex:none; padding:9px 20px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span style="flex:none; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ traceCount }}</span>
+          <div style="flex:none; display:flex; gap:5px; flex-wrap:wrap;">
+            <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="5">
+              <button onClick="{{ fl.onClick }}" style="white-space:nowrap; height:26px; padding:0 11px; border:1px solid {{ fl.border }}; border-radius:var(--fusion-radius-full); background:{{ fl.bg }}; color:{{ fl.color }}; font-size:11.5px; font-weight:{{ fl.weight }};">{{ fl.label }}</button>
+            </sc-for>
+          </div>
+          <span style="flex:none; width:1px; height:20px; background:var(--fusion-border);"></span>
+          <div style="flex:none; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px;">
+            <sc-for list="{{ metrics }}" as="mt" hint-placeholder-count="3">
+              <button onClick="{{ mt.onClick }}" title="{{ mt.title }}" style="white-space:nowrap; height:24px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:{{ mt.bg }}; color:{{ mt.color }}; font-size:11.5px; font-weight:{{ mt.weight }}; box-shadow:{{ mt.shadow }};">{{ mt.label }}</button>
+            </sc-for>
+          </div>
+          <span style="flex:1; min-width:120px; text-align:right; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ traceTotal }}</span>
+        </div>
+
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:8px 20px 40px;">
+          <sc-for list="{{ traceRows }}" as="tr" hint-placeholder-count="12">
+            <div style="display:flex; flex-direction:column;">
+              <sc-if value="{{ tr.isGroup }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; align-items:center; gap:10px; padding:14px 0 5px;">
+                  <span style="flex:none; font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ tr.label }}</span>
+                  <span style="flex:1; height:1px; background:var(--fusion-border);"></span>
+                  <span style="flex:none; font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ tr.meta }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ tr.isSpan }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex; flex-direction:column;">
+                  <button onClick="{{ tr.onClick }}" style="width:100%; text-align:left; display:grid; grid-template-columns:250px minmax(0,1fr) 84px; gap:12px; align-items:center; padding:5px 8px; margin:0 -8px; border:none; border-radius:var(--fusion-radius-sm); background:{{ tr.bg }}; box-shadow:{{ tr.ring }};">
+                    <span style="display:flex; align-items:center; gap:8px; min-width:0;">
+                      <span style="flex:none; font-size:9px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--fusion-text-muted); border:1px solid var(--fusion-border); border-radius:3px; padding:2px 5px;">{{ tr.type }}</span>
+                      <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-weight:{{ tr.weight }}; color:{{ tr.nameColor }};">{{ tr.name }}</span>
+                    </span>
+                    <span style="position:relative; height:12px; background:#E6E9ED; border-radius:6px;">
+                      <span style="position:absolute; top:0; bottom:0; left:{{ tr.left }}%; width:{{ tr.width }}%; min-width:3px; border-radius:6px; background:{{ tr.barColor }}; opacity:{{ tr.barOpacity }};"></span>
+                    </span>
+                    <span style="text-align:right; white-space:nowrap; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ tr.value }}</span>
+                  </button>
+                  <sc-if value="{{ tr.open }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin:4px 0 10px; border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:13px 15px; display:flex; flex-direction:column; gap:11px;">
+                      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <sc-for list="{{ tr.payloads }}" as="tp" hint-placeholder-count="2">
+                          <div style="min-width:0; display:flex; flex-direction:column; gap:6px;">
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ tp.caps }}</span>
+                            <span style="font:400 11.5px/1.65 var(--fusion-font-mono); color:{{ tp.color }}; background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;">{{ tp.text }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                        <sc-for list="{{ tr.facts }}" as="tf" hint-placeholder-count="4">
+                          <span style="white-space:nowrap; font-size:12px; color:var(--fusion-text-secondary);">{{ tf.text }}</span>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex; gap:16px; flex-wrap:wrap; border-top:1px solid var(--fusion-border); padding-top:10px;">
+                        <sc-for list="{{ tr.actions }}" as="ta" hint-placeholder-count="2">
+                          <button onClick="{{ ta.onClick }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">{{ ta.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <div style="display:flex; gap:18px; flex-wrap:wrap; border-top:1px solid var(--fusion-border); margin-top:18px; padding-top:12px;">
+            <sc-for list="{{ traceLegend }}" as="tl" hint-placeholder-count="5">
+              <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--fusion-text-secondary);">
+                <span style="flex:none; width:14px; height:8px; border-radius:4px; background:{{ tl.color }}; opacity:{{ tl.opacity }};"></span>{{ tl.label }}</span>
+            </sc-for>
+          </div>
+          <span style="display:block; padding-top:10px; max-width:760px; font-size:12px; line-height:1.6; color:var(--fusion-text-muted);">{{ traceNote }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ================= SIDE-BY-SIDE ================= -->
+    <sc-if value="{{ sxsOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none; width:470px; border-left:1px solid var(--fusion-border); background:var(--fusion-surface); display:flex; flex-direction:column; min-height:0; box-shadow:-8px 0 28px rgba(20,40,70,.08);">
+        <div style="flex:none; padding:13px 18px 12px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:flex-start; gap:11px;">
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">SIDE-BY-SIDE · {{ sxsStep }}</span>
+            <span style="font-size:15px; font-weight:700;">Try a variant</span>
+            <span style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);">Runs against this step's captured inputs. A scratch run — never enters history, trends, or baselines.</span>
+          </div>
+          <button onClick="{{ closeSxs }}" aria-label="Close" style="flex:none; width:26px; height:26px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:14px 18px 26px; display:flex; flex-direction:column; gap:13px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:11px;">
+            <sc-for list="{{ sxsCols }}" as="sc" hint-placeholder-count="2">
+              <div style="display:flex; flex-direction:column; gap:2px; border:1px solid {{ sc.border }}; border-radius:var(--fusion-radius-md); padding:11px 12px;">
+                <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:{{ sc.caps }}; padding-bottom:5px;">{{ sc.label }}</span>
+                <sc-for list="{{ sc.fields }}" as="sf" hint-placeholder-count="3">
+                  <div style="display:flex; align-items:center; gap:8px; padding:5px 0;">
+                    <span style="flex:1; min-width:0; font-size:12px; color:var(--fusion-text-secondary);">{{ sf.label }}</span>
+                    <button onClick="{{ sf.onClick }}" style="flex:none; white-space:nowrap; height:24px; padding:0 9px; border:1px solid {{ sf.border }}; border-radius:var(--fusion-radius-sm); background:{{ sf.bg }}; color:{{ sf.color }}; font-size:11.5px; font-weight:600;">{{ sf.value }}</button>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; gap:9px;">
+            <button onClick="{{ runVariant }}" style="flex:none; height:34px; padding:0 15px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:12px; font-weight:700; letter-spacing:.04em;" style-hover="filter:brightness(0.93);">{{ sxsCta }}</button>
+            <button onClick="{{ closeSxs }}" style="flex:none; height:34px; padding:0 15px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">CANCEL</button>
+          </div>
+
+          <sc-if value="{{ sxsRan }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:11px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:11px;">
+                <sc-for list="{{ sxsResults }}" as="sr" hint-placeholder-count="2">
+                  <div style="display:flex; flex-direction:column; gap:5px; border:1px solid {{ sr.border }}; border-radius:var(--fusion-radius-md); padding:11px 12px;">
+                    <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:{{ sr.caps }};">{{ sr.label }}</span>
+                    <sc-for list="{{ sr.lines }}" as="rl" hint-placeholder-count="3">
+                      <span style="font:400 11.5px/1.7 var(--fusion-font-mono); color:{{ rl.color }};">{{ rl.text }}</span>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+              <span style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ sxsVerdict }}</span>
+              <div style="display:flex; gap:9px; flex-wrap:wrap;">
+                <button onClick="{{ proposeVariant }}" style="flex:none; height:32px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-navy-800); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="filter:brightness(1.1);">PROPOSE TO CANVAS</button>
+                <button onClick="{{ discardVariant }}" style="flex:none; height:32px; padding:0 14px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">DISCARD</button>
+              </div>
+              <span style="font-size:11.5px; line-height:1.55; color:var(--fusion-text-muted);">One input isn't proof. Proposing opens the change as a diff on the canvas; the test suite verifies it before anything ships.</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ toastShow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; right:22px; bottom:22px; z-index:80; display:flex; align-items:center; gap:10px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-left:4px solid var(--fusion-green-600); border-radius:var(--fusion-radius-md); box-shadow:0 8px 28px rgba(20,40,70,.14); padding:12px 16px;">
+      <span style="font-size:12.5px; font-weight:600;">{{ toastMsg }}</span>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1420,&quot;height&quot;:980},&quot;startMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;story&quot;,&quot;trace&quot;],&quot;default&quot;:&quot;story&quot;,&quot;tsType&quot;:&quot;'story' | 'trace'&quot;,&quot;section&quot;:&quot;Reading model&quot;},&quot;traceMetric&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;time&quot;,&quot;cost&quot;,&quot;tokens&quot;],&quot;default&quot;:&quot;time&quot;,&quot;tsType&quot;:&quot;'time' | 'cost' | 'tokens'&quot;,&quot;section&quot;:&quot;Reading model&quot;}}">
+const C = {
+  ink: 'var(--fusion-ink)', sec: 'var(--fusion-text-secondary)', muted: 'var(--fusion-text-muted)',
+  surface: 'var(--fusion-surface)', bg: 'var(--fusion-bg)',
+  border: 'var(--fusion-border)', strong: 'var(--fusion-border-strong)',
+  blue: 'var(--fusion-blue-700)', blueBg: 'var(--fusion-blue-50)', blue5: 'var(--fusion-blue-500)',
+  navy: 'var(--fusion-navy-800)', purple: 'var(--fusion-purple-600)', lilac: 'var(--fusion-lilac-100)',
+  amber: 'var(--fusion-amber-600)', amberBg: 'var(--fusion-amber-100)',
+  green: 'var(--fusion-green-600)', greenBg: 'var(--fusion-green-100)',
+  red: 'var(--fusion-red-600)', redBg: 'var(--fusion-red-100)',
+};
+
+// ---------------------------------------------------------------------------
+// ONE source of truth. Spans carry the numbers; steps, tree, chips, verdicts,
+// flags and the waterfall are all derived from them, so story and trace can
+// never disagree.
+// ---------------------------------------------------------------------------
+const T = 22.8; // run wall clock
+
+const sp = (o) => ({ tokens: 0, cost: 0, warn: false, ...o });
+
+const STEPS = [
+  {
+    id: 'parse', n: '1', kind: 'MODEL', title: 'Parse request',
+    summary: 'Turned the free-text ask into a structured request — client, meeting type, date and two focus topics. Nothing dropped.',
+    deltas: ['text → 4 structured fields', 'client resolved to CRM id'],
+    spans: [
+      sp({ id: 'parse-1', name: 'model_call · fusion-small-2', type: 'model', s: 0.0, d: 1.15, cost: 0.004, tokens: 608,
+        in: '"Prep me for the Meridian Capital quarterly review…"', out: '{ client, client_id, meeting, date, topics[2] }', ev: '—' }),
+      sp({ id: 'parse-2', name: 'contract check · RequestSpec v3', type: 'rule', s: 1.15, d: 0.05,
+        in: 'parsed object', out: 'valid ✓', ev: '—' }),
+    ],
+    payloads: [
+      { caps: 'IN', lines: [['"Prep me for the Meridian Capital'], ['quarterly review on Thursday —'], ['focus on their FX hedging program'], ['and any open service issues."']] },
+      { caps: 'OUT', lines: [['{'], ['  "client": "Meridian Capital",', 'add'], ['  "client_id": "MER-4402",', 'add'], ['  "meeting": "Quarterly review",', 'add'], ['  "date": "2026-08-06",', 'add'], ['  "topics": [2 items]', 'add'], ['}']] },
+    ],
+    dataHint: '0.3 KB → 0.2 KB',
+    inspect: [{ k: 'MODEL', tok: 'fusion-small-2 · temp 0', p: 'Rendered prompt: SYSTEM 210 tok · INPUT 88 tok. Contract RequestSpec v3 — valid.' }],
+  },
+  {
+    id: 'crm', n: '2A', lane: 'A', laneLabel: 'Thread A', kind: 'TOOL', title: 'Fetch CRM data',
+    summary: 'Pulled Meridian\u2019s CRM profile. 214 fields came back, 9 were carried forward. The first call timed out; the second succeeded.',
+    deltas: ['42.3 KB returned', '214 fields → 9 used'],
+    signals: { retries: 1, retryHistory: '4 of the last 10 runs', fieldsUsed: 9, fieldsTotal: 214 },
+    spans: [
+      sp({ id: 'crm-1', name: 'tool_call · getClientProfile · attempt 1', type: 'tool', s: 1.2, d: 2.1, warn: true,
+        in: '{ client_id:"MER-4402", include:[…] }', out: '✕ timeout at 2.10s', ev: 'timeout — retry scheduled' }),
+      sp({ id: 'crm-2', name: 'tool_call · getClientProfile · attempt 2', type: 'tool', s: 3.3, d: 1.9,
+        in: '{ client_id:"MER-4402", include:[…] }', out: '200 OK · 42.3 KB · 214 fields', ev: 'cache: miss' }),
+      sp({ id: 'crm-3', name: 'parse response', type: 'rule', s: 5.2, d: 0.1,
+        in: '42.3 KB json', out: 'crm_profile { 9 fields }', ev: '—' }),
+    ],
+    payloads: [
+      { caps: 'THE 9 FIELDS USED', lines: [['{'], ['  "relationship_manager": "D. Okafor",'], ['  "aum_usd": 2.4e9,'], ['  "open_tickets": [ 3 items ],'], ['  "holdings_summary": { … },'], ['  "last_meeting": "2026-05-12",'], ['  … 205 more fields not used', 'dim'], ['}']] },
+    ],
+    dataHint: 'preview of 42.3 KB',
+    dataNote: 'Full payload: 42.3 KB · 214 fields',
+    inspect: [
+      { k: 'REQUEST', p: '{ client_id: "MER-4402", include: [contacts, holdings, tickets] }' },
+      { k: 'EVENTS', p: 'attempt 1 → timeout 2.1s · attempt 2 → 200 OK 1.9s · cache: miss' },
+    ],
+  },
+  {
+    id: 'research', n: '2B', lane: 'A', laneLabel: 'Thread B', kind: 'RETRIEVAL', title: 'Retrieve research',
+    summary: 'Searched the research KB for FX-hedging context and pulled 20 chunks into the run.',
+    deltas: ['+ 20 chunks · 18.2k tok', 'query: "Meridian FX hedging outlook"'],
+    signals: { evalBelowFloor: { name: 'Retrieval relevance', score: 0.62, floor: 0.70, offTopic: 7, of: 20, topic: 'equity strategy' } },
+    spans: [
+      sp({ id: 'res-1', name: 'vector search · k=20 · hybrid', type: 'retrieval', s: 1.2, d: 0.7,
+        in: 'query: "Meridian FX hedging outlook Q3"', out: '20 chunks · top 0.91 · floor 0.44', ev: '—' }),
+      sp({ id: 'res-2', name: 'rerank', type: 'retrieval', s: 1.9, d: 0.2, in: '20 chunks', out: '20 chunks (reordered)', ev: '—' }),
+      sp({ id: 'res-3', name: 'eval · retrieval-relevance v2 (judge)', type: 'rule', s: 2.1, d: 0.4, cost: 0.002, tokens: 620,
+        in: 'query + 20 chunks', out: '0.62 ⚠ (floor 0.70) — 7 chunks off-topic', ev: 'graded async, off critical path' }),
+    ],
+    payloads: [
+      { caps: 'GRADE', lines: [['Retrieval relevance · 0.62 (floor 0.70)'], ['LLM judge v2'], [''], ['13 of 20 chunks on-topic; 7 match the'], ['client name but cover equity strategy.'], ['Evidence: chunks #3 #7 #9 #11 #14 #17 #20', 'dim']] },
+    ],
+    dataHint: '1 eval ran on this step',
+    inspect: [{ k: 'RETRIEVAL', p: 'k=20 · hybrid · Research KB (2,481 docs) · top score 0.91 · floor score 0.44' }],
+  },
+  {
+    id: 'draft', n: '3', kind: 'MODEL', title: 'Draft briefing',
+    summary: 'Wrote the briefing from everything gathered — 24k tokens of context in, a 1,900-word draft out. Three of the 20 research chunks were cited.',
+    deltas: ['24k tok → 1,900-word draft', 'assembled from 1 + 2A + 2B'],
+    signals: { carried: 20, cited: 3, carriedTok: 18204, promptTok: 21410 },
+    spans: [
+      sp({ id: 'draft-1', name: 'assemble context', type: 'rule', s: 5.3, d: 0.3,
+        in: 'step 1 + 2A + 2B outputs', out: '24k tok context', ev: 'fan-in: 3 sources' }),
+      sp({ id: 'draft-2', name: 'model_call · fusion-frontier-1', type: 'model', s: 5.6, d: 9.6, cost: 0.21, tokens: 23314, replay: true,
+        in: 'rendered prompt · 4 sections (knowledge = 85%)', out: 'draft_briefing v1 · 1,912 words', ev: 'cache: 412 tok hit (system)' }),
+      sp({ id: 'draft-3', name: 'contract check · Draft v2', type: 'rule', s: 15.2, d: 0.1, in: 'draft md', out: 'valid ✓', ev: '—' }),
+    ],
+    payloads: [
+      { caps: 'IN (ASSEMBLED)', lines: [['structured_request { 5 fields }'], ['crm_profile { 9 fields }'], ['research_chunks [ 20 × ~900 tok ]', 'add']] },
+      { caps: 'OUT', lines: [['draft_briefing (markdown, v1)'], ['  1. Relationship snapshot'], ['  2. FX hedging program review'], ['  3. Market outlook'], ['  4. Open service issues'], ['  1,912 words', 'dim']] },
+    ],
+    dataHint: '24.1 KB → 11.6 KB',
+    inspect: [
+      { k: 'SYSTEM', tok: '412 tok', p: 'You are a client-briefing assistant for institutional coverage teams…' },
+      { k: 'SKILL · BRIEFING-FORMAT', tok: '380 tok', p: 'Briefings follow: snapshot → program review → outlook → open items…' },
+      { k: 'KNOWLEDGE · 20 CHUNKS', tok: '18,204 tok — 85% of prompt', tokWarn: true, p: '[1/20] "Q3 FX outlook: EUR hedging costs…" · [2/20] "Meridian equity strategy review…"' },
+      { k: 'INPUT', tok: '2,410 tok', p: '{ structured_request…, crm_profile… }' },
+    ],
+  },
+  {
+    id: 'loop', n: '↻', kind: 'LOOP', title: 'Validate & refine', chapter: true,
+    summary: 'The draft cycled through validate → refine four times. Each pass caught one issue and fixed it; showing one attempt at a time.',
+    deltas: ['draft v1 → v4', '+ risk disclosure', 'figures reconciled to CRM', 'tone formalized'],
+    signals: { loops: 4, loopCeiling: 5 },
+    spans: [
+      sp({ id: 'loop-v1', name: 'validate · attempt 1', type: 'rule', s: 15.3, d: 0.3, warn: true, in: 'draft v1', out: 'FAIL — FIN-DISC-04 missing', ev: '—' }),
+      sp({ id: 'loop-r1', name: 'refine · attempt 1', type: 'model', s: 15.6, d: 1.1, cost: 0.02, tokens: 1480, in: 'draft v1 + violation', out: 'draft v2 (+risk disclosure)', ev: '—' }),
+      sp({ id: 'loop-v2', name: 'validate · attempt 2', type: 'rule', s: 16.7, d: 0.3, warn: true, in: 'draft v2', out: 'FAIL — AUM mismatch vs CRM', ev: '—' }),
+      sp({ id: 'loop-r2', name: 'refine · attempt 2', type: 'model', s: 17.0, d: 1.1, cost: 0.02, tokens: 1520, in: 'draft v2 + violation', out: 'draft v3 (figures reconciled)', ev: '—' }),
+      sp({ id: 'loop-v3', name: 'validate · attempt 3', type: 'rule', s: 18.1, d: 0.3, warn: true, in: 'draft v3', out: 'FAIL — tone (exec summary)', ev: '—' }),
+      sp({ id: 'loop-r3', name: 'refine · attempt 3', type: 'model', s: 18.4, d: 1.1, cost: 0.02, tokens: 1460, in: 'draft v3 + violation', out: 'draft v4 (tone formalized)', ev: '—' }),
+      sp({ id: 'loop-v4', name: 'validate · attempt 4', type: 'rule', s: 19.5, d: 0.3, in: 'draft v4', out: 'PASS — 12/12 rules', ev: 'loop exit' }),
+    ],
+    attempts: [
+      { validate: { pass: false, headline: 'Failed — missing required section', body: 'Rule FIN-DISC-04: no risk-disclosure section found after section 2.' },
+        refine: { headline: 'Fixed the miss', body: 'Added the risk-disclosure section using the firm boilerplate, tailored to FX forwards exposure.' } },
+      { validate: { pass: false, headline: 'Failed — figure mismatch', body: 'AUM in the snapshot ($2.1B) doesn\u2019t match the CRM record ($2.4B).' },
+        refine: { headline: 'Reconciled figures', body: 'Rewrote the snapshot using CRM as source of truth; corrected two derived percentages.' } },
+      { validate: { pass: false, headline: 'Failed — tone', body: 'Executive summary flagged informal ("a great quarter for the FX book").' },
+        refine: { headline: 'Formalized tone', body: 'Rewrote the executive summary in the firm register; no factual changes.' } },
+      { validate: { pass: true, headline: 'Passed — all rules satisfied', body: '12 of 12 validator rules pass. Draft v4 released to compliance review.' },
+        refine: null },
+    ],
+  },
+  {
+    id: 'comp', n: '6', kind: 'SUB-AGENT', title: 'Compliance check',
+    summary: 'The draft took a side quest: a compliance sub-agent reviewed it against firm policy and returned it approved, with one redaction.',
+    deltas: ['approved', '1 redaction — client name in appendix'],
+    sub: { kicker: 'SUB-AGENT · COMPLIANCE-REVIEWER V3', meta: 'in: draft v4 → out: approved + 1 edit', steps: [
+      { n: 'a', t: 'Policy scan', d: '12 rules for institutional client documents — no violations.' },
+      { n: 'b', t: 'Disclosure check', d: 'Risk disclosure present (added in attempt 1) — satisfies FIN-DISC-04.' },
+      { n: 'c', t: 'Redaction', d: 'Client legal name → short name in the appendix, per the data-handling policy.' },
+    ] },
+    spans: [
+      sp({ id: 'comp-1', name: 'policy scan', type: 'model', s: 19.8, d: 0.9, cost: 0.015, tokens: 1180, in: 'draft v4 + 12 rules', out: 'no violations', ev: '—' }),
+      sp({ id: 'comp-2', name: 'disclosure check', type: 'rule', s: 20.7, d: 0.3, in: 'draft v4', out: 'FIN-DISC-04 satisfied', ev: '—' }),
+      sp({ id: 'comp-3', name: 'redaction', type: 'model', s: 21.0, d: 1.1, cost: 0.015, tokens: 1140, in: 'draft v4', out: 'draft v4r — client name → short name', ev: 'safety pack: 7 checks · 0 findings' }),
+    ],
+    inspect: [{ k: 'SAFETY PACK', p: '7 checks ran inside this step (platform v12 + 2 org checks) · 0 findings' }],
+  },
+  {
+    id: 'format', n: '7', kind: 'TRANSFORM', title: 'Format document',
+    summary: 'The approved markdown became the deliverable: a 9-page Word document on the firm template.',
+    deltas: ['markdown → .docx', 'template: client-briefing-v2'],
+    spans: [
+      sp({ id: 'fmt-1', name: 'transform · md → docx', type: 'rule', s: 22.1, d: 0.7,
+        in: 'draft v4r (markdown)', out: 'briefing_meridian_2026-08-06.docx · 9 pages', ev: 'contract: Document v1 ✓' }),
+    ],
+  },
+];
+
+const FINAL_EVALS = [
+  { name: 'Completeness', score: 0.86, floor: 0.75, why: 'all four required sections present' },
+  { name: 'Groundedness', score: 0.71, floor: 0.70, why: 'two outlook claims cite no source' },
+  { name: 'Structure', pass: true, why: 'document contract satisfied' },
+];
+const SAFETY = { checks: 7, findings: 0, note: 'platform pack v12 + 2 org checks' };
+
+const KIND_STYLE = {
+  MODEL: [C.purple, C.lilac], 'SUB-AGENT': [C.purple, C.lilac], LOOP: [C.purple, C.lilac],
+  TOOL: [C.sec, C.bg], RETRIEVAL: [C.sec, C.bg], TRANSFORM: [C.sec, C.bg], INPUT: [C.sec, C.bg], RESULT: [C.sec, C.bg],
+};
+const BAR = { model: C.blue, tool: C.blue5, retrieval: C.navy, rule: '#B9C0C9' };
+const BAR_OP = { model: 1, tool: 0.8, retrieval: 0.62, rule: 1 };
+
+const money = (v) => '$' + (v >= 0.1 ? v.toFixed(2) : v.toFixed(3));
+const secs = (v) => v.toFixed(1) + 's';
+
+class Component extends DCLogic {
+  state = {
+    mode: null, attempt: 3, data: {}, inspect: {}, menu: null, sub: false,
+    metric: null, filter: 'all', openSpan: null, sxs: null, sxsRan: false,
+    flash: null, toast: null,
+  };
+  els = {};
+
+  get mode() { return this.state.mode || this.props.startMode || 'story'; }
+  get metric() { return this.state.metric || this.props.traceMetric || 'time'; }
+
+  // ---- derivation ---------------------------------------------------------
+  stepStats(st) {
+    const spans = st.spans;
+    const start = Math.min(...spans.map(s => s.s));
+    const end = Math.max(...spans.map(s => s.s + s.d));
+    const cost = spans.reduce((a, s) => a + s.cost, 0);
+    const tokens = spans.reduce((a, s) => a + s.tokens, 0);
+    return { start, end, dur: end - start, cost, tokens };
+  }
+  runTotals() {
+    const all = STEPS.flatMap(s => s.spans);
+    return {
+      cost: all.reduce((a, s) => a + s.cost, 0),
+      tokens: all.reduce((a, s) => a + s.tokens, 0),
+      spans: all.length,
+      retries: STEPS.reduce((a, s) => a + ((s.signals && s.signals.retries) || 0), 0),
+      time: T,
+    };
+  }
+
+  // Flags are RULES over signals, not hand-placed decoration. The same rules
+  // colour the tree dots, the header chips and the process verdict.
+  flagsFor(st) {
+    const g = st.signals || {}, out = [], tot = this.runTotals(), stat = this.stepStats(st);
+    if (g.retries) out.push({
+      tone: 'attn', kind: 'NEEDS A LOOK',
+      title: 'Tool timed out once before succeeding',
+      body: 'getClientProfile hit its 2s timeout on attempt 1. This tool has retried in ' + g.retryHistory + ' — it may need a longer timeout or a lighter query.',
+      actions: [{ label: 'Show both attempts', act: () => this.openTrace(st.id) }, { label: 'Fix the timeout →', act: () => this.toast('Opens the tool config on the canvas') }],
+    });
+    if (g.evalBelowFloor) {
+      const e = g.evalBelowFloor;
+      out.push({
+        tone: 'attn', kind: 'NEEDS A LOOK',
+        title: e.name + ' ' + e.score.toFixed(2) + ' — below the ' + e.floor.toFixed(2) + ' floor',
+        body: e.offTopic + ' of ' + e.of + ' chunks discuss ' + e.topic + ', not the topic asked for. The query may be matching the client name more than the subject.',
+        actions: [{ label: 'Show the ' + e.offTopic + ' chunks', act: () => this.toggle('data', st.id) }, { label: 'Fix the query →', act: () => this.openSxs(st.id) }],
+      });
+    }
+    if (g.cited != null && g.carried / g.cited >= 4) {
+      const share = Math.round(stat.cost / tot.cost * 100);
+      const saving = Math.round(g.carriedTok / g.promptTok * share);
+      out.push({
+        tone: 'opp', kind: 'COULD BE BETTER',
+        title: 'Carrying ' + g.carried + ' chunks, citing ' + g.cited + ' — est. −' + saving + '% run cost if trimmed',
+        body: g.carriedTok.toLocaleString() + ' of this step\u2019s ' + g.promptTok.toLocaleString() + ' input tokens are retrieved research; the draft cites ' + g.cited + '. Trimming retrieval to the top 5 would cut cost roughly in half with little quality risk.',
+        actions: [{ label: 'Try it side-by-side →', act: () => this.openSxs(st.id) }, { label: 'Dismiss', act: () => this.toast('Insight dismissed for this agent version') }],
+      });
+    }
+    if (g.loops && g.loops >= 3) out.push({
+      tone: 'opp', kind: 'COULD BE BETTER',
+      title: g.loops + ' passes to reach a valid draft, ceiling is ' + g.loopCeiling,
+      body: 'Each failure was a different rule — disclosure, figures, tone. All three are things the drafting prompt could state up front, which would fold four passes into one.',
+      actions: [{ label: 'See the three rules →', act: () => this.openTrace('loop') }],
+    });
+    return out;
+  }
+
+  verdicts() {
+    const belowFloor = FINAL_EVALS.filter(e => e.score != null && e.score < e.floor);
+    const nearFloor = FINAL_EVALS.filter(e => e.score != null && e.score >= e.floor && e.score - e.floor < 0.05);
+    const why = [];
+    const tot = this.runTotals();
+    if (tot.retries) why.push(tot.retries + ' tool retry');
+    const draft = STEPS.find(s => s.id === 'draft').signals;
+    why.push((draft.carried - draft.cited) + ' of ' + draft.carried + ' research chunks unused');
+    const loop = STEPS.find(s => s.id === 'loop').signals;
+    why.push(loop.loops + ' refine loops');
+    return {
+      outcome: {
+        ok: belowFloor.length === 0,
+        text: belowFloor.length ? 'Failed' : 'Good',
+        why: belowFloor.length ? belowFloor.length + ' grade below floor' : 'briefing complete, structure passed',
+      },
+      process: {
+        ok: why.length === 0,
+        text: why.length ? 'Inefficient' : 'Clean',
+        why: '— ' + why.join(', '),
+      },
+      nearFloor,
+    };
+  }
+
+  // ---- interaction --------------------------------------------------------
+  toggle(bag, id) { const b = { ...this.state[bag] }; b[id] = !b[id]; this.setState({ [bag]: b, menu: null }); }
+  toast(msg) { clearTimeout(this._t); this.setState({ toast: msg, menu: null }); this._t = setTimeout(() => this.setState({ toast: null }), 2800); }
+  setMode(m) { this.setState({ mode: m, menu: null }); }
+  scrollTo(id) {
+    const el = this.els[id], sc = this.scroller;
+    if (el && sc) sc.scrollTo({ top: Math.max(el.offsetTop - 22, 0), behavior: 'smooth' });
+    clearTimeout(this._f);
+    this.setState({ flash: id });
+    this._f = setTimeout(() => this.setState({ flash: null }), 1500);
+  }
+  jump(id) {
+    if (this.mode === 'trace') { this.setState({ openSpan: this.firstSpanOf(id), flash: null }); return; }
+    this.scrollTo(id);
+  }
+  firstSpanOf(id) { const st = STEPS.find(s => s.id === id); return st ? st.spans[0].id : null; }
+  openTrace(id) { this.setState({ mode: 'trace', filter: 'all', openSpan: this.firstSpanOf(id), menu: null }); }
+  openSxs(id) { this.setState({ sxs: id, sxsRan: false, menu: null }); }
+
+  // ---- story blocks -------------------------------------------------------
+  card(st) {
+    const s = this.state, stat = this.stepStats(st), tot = this.runTotals();
+    const flags = this.flagsFor(st);
+    const attn = flags.some(f => f.tone === 'attn');
+    const kindStyle = KIND_STYLE[st.kind] || [C.sec, C.bg];
+    const vitals = [
+      { text: secs(stat.dur), color: C.muted },
+      { text: stat.cost ? money(stat.cost) : 'no model cost', color: C.muted },
+      { text: st.spans.length + ' span' + (st.spans.length > 1 ? 's' : ''), color: C.muted },
+    ];
+    if (stat.cost / tot.cost > 0.4) vitals.push({ text: Math.round(stat.cost / tot.cost * 100) + '% of run cost', color: C.amber });
+    return {
+      id: st.id,
+      ref: (el) => { if (el) this.els[st.id] = el; },
+      ring: s.flash === st.id ? '0 0 0 3px ' + C.blueBg : 'none',
+      accent: attn ? '4px solid ' + C.amber : (flags.length ? '4px solid ' + C.blue : '1px solid ' + C.border),
+      kind: st.kind, kindColor: kindStyle[0], kindBg: kindStyle[1],
+      eyebrow: st.lane ? st.laneLabel + ' · STEP ' + st.n : 'STEP ' + st.n,
+      hasTitle: true, title: st.title,
+      hasQuote: false, quote: '',
+      hasSummary: true, summary: st.summary,
+      hasDeltas: !!(st.deltas && st.deltas.length), deltas: (st.deltas || []).map(text => ({ text })),
+      vitals,
+      flags: flags.map(f => ({
+        tone: f.tone === 'attn' ? C.amber : C.blue,
+        bg: f.tone === 'attn' ? C.amberBg : C.blueBg,
+        kind: f.kind, title: f.title, body: f.body,
+        actions: f.actions.map(a => ({ label: a.label, color: f.tone === 'attn' ? C.amber : C.blue, onClick: a.act })),
+      })),
+      hasSub: !!st.sub, subOpen: s.sub, toggleSub: () => this.setState({ sub: !s.sub }),
+      subKicker: st.sub ? st.sub.kicker : '', subMeta: st.sub ? st.sub.meta : '',
+      subSteps: st.sub ? st.sub.steps.map((x, i) => ({ ...x, divider: i === st.sub.steps.length - 1 ? 'none' : '1px solid ' + C.border })) : [],
+      hasData: !!st.payloads, dataOpen: !!s.data[st.id], toggleData: () => this.toggle('data', st.id),
+      dataRotate: s.data[st.id] ? 'rotate(90deg)' : 'rotate(0deg)',
+      dataLabel: st.payloads && st.payloads.length > 1 ? 'Data — in → out' : 'Data — what came back',
+      dataHint: st.dataHint || '',
+      dataCols: st.payloads && st.payloads.length > 1 ? '1fr 1fr' : '1fr',
+      payloads: (st.payloads || []).map(p => ({
+        caps: p.caps,
+        lines: p.lines.map(([t, tone]) => ({
+          t: t === '' ? ' ' : t,
+          color: tone === 'add' ? C.blue : C.sec,
+          bg: tone === 'add' ? C.blueBg : 'transparent',
+          opacity: tone === 'dim' ? 0.55 : 1,
+        })),
+      })),
+      hasDataNote: !!st.dataNote, dataNote: st.dataNote || '',
+      dataLinks: st.dataNote ? [{ label: 'Expand', onClick: () => this.toast('Full payload viewer — prototype stub') }, { label: 'Download', onClick: () => this.toast('Payload downloaded — prototype stub') }] : [],
+      hasInspect: !!st.inspect, inspectOpen: !!s.inspect[st.id], toggleInspect: () => this.toggle('inspect', st.id),
+      inspectColor: s.inspect[st.id] ? C.ink : C.sec,
+      inspectHint: st.inspect ? st.inspect.length + ' section' + (st.inspect.length > 1 ? 's' : '') : '',
+      inspectSections: (st.inspect || []).map(x => ({ k: x.k, tok: x.tok || '', tokColor: x.tokWarn ? C.amber : C.muted, p: x.p })),
+      ladder: [
+        { label: 'Open in trace →', onClick: () => this.openTrace(st.id) },
+        { label: 'Try side-by-side →', onClick: () => this.openSxs(st.id) },
+      ],
+      hasMenu: true, menuOpen: s.menu === st.id, menuBg: s.menu === st.id ? C.bg : 'transparent',
+      toggleMenu: () => this.setState({ menu: s.menu === st.id ? null : st.id }),
+      menuItems: ['Pin input as fixture', 'Save as test case', 'Re-run from here', 'Comment'].map(label => ({
+        label, onClick: () => this.toast(label + ' — prototype stub'),
+      })),
+    };
+  }
+
+  blocks() {
+    const s = this.state, out = [];
+    const rail = C.border;
+    const emptyCard = { hasMark: true, rail, isMarker: false, isCards: false, isChapter: false, isOutput: false };
+
+    out.push({
+      ...emptyCard, isCards: true, cols: '1fr', mark: '▸', markBorder: C.navy, markColor: C.navy,
+      cards: [{
+        ...this.card(STEPS[0]),
+        id: 'input', ref: (el) => { if (el) this.els.input = el; },
+        ring: s.flash === 'input' ? '0 0 0 3px ' + C.blueBg : 'none',
+        accent: '4px solid ' + C.navy, kind: 'INPUT', kindColor: C.sec, kindBg: C.bg,
+        eyebrow: 'THE REQUEST', hasTitle: false, title: '',
+        hasQuote: true, quote: 'Prep me for the Meridian Capital quarterly review on Thursday — focus on their FX hedging program and any open service issues.',
+        hasSummary: false, hasDeltas: false, deltas: [],
+        vitals: [{ text: 'free text · 0.3 KB', color: C.muted }],
+        flags: [], hasSub: false, subSteps: [], hasData: false, payloads: [], dataLinks: [],
+        hasInspect: false, inspectSections: [], ladder: [], hasMenu: false, menuItems: [],
+      }],
+    });
+
+    const byId = (id) => STEPS.find(x => x.id === id);
+    out.push({ ...emptyCard, isCards: true, cols: '1fr', mark: '1', markBorder: C.strong, markColor: C.sec, cards: [this.card(byId('parse'))] });
+    out.push({ ...emptyCard, hasMark: false, mark: '', markBorder: 'transparent', markColor: 'transparent', isMarker: true, markerText: 'THE RUN SPLITS INTO TWO PARALLEL THREADS' });
+    out.push({ ...emptyCard, isCards: true, cols: '1fr 1fr', mark: '2', markBorder: C.strong, markColor: C.sec, cards: [this.card(byId('crm')), this.card(byId('research'))] });
+    out.push({ ...emptyCard, hasMark: false, mark: '', markBorder: 'transparent', markColor: 'transparent', isMarker: true, markerText: '⇥ THREADS REJOIN — STEP 3 TAKES 1 + 2A + 2B' });
+    out.push({ ...emptyCard, isCards: true, cols: '1fr', mark: '3', markBorder: C.strong, markColor: C.sec, cards: [this.card(byId('draft'))] });
+
+    // loop chapter: two steps repeated, one attempt shown at a time
+    const loop = byId('loop'), a = loop.attempts[s.attempt], flags = this.flagsFor(loop);
+    const stat = this.stepStats(loop);
+    out.push({
+      ...emptyCard, isChapter: true, mark: '↻', markBorder: C.purple, markColor: C.purple,
+      ref: (el) => { if (el) this.els.loop = el; },
+      ring: s.flash === 'loop' ? '0 0 0 3px ' + C.blueBg : 'none',
+      chapterEyebrow: 'LOOP · ×' + loop.attempts.length + ' · STEPS 4–5 REPEATED UNTIL PASS',
+      chapterTitle: loop.title,
+      chapterSummary: loop.summary,
+      chapterDeltas: loop.deltas.map(text => ({ text })).concat([{ text: secs(stat.dur) + ' · ' + money(stat.cost) }]),
+      chapterFlags: flags.map(f => ({
+        tone: f.tone === 'attn' ? C.amber : C.blue, bg: f.tone === 'attn' ? C.amberBg : C.blueBg,
+        kind: f.kind, title: f.title, body: f.body,
+        actions: f.actions.map(x => ({ label: x.label, color: f.tone === 'attn' ? C.amber : C.blue, onClick: x.act })),
+      })),
+      attempts: loop.attempts.map((at, i) => ({
+        n: i + 1, title: at.validate.pass ? 'Attempt ' + (i + 1) + ' — passed' : 'Attempt ' + (i + 1) + ' — failed validation',
+        onClick: () => this.setState({ attempt: i }),
+        border: at.validate.pass ? C.strong : C.amber,
+        color: s.attempt === i ? '#fff' : (at.validate.pass ? C.sec : C.amber),
+        bg: s.attempt === i ? (at.validate.pass ? C.navy : C.amber) : C.surface,
+        ring: s.attempt === i ? '0 0 0 3px ' + C.blueBg : 'none',
+      })),
+      innerSteps: [
+        {
+          n: '4', kind: 'RULE CHECK', kindColor: C.sec, kindBg: C.bg, title: 'Validate draft',
+          meta: 'attempt ' + (s.attempt + 1) + ' of ' + loop.attempts.length + ' · 0.3s',
+          markBorder: a.validate.pass ? C.strong : C.amber, markColor: a.validate.pass ? C.sec : C.amber, rail: C.border,
+          skipped: false, skipNote: '', hasBody: true,
+          tone: a.validate.pass ? C.strong : C.amber, headline: a.validate.headline, body: a.validate.body,
+        },
+        {
+          n: '5', kind: 'MODEL', kindColor: C.purple, kindBg: C.lilac, title: 'Refine draft',
+          meta: a.refine ? 'attempt ' + (s.attempt + 1) + ' · 1.1s · $0.02 · draft v' + (s.attempt + 1) + ' → v' + (s.attempt + 2) : 'did not run',
+          markBorder: C.strong, markColor: C.sec, rail: 'transparent',
+          skipped: !a.refine, skipNote: 'Not needed — attempt ' + (s.attempt + 1) + ' passed validation, so no refinement ran.',
+          hasBody: !!a.refine, tone: C.strong,
+          headline: a.refine ? a.refine.headline : '', body: a.refine ? a.refine.body : '',
+        },
+      ],
+    });
+
+    out.push({ ...emptyCard, isCards: true, cols: '1fr', mark: '6', markBorder: C.strong, markColor: C.sec, cards: [this.card(byId('comp'))] });
+    out.push({ ...emptyCard, isCards: true, cols: '1fr', mark: '7', markBorder: C.strong, markColor: C.sec, cards: [this.card(byId('format'))] });
+    out.push({
+      ...emptyCard, isOutput: true, mark: '■', markBorder: C.navy, markColor: C.navy, rail: 'transparent',
+      ref: (el) => { if (el) this.els.output = el; },
+      ring: s.flash === 'output' ? '0 0 0 3px ' + C.blueBg : 'none',
+    });
+    return out;
+  }
+
+  // ---- trace --------------------------------------------------------------
+  traceRows() {
+    const s = this.state, m = this.metric, tot = this.runTotals();
+    const maxCost = Math.max(...STEPS.flatMap(x => x.spans).map(x => x.cost));
+    const maxTok = Math.max(...STEPS.flatMap(x => x.spans).map(x => x.tokens));
+    const rows = [];
+    for (const st of STEPS) {
+      const spans = st.spans.filter(x => s.filter === 'all' || x.type === s.filter);
+      if (!spans.length) continue;
+      const stat = this.stepStats(st);
+      rows.push({ isGroup: true, isSpan: false, label: (st.n === '↻' ? 'LOOP ×4' : st.n) + ' · ' + st.title.toUpperCase(), meta: secs(stat.dur) + ' · ' + money(stat.cost) });
+      for (const x of spans) {
+        const open = s.openSpan === x.id;
+        let left = 0, width = 0, value = '';
+        if (m === 'time') { left = x.s / T * 100; width = x.d / T * 100; value = x.d.toFixed(2) + 's'; }
+        else if (m === 'cost') { width = x.cost ? Math.max(x.cost / maxCost * 100, 1.5) : 0.8; value = x.cost ? money(x.cost) : '—'; }
+        else { width = x.tokens ? Math.max(x.tokens / maxTok * 100, 1.5) : 0.8; value = x.tokens ? (x.tokens >= 1000 ? (x.tokens / 1000).toFixed(1) + 'k' : String(x.tokens)) : '—'; }
+        rows.push({
+          isGroup: false, isSpan: true, open,
+          type: x.type, name: x.name,
+          nameColor: x.warn ? C.amber : (open ? C.blue : C.ink), weight: open || x.warn ? 700 : 400,
+          bg: open ? C.blueBg : 'transparent', ring: open ? 'inset 3px 0 0 ' + C.blue : 'none',
+          left, width, value,
+          barColor: x.warn ? C.amber : BAR[x.type],
+          barOpacity: (m !== 'time' && !x.cost && !x.tokens) ? 0.25 : BAR_OP[x.type],
+          onClick: () => this.setState({ openSpan: open ? null : x.id }),
+          payloads: [
+            { caps: 'INPUT', text: x.in, color: C.sec },
+            { caps: 'OUTPUT', text: x.out, color: x.warn ? C.amber : C.sec },
+          ],
+          facts: [
+            { text: 'starts ' + x.s.toFixed(2) + 's · runs ' + x.d.toFixed(2) + 's' },
+            { text: x.tokens ? x.tokens.toLocaleString() + ' tok' : 'no tokens' },
+            { text: x.cost ? money(x.cost) + ' · ' + Math.round(x.cost / tot.cost * 100) + '% of run' : 'no model cost' },
+            { text: 'events: ' + x.ev },
+          ],
+          actions: [
+            { label: 'Read in story →', onClick: () => { this.setMode('story'); setTimeout(() => this.scrollTo(st.id), 60); } },
+            { label: x.type === 'model' ? 'Try side-by-side →' : 'Pin input as fixture', onClick: () => x.type === 'model' ? this.openSxs(st.id) : this.toast('Pinned as fixture — prototype stub') },
+          ],
+        });
+      }
+    }
+    return rows;
+  }
+
+  renderVals() {
+    const s = this.state, tot = this.runTotals(), v = this.verdicts(), m = this.metric;
+    const seg = (list, cur, set) => list.map(x => ({
+      label: x.label, title: x.title || '', onClick: () => set(x.key),
+      bg: cur === x.key ? C.surface : 'transparent', color: cur === x.key ? C.ink : C.sec,
+      weight: cur === x.key ? 700 : 600, shadow: cur === x.key ? '0 1px 2px rgba(0,0,0,.06)' : 'none',
+    }));
+    const chipDefs = [
+      { dim: 'Functionality', value: tot.retries ? tot.retries + ' retry' : 'clean', tone: tot.retries ? C.amber : C.green,
+        bg: tot.retries ? C.amberBg : C.greenBg, title: 'One tool call retried', act: () => this.jump('crm') },
+      { dim: 'Cost · time', value: money(tot.cost) + ' · ' + secs(tot.time), tone: C.ink, bg: C.surface, border: C.strong,
+        title: 'Where the money went', act: () => this.setState({ mode: 'trace', metric: 'cost' }) },
+      { dim: 'Quality', value: v.nearFloor.length ? v.nearFloor.length + ' of ' + FINAL_EVALS.length + ' near floor' : 'all pass',
+        tone: v.nearFloor.length ? C.amber : C.green, bg: v.nearFloor.length ? C.amberBg : C.greenBg,
+        title: 'Groundedness cleared its floor by 0.01', act: () => this.jump('output') },
+      { dim: 'Safety', value: SAFETY.checks + ' checks · clear', tone: C.sec, bg: C.surface, border: C.strong,
+        title: SAFETY.note, act: () => this.jump('output') },
+    ];
+
+    const treeItems = [{ label: 'Input', ms: '', id: 'input', dot: C.strong, indent: false }];
+    for (const st of STEPS) {
+      const flags = this.flagsFor(st);
+      const dot = flags.some(f => f.tone === 'attn') ? C.amber : (flags.length ? C.blue : C.strong);
+      const stat = this.stepStats(st);
+      treeItems.push({
+        id: st.id, dot, indent: !!st.lane,
+        label: (st.id === 'loop' ? '↻ Loop ×4 · steps 4–5' : st.n + ' · ' + st.title),
+        ms: secs(stat.dur),
+      });
+    }
+    treeItems.push({ label: 'Output', ms: '', id: 'output', dot: C.strong, indent: false });
+
+    return {
+      runId: 'run_128-9acb',
+      runKicker: 'RUN · CLIENT MEETING PREP · AGENT v14 · WHOLE AGENT',
+      runTitle: 'Quarterly review prep for Meridian Capital',
+      runInput: '"Prep me for the Meridian Capital quarterly review on Thursday — focus on their FX hedging program and any open service issues."',
+      runStamp: 'Jul 31, 2026 · 2:41 PM · ' + tot.spans + ' spans',
+
+      modes: seg([{ key: 'story', label: 'Story', title: 'Node-level narrative' }, { key: 'trace', label: 'Trace', title: 'Every span on the real timeline' }], this.mode, k => this.setMode(k)),
+      isStory: this.mode === 'story', isTrace: this.mode === 'trace',
+
+      verdicts: [
+        { label: 'OUTCOME', text: v.outcome.text, why: '— ' + v.outcome.why, tone: v.outcome.ok ? C.green : C.amber,
+          bg: C.surface, iconBg: v.outcome.ok ? C.greenBg : C.amberBg, glyph: v.outcome.ok ? '✓' : '!', sep: 'none' },
+        { label: 'PROCESS', text: v.process.text, why: v.process.why, tone: v.process.ok ? C.green : C.amber,
+          bg: C.surface, iconBg: v.process.ok ? C.greenBg : C.amberBg, glyph: v.process.ok ? '✓' : '!', sep: '1px solid ' + C.border },
+      ],
+      chips: chipDefs.map(c => ({ dim: c.dim, value: c.value, title: c.title, onClick: c.act, bg: c.bg, color: c.tone, border: c.border || 'transparent' })),
+
+      treeMeta: STEPS.length + ' steps · ' + tot.spans + ' spans · ' + secs(tot.time),
+      treeItems: treeItems.map(t => ({
+        label: t.label, ms: t.ms, dot: t.dot,
+        pad: t.indent ? '7px 10px 7px 22px' : '7px 10px',
+        bg: s.flash === t.id ? C.blueBg : 'transparent',
+        leftBar: s.flash === t.id ? C.blue : 'transparent',
+        color: t.dot === C.amber ? C.amber : C.ink,
+        weight: t.dot === C.strong ? 500 : 700,
+        onClick: () => this.jump(t.id),
+      })),
+      legend: [
+        { dot: C.amber, label: 'needs a look' },
+        { dot: C.blue, label: 'could be better' },
+        { dot: C.strong, label: 'ran normally' },
+      ],
+
+      storyIntro: 'Grey is the story. Amber marks what needs a look, blue marks what could be better — everything that simply worked stays quiet.',
+      blocks: this.blocks(),
+      scrollRef: (el) => { if (el) this.scroller = el; },
+
+      outputFile: 'briefing_meridian_2026-08-06.docx',
+      outputMeta: '9 pages · 1,847 words · firm template',
+      finalEvals: FINAL_EVALS.map(e => {
+        const near = e.score != null && e.score - e.floor < 0.05;
+        return {
+          name: e.name,
+          score: e.score != null ? e.score.toFixed(2) + ' · floor ' + e.floor.toFixed(2) : 'pass',
+          tone: e.score != null && e.score < e.floor ? C.amber : (near ? C.amber : C.ink),
+          bg: near ? C.amberBg : 'transparent',
+          why: near ? e.why + ' — cleared by 0.01' : e.why,
+          onClick: () => this.toast('Opens the graded sentences — prototype stub'),
+        };
+      }),
+      safetyLine: 'Safety: ' + SAFETY.checks + ' checks ran · ' + SAFETY.findings + ' findings',
+      safetyNote: '· ' + SAFETY.note,
+
+      traceCount: 'SPANS · ' + tot.spans,
+      filters: [
+        { key: 'all', label: 'All' }, { key: 'model', label: 'Model' }, { key: 'tool', label: 'Tool' },
+        { key: 'retrieval', label: 'Retrieval' }, { key: 'rule', label: 'Rules & other' },
+      ].map(f => ({
+        label: f.label, onClick: () => this.setState({ filter: f.key }),
+        bg: s.filter === f.key ? C.blue : 'transparent', color: s.filter === f.key ? '#fff' : C.sec,
+        border: s.filter === f.key ? C.blue : C.strong, weight: s.filter === f.key ? 700 : 600,
+      })),
+      metrics: seg([
+        { key: 'time', label: 'Time', title: 'Real position on the run clock' },
+        { key: 'cost', label: 'Cost', title: 'Share of run cost' },
+        { key: 'tokens', label: 'Tokens', title: 'Share of tokens' },
+      ], m, k => this.setState({ metric: k })),
+      traceTotal: m === 'time'
+        ? '0 ─── ' + secs(T) + ' · critical path: parse → crm → draft → loop → compliance → format'
+        : (m === 'cost' ? 'run total ' + money(tot.cost) + ' · drafting is ' + Math.round(0.21 / tot.cost * 100) + '%'
+          : 'run total ~' + Math.round(tot.tokens / 1000) + 'k tok · knowledge context dominates'),
+      traceRows: this.traceRows(),
+      traceLegend: [
+        { color: BAR.model, opacity: 1, label: 'model' }, { color: BAR.tool, opacity: 0.8, label: 'tool' },
+        { color: BAR.retrieval, opacity: 0.62, label: 'retrieval' }, { color: BAR.rule, opacity: 1, label: 'rules & other' },
+        { color: C.amber, opacity: 1, label: 'failed / timeout' },
+      ],
+      traceNote: 'Same run, one floor down: every span on the real clock, so parallelism, gaps and the long pole are visible at a glance. Time, cost and tokens are three readings of the same bars — switching metric never changes which spans exist.',
+
+      sxsOpen: !!s.sxs,
+      sxsStep: s.sxs ? (STEPS.find(x => x.id === s.sxs) || {}).title || '' : '',
+      sxsCols: [
+        { label: 'ORIGINAL', caps: C.muted, border: C.border, fields: [
+          { label: 'Model', value: 'fusion-frontier-1', bg: 'transparent', color: C.ink, border: 'transparent', onClick: () => {} },
+          { label: 'Research chunks', value: '20', bg: 'transparent', color: C.ink, border: 'transparent', onClick: () => {} },
+          { label: 'Prompt', value: 'v14', bg: 'transparent', color: C.ink, border: 'transparent', onClick: () => {} },
+        ] },
+        { label: 'VARIANT', caps: C.blue, border: C.blue, fields: [
+          { label: 'Model', value: 'fusion-standard-2', bg: C.blueBg, color: C.blue, border: C.blue, onClick: () => this.toast('Model picker — prototype stub') },
+          { label: 'Research chunks', value: '5 (top-ranked)', bg: C.blueBg, color: C.blue, border: C.blue, onClick: () => this.toast('Chunk budget — prototype stub') },
+          { label: 'Prompt', value: 'v14 · edit', bg: C.blueBg, color: C.blue, border: C.blue, onClick: () => this.toast('Prompt editor — prototype stub') },
+        ] },
+      ],
+      sxsCta: s.sxsRan ? 'RUN AGAIN' : 'RUN VARIANT',
+      runVariant: () => this.setState({ sxsRan: true }),
+      closeSxs: () => this.setState({ sxs: null, sxsRan: false }),
+      sxsRan: s.sxsRan,
+      sxsResults: [
+        { label: 'ORIGINAL', caps: C.muted, border: C.border, lines: [
+          { text: '10.0s · $0.21', color: C.sec }, { text: '1,912 words · 4 sections', color: C.sec }, { text: 'groundedness 0.71', color: C.amber } ] },
+        { label: 'VARIANT', caps: C.blue, border: C.blue, lines: [
+          { text: '4.2s · $0.09', color: C.sec }, { text: '1,846 words · 4 sections', color: C.sec }, { text: 'groundedness 0.74', color: C.green } ] },
+      ],
+      sxsVerdict: 'Outputs are equivalent on this input — same sections, same figures; the variant drops the two uncited outlook sentences. −58% cost, −58% time.',
+      proposeVariant: () => { this.toast('Proposed change created — review the diff on the canvas'); this.setState({ sxs: null, sxsRan: false }); },
+      discardVariant: () => { this.toast('Scratch run discarded'); this.setState({ sxsRan: false }); },
+
+      toastShow: !!s.toast, toastMsg: s.toast || '',
+    };
+  }
+}
+</script>
+</body>
+</html>

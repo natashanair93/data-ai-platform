@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #EDF0F3; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<section style="padding:40px 44px 90px; display:flex; flex-direction:column; gap:26px;">
+
+  <div style="max-width:1020px; display:flex; flex-direction:column; gap:10px;">
+    <span style="font-size:11px; font-weight:700; letter-spacing:.09em; color:var(--fusion-text-muted);">TURN 4 · OPTIMIZE</span>
+    <h1 style="margin:0; font-family:var(--font-heading); font-size:30px; font-weight:700; letter-spacing:-.01em;">Every door, every stage</h1>
+    <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">Stages across the top, entry points down the side. Read a row for one complete journey; read a column to see how one stage has to behave no matter which door you came through.</p>
+    <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">Every screen here is drawn at build fidelity — real controls, real numbers, real copy. Grey bands between screens are stages the door already answered; they still show what was carried in, because that fact has to appear somewhere later in the panel.</p>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:0; width:fit-content;">
+
+    <!-- stage header -->
+    <div style="display:grid; grid-template-columns:236px repeat(6, 372px); gap:14px; position:sticky; top:0; z-index:5; padding:10px 0 12px; background:#EDF0F3;">
+      <div style="display:flex; align-items:flex-end; padding-bottom:4px;">
+        <span style="font-size:10.5px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">ENTRY POINT</span>
+      </div>
+      <sc-for list="{{ stages }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex; flex-direction:column; gap:3px; padding:10px 14px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-top:3px solid {{ s.rule }}; border-radius:var(--fusion-radius-md);">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">{{ s.n }}</span>
+          <span style="font-size:14.5px; font-weight:700; line-height:1.25;">{{ s.name }}</span>
+          <span style="font-size:11.5px; line-height:1.4; color:var(--fusion-text-secondary);">{{ s.sub }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="8">
+      <div style="display:grid; grid-template-columns:236px repeat(6, 372px); gap:14px; padding:12px 0 26px; border-top:1px solid var(--fusion-border-strong);">
+
+        <div style="display:flex; flex-direction:column; gap:7px; padding-top:6px; position:sticky; left:0;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:12px; font-weight:700;">{{ j.id }}</span>
+          <span style="font-size:15px; font-weight:700; line-height:1.35;">{{ j.name }}</span>
+          <span style="font-size:12px; line-height:1.45; color:var(--fusion-text-muted);">{{ j.where }}</span>
+          <span style="width:fit-content; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-full); padding:4px 10px; margin-top:2px;">{{ j.len }}</span>
+        </div>
+
+        <sc-for list="{{ j.cells }}" as="cell" hint-placeholder-count="6">
+          <div style="display:flex;">
+
+            <sc-if value="{{ cell.carried }}" hint-placeholder-val="{{ false }}">
+              <div style="width:100%; border:1px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-lg); padding:16px 18px; display:flex; flex-direction:column; gap:6px; background:rgba(255,255,255,.45);">
+                <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ cell.carriedKind }}</span>
+                <span style="font-size:14px; font-weight:600; line-height:1.4; color:var(--fusion-text-secondary);">{{ cell.carriedValue }}</span>
+                <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">{{ cell.carriedNote }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ cell.chat }}" hint-placeholder-val="{{ false }}">
+              <div style="width:100%; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); box-shadow:0 6px 18px rgba(20,40,70,.06); display:flex; flex-direction:column; overflow:hidden;">
+                <div style="flex:none; padding:11px 16px; border-bottom:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; align-items:center; gap:8px;">
+                  <svg style="flex:none; color:var(--fusion-text-muted);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">IN THE BUILDER CHAT</span>
+                  <span style="margin-left:auto; font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">{{ cell.chatStage }}</span>
+                </div>
+                <div style="flex:1; padding:14px 16px; display:flex; flex-direction:column; gap:11px;">
+                  <sc-for list="{{ cell.turns }}" as="t" hint-placeholder-count="2">
+                    <div style="display:flex; flex-direction:column; gap:7px; align-items:{{ t.align }};">
+                      <div style="max-width:94%; background:{{ t.bg }}; border:{{ t.border }}; border-radius:{{ t.radius }}; padding:10px 13px; display:flex; flex-direction:column; gap:5px;">
+                        <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:{{ t.whoColor }};">{{ t.who }}</span>
+                        <span style="font-size:12.5px; line-height:1.5; color:var(--fusion-ink); text-wrap:pretty;">{{ t.text }}</span>
+                        <span style="font-size:11.5px; line-height:1.45; white-space:pre-line; color:var(--fusion-text-muted); text-wrap:pretty;">{{ t.note }}</span>
+                      </div>
+                      <sc-if value="{{ t.hasOptions }}" hint-placeholder-val="{{ false }}">
+                        <div style="align-self:stretch; display:flex; flex-direction:column; gap:2px; padding-left:2px;">
+                          <sc-for list="{{ t.chips }}" as="ch" hint-placeholder-count="0">
+                            <div style="display:flex; align-items:flex-start; gap:9px; text-align:left; background:{{ ch.bg }}; border-radius:var(--fusion-radius-md); padding:6px 8px;">
+                              <span style="width:14px; height:14px; flex:none; margin-top:2px; border-radius:50%; border:{{ ch.ring }}; background:#fff;"></span>
+                              <span style="font-size:13px; line-height:1.4; color:var(--fusion-ink);">{{ ch.label }} <span style="color:var(--fusion-text-secondary);">{{ ch.hint }}</span></span>
+                            </div>
+                          </sc-for>
+                          <div style="margin-top:6px; height:32px; display:flex; align-items:center; padding:0 10px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); font-size:13px; color:var(--fusion-text-muted);">Or type your own answer…</div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="flex:none; padding:9px 16px 11px; border-top:1px solid var(--fusion-border); font-size:10.5px; color:var(--fusion-text-muted);">{{ cell.chatFoot }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ cell.panel }}" hint-placeholder-val="{{ true }}">
+              <div style="width:100%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:0 10px 26px rgba(20,40,70,.08); display:flex; flex-direction:column; overflow:hidden;">
+
+                <!-- panel chrome -->
+                <div style="padding:13px 18px 12px; border-bottom:1px solid var(--fusion-border); display:flex; flex-direction:column; gap:9px;">
+                  <div style="display:flex; align-items:center; gap:9px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--fusion-blue-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9"></path></svg>
+                    <span style="font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--fusion-blue-700);">OPTIMIZE</span>
+                    <span style="font-size:11.5px; color:var(--fusion-text-muted);">{{ cell.agent }}</span>
+                    <span style="margin-left:auto; display:flex; gap:4px; align-items:center;">
+                      <sc-for list="{{ cell.dots }}" as="d" hint-placeholder-count="4">
+                        <span style="width:{{ d.w }}; height:6px; border-radius:3px; background:{{ d.bg }};"></span>
+                      </sc-for>
+                    </span>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:4px;">
+                    <span style="font-size:17px; font-weight:700; line-height:1.3; letter-spacing:-.005em;">{{ cell.title }}</span>
+                    <span style="font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ cell.sub }}</span>
+                  </div>
+                </div>
+
+                <!-- body -->
+                <div style="padding:14px 18px 16px; display:flex; flex-direction:column; gap:12px; flex:1;">
+                  <sc-for list="{{ cell.blocks }}" as="b" hint-placeholder-count="3">
+                    <div style="display:flex; flex-direction:column; gap:7px;">
+
+                      <sc-if value="{{ b.hasLabel }}" hint-placeholder-val="{{ true }}">
+                        <span style="display:flex; align-items:baseline; gap:8px;">
+                          <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ b.label }}</span>
+                          <span style="margin-left:auto; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--fusion-blue-600);">{{ b.labelAction }}</span>
+                        </span>
+                      </sc-if>
+
+                      <!-- fact -->
+                      <sc-if value="{{ b.isFact }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:3px; padding:10px 12px; background:var(--fusion-bg); border-radius:var(--fusion-radius-sm);">
+                          <span style="font-size:14px; font-weight:600; line-height:1.35;">{{ b.value }}</span>
+                          <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">{{ b.note }}</span>
+                        </div>
+                      </sc-if>
+
+                      <!-- choice -->
+                      <sc-if value="{{ b.isChoice }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                          <sc-for list="{{ b.options }}" as="o" hint-placeholder-count="3">
+                            <div style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid {{ o.bd }}; background:{{ o.bg }}; border-radius:var(--fusion-radius-sm);">
+                              <span style="width:15px; height:15px; border-radius:50%; border:2px solid {{ o.ring }}; background:var(--fusion-surface); flex:none; margin-top:1px; display:grid; place-items:center;">
+                                <span style="width:7px; height:7px; border-radius:50%; background:{{ o.dot }};"></span>
+                              </span>
+                              <span style="display:flex; flex-direction:column; gap:2px; min-width:0;">
+                                <span style="font-size:13.5px; font-weight:{{ o.fw }}; line-height:1.35;">{{ o.label }}</span>
+                                <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">{{ o.sub }}</span>
+                              </span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- guardrails -->
+                      <sc-if value="{{ b.isGuard }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); overflow:hidden;">
+                          <sc-for list="{{ b.items }}" as="g" hint-placeholder-count="3">
+                            <div style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--fusion-border); background:{{ g.bg }};">
+                              <span style="font-size:12.5px; font-weight:600; min-width:0; flex:1;">{{ g.metric }}</span>
+                              <span style="font-size:12px; font-family:var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ g.cond }}</span>
+                              <span style="font-size:10px; font-weight:700; letter-spacing:.04em; color:{{ g.tagColor }}; background:{{ g.tagBg }}; border-radius:var(--fusion-radius-full); padding:3px 8px;">{{ g.tag }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- recommendations -->
+                      <sc-if value="{{ b.isRec }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:9px;">
+                          <sc-for list="{{ b.items }}" as="r" hint-placeholder-count="3">
+                            <div style="border:1px solid {{ r.bd }}; border-radius:var(--fusion-radius-md); padding:12px 13px; display:flex; flex-direction:column; gap:7px; background:{{ r.bg }};">
+                              <div style="display:flex; align-items:baseline; gap:8px;">
+                                <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:{{ r.kColor }};">{{ r.kind }}</span>
+                                <span style="margin-left:auto; font-size:12.5px; font-weight:700; font-family:var(--fusion-font-mono); color:{{ r.impactColor }};">{{ r.impact }}</span>
+                              </div>
+                              <span style="font-size:13.5px; font-weight:600; line-height:1.4;">{{ r.title }}</span>
+                              <span style="display:flex; gap:7px; align-items:flex-start;">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--fusion-text-muted)" stroke-width="1.9" stroke-linecap="round" style="margin-top:1px; flex:none;"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-secondary);">{{ r.evidence }}</span>
+                              </span>
+                              <span style="font-size:10.5px; line-height:1.4; color:var(--fusion-text-muted); font-style:italic;">{{ r.basis }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- candidate diff -->
+                      <sc-if value="{{ b.isDiff }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                          <div style="padding:9px 12px; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:8px;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--fusion-text-secondary)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg>
+                            <span style="font-size:12px; font-weight:700;">{{ b.node }}</span>
+                            <span style="margin-left:auto; font-size:10.5px; font-weight:700; letter-spacing:.04em; color:var(--fusion-text-muted);">{{ b.scopeTag }}</span>
+                          </div>
+                          <sc-for list="{{ b.items }}" as="d" hint-placeholder-count="2">
+                            <div style="padding:10px 12px; border-bottom:1px solid var(--fusion-border); display:flex; flex-direction:column; gap:6px;">
+                              <span style="font-size:11px; font-weight:600; color:var(--fusion-text-secondary);">{{ d.field }}</span>
+                              <span style="display:flex; align-items:center; gap:9px; flex-wrap:wrap;">
+                                <span style="font-size:12px; font-family:var(--fusion-font-mono); color:var(--fusion-text-muted); text-decoration:line-through;">{{ d.before }}</span>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--fusion-text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                                <span style="font-size:12px; font-family:var(--fusion-font-mono); font-weight:600; color:var(--fusion-blue-700); background:var(--fusion-blue-50); border-radius:3px; padding:2px 7px;">{{ d.after }}</span>
+                              </span>
+                            </div>
+                          </sc-for>
+                          <div style="padding:9px 12px; background:var(--fusion-bg); display:flex; gap:7px; align-items:flex-start;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--fusion-text-muted)" stroke-width="1.9" stroke-linecap="round" style="margin-top:1px; flex:none;"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+                            <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-secondary);">{{ b.rationale }}</span>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <!-- evidence selector -->
+                      <sc-if value="{{ b.isEvidence }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                          <sc-for list="{{ b.options }}" as="e" hint-placeholder-count="3">
+                            <div style="display:flex; gap:10px; align-items:center; padding:10px 12px; border:1px solid {{ e.bd }}; background:{{ e.bg }}; border-radius:var(--fusion-radius-sm);">
+                              <span style="width:15px; height:15px; border-radius:50%; border:2px solid {{ e.ring }}; background:var(--fusion-surface); flex:none; display:grid; place-items:center;">
+                                <span style="width:7px; height:7px; border-radius:50%; background:{{ e.dot }};"></span>
+                              </span>
+                              <span style="display:flex; flex-direction:column; gap:2px; min-width:0; flex:1;">
+                                <span style="font-size:13px; font-weight:{{ e.fw }}; line-height:1.35;">{{ e.title }}</span>
+                                <span style="font-size:11.5px; line-height:1.4; color:var(--fusion-text-muted);">{{ e.detail }}</span>
+                              </span>
+                              <span style="display:flex; flex-direction:column; align-items:flex-end; gap:1px; white-space:nowrap;">
+                                <span style="font-size:11px; font-family:var(--fusion-font-mono); color:{{ e.costColor }};">{{ e.cost }}</span>
+                                <span style="font-size:11px; font-family:var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ e.time }}</span>
+                              </span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- result table -->
+                      <sc-if value="{{ b.isResult }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                          <div style="display:grid; grid-template-columns:minmax(0,1fr) 64px 64px 56px; gap:6px; padding:8px 12px; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border);">
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">MEASURE</span>
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); text-align:right;">NOW</span>
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); text-align:right;">CHANGED</span>
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); text-align:right;">&nbsp;</span>
+                          </div>
+                          <sc-for list="{{ b.rows }}" as="rr" hint-placeholder-count="4">
+                            <div style="display:grid; grid-template-columns:minmax(0,1fr) 64px 64px 56px; gap:6px; align-items:center; padding:9px 12px; border-bottom:1px solid var(--fusion-border); background:{{ rr.bg }}; border-left:{{ rr.accent }};">
+                              <span style="display:flex; flex-direction:column; gap:1px; min-width:0;">
+                                <span style="font-size:12.5px; font-weight:{{ rr.fw }}; line-height:1.3; overflow-wrap:anywhere;">{{ rr.metric }}</span>
+                                <span style="font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);">{{ rr.tag }}</span>
+                              </span>
+                              <span style="font-size:12px; font-family:var(--fusion-font-mono); color:var(--fusion-text-muted); text-align:right;">{{ rr.before }}</span>
+                              <span style="font-size:12px; font-family:var(--fusion-font-mono); font-weight:600; color:{{ rr.afterColor }}; text-align:right;">{{ rr.after }}</span>
+                              <span style="font-size:11px; font-weight:700; color:{{ rr.deltaColor }}; text-align:right;">{{ rr.delta }}</span>
+                            </div>
+                          </sc-for>
+                          <div style="padding:11px 12px; background:{{ b.verdictBg }}; display:flex; gap:9px; align-items:flex-start;">
+                            <span style="width:7px; height:7px; border-radius:50%; background:{{ b.verdictColor }}; flex:none; margin-top:5px;"></span>
+                            <span style="display:flex; flex-direction:column; gap:2px;">
+                              <span style="font-size:12.5px; font-weight:700; color:{{ b.verdictColor }};">{{ b.verdictLabel }}</span>
+                              <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-secondary);">{{ b.verdictNote }}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <!-- decision list -->
+                      <sc-if value="{{ b.isDecide }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                          <sc-for list="{{ b.items }}" as="dd" hint-placeholder-count="4">
+                            <div style="border:1px solid {{ dd.bd }}; border-left:3px solid {{ dd.accent }}; border-radius:var(--fusion-radius-sm); padding:10px 12px; display:flex; flex-direction:column; gap:3px; background:{{ dd.bg }};">
+                              <span style="display:flex; align-items:baseline; gap:8px;">
+                                <span style="font-size:13px; font-weight:700;">{{ dd.title }}</span>
+                                <span style="margin-left:auto; font-size:10px; font-weight:700; letter-spacing:.04em; color:{{ dd.tagColor }};">{{ dd.tag }}</span>
+                              </span>
+                              <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-secondary);">{{ dd.body }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- notice -->
+                      <sc-if value="{{ b.isNotice }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid {{ b.noticeBd }}; background:{{ b.noticeBg }}; border-radius:var(--fusion-radius-md); padding:12px 13px; display:flex; gap:10px; align-items:flex-start;">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ b.noticeColor }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="margin-top:1px; flex:none;"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+                          <span style="display:flex; flex-direction:column; gap:3px;">
+                            <span style="font-size:13px; font-weight:700; color:{{ b.noticeColor }};">{{ b.noticeTitle }}</span>
+                            <span style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">{{ b.noticeBody }}</span>
+                          </span>
+                        </div>
+                      </sc-if>
+
+                      <!-- prose diff / output pair -->
+                      <sc-if value="{{ b.isProse }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                          <sc-for list="{{ b.panes }}" as="p" hint-placeholder-count="2">
+                            <div style="border:1px solid {{ p.bd }}; border-radius:var(--fusion-radius-sm); overflow:hidden;">
+                              <div style="padding:7px 11px; background:{{ p.headBg }}; border-bottom:1px solid {{ p.bd }}; display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:{{ p.headColor }};">{{ p.head }}</span>
+                                <span style="margin-left:auto; font-size:10.5px; font-weight:600; color:var(--fusion-text-muted); font-family:var(--fusion-font-mono);">{{ p.meta }}</span>
+                              </div>
+                              <div style="padding:10px 11px; display:flex; flex-direction:column; gap:5px;">
+                                <sc-for list="{{ p.lines }}" as="ln" hint-placeholder-count="3">
+                                  <span style="font-size:12px; line-height:1.55; color:{{ ln.color }}; background:{{ ln.bg }}; text-decoration:{{ ln.strike }}; padding:{{ ln.pad }}; border-radius:3px;">{{ ln.t }}</span>
+                                </sc-for>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <!-- ranked candidates -->
+                      <sc-if value="{{ b.isRanked }}" hint-placeholder-val="{{ false }}">
+                        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                          <div style="display:grid; grid-template-columns:1fr 74px 86px; gap:6px; padding:8px 12px; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border);">
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">CANDIDATE</span>
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); text-align:right;">{{ b.scoreLabel }}</span>
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); text-align:right;">VERDICT</span>
+                          </div>
+                          <sc-for list="{{ b.items }}" as="c" hint-placeholder-count="3">
+                            <div style="display:grid; grid-template-columns:1fr 74px 86px; gap:6px; padding:10px 12px; border-bottom:1px solid var(--fusion-border); background:{{ c.bg }}; align-items:center;">
+                              <span style="display:flex; flex-direction:column; gap:2px;">
+                                <span style="font-size:12.5px; font-weight:{{ c.fw }}; line-height:1.35;">{{ c.title }}</span>
+                                <span style="font-size:11px; line-height:1.4; color:var(--fusion-text-muted);">{{ c.note }}</span>
+                              </span>
+                              <span style="font-size:12.5px; font-weight:700; font-family:var(--fusion-font-mono); color:{{ c.scoreColor }}; text-align:right;">{{ c.score }}</span>
+                              <span style="font-size:10px; font-weight:700; letter-spacing:.04em; color:{{ c.verdictColor }}; text-align:right;">{{ c.verdict }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                    </div>
+                  </sc-for>
+                </div>
+
+                <!-- footer -->
+                <div style="padding:12px 18px 14px; border-top:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; gap:9px; align-items:center; flex-wrap:wrap;">
+                  <sc-for list="{{ cell.actions }}" as="a" hint-placeholder-count="2">
+                    <span style="display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 15px; border-radius:var(--fusion-radius-sm); font-size:11.5px; font-weight:700; letter-spacing:.05em; background:{{ a.bg }}; color:{{ a.color }}; border:{{ a.border }};">{{ a.label }}</span>
+                  </sc-for>
+                  <span style="margin-left:auto; font-size:11px; color:var(--fusion-text-muted);">{{ cell.footNote }}</span>
+                </div>
+              </div>
+            </sc-if>
+
+          </div>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const INK='var(--fusion-ink)', SEC='var(--fusion-text-secondary)', MUT='var(--fusion-text-muted)';
+const BLUE='var(--fusion-blue-700)', BLUE6='var(--fusion-blue-600)', GRN='var(--fusion-green-600)', AMB='var(--fusion-amber-600)', RED='var(--fusion-red-600)';
+const SURF='var(--fusion-surface)', BG='var(--fusion-bg)', BD='var(--fusion-border)', BDS='var(--fusion-border-strong)';
+
+const STAGES = [
+  { n:'STAGE 1', name:'Scope', sub:'What part of the agent is in play', rule:'var(--fusion-blue-700)' },
+  { n:'STAGE 2', name:'Target & guardrails', sub:'Better at what — and what must hold', rule:'var(--fusion-blue-700)' },
+  { n:'STAGE 3', name:'Suggestions', sub:'What to try, and why it\u2019s suggested', rule:'var(--fusion-blue-600)' },
+  { n:'STAGE 4', name:'Compare', sub:'The change, and the data to judge it on', rule:'var(--fusion-blue-600)' },
+  { n:'STAGE 5', name:'Result', sub:'What moved, what held', rule:'var(--fusion-green-600)' },
+  { n:'STAGE 6', name:'Decide', sub:'How the session ends', rule:'var(--fusion-ink)' },
+];
+
+// ---------- block builders ----------
+const base = { hasLabel:false, label:'', labelAction:'', isFact:false, isChoice:false, isGuard:false, isRec:false, isDiff:false, isEvidence:false, isResult:false, isDecide:false, isNotice:false, isProse:false, isRanked:false };
+const L = (label, action) => ({ hasLabel:true, label, labelAction: action || '' });
+
+const fact = (label, value, note, action) => ({ ...base, ...L(label, action === undefined ? 'CHANGE' : action), isFact:true, value, note: note || '' });
+
+const choice = (label, opts) => ({ ...base, ...L(label), isChoice:true, options: opts.map(o => ({
+  label:o.l, sub:o.s || '', fw:o.on?'700':'500',
+  bg:o.on?'var(--fusion-blue-50)':SURF, bd:o.on?BLUE:BD,
+  ring:o.on?BLUE:BDS, dot:o.on?BLUE:'transparent' })) });
+
+const guard = (label, items) => ({ ...base, ...L(label, 'EDIT'), isGuard:true, items: items.map(g => ({
+  metric:g.m, cond:g.c, bg:g.locked?BG:SURF,
+  tag:g.locked?'ALWAYS':'DEFAULT', tagColor:g.locked?SEC:BLUE6, tagBg:g.locked?'var(--fusion-border)':'var(--fusion-blue-50)' })) });
+
+const recs = (label, items) => ({ ...base, ...L(label), isRec:true, items: items.map(r => ({
+  kind:r.k, title:r.t, evidence:r.e, basis:r.b, impact:r.i,
+  impactColor:r.i && r.i !== 'unquantified' ? GRN : MUT,
+  kColor:r.top?BLUE6:MUT, bd:r.top?BLUE:BD, bg:r.top?'var(--fusion-blue-50)':SURF })) });
+
+const diff = (label, node, scopeTag, items, rationale) => ({ ...base, ...L(label, 'EDIT'), isDiff:true, node, scopeTag, rationale,
+  items: items.map(d => ({ field:d.f, before:d.b, after:d.a })) });
+
+const evidence = (label, opts) => ({ ...base, ...L(label), isEvidence:true, options: opts.map(e => ({
+  title:e.t, detail:e.d, cost:(e.c.split('\n')[0]), time:(e.c.split('\n')[1] || ''), fw:e.on?'700':'500',
+  bg:e.on?'var(--fusion-blue-50)':SURF, bd:e.on?BLUE:BD, ring:e.on?BLUE:BDS, dot:e.on?BLUE:'transparent',
+  costColor:e.on?INK:MUT })) });
+
+const result = (label, rows, v) => ({ ...base, ...L(label), isResult:true,
+  rows: rows.map(r => ({ metric:r.m, before:r.b, after:r.a, delta:r.d || '', tag:r.target?'YOUR GOAL':'',
+    fw:r.target?'700':'500',
+    bg:r.target?'var(--fusion-green-100)':SURF,
+    accent:r.target?'3px solid var(--fusion-green-600)':'3px solid transparent',
+    afterColor:r.tone==='good'?GRN:r.tone==='bad'?AMB:INK,
+    deltaColor:r.tone==='good'?GRN:r.tone==='bad'?AMB:SEC })),
+  verdictLabel:v.l, verdictNote:v.n, verdictColor:v.tone==='good'?GRN:v.tone==='warn'?AMB:SEC,
+  verdictBg:v.tone==='good'?'var(--fusion-green-100)':v.tone==='warn'?'var(--fusion-amber-100)':BG });
+
+const decide = (label, items) => ({ ...base, ...L(label), isDecide:true, items: items.map(d => ({
+  title:d.t, body:d.b, tag:d.tag || '',
+  tagColor:d.tone==='good'?GRN:d.tone==='warn'?AMB:MUT,
+  accent:d.tone==='good'?GRN:d.tone==='warn'?AMB:BDS,
+  bd:d.tone==='good'?'var(--fusion-green-100)':BD,
+  bg:d.tone==='good'?'var(--fusion-green-100)':SURF })) });
+
+const prose = (label, panes) => ({ ...base, ...L(label), isProse:true, panes: panes.map(p => ({
+  head:p.h, meta:p.meta || '', bd:p.tone==='new'?BLUE:BD,
+  headBg:p.tone==='new'?'var(--fusion-blue-50)':BG, headColor:p.tone==='new'?BLUE6:MUT,
+  lines: p.lines.map(l => ({ t:l.t,
+    color: l.k==='del' ? MUT : l.k==='add' ? INK : SEC,
+    bg: l.k==='add' ? 'var(--fusion-blue-50)' : 'transparent',
+    strike: l.k==='del' ? 'line-through' : 'none',
+    pad: l.k==='add' ? '3px 6px' : '3px 0' })) })) });
+
+const ranked = (label, scoreLabel, items) => ({ ...base, ...L(label), isRanked:true, scoreLabel, items: items.map(c => ({
+  title:c.t, note:c.n, score:c.s, verdict:c.v, fw:c.top?'700':'500',
+  bg:c.top?'var(--fusion-green-100)':SURF,
+  scoreColor:c.tone==='good'?GRN:c.tone==='bad'?AMB:INK,
+  verdictColor:c.tone==='good'?GRN:c.tone==='bad'?AMB:MUT })) });
+
+const notice = (tone, title, body) => ({ ...base, isNotice:true, noticeTitle:title, noticeBody:body,
+  noticeColor:tone==='warn'?AMB:BLUE6,
+  noticeBg:tone==='warn'?'var(--fusion-amber-100)':'var(--fusion-blue-50)',
+  noticeBd:tone==='warn'?'var(--fusion-amber-100)':'var(--fusion-blue-100)' });
+
+const btn = {
+  p: l => ({ label:l, bg:BLUE, color:'#fff', border:'none' }),
+  s: l => ({ label:l, bg:SURF, color:SEC, border:'1px solid var(--fusion-border-strong)' }),
+  q: l => ({ label:l, bg:'transparent', color:MUT, border:'none' }),
+};
+
+// progress dots: n total, active index
+function dots(total, active) {
+  const out = [];
+  for (let i = 0; i < total; i++) out.push({ w: i === active ? '18px' : '6px', bg: i === active ? BLUE : (i < active ? 'var(--fusion-blue-100)' : 'var(--fusion-border)') });
+  return out;
+}
+
+const panel = (o) => ({ panel:true, carried:false, agent:o.agent || 'Client Meeting Prep',
+  dots: dots(o.total || 6, o.step), title:o.title, sub:o.sub, blocks:o.blocks, actions:o.actions, footNote:o.foot || '' });
+
+const carried = (kind, value, note) => ({ panel:false, carried:true, carriedKind:kind, carriedValue:value, carriedNote:note || '' });
+
+// ---------- (the chat-turn door was replaced by the panel \u2014 helpers kept for reference) ----------
+const turn = (who, text, o) => {
+  const you = who === 'you';
+  return { who: you ? 'YOU' : 'FUSION', align: you ? 'flex-end' : 'flex-start',
+    whoColor: you ? BLUE6 : MUT,
+    bg: you ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+    border: you ? '1px solid var(--fusion-blue-100)' : '1px solid var(--fusion-border)',
+    radius: you ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
+    text, note: (o && o.note) || '',
+    hasOptions: !!(o && o.chips && o.chips.length),
+    chips: ((o && o.chips) || []).map(c => {
+      const x = typeof c === 'string' ? { l:c } : c;
+      return { label:x.l, hint:x.hint || '', bg: x.on ? 'var(--fusion-blue-50)' : 'transparent',
+        ring: x.on ? '4px solid var(--fusion-blue-700)' : '1.5px solid var(--fusion-border-strong)' };
+    }) };
+};
+const chat = (stage, turns, foot) => ({ panel:false, carried:false, chat:true, chatStage:stage, turns, chatFoot: foot || '' });
+
+// ---------- shared stage panels ----------
+const GUARDS_COST = [ { m:'Groundedness', c:'\u2265 70%' }, { m:'Time', c:'\u2264 24.8s' }, { m:'Completeness', c:'\u2265 75%' }, { m:'Safety checks', c:'all clear', locked:true } ];
+const GUARDS_TIME = [ { m:'Cost', c:'\u2264 $0.31' }, { m:'Groundedness', c:'\u2265 70%' }, { m:'Safety checks', c:'all clear', locked:true } ];
+
+const targetPanel = (step, sel, guards, sub) => panel({ step, title:'Better at what?', sub,
+  blocks: [
+    choice('PICK ONE — EVERYTHING ELSE IS HELD', [
+      { l:'Cost', s:'Cents per run', on:sel==='cost' },
+      { l:'Speed', s:'Wall-clock time end to end', on:sel==='time' },
+      { l:'A quality score', s:'One of the scores in your set', on:sel==='eval' },
+      { l:'Reliability', s:'Failures, retries, runaway loops', on:sel==='rel' },
+    ]),
+    guard('MUST NOT GET WORSE', guards),
+    notice('info', 'Your goal isn\u2019t on that list', 'Whatever you\u2019re improving can\u2019t also be a thing you\u2019re protecting.'),
+  ],
+  actions: [btn.p('CONTINUE'), btn.s('BACK')] });
+
+const decidePanel = (step, opts) => panel({ step, title:'How do you want to leave this?', sub: opts.sub,
+  blocks: [
+    decide('FOUR WAYS OUT', [
+      { t:'Accept the change', b: opts.acceptNote, tag: opts.acceptTag, tone:'good' },
+      { t:'Dismiss it', b:'Recorded. Won\u2019t be suggested again until the evidence behind it changes.' },
+      { t:'Hand it off', b: opts.delegate || 'Let it try up to 8 more variations on its own, judged against the suite.', tag: opts.delegateTag || '', tone: opts.delegateTone || '' },
+      { t:'Leave it for now', b:'Kept as-is. Goes stale if the agent is edited underneath it.' },
+    ]),
+  ],
+  actions:[btn.p('ACCEPT'), btn.s('DISMISS'), btn.q('Hand off')],
+  foot: opts.foot || '' });
+
+const RESULT_COST = result('MEASURED AGAINST RUN #128', [
+  { m:'Cost', b:'$0.31', a:'$0.13', d:'\u221258%', tone:'good', target:true },
+  { m:'Groundedness', b:'71%', a:'74%', d:'holds', tone:'good' },
+  { m:'Time', b:'24.8s', a:'19.1s', d:'holds' },
+  { m:'Completeness', b:'86%', a:'86%', d:'holds' },
+  { m:'Safety', b:'7 clear', a:'7 clear', d:'clear' },
+], { l:'Cheaper, nothing else moved', n:'One input though \u2014 that\u2019s a strong hint, not proof. The suite would settle it.', tone:'warn' });
+
+// ---------- journeys ----------
+const J = [];
+
+J.push({ id:'1', name:'A node on the canvas', where:'OPTIMIZE, in its Define panel', len:'asks 2 \u00b7 4 screens',
+  cells:[
+    panel({ step:0, title:'Optimize this step', sub:'Opened from the OPTIMIZE button at the foot of this node\u2019s Define panel \u2014 so the node, and the settings you were just looking at, are what\u2019s in play.',
+      blocks:[ fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing', 'One step of seven \u00b7 model call, 68% of run cost'),
+        notice('info', 'Only this step is in play', 'The levers start narrowed to what Define holds \u2014 model, prompt, tools, loop. Widening the scope means starting from the canvas toolbar or a run instead.') ],
+      actions:[btn.p('CONTINUE'), btn.s('CANCEL')], foot:'Nothing is edited yet' }),
+    targetPanel(1, 'cost', GUARDS_COST, 'One goal per session. The rest are held where they are today.'),
+    panel({ step:2, title:'2 things worth trying here', sub:'Both drawn from this step\u2019s last 10 runs.',
+      blocks:[ recs('RANKED BY LIKELY SAVING', [
+        { k:'BIGGEST SAVING', t:'Carry 5 research chunks instead of 20', e:'Cited 3 of 20 chunks in 9 of the last 10 runs', b:'From what past runs actually used', i:'\u2212$0.16', top:true },
+        { k:'SMALLER', t:'Use the mid-tier model for drafting', e:'Same prompt, cheaper per token', b:'Price-sheet math \u2014 quality unmeasured', i:'\u2212$0.09' } ]) ],
+      actions:[btn.p('TRY THE FIRST'), btn.s('EDIT A COPY INSTEAD')] }),
+    panel({ step:3, title:'Ready to measure', sub:'Nothing here touches the agent until you accept it.',
+      blocks:[ diff('THE CHANGE', 'Retrieve research', 'FEEDS DRAFT BRIEFING', [ { f:'Chunks retrieved', b:'20', a:'5' } ], 'The draft cited 3 chunks last run. The other 17 were paid for and unused.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'The one you came from \u00b7 one shot', c:'~$0.13\n~20s', on:true },
+          { t:'5 saved inputs', d:'Shows whether it holds up', c:'~$0.65\n~2 min' },
+          { t:'The full suite', d:'12 cases against the baseline \u2014 the only one that proves it', c:'~$1.60\n~6 min' } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')], foot:'Scratch run \u00b7 stays out of history' }),
+    panel({ step:4, title:'Cheaper, and nothing else moved', sub:'Draft briefing, run #128\u2019s input.', blocks:[ RESULT_COST ],
+      actions:[btn.p('ACCEPT'), btn.s('RUN THE FULL SUITE'), btn.q('Dismiss')] }),
+    decidePanel(5, { sub:'Whatever you choose is recorded against this session.',
+      acceptNote:'Goes to the canvas as a diff to review. A suite check rides along with it, since one input isn\u2019t proof.', acceptTag:'NEEDS VERIFYING' }),
+  ] });
+
+J.push({ id:'2', name:'Straight after a test', where:'OPTIMIZE on the run\u2019s result in chat', len:'asks 1 \u00b7 4 screens',
+  cells:[
+    carried('SCOPE CARRIED IN', 'The whole agent', 'You ran a full test, so the whole agent is in play. Pressing OPTIMIZE on the result opens the panel over the studio \u2014 the session is too big to read as chat turns.'),
+    targetPanel(1, 'time', GUARDS_TIME, 'Run #128 took 24.8s and cost $0.31. One goal per session \u2014 the rest are held where they are.'),
+    panel({ step:2, title:'3 things would make it faster', sub:'Ranked by how much time they\u2019d give back.',
+      blocks:[ recs('RANKED BY LIKELY SAVING', [
+        { k:'BIGGEST SAVING', t:'Fetch CRM and research at the same time', e:'Neither needs the other\u2019s output; they ran back to back in all 10 runs', b:'From the run timeline', i:'\u22123.2s', top:true },
+        { k:'NEXT', t:'State all three drafting rules up front', e:'Four validate\u2013refine passes last run, one rule each', b:'From the loop history', i:'\u22124.1s' },
+        { k:'SMALLEST', t:'Faster model for parsing', e:'Same prompt, quicker per token', b:'Price-sheet math \u2014 quality unmeasured', i:'\u22120.4s' } ]) ],
+      actions:[btn.p('TRY THE FIRST'), btn.s('EDIT A COPY INSTEAD')] }),
+    panel({ step:3, title:'Ready to measure', sub:'Timing is noisy, so one run won\u2019t settle this one.',
+      blocks:[ diff('THE CHANGE', 'Fetch CRM data \u00b7 Retrieve research', 'STEPS 2A AND 2B', [ { f:'How they run', b:'One after the other', a:'At the same time' } ], 'Independent inputs \u2014 nothing in 2B reads 2A\u2019s output.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'One shot \u2014 too noisy for a timing claim', c:'~$0.31\n~25s' },
+          { t:'5 saved inputs \u00d7 3', d:'Shows the spread, not just one number', c:'~$4.60\n~6 min', on:true },
+          { t:'The full suite', d:'12 cases against the baseline \u2014 the only one that proves it', c:'~$1.60\n~8 min' } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')], foot:'Scratch runs \u00b7 they stay out of your run history' }),
+    panel({ step:4, title:'Faster, and it held across 15 runs', sub:'5 saved inputs, three times each.',
+      blocks:[ result('MEASURED ACROSS 15 RUNS', [
+        { m:'Time', b:'24.8s', a:'21.4s', d:'\u22123.4s', tone:'good', target:true },
+        { m:'Spread', b:'\u00b11.1s', a:'\u00b11.4s', d:'wider, still tight' },
+        { m:'Cost', b:'$0.31', a:'$0.31', d:'holds' },
+        { m:'Groundedness', b:'71%', a:'71%', d:'holds' },
+        { m:'Safety', b:'7 clear', a:'7 clear', d:'clear' },
+      ], { l:'Held in 15 of 15', n:'Not suite-verified \u2014 but no longer one data point either.', tone:'warn' }) ],
+      actions:[btn.p('ACCEPT'), btn.s('RUN THE FULL SUITE'), btn.q('Dismiss')] }),
+    decidePanel(5, { sub:'Whatever you choose is recorded against this session.',
+      acceptNote:'Goes to the canvas as a diff to review, with a suite check attached since the suite hasn\u2019t seen it.', acceptTag:'NEEDS VERIFYING' }),
+  ] });
+
+J.push({ id:'3', name:'The run\u2019s report card', where:'Optimize, beside Fix', len:'asks 0 \u00b7 3 screens',
+  cells:[
+    carried('NOTHING CARRIED IN', 'No scope, no goal', 'You arrived without an intent, so the session opens on what the runs already show \u2014 picking one answers both at once.'),
+    carried('ANSWERED BY PICKING', 'Goal comes from the suggestion', 'Guardrails default in behind it and are shown on the compare screen.'),
+    panel({ step:0, total:3, title:'What\u2019s worth improving', sub:'From the last 10 runs of this agent. Pick one and the goal is set with it.',
+      blocks:[ recs('RANKED BY IMPACT', [
+        { k:'CHEAPER', t:'Carry 5 research chunks instead of 20', e:'Cited 3 of 20 in 9 of the last 10 runs', b:'From what past runs actually used', i:'\u2212$0.16/run', top:true },
+        { k:'FASTER', t:'Fetch CRM and research at the same time', e:'Independent inputs, run back to back', b:'From the critical path', i:'\u22123.2s' },
+        { k:'STEADIER', t:'Give the CRM tool longer to answer', e:'Retried in 4 of 10 runs \u00b7 run #127 failed on it outright', b:'From the tool\u2019s own history', i:'unquantified' } ]),
+        notice('info', 'None of these?', 'Set a goal yourself and it\u2019ll suggest against that instead.') ],
+      actions:[btn.p('PICK THE FIRST'), btn.s('SET A GOAL MYSELF')] }),
+    panel({ step:1, total:3, title:'Ready to measure', sub:'Picking a suggestion set the goal and drafted the change together.',
+      blocks:[ fact('GOAL', 'Cost', 'Groundedness, time, completeness and safety all held'),
+        diff('THE CHANGE', 'Retrieve research', 'FEEDS DRAFT BRIEFING', [ { f:'Chunks retrieved', b:'20', a:'5' } ], 'The claim is about a pattern across runs, so the suite is the honest test.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'Quick sanity check', c:'~$0.13\n~20s' },
+          { t:'5 saved inputs', d:'Shows whether it holds', c:'~$0.65\n~2 min' },
+          { t:'The full suite', d:'12 cases against the baseline', c:'~$1.60\n~6 min', on:true } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')] }),
+    panel({ step:2, total:3, title:'Cheaper across all 12 cases', sub:'Full suite against the pinned baseline.',
+      blocks:[ result('SUITE AVERAGE \u00b7 12 CASES', [
+        { m:'Cost', b:'$0.29', a:'$0.12', d:'\u221259%', tone:'good', target:true },
+        { m:'Groundedness', b:'73%', a:'74%', d:'holds', tone:'good' },
+        { m:'Completeness', b:'85%', a:'85%', d:'holds' },
+        { m:'Cases passed', b:'12/12', a:'12/12', d:'holds' },
+        { m:'Safety', b:'clear', a:'clear', d:'clear' },
+      ], { l:'Proven \u2014 full suite', n:'The only level that earns that word. No follow-up check needed.', tone:'good' }) ],
+      actions:[btn.p('ACCEPT'), btn.q('Dismiss')] }),
+    decidePanel(2, { sub:'Suite-verified, so accepting is clean.',
+      acceptNote:'Goes to the canvas as a diff, marked proven. Worth re-pinning the baseline afterwards.', acceptTag:'PROVEN',
+      delegate:'Suite and quality scores both exist, so handing off is available here.', delegateTag:'AVAILABLE', delegateTone:'' }),
+  ] });
+
+J.push({ id:'4', name:'A step you drilled into', where:'arrived from the cost lens', len:'asks 1 \u00b7 4 screens',
+  cells:[
+    carried('SCOPE CARRIED IN', 'Draft briefing', 'You drilled into this step, so it\u2019s the scope \u2014 restated as a changeable fact on the next screen.'),
+    panel({ step:0, title:'Cost, going by where you came from', sub:'You got here through the cost view. Say so if that\u2019s not what you\u2019re actually after.',
+      blocks:[ fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing', '68% of this run\u2019s cost'),
+        choice('GOAL \u2014 GUESSED FROM THE COST VIEW', [
+          { l:'Cost', s:'What the lens implied', on:true },
+          { l:'Speed', s:'This step is also the longest' },
+          { l:'A quality score', s:'Groundedness is near its floor' },
+          { l:'Reliability', s:'No failures here' } ]),
+        guard('MUST NOT GET WORSE', GUARDS_COST) ],
+      actions:[btn.p('LOOKS RIGHT'), btn.s('BACK')], foot:'Guessed, not assumed \u2014 change it freely' }),
+    panel({ step:1, title:'2 things worth trying here', sub:'Scoped to this step only.',
+      blocks:[ recs('RANKED BY LIKELY SAVING', [
+        { k:'BIGGEST SAVING', t:'Carry 5 research chunks instead of 20', e:'Cited 3 of 20 chunks last run', b:'From what the draft actually used', i:'\u2212$0.16', top:true },
+        { k:'SMALLER', t:'Use the mid-tier model for drafting', e:'Same prompt, cheaper per token', b:'Price-sheet math', i:'\u2212$0.09' } ]) ],
+      actions:[btn.p('TRY THE FIRST'), btn.s('EDIT A COPY INSTEAD')] }),
+    panel({ step:2, title:'Ready to measure', sub:'Judged on the run you drilled into.',
+      blocks:[ diff('THE CHANGE', 'Retrieve research', 'FEEDS DRAFT BRIEFING', [ { f:'Chunks retrieved', b:'20', a:'5' } ], 'Cited 3 of 20 \u2014 the rest was paid for and unread.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'The run you were looking at', c:'~$0.13\n~20s', on:true },
+          { t:'5 saved inputs', d:'Shows whether it holds', c:'~$0.65\n~2 min' },
+          { t:'The full suite', d:'12 cases against the baseline', c:'~$1.60\n~6 min' } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')] }),
+    panel({ step:3, title:'Cheaper, and nothing else moved', sub:'Draft briefing, run #128\u2019s input.', blocks:[ RESULT_COST ],
+      actions:[btn.p('ACCEPT'), btn.s('RUN THE FULL SUITE'), btn.q('Dismiss')] }),
+    decidePanel(4, { sub:'One input only.', acceptNote:'Goes to the canvas as a diff, with a suite check attached.', acceptTag:'NEEDS VERIFYING' }),
+  ] });
+
+J.push({ id:'5', name:'A score that\u2019s failing', where:'the evaluations view \u00b7 the wording case', len:'asks 1 \u00b7 5 screens + a detour',
+  cells:[
+    panel({ step:0, title:'Optimize for step efficiency', sub:'The score you clicked is the goal. What it should touch is the open question.',
+      blocks:[ fact('GOAL', 'Step efficiency \u2014 62%, floor 70%', 'Graded on run #128 \u00b7 \u201C4 refine loops for a 1-loop task\u201D', ''),
+        choice('WHAT SHOULD IT TOUCH?', [
+          { l:'The steps this score covers', s:'Validate draft, Refine draft', on:true },
+          { l:'The whole agent', s:'The cause might be upstream in the drafting prompt' },
+          { l:'One step', s:'Pick it yourself' } ]),
+        notice('warn', 'This score isn\u2019t in your set yet', 'It has to be attached and run against #128 before anything can be compared \u2014 about 20 seconds and a few cents. Only appears when the score is missing.') ],
+      actions:[btn.p('ATTACH AND GRADE'), btn.s('PICK A DIFFERENT GOAL')], foot:'The detour, shown in place' }),
+    carried('GOAL CARRIED IN', 'Step efficiency \u2265 70%', 'Guardrails default in behind it: cost \u2264 $0.31, time \u2264 24.8s, groundedness \u2265 70%, safety always.'),
+    panel({ step:1, title:'1 thing worth trying', sub:'Drawn from what the score said, not from cost or timing.',
+      blocks:[ recs('FROM THE SCORE\u2019S OWN REASONING', [
+        { k:'FROM THE GRADER', t:'State all three rules in the drafting prompt', e:'Each pass caught exactly one rule \u2014 disclosure, then figures, then tone', b:'From the validator\u2019s rejections', i:'4 passes \u2192 1', top:true } ]),
+        notice('info', 'Only one suggestion here', 'Quality scores implicate a narrower set of levers than cost or speed do. Editing a copy yourself is the other route.') ],
+      actions:[btn.p('TRY IT'), btn.s('EDIT A COPY INSTEAD')] }),
+    panel({ step:2, title:'Ready to measure', sub:'The change is wording, not a setting \u2014 so it shows as the text, and it takes more than one input to judge.',
+      blocks:[ prose('THE WORDING \u00b7 DRAFT BRIEFING PROMPT', [
+        { h:'NOW', meta:'412 tok', lines:[
+          { t:'Write a client briefing from the material provided. Follow the briefing format skill.', k:'same' },
+          { t:'\u2026 the validator will tell you what to fix.', k:'del' } ] },
+        { h:'PROPOSED \u00b7 ONE OF THREE PHRASINGS', tone:'new', meta:'+38 tok', lines:[
+          { t:'Write a client briefing from the material provided. Follow the briefing format skill.', k:'same' },
+          { t:'Include a risk disclosure section.', k:'add' },
+          { t:'Take every figure from the CRM record, not from the research.', k:'add' },
+          { t:'Write in the firm register \u2014 no informal phrasing.', k:'add' } ] } ]),
+        notice('info', 'Three phrasings, not one', 'Wording has no single right answer the way a number does, so it drafts a few and ranks them against each other as well as against the current prompt.'),
+        evidence('JUDGE THEM ON', [
+          { t:'Run #128\u2019s input', d:'A preview of the writing \u2014 not evidence', c:'~$0.93\n~75s' },
+          { t:'5 saved inputs', d:'Enough to see the loop behavior settle', c:'~$4.65\n~9 min' },
+          { t:'The full suite', d:'12 cases \u00b7 the only level that proves a wording change', c:'~$11.10\n~24 min', on:true } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')] }),
+    panel({ step:3, title:'Two of the three beat the current prompt', sub:'Full suite, 12 cases. Ranked on the goal, with every guardrail checked on each.',
+      blocks:[ ranked('THE THREE PHRASINGS', 'EFFICIENCY', [
+        { t:'Rules as three plain sentences', n:'The one shown \u00b7 1.1 passes avg \u00b7 groundedness held at 73%', s:'91%', v:'BEST', tone:'good', top:true },
+        { t:'Rules folded into the format skill', n:'1.4 passes avg \u00b7 groundedness held at 72%', s:'84%', v:'IMPROVES', tone:'good' },
+        { t:'Rules as a checklist to self-review against', n:'Longer prompt, drafter re-checks itself \u00b7 cost +12%', s:'78%', v:'COST BREACH', tone:'bad' } ]),
+        notice('info', 'Why cost matters on a wording change', 'A longer prompt is paid on every run. The third phrasing works, but it broke the cost guardrail getting there.') ],
+      actions:[btn.p('READ THE OUTPUTS'), btn.s('COMPARE ANOTHER')] }),
+    panel({ step:4, title:'What the winner actually wrote', sub:'Same input, both prompts. Numbers move people less than the writing does.',
+      blocks:[ prose('BOTH ON RUN #128\u2019S INPUT', [
+        { h:'CURRENT PROMPT \u00b7 AFTER 4 PASSES', meta:'1,912 words', lines:[
+          { t:'Meridian had a great quarter for the FX book\u2026', k:'same' },
+          { t:'AUM $2.1B  \u2014 corrected on pass 2', k:'del' },
+          { t:'Risk disclosure \u2014 added on pass 1', k:'del' } ] },
+        { h:'WINNING PHRASING \u00b7 FIRST PASS', tone:'new', meta:'1,884 words', lines:[
+          { t:'Meridian\u2019s FX hedging program performed in line with mandate this quarter\u2026', k:'add' },
+          { t:'AUM $2.4B, per CRM record MER-4402', k:'add' },
+          { t:'Risk disclosure present in section 2', k:'add' } ] } ]),
+        result('EVERY GUARDRAIL, ON THE WINNER', [
+          { m:'Step efficiency', b:'62%', a:'91%', d:'+29', tone:'good', target:true },
+          { m:'Passes needed', b:'4 avg', a:'1.1 avg', d:'\u22122.9', tone:'good' },
+          { m:'Cost', b:'$0.31', a:'$0.26', d:'holds' },
+          { m:'Groundedness', b:'71%', a:'73%', d:'holds', tone:'good' },
+          { m:'Safety', b:'7 clear', a:'7 clear', d:'clear' },
+        ], { l:'Proven. Full suite, 12 cases, three repeats each.', n:'A wording change touches every input at once \u2014 this is the level it takes to say that word.', tone:'good' }) ],
+      actions:[btn.p('ACCEPT THIS PHRASING'), btn.s('BACK TO THE THREE'), btn.q('Dismiss')] }),
+    decidePanel(5, { sub:'Proven on the suite, so nothing is left hanging.',
+      acceptNote:'Goes to the canvas as a wording diff, marked proven on the suite. The two runners-up are kept on the session in case this one reads wrong in practice.', acceptTag:'PROVEN' }),
+  ] });
+
+J.push({ id:'6', name:'A blue flag on a step', where:'the run detail', len:'asks 0 \u00b7 2 screens',
+  cells:[
+    carried('SCOPE CARRIED IN', 'Draft briefing', 'The flag was raised on this step.'),
+    carried('GOAL CARRIED IN', 'Cost', 'The flag named the goal too. Guardrails default in: groundedness \u2265 70%, time \u2264 24.8s, safety always.'),
+    carried('SKIPPED ENTIRELY', 'The flag was the suggestion', 'Nothing to rank \u2014 it arrives with the change already drafted.'),
+    panel({ step:0, total:2, title:'Ready to measure', sub:'Straight from the flag: the problem, the goal and the change were all already named.',
+      blocks:[ fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing', 'From the flag on step 3'),
+        fact('GOAL', 'Cost', 'Groundedness, time and safety held'),
+        diff('THE CHANGE', 'Retrieve research', 'FEEDS DRAFT BRIEFING', [ { f:'Chunks retrieved', b:'20', a:'5' } ], 'The flag\u2019s evidence: 18.2k of 21.4k input tokens were retrieved research, and the draft cited 3 chunks.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'The run the flag came from', c:'~$0.13\n~20s', on:true },
+          { t:'5 saved inputs', d:'Shows whether it holds', c:'~$0.65\n~2 min' },
+          { t:'The full suite', d:'12 cases against the baseline', c:'~$1.60\n~6 min' } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('CANCEL')], foot:'Two screens from noticing to knowing' }),
+    panel({ step:1, total:2, title:'Cheaper, and nothing else moved', sub:'Run #128\u2019s input.', blocks:[ RESULT_COST ],
+      actions:[btn.p('ACCEPT'), btn.s('RUN THE FULL SUITE'), btn.q('Dismiss')] }),
+    decidePanel(1, { sub:'The fastest path in the whole system \u2014 and still no silent edits.',
+      acceptNote:'Goes to the canvas as a diff, with a suite check attached. The flag closes when a passing run proves it.', acceptTag:'NEEDS VERIFYING' }),
+  ] });
+
+J.push({ id:'7', name:'A resource\u2019s card', where:'a model, tool or source', len:'asks 0 \u00b7 2 screens',
+  cells:[
+    carried('SCOPE CARRIED IN', 'getClientProfile \u2014 used by 1 step', 'Named explicitly rather than \u201Cthe steps that use it\u201D, because that guess can be wrong.'),
+    carried('GOAL CARRIED IN', 'Reliability', 'Implied by the resource\u2019s own history. Cost, time and quality held.'),
+    carried('SKIPPED', 'The fix was already known', 'A flaky tool with a 2s timeout has one obvious first move.'),
+    panel({ step:0, total:2, title:'Ready to measure', sub:'You were looking at this tool\u2019s track record, so the change is drafted from its config.',
+      blocks:[ fact('WHAT YOU\u2019RE CHANGING', 'getClientProfile', 'CRM connector \u00b7 used by step 2A only'),
+        fact('GOAL', 'Reliability', 'Cost, time and quality held'),
+        diff('THE CHANGE', 'getClientProfile', 'RUN CONFIG', [ { f:'Timeout', b:'2.0s', a:'5.0s' }, { f:'Retries', b:'2', a:'2' } ], 'Retried in 4 of the last 10 runs, and run #127 failed on it outright. Both timeouts were under 5s.'),
+        evidence('JUDGE IT ON', [
+          { t:'Run #128\u2019s input', d:'It succeeded on that one \u2014 proves nothing', c:'~$0.31\n~25s' },
+          { t:'The 4 inputs where it retried, 3 times each', d:'The failures are the point', c:'~$3.70\n~4 min', on:true },
+          { t:'The full suite', d:'Mostly inputs that never hit the tool', c:'~$3.70\n~8 min' } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('CANCEL')] }),
+    panel({ step:1, total:2, title:'No retries across any of the 12', sub:'The 4 previously failing inputs, 3 runs each.',
+      blocks:[ result('MEASURED ACROSS 12 RUNS', [
+        { m:'Retries', b:'4 of 12', a:'0 of 12', d:'clean', tone:'good', target:true },
+        { m:'Failures', b:'1', a:'0', d:'clean', tone:'good' },
+        { m:'Worst-case time', b:'24.8s', a:'26.0s', d:'+1.2s', tone:'bad' },
+        { m:'Cost', b:'$0.31', a:'$0.31', d:'holds' },
+        { m:'Safety', b:'7 clear', a:'7 clear', d:'clear' },
+      ], { l:'Steadier, slightly slower at worst', n:'Slower only when the tool is slow \u2014 which is exactly when it used to fail. Inside the latency guardrail.', tone:'good' }) ],
+      actions:[btn.p('ACCEPT'), btn.s('RUN THE FULL SUITE'), btn.q('Dismiss')] }),
+    decidePanel(1, { sub:'Better on the goal, marginally worse on time \u2014 within limits.',
+      acceptNote:'Goes to the canvas with the trade recorded: \u201C4 retries \u2192 0, +1.2s worst case \u2014 within guardrail.\u201D', acceptTag:'TRADE RECORDED' }),
+  ] });
+
+J.push({ id:'8', name:'The canvas toolbar', where:'build side, no context', len:'asks 2 \u00b7 4 screens',
+  cells:[
+    panel({ step:0, title:'What are we improving?', sub:'You opened this from the toolbar, so nothing is assumed.',
+      blocks:[ choice('WHAT\u2019S IN PLAY', [
+        { l:'The whole agent', s:'All 7 steps', on:true },
+        { l:'A few steps', s:'Pick them on the canvas' },
+        { l:'One step', s:'Pick it on the canvas' } ]),
+        notice('info', 'This agent has 10 runs of history', 'Enough to suggest from evidence. With no runs, suggestions come from structure alone and say so.') ],
+      actions:[btn.p('CONTINUE'), btn.s('CANCEL')] }),
+    targetPanel(1, 'cost', GUARDS_COST, 'One goal per session. The rest hold where they are today.'),
+    panel({ step:2, title:'3 things worth trying', sub:'From the last 10 runs across the whole agent.',
+      blocks:[ recs('RANKED BY LIKELY SAVING', [
+        { k:'BIGGEST SAVING', t:'Carry 5 research chunks instead of 20', e:'Cited 3 of 20 in 9 of the last 10 runs', b:'From what past runs used', i:'\u2212$0.16', top:true },
+        { k:'NEXT', t:'Reuse the cached system prompt across loop passes', e:'Same 412-token prefix re-sent on all 4 refine passes', b:'From token accounting', i:'\u2212$0.03' },
+        { k:'SMALL', t:'Use the mid-tier model for parsing', e:'Parse is a fixed-format task', b:'Price-sheet math', i:'\u2212$0.003' } ]) ],
+      actions:[btn.p('TRY THE FIRST'), btn.s('EDIT A COPY INSTEAD')] }),
+    panel({ step:3, title:'Ready to measure', sub:'No run to replay, so the suite is the natural evidence.',
+      blocks:[ diff('THE CHANGE', 'Retrieve research', 'FEEDS DRAFT BRIEFING', [ { f:'Chunks retrieved', b:'20', a:'5' } ], 'Started from the build side, so there\u2019s no single run in hand \u2014 the suite supplies the inputs.'),
+        evidence('JUDGE IT ON', [
+          { t:'The most recent run\u2019s input', d:'Quick, but not yours \u2014 from run #128', c:'~$0.13\n~20s' },
+          { t:'5 saved inputs', d:'Shows whether it holds', c:'~$0.65\n~2 min' },
+          { t:'The full suite', d:'12 cases against the baseline', c:'~$1.60\n~6 min', on:true } ]) ],
+      actions:[btn.p('RUN THE COMPARISON'), btn.s('BACK')] }),
+    panel({ step:4, title:'Nothing beat what you have', sub:'The honest ending \u2014 shown, not hidden.',
+      blocks:[ result('SUITE AVERAGE \u00b7 12 CASES', [
+        { m:'Cost', b:'$0.29', a:'$0.12', d:'\u221259%', tone:'good', target:true },
+        { m:'Groundedness', b:'73%', a:'66%', d:'below floor', tone:'bad' },
+        { m:'Cases passed', b:'12/12', a:'10/12', d:'\u22122', tone:'bad' },
+        { m:'Safety', b:'clear', a:'clear', d:'clear' },
+      ], { l:'Broke a guardrail \u2014 not an improvement', n:'Cheapest candidate, but groundedness fell to 66% against a 70% floor. Two suite cases failed with it.', tone:'warn' }),
+        notice('warn', 'Closest miss', 'Trimming to 10 chunks instead of 5 held groundedness at 71% for \u221231% cost. Try that one next.') ],
+      actions:[btn.p('TRY THE CLOSEST MISS'), btn.s('HAND IT OFF'), btn.q('Give up for now')] }),
+    decidePanel(4, { sub:'Nothing won this round. That\u2019s a valid ending, and it\u2019s recorded.',
+      acceptNote:'Not available \u2014 no candidate held its guardrails. The closest miss is offered instead.', acceptTag:'BLOCKED',
+      delegate:'Suite and quality scores both exist, so it can keep trying on its own within your guardrails.', delegateTag:'AVAILABLE' }),
+  ] });
+
+// ---------- the thin-guardrail case: an agent with no quality scores attached ----------
+J.push({ id:'\u2014', name:'The same door, on an agent with no scores', where:'any entry \u00b7 nothing measured yet', len:'the guardrail list shrinks',
+  cells:[
+    panel({ step:0, total:4, agent:'Ticket Triage \u00b7 no eval set', title:'Better at what?', sub:'Two of the four goals need scores that don\u2019t exist here.',
+      blocks:[ choice('PICK ONE \u2014 EVERYTHING ELSE IS HELD', [
+          { l:'Cost', s:'Cents per run \u00b7 measured on every run', on:true },
+          { l:'Speed', s:'Wall-clock time \u00b7 measured on every run' },
+          { l:'A quality score', s:'Unavailable \u2014 no scores attached to this agent' },
+          { l:'Reliability', s:'Unavailable \u2014 needs run history' } ]),
+        guard('MUST NOT GET WORSE', [ { m:'Time', c:'\u2264 11.2s' }, { m:'Safety checks', c:'all clear', locked:true } ]),
+        notice('warn', 'Nothing is protecting quality', 'Only time and safety are held. A change that makes the answers worse would still read as a win here \u2014 attach a score first if quality matters.') ],
+      actions:[btn.p('ATTACH A SCORE FIRST'), btn.s('CONTINUE ANYWAY')], foot:'The honest version of a short list' }),
+    panel({ step:2, total:4, agent:'Ticket Triage \u00b7 no eval set', title:'Cheaper. Whether it\u2019s still good, nobody knows.', sub:'One input, no quality measurement.',
+      blocks:[ result('RUN #14\u2019S INPUT', [
+        { m:'Cost', b:'$0.08', a:'$0.03', d:'\u221263%', tone:'good', target:true },
+        { m:'Time', b:'11.2s', a:'7.4s', d:'holds', tone:'good' },
+        { m:'Safety', b:'clear', a:'clear', d:'clear' },
+        { m:'Quality', b:'\u2014', a:'\u2014', d:'not measured' },
+      ], { l:'Weak evidence', n:'Cost is a fact. Quality is a blank \u2014 read the two answers yourself, or attach a score and run it again.', tone:'warn' }) ],
+      actions:[btn.p('READ BOTH ANSWERS'), btn.s('ATTACH A SCORE AND RE-RUN'), btn.q('Dismiss')] }),
+    decidePanel(3, { sub:'Accepting is allowed \u2014 it just carries what wasn\u2019t checked.',
+      acceptNote:'Goes to the canvas as a diff, marked unchecked for quality. The follow-up is attaching a score, not running a suite.', acceptTag:'QUALITY UNCHECKED',
+      delegate:'Unavailable \u2014 handing off needs a suite and at least one quality score to judge against.', delegateTag:'BLOCKED', delegateTone:'warn' }),
+  ] });
+
+class Component extends DCLogic {
+  renderVals() { return { stages: STAGES, journeys: J }; }
+}
+</script>
+</body>
+</html>

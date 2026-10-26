@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #F7F7FB; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<section style="padding:40px 40px 8px; display:flex; flex-direction:column; gap:22px;">
+
+  <div style="display:flex; flex-direction:column; gap:9px; max-width:1080px;">
+    <div style="font-size:26px; line-height:1.25; font-weight:700; letter-spacing:-.015em;">Spec audit — seven specs against Fusion Agent Studio v4</div>
+    <div style="font-size:14px; line-height:1.6; color:var(--fusion-text-secondary);">Read against the v4 source, not from memory. Headline: v4 already covers most of <strong>01</strong> and <strong>02</strong>, and contains working seeds of <strong>03</strong> and <strong>04</strong> that the specs don't credit it for. The real gaps are structural — spans, per-node attribution, edge data, and the two library surfaces. Four requirements actively contradict what's built, and one of them is a vocabulary collision that will cause bugs if we don't settle it first.</div>
+    <div style="font-size:13.5px; line-height:1.6; color:var(--fusion-text-secondary); padding:12px 15px; background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-md);">Spec 07 is the sharpest thing in the pack, and it reframes the audit: <strong>a missing surface is not automatically a gap</strong>. What matters is whether each of the five questions can be answered. v4 answers stage 1 well, stage 2 shallowly, and stages 3–5 barely — so I've scored the journey separately at the bottom, and it drives the sequencing more than the per-spec counts do.</div>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; max-width:1080px;">
+    <div style="flex:1; min-width:170px; padding:14px 16px; background:var(--fusion-green-100); border-radius:var(--fusion-radius-md);">
+      <div style="font-size:24px; line-height:1.2; font-weight:700; color:var(--fusion-green-600); letter-spacing:-.01em;">29</div>
+      <div style="white-space:nowrap; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:3px;">HAVE</div>
+      <div style="font-size:12px; line-height:1.45; color:var(--fusion-green-600); padding-top:5px;">Built and working.</div>
+    </div>
+    <div style="flex:1; min-width:170px; padding:14px 16px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md);">
+      <div style="font-size:24px; line-height:1.2; font-weight:700; color:var(--fusion-amber-600); letter-spacing:-.01em;">14</div>
+      <div style="white-space:nowrap; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:3px;">PARTIAL</div>
+      <div style="font-size:12px; line-height:1.45; color:var(--fusion-amber-600); padding-top:5px;">Shape exists, depth missing.</div>
+    </div>
+    <div style="flex:1; min-width:170px; padding:14px 16px; background:var(--fusion-bg); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md);">
+      <div style="font-size:24px; line-height:1.2; font-weight:700; color:var(--fusion-text-secondary); letter-spacing:-.01em;">51</div>
+      <div style="white-space:nowrap; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-secondary); padding-top:3px;">MISSING</div>
+      <div style="font-size:12px; line-height:1.45; color:var(--fusion-text-secondary); padding-top:5px;">Nothing yet.</div>
+    </div>
+    <div style="flex:1; min-width:170px; padding:14px 16px; background:var(--fusion-red-100); border-radius:var(--fusion-radius-md);">
+      <div style="font-size:24px; line-height:1.2; font-weight:700; color:var(--fusion-red-600); letter-spacing:-.01em;">4</div>
+      <div style="white-space:nowrap; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600); padding-top:3px;">CONFLICT</div>
+      <div style="font-size:12px; line-height:1.45; color:var(--fusion-red-600); padding-top:5px;">Spec vs. built behavior.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== CONFLICTS ==================== -->
+<section style="padding:26px 40px 8px; display:flex; flex-direction:column; gap:16px;">
+
+  <div style="display:flex; flex-direction:column; gap:5px; max-width:1080px;">
+    <div style="font-size:20px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">Four conflicts — settle these before building anything</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">Each one is a decision, not a bug. Ordered by how much downstream work they block.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:12px; max-width:1080px;">
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-red-600); padding-top:3px;">C1 · BLOCKS ALL</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">"Baseline" means two different things</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">v4 ships <strong>"BASELINE EVALS"</strong> — toxicity + bias, free, automatic on every full run, async-filling chips. In the specs, <strong>Baseline</strong> is a pinned SuiteRun that all deltas compute against (foundation §2, R3), and toxicity/bias are the <strong>safety pack</strong> (D3). Same word, unrelated concepts, both about to appear on the same screen.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-ink); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;"><strong>Recommend:</strong> rename v4's to <strong>Safety pack</strong> and reserve "baseline" exclusively for the pinned SuiteRun. Cheap now, expensive after 03 and 04 ship copy referencing both.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-red-600); padding-top:3px;">C2 · BLOCKS 01</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">v4 locks the canvas in test mode; spec 01 needs it editable</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">v4 hides the terminal <span style="font-family:var(--fusion-font-mono);">+</span>, collapses the left panel and drops node slots when testing — deliberate, and we designed it that way. But 01's founding principle is "the editing picture and the trace picture are the same picture," and req 10 says <em>any edit</em> immediately marks the overlay stale — which presumes you can edit while results are on screen.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-ink); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;"><strong>Recommend:</strong> keep the lock during <em>execution</em> only, and unlock once results land. The stale treatment (req 10) then becomes the mechanism that makes editing-with-results safe — it's the reason 01 can afford to allow it. Also resolves the awkwardness that today you must leave test mode to act on what a test told you.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-red-600); padding-top:3px;">C3 · BLOCKS 04</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">v4's comparison is a chat message; the spec needs a durable record</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">v4's Optimize drafts a candidate, auto-runs the test set and posts a comparison card <em>into the transcript</em> (quality / avg cost / avg latency, winner flags, verdict "Matches quality at 48% lower cost"). Spec 04 req 17 wants the opposite: "an experiment is a durable record of <em>why</em> a version was chosen," browsable as history.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-ink); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;"><strong>Recommend:</strong> keep the chat card as the <em>notification</em> (it's a great J1 moment — the result arrives where the user asked for it) and make it a link into a persisted Experiment. Don't delete it; back it with an entity.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-amber-600); padding-top:3px;">C4 · TENSION</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:7px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">v4 withholds eval readouts from partial runs</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">v4 says plainly: "Baseline evals run on full-system tests only — this was a partial run." D1 says one execution produces all four readouts and J4 says never gate the inner loop on outer-loop rigor. Scoped runs are <em>the</em> stage-1 behavior, so they're the runs least able to afford a blank.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-ink); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;"><strong>Recommend:</strong> partly defensible — safety can't score an output that doesn't exist yet. But functionality and cost/latency absolutely apply to a node run, and today they're bundled into the same withholding. Split the four dimensions so each says either a value or a specific reason, never a silent nothing.</div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ==================== PER SPEC ==================== -->
+<section style="padding:26px 40px 8px; display:flex; flex-direction:column; gap:18px;">
+
+  <div style="font-size:20px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">Per spec</div>
+
+  <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start;">
+
+    <!-- 01 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">01</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Canvas run experience</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-green-600);">strongest coverage</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 7</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Full + scoped run invocation · live node states with firing animation · cancel mid-run · stale overlay with change counter · version stamping · diff review mode (dashed amber nodes, PROPOSAL semantics, apply/dismiss) · response ↔ node linkage</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 4</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Badge cluster — status yes, duration/cost/retry no · run summary lives in the panel, not docked on canvas · "run from here" not distinct from partial scope · diff review is all-or-nothing, no per-change apply</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 7</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Edge data affordance + inspector · EdgeRecord / schemaValid contract violations · all 7 insight rules (R6) · insights summary pill · run scrubber · pin-as-fixture from an edge · per-node cost %</span>
+        </div>
+        <div style="display:flex; gap:11px; padding-top:2px; border-top:1px solid var(--fusion-border);">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600); padding-top:12px;">CONFLICT</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary); padding-top:10px;">C2 — canvas lock vs. "same picture" principle.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">02</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Chat test panel</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-green-600);">mostly built</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 9</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Message = full run · live progress naming the current step · cancel · trigger-adaptive input (chat / scheduled / manual) · run container with trace + raw JSON · save as test data · version dividers · stale chip · failure bubble naming the node with FIX WITH AI</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 4</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Readout strip has status + duration but no cost and isn't the 4-chip contract · quality runs automatically instead of on-demand (D2) · replay exists but not adjacent before/after · no abnormal-termination surface</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 6</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Cost per exchange · Run 5× / consistency · batch capture · session/thread grouping for multi-turn · hover-exchange → highlight traversed nodes · judge-cost confirmation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">03</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Run Detail</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-amber-600);">shell only</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 5</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Testing workspace with run-history list + detail pane · trace rows · raw JSON · evaluation-runs table (version / date / quality / avg cost / avg latency) · per-case expansion</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 3</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Trace is flat rows, not hierarchical spans · header lacks the 4 chips · the eval-runs table is a proto-SuiteRun but has no p50/p95, no baseline delta, no filters</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 9</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Span detail with the fully rendered prompt · timeline/Gantt + critical path · Data flow tab · eval evidence linking · grader audit (judge prompt / rule) · cost &amp; latency attribution tab · logs tab · deep-link focus contract (R7) · "couldn't grade" state</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">04</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Experiments &amp; Optimization</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-amber-600);">2-column seed</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 3</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Candidate-vs-current comparison with winner flags and a plain-language verdict · promote / dismiss · version history</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 1</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Scorecard exists but is 3 metrics × 2 columns, rendered in the transcript</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 12</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">N-version experiments · suite selection · repetitions · pre-launch cost estimate · optimizer job config (target / guardrails / levers / budget) · eval gating (D8) · live candidate columns · per-case diff · safety disqualification · promote → canvas diff review · experiment list &amp; history · "nothing beat baseline" terminal state</span>
+        </div>
+        <div style="display:flex; gap:11px; padding-top:2px; border-top:1px solid var(--fusion-border);">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600); padding-top:12px;">CONFLICT</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary); padding-top:10px;">C3 — ephemeral chat card vs. durable Experiment.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">05</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Test Suites library</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-text-muted);">not started</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 3</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Save as test data · pinned fixtures with pin/replay · MANAGE TEST DATA entry point</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 1</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">A "test set" is implied — evals replay saved cases — but it has no list, no editor, no entity</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 9</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Case list &amp; editor · expectations (reference vs. assertions) · source badges · per-case history across versions · suite versioning · generated variants + review gate · import · estimated run cost · the capture-first empty state</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div style="width:526px; display:flex; flex-direction:column; gap:0; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+      <div style="padding:14px 17px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:baseline; gap:9px;">
+        <span style="flex:none; white-space:nowrap; font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">06</span>
+        <span style="flex:1; min-width:0; font-size:15px; line-height:1.35; font-weight:700;">Eval Registry</span>
+        <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:700; color:var(--fusion-text-muted);">picker only</span>
+      </div>
+      <div style="padding:14px 17px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600); padding-top:2px;">HAVE 2</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Searchable metric catalogue grouped by category · "Edit metrics" entry from the composer</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600); padding-top:2px;">PART 1</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Metric selection stands in for eval-set attachment, but metrics aren't evaluator entities — no config, method, owner or version</span>
+        </div>
+        <div style="display:flex; gap:11px;">
+          <span style="flex:none; white-space:nowrap; width:62px; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); padding-top:2px;">MISS 8</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Evaluator detail + config · versioning with comparability warnings · try-it panel · per-grade judge cost · owner hierarchy &amp; locked rows · safety-pack admin view · pack-update notices · human-review stub</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ==================== JOURNEY ==================== -->
+<section style="padding:26px 40px 8px; display:flex; flex-direction:column; gap:16px;">
+
+  <div style="display:flex; flex-direction:column; gap:5px; max-width:1080px;">
+    <div style="font-size:20px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">The journey test — can each question be answered today?</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">This is the score that should drive sequencing. v4 is excellent at the inner loop and thin everywhere the confidence ratchet turns.</div>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; max-width:1080px;">
+    <div style="flex:1; min-width:200px; padding:15px 17px; background:var(--fusion-green-100); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:6px;">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-green-600);">STAGE 1 · SERVED</span>
+      <span style="font-size:13.5px; line-height:1.35; font-weight:700; color:var(--fusion-green-600);">"Does this even work?"</span>
+      <span style="font-size:12px; line-height:1.5; color:var(--fusion-green-600);">Scoped + full runs, live node states, replies in seconds. This is v4's home turf. Missing only cost on the readout.</span>
+    </div>
+    <div style="flex:1; min-width:200px; padding:15px 17px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:6px;">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600);">STAGE 2 · SHALLOW</span>
+      <span style="font-size:13.5px; line-height:1.35; font-weight:700; color:var(--fusion-amber-600);">"Why did it do that?"</span>
+      <span style="font-size:12px; line-height:1.5; color:var(--fusion-amber-600);">You can see <em>that</em> a node failed, not <em>why</em>. No rendered prompt, no payloads, no evidence. The detective can't descend.</span>
+    </div>
+    <div style="flex:1; min-width:200px; padding:15px 17px; background:var(--fusion-red-100); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:6px;">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600);">STAGE 3 · BLOCKED</span>
+      <span style="font-size:13.5px; line-height:1.35; font-weight:700; color:var(--fusion-red-600);">"Or did I get lucky?"</span>
+      <span style="font-size:12px; line-height:1.5; color:var(--fusion-red-600);">Cases can be saved but never seen, listed or run as a set. No pass-rate, no baseline. The hardest transition has no destination.</span>
+    </div>
+    <div style="flex:1; min-width:200px; padding:15px 17px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:6px;">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600);">STAGE 4 · FAKED</span>
+      <span style="font-size:13.5px; line-height:1.35; font-weight:700; color:var(--fusion-amber-600);">"Better, cheaper, faster?"</span>
+      <span style="font-size:12px; line-height:1.5; color:var(--fusion-amber-600);">Optimize works end-to-end and is genuinely good — but on an invisible test set, with no insights to trigger it from felt pain.</span>
+    </div>
+    <div style="flex:1; min-width:200px; padding:15px 17px; background:var(--fusion-red-100); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:6px;">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-red-600);">STAGE 5 · ABSENT</span>
+      <span style="font-size:13.5px; line-height:1.35; font-weight:700; color:var(--fusion-red-600);">"Trust it enough to ship?"</span>
+      <span style="font-size:12px; line-height:1.5; color:var(--fusion-red-600);">A publish gate exists but assembles no evidence. Nothing to review, no safety block, no baseline comparison.</span>
+    </div>
+  </div>
+
+  <div style="max-width:1080px; display:flex; flex-direction:column; gap:10px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:14px; line-height:1.4; font-weight:700;">Journey requirements J1–J6</div>
+    <div style="display:flex; flex-direction:column; gap:9px; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">
+      <span><strong style="color:var(--fusion-green-600);">J1 offered at moments — mostly HAVE.</strong> v4 is already good here and the specs should learn from it: post-run action chips, FIX WITH AI on the failing node, "save last test as case", the stale banner offering replay. These are textbook J1 instances that predate the spec.</span>
+      <span><strong style="color:var(--fusion-text-muted);">J2 the question travels — MISSING.</strong> The one deep link that exists (run → results) opens the workspace unfocused. Every other number is inert. This is the single biggest structural gap and it's a prerequisite for 03 being worth building.</span>
+      <span><strong style="color:var(--fusion-amber-600);">J3 rigor accumulates — PARTIAL.</strong> Capture exists; accrual is invisible. Saving a case today feels like it goes nowhere, which is exactly the failure J3 warns about.</span>
+      <span><strong style="color:var(--fusion-amber-600);">J4 never gate the inner loop — AT RISK.</strong> See C4. One withheld readout on the most common run type.</span>
+      <span><strong style="color:var(--fusion-amber-600);">J5 each cycle ends richer — PARTIAL.</strong> There is one nice instance: "vs. last full run — no regressions, duration 6.2s → 5.8s". Extend that pattern rather than inventing a new one.</span>
+      <span><strong style="color:var(--fusion-green-600);">J6 stage skips legitimate — HAVE.</strong> Nothing in v4 assumes prior stages. Preserve this when adding gates.</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== SEQUENCING ==================== -->
+<section style="padding:26px 40px 48px; display:flex; flex-direction:column; gap:16px;">
+
+  <div style="display:flex; flex-direction:column; gap:5px; max-width:1080px;">
+    <div style="font-size:20px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">Recommended split — and where I'd deviate from the pack's build order</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">The pack says build 03 first because it settles vocabulary. I agree with the reasoning and disagree with the conclusion: <strong>the vocabulary that needs settling isn't Run Detail's, it's the readout contract</strong> — R1's four chips, the node states, and the words we use for safety vs. baseline. That's ~a day of work inside surfaces that already exist, and every other spec consumes it. Build it first or every later surface will be re-copyedited.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:12px; max-width:1080px;">
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-blue-50); border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700); padding-top:2px;">SPRINT 0</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">The readout contract — no new surface</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Settle C1 (rename to safety pack) and C4 (split the four dimensions). Land R1's four chips and the five node states in the existing run card and canvas — most of this is already sketched in <em>Run Result Canvas and Panel</em>. Add cost. Nothing here needs a new screen, and it makes 01–06 speak one language.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">SPRINT 1</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">03 Run Detail + the deep-link contract (J2)</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Sketch together because they're one thing: the surface is worthless without focused entry, and the contract has nowhere to land without the surface. This unblocks stage 2, the worst-served real question. Heaviest sprint — expect two sketch rounds.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">SPRINT 2</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">01 Canvas — edges, badges, insights</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Pairs with 03: EdgeRecords and spans are the same data seen spatially. Resolve C2 here. Insights (R6) are the trigger for stage 4, so they must exist before 04 is meaningful.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">SPRINT 3</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">05 Suites + 02 capture polish</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Deliberately together, and earlier than the pack suggests. 05 is thin, and it's the destination that makes v4's existing capture affordances stop feeling like dead ends — the cheapest possible fix for the journey's hardest transition (stage 3). Building 04 before this would mean an Experiments surface with no suite to run.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">SPRINT 4</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">04 Experiments — upgrade the seed, don't replace it</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Resolve C3. v4's comparison card and promote flow are a real head start; the work is the scorecard, the optimizer job config with eval gating, and per-case diff.</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:16px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="flex:none; white-space:nowrap; width:98px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); padding-top:2px;">SPRINT 5</span>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">06 Eval Registry + safety pack admin</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Last on purpose. Until quality scores are visible in 03 and 04, an evaluator library has nothing to explain. Its trust argument only lands once the user has seen a score they distrust.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="max-width:1080px; display:flex; flex-direction:column; gap:8px; padding:17px 19px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13.5px; line-height:1.4; font-weight:700; color:var(--fusion-amber-600);">One thing the pack under-specifies</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);">D1 says four dimensions, but the research on multi-step agents says the dangerous case is <strong>ran clean, output wrong</strong> — every span green while the product is broken. "Functionality ✓ + Quality ✗" technically expresses it, yet in the chat panel quality is <em>on-demand</em> (D2), so the default readout for that run is all-green with a dash. The most dangerous state in the product is its quietest one. Worth deciding in Sprint 0 whether the chat panel needs a cheap always-on quality signal, even a weak one, rather than a dash.</div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

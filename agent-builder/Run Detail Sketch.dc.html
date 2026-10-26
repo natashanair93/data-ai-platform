@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-navy-800: var(--salt-color-blue-700); --fusion-navy-900: var(--salt-color-blue-900);
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-teal-100: #E1F4F0; --fusion-teal-600: var(--salt-color-teal-600);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #F7F7FB; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<section style="padding:40px 40px 8px; display:flex; flex-direction:column; gap:20px;">
+
+  <div style="display:flex; flex-direction:column; gap:9px; max-width:1240px;">
+    <div style="font-size:26px; line-height:1.25; font-weight:700; letter-spacing:-.015em;">Sprint 1 — Run Detail, hi-fi</div>
+    <div style="font-size:14px; line-height:1.6; color:var(--fusion-text-secondary);">Seeded with the foundation's scenario: <strong>Client Meeting Prep</strong>, 6 nodes, v14, baseline pinned on v12. Two views: <a href="#1a">1a</a> the surface as it opens from a node badge, and <a href="#1b">1b</a> the same surface landed from a quality chip — same screen, different focus, which is the whole point of J2.</div>
+  </div>
+
+  <div style="max-width:1240px; display:flex; flex-direction:column; gap:10px; padding:17px 19px; background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:14px; line-height:1.4; font-weight:700; color:var(--fusion-purple-600);">The one thing this surface must get right</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-purple-600);">Stage 2 is detective mode: the user is following <em>one thread</em> and everything else is noise. So this is not a dashboard you browse — it opens already pointed at whatever was clicked, and the first thing on screen is the answer to "why did it do that". I've put the <strong>rendered prompt</strong> one click from arrival, because in a 6-node chain with retrieval that's where the answer usually is.</div>
+  </div>
+
+</section>
+
+<!-- ================= 1a ================= -->
+<section id="1a" style="padding:14px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+
+  <div style="display:flex; align-items:flex-start; gap:9px; max-width:1240px;">
+    <span style="flex:none; display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">1a</span>
+    <span style="flex:1; min-width:0; font-size:17px; line-height:1.35; font-weight:700;">Arrived from the <span style="font-family:var(--fusion-font-mono); font-size:15px;">Draft briefing</span> node badge — Trace tab, that span pre-selected</span>
+  </div>
+
+  <div style="width:1240px; height:800px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:0 1px 4px rgba(0,0,0,0.07); display:flex; flex-direction:column; overflow:hidden;">
+
+    <!-- ===== RUN HEADER ===== -->
+    <div style="flex:none; padding:14px 20px; border-bottom:1px solid var(--fusion-border); display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button aria-label="Back to canvas" style="flex:none; width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+        </button>
+        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+          <div style="display:flex; align-items:center; gap:9px;">
+            <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RUN · JUL 30, 21:14</span>
+            <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:2px 9px;">ENTIRE SYSTEM</span>
+            <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); background:var(--fusion-bg); border-radius:var(--fusion-radius-full); padding:2px 9px;">v14</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">Chat Input</span>
+          </div>
+          <div style="font-size:17px; font-weight:700; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Prep me for the Meridian Capital call on Thursday</div>
+        </div>
+        <div style="flex:none; display:flex; align-items:center; gap:7px;">
+          <button style="white-space:nowrap; height:30px; padding:0 12px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">SAVE AS TEST CASE</button>
+          <button style="white-space:nowrap; height:30px; padding:0 12px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">COMPARE TO v12</button>
+          <button aria-label="More" style="width:30px; height:30px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- four chips, same contract as the run card -->
+      <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+        <button style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 11px; border:1px solid transparent; border-radius:var(--fusion-radius-full); background:var(--fusion-green-100); color:var(--fusion-green-600); font-size:11.5px; font-weight:600;">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">Functionality</span>
+          Passed</button>
+        <button style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 11px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:600;">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">Cost · latency</span>
+          $0.184 · 22.4s</button>
+        <button style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 11px; border:1px solid transparent; border-radius:var(--fusion-radius-full); background:var(--fusion-amber-100); color:var(--fusion-amber-600); font-size:11.5px; font-weight:600;">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">Quality</span>
+          3 of 4 pass</button>
+        <button style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 11px; border:1px solid transparent; border-radius:var(--fusion-radius-full); background:var(--fusion-green-100); color:var(--fusion-green-600); font-size:11.5px; font-weight:600;">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">Safety</span>
+          Pass</button>
+        <span style="flex:1;"></span>
+        <span style="white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">Every chip is a link — it moves the tab, it doesn't open a new screen</span>
+      </div>
+    </div>
+
+    <!-- ===== TABS ===== -->
+    <div style="flex:none; padding:0 20px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:stretch; gap:2px;">
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid var(--fusion-blue-700); color:var(--fusion-blue-700); font-size:13.5px; font-weight:700;">Trace</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Data flow</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:7px;" style-hover="color:var(--fusion-ink);">
+        Evals
+        <span style="display:inline-grid; place-items:center; min-width:17px; height:17px; padding:0 5px; border-radius:var(--fusion-radius-full); background:var(--fusion-amber-100); color:var(--fusion-amber-600); font-size:10px; font-weight:700;">1</span>
+      </button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Cost &amp; latency</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Logs</button>
+      <span style="flex:1;"></span>
+      <div style="display:flex; align-items:center; gap:6px; padding:6px 0;">
+        <div style="display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px;">
+          <button style="white-space:nowrap; height:26px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12px; font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,.06);">Tree</button>
+          <button style="white-space:nowrap; height:26px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12px; font-weight:600;">Timeline</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BODY: tree + span detail ===== -->
+    <div style="flex:1; min-height:0; display:flex;">
+
+      <!-- span tree -->
+      <div style="flex:none; width:472px; border-right:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:9px 16px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">6 NODES · 21 SPANS</span>
+          <button style="white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">EXPAND ALL</button>
+        </div>
+        <div style="flex:1; min-height:0; overflow:hidden; padding:8px 0;">
+
+          <!-- node 1 -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px;">
+            <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700;">Parse request</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">0.6s · $0.002</span>
+          </div>
+
+          <!-- node 2 — retry hotspot -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px; background:var(--fusion-amber-100);">
+            <svg style="flex:none; color:var(--fusion-amber-600);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            <span style="flex:none; width:13px; text-align:center; font-size:14px; font-weight:700; line-height:1; color:var(--fusion-amber-600);">!</span>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700; color:var(--fusion-amber-600);">Fetch CRM data</span>
+            <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--fusion-amber-600); border:1px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-full); padding:1px 7px;">2 RETRIES</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:600; color:var(--fusion-amber-600);">4.1s</span>
+          </div>
+          <div style="padding:2px 16px 2px 46px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:9px; padding:6px 0;">
+              <span style="flex:none; white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:3px; padding:1px 5px;">TOOL</span>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-family:var(--fusion-font-mono);">crm.getAccount</span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-red-600); font-weight:600;">timeout</span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">2.0s</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:9px; padding:6px 0;">
+              <span style="flex:none; white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:3px; padding:1px 5px;">TOOL</span>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-family:var(--fusion-font-mono);">crm.getAccount <span style="color:var(--fusion-text-muted);">· retry 2</span></span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-green-600); font-weight:600;">ok</span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">1.9s</span>
+            </div>
+          </div>
+
+          <!-- node 3 -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px;">
+            <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700;">Retrieve research</span>
+            <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--fusion-blue-700); background:var(--fusion-blue-50); border-radius:var(--fusion-radius-full); padding:1px 7px;">20 CHUNKS</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">2.8s</span>
+          </div>
+
+          <!-- node 4 — selected, expanded -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px; background:var(--fusion-blue-50); border-left:3px solid var(--fusion-blue-700);">
+            <svg style="flex:none; color:var(--fusion-blue-700);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700; color:var(--fusion-blue-700);">Draft briefing</span>
+            <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.04em; color:#fff; background:var(--fusion-navy-800); border-radius:var(--fusion-radius-full); padding:1px 7px;">68% COST</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:600; color:var(--fusion-blue-700);">9.4s · $0.125</span>
+          </div>
+          <div style="padding:2px 16px 2px 46px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:9px; padding:6px 0; background:var(--fusion-blue-50); margin:0 -16px 0 -46px; padding-left:46px; padding-right:16px;">
+              <span style="flex:none; white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:3px; padding:1px 5px;">MODEL</span>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-weight:700;">claude-opus · 18.4k in / 1.1k out</span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">9.1s</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:9px; padding:6px 0;">
+              <span style="flex:none; white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:3px; padding:1px 5px;">CACHE</span>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; color:var(--fusion-text-secondary);">miss — prefix not cached</span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">0.0s</span>
+            </div>
+          </div>
+
+          <!-- node 5 -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px;">
+            <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700;">Format document</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">3.9s · $0.004</span>
+          </div>
+
+          <!-- node 6 -->
+          <div style="display:flex; align-items:center; gap:9px; padding:8px 16px;">
+            <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700;">Compliance check</span>
+            <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--fusion-green-600); background:var(--fusion-green-100); border-radius:var(--fusion-radius-full); padding:1px 7px;">GUARDRAIL</span>
+            <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">1.6s</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- span detail -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:13px 20px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:11px;">
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+            <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">MODEL CALL · DRAFT BRIEFING</span>
+            <span style="font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">claude-opus · temp 0.3 · 9.1s · $0.125</span>
+          </div>
+          <button style="flex:none; white-space:nowrap; height:28px; padding:0 11px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">VIEW ON CANVAS</button>
+        </div>
+
+        <div style="flex:1; min-height:0; overflow:hidden; padding:16px 20px; display:flex; flex-direction:column; gap:14px;">
+
+          <!-- the insight, stated where the evidence is -->
+          <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md);">
+            <span style="flex:none; width:13px; text-align:center; font-size:14px; font-weight:700; line-height:1.2; color:var(--fusion-amber-600);">!</span>
+            <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fusion-amber-600);"><strong>Context waste.</strong> Retrieval returned 20 chunks; the rendered prompt uses 6. You're paying for 14 chunks the model never saw a reason to read.</span>
+            <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-amber-600); text-decoration:underline;">SEE SUGGESTION</button>
+          </div>
+
+          <!-- rendered prompt, labelled by origin -->
+          <div style="flex:1; min-height:0; display:flex; flex-direction:column; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+            <div style="flex:none; padding:9px 13px; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+              <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RENDERED PROMPT — EXACTLY AS SENT</span>
+              <span style="flex:1;"></span>
+              <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">18,412 tokens</span>
+              <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">SEARCH</button>
+            </div>
+            <div style="flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column;">
+
+              <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+                <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-surface); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">SYSTEM</span>
+                <span style="flex:1; min-width:0; padding:9px 12px; font:400 12px var(--fusion-font-mono); line-height:1.55; color:var(--fusion-ink);">You are a client-meeting preparation assistant. Produce a briefing using only the fields provided…</span>
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">412</span>
+              </div>
+
+              <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+                <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-surface); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-purple-600);">SKILL</span>
+                <span style="flex:1; min-width:0; padding:9px 12px; font:400 12px var(--fusion-font-mono); line-height:1.55; color:var(--fusion-ink);">briefing-format@2.1 — Structure: relationship summary, recent activity, three talking points…</span>
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">890</span>
+              </div>
+
+              <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+                <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-surface); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">KNOWLEDGE</span>
+                <span style="flex:1; min-width:0; padding:9px 12px; font:400 12px var(--fusion-font-mono); line-height:1.55; color:var(--fusion-ink);"><span style="color:var(--fusion-text-secondary);">20 chunks retrieved · 6 referenced</span><br>[1] Meridian Q3 earnings call transcript… <span style="opacity:.5;">[2] … [3] … [4] … [5] … [6] …</span></span>
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-ink);">14,908</span>
+              </div>
+
+              <div style="display:flex; border-bottom:1px solid var(--fusion-border);">
+                <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-surface); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">HISTORY</span>
+                <span style="flex:1; min-width:0; padding:9px 12px; font:400 12px var(--fusion-font-mono); line-height:1.55; color:var(--fusion-ink);">— none, first turn —</span>
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">0</span>
+              </div>
+
+              <div style="display:flex;">
+                <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-surface); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">INPUT</span>
+                <span style="flex:1; min-width:0; padding:9px 12px; font:400 12px var(--fusion-font-mono); line-height:1.55; color:var(--fusion-ink);">{ account: "Meridian Capital", meeting_date: "2026-08-06", owner: "R. Patel" }</span>
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">2,202</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="width:1240px; display:flex; gap:16px; flex-wrap:wrap;">
+    <div style="flex:1; min-width:320px; display:flex; flex-direction:column; gap:7px; padding:15px 17px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">WHY THE PROMPT IS THE HERO</span>
+      <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Spec 03 req 5 asks for the fully rendered prompt labelled by origin. Making it the default body — not a collapsed section — is what turns "the answer is wrong" into "retrieval stuffed 14,908 tokens and the model used a sixth of them" without a single extra click.</span>
+    </div>
+    <div style="flex:1; min-width:320px; display:flex; flex-direction:column; gap:7px; padding:15px 17px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">TABS, NOT ONE LONG SCROLL</span>
+      <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Open question 1 asked whether tabbing hides correlations. It does for logs↔trace — so those two get timestamp-aligned selection instead of adjacency. Everything else is a different question, and a detective following one thread doesn't want the other four on screen.</span>
+    </div>
+    <div style="flex:1; min-width:320px; display:flex; flex-direction:column; gap:7px; padding:15px 17px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+      <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">SIDE PANEL, NOT INLINE EXPANSION</span>
+      <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Open question 2. An 18k-token prompt expanded inline would push the rest of the trace off screen and destroy your place in it. The tree stays a stable index; the panel changes.</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= 1b ================= -->
+<section id="1b" style="padding:26px 40px 48px; display:flex; flex-direction:column; gap:14px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; align-items:flex-start; gap:9px; max-width:1240px;">
+    <span style="flex:none; display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">1b</span>
+    <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:4px;">
+      <span style="font-size:17px; line-height:1.35; font-weight:700;">Same run, arrived from the Quality chip — Evals tab, failing result expanded, evidence highlighted</span>
+      <span style="font-size:13px; line-height:1.5; color:var(--fusion-text-secondary);">This is J2 made concrete: the question travelled. Nobody had to find the Evals tab or the failing evaluator.</span>
+    </div>
+  </div>
+
+  <div style="width:1240px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:0 1px 4px rgba(0,0,0,0.07); display:flex; flex-direction:column; overflow:hidden;">
+
+    <div style="flex:none; padding:0 20px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:stretch; gap:2px;">
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;">Trace</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;">Data flow</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid var(--fusion-blue-700); color:var(--fusion-blue-700); font-size:13.5px; font-weight:700; display:inline-flex; align-items:center; gap:7px;">
+        Evals
+        <span style="display:inline-grid; place-items:center; min-width:17px; height:17px; padding:0 5px; border-radius:var(--fusion-radius-full); background:var(--fusion-amber-100); color:var(--fusion-amber-600); font-size:10px; font-weight:700;">1</span>
+      </button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;">Cost &amp; latency</button>
+      <button style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid transparent; color:var(--fusion-text-secondary); font-size:13.5px; font-weight:600;">Logs</button>
+    </div>
+
+    <div style="display:flex; min-height:0;">
+      <!-- eval list -->
+      <div style="flex:none; width:560px; border-right:1px solid var(--fusion-border); padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
+
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">QUALITY · 4 EVALUATORS</span>
+          <button style="white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">MANAGE EVAL SET</button>
+        </div>
+
+        <div style="border:1.5px solid var(--fusion-amber-600); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:13px 14px; display:flex flex-direction:column; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; gap:9px;">
+            <span style="flex:none; width:13px; text-align:center; font-size:14px; font-weight:700; line-height:1; color:var(--fusion-amber-600);">!</span>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:700;">Briefing completeness</span>
+            <span style="flex:none; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); background:var(--fusion-bg); border-radius:3px; padding:2px 6px;">LLM JUDGE v3</span>
+            <span style="flex:none; white-space:nowrap; font-size:14px; font-weight:700; font-family:var(--fusion-font-mono); color:var(--fusion-amber-600);">0.62</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:9px;">
+            <div style="flex:1; height:5px; background:var(--fusion-bg); border-radius:var(--fusion-radius-full); position:relative; overflow:hidden;">
+              <div style="position:absolute; left:0; top:0; bottom:0; width:62%; background:var(--fusion-amber-600); border-radius:var(--fusion-radius-full);"></div>
+              <div style="position:absolute; left:75%; top:-3px; bottom:-3px; width:2px; background:var(--fusion-ink);"></div>
+            </div>
+            <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">threshold 0.75</span>
+          </div>
+          <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); padding:9px 11px; background:var(--fusion-bg); border-radius:var(--fusion-radius-sm);"><strong style="color:var(--fusion-ink);">Judge rationale:</strong> The briefing covers relationship history and recent activity but omits the third required talking point. No forward-looking risk is identified.</div>
+          <div style="display:flex; align-items:center; gap:9px;">
+            <button style="white-space:nowrap; height:28px; padding:0 11px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:var(--fusion-blue-50); color:var(--fusion-blue-700); font-size:11px; font-weight:700; letter-spacing:.04em;">EVIDENCE ↓</button>
+            <button style="white-space:nowrap; background:none; border:none; padding:0 4px; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary);" style-hover="color:var(--fusion-blue-700);">SEE GRADER</button>
+            <span style="flex:1;"></span>
+            <button style="white-space:nowrap; background:none; border:none; padding:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary);" style-hover="color:var(--fusion-ink);">FLAG THIS GRADE</button>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:11px 14px; display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+          <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:600;">Document structure</span>
+          <span style="flex:none; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); background:var(--fusion-bg); border-radius:3px; padding:2px 6px;">RULE</span>
+          <span style="flex:none; white-space:nowrap; font-size:13px; font-weight:700; color:var(--fusion-green-600);">Pass</span>
+        </div>
+
+        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:11px 14px; display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+          <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:600;">Grounded in sources</span>
+          <span style="flex:none; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); background:var(--fusion-bg); border-radius:3px; padding:2px 6px;">LLM JUDGE v1</span>
+          <span style="flex:none; white-space:nowrap; font-size:14px; font-weight:700; font-family:var(--fusion-font-mono); color:var(--fusion-green-600);">0.79</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:9px; padding-top:6px; border-top:1px solid var(--fusion-border);">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">SAFETY · PLATFORM PACK</span>
+          <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">locked</span>
+        </div>
+        <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:11px 14px; display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+          <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:600;">5 platform checks · 2 org checks</span>
+          <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+          <span style="flex:none; white-space:nowrap; font-size:13px; font-weight:700; color:var(--fusion-green-600);">All pass</span>
+        </div>
+
+      </div>
+
+      <!-- evidence -->
+      <div style="flex:1; min-width:0; padding:16px 20px; display:flex; flex-direction:column; gap:12px; background:var(--fusion-bg);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">EVIDENCE — WHAT THE JUDGE GRADED</span>
+          <button style="white-space:nowrap; white-space:nowrap; height:26px; padding:0 10px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:10.5px; font-weight:700; letter-spacing:.04em;">OPEN SPAN</button>
+        </div>
+        <div style="flex:1; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; overflow:hidden;">
+          <div style="flex:none; display:flex; border-bottom:1px solid var(--fusion-border);">
+            <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-bg); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">CRITERION 1</span>
+            <span style="flex:1; min-width:0; padding:9px 12px; font-size:12.5px; line-height:1.55;">Relationship history present</span>
+            <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-green-600);">MET</span>
+          </div>
+          <div style="flex:none; display:flex; border-bottom:1px solid var(--fusion-border);">
+            <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-bg); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">CRITERION 2</span>
+            <span style="flex:1; min-width:0; padding:9px 12px; font-size:12.5px; line-height:1.55;">Recent activity summarised</span>
+            <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-green-600);">MET</span>
+          </div>
+          <div style="flex:none; display:flex; border-bottom:1px solid var(--fusion-border); background:var(--fusion-amber-100);">
+            <span style="flex:none; width:96px; padding:9px 11px; border-right:1px solid var(--fusion-amber-600); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-amber-600);">CRITERION 3</span>
+            <span style="flex:1; min-width:0; padding:9px 12px; font-size:12.5px; line-height:1.55; color:var(--fusion-amber-600);">Three talking points — <strong>only 2 found</strong></span>
+            <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-amber-600);">NOT MET</span>
+          </div>
+          <div style="flex:1; min-height:0; display:flex;">
+            <span style="flex:none; width:96px; padding:9px 11px; background:var(--fusion-bg); border-right:1px solid var(--fusion-border); white-space:nowrap; font-size:9.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">OUTPUT</span>
+            <span style="flex:1; min-width:0; padding:9px 12px; font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Meridian Capital — meeting brief.</strong> Relationship since 2019, managed by R. Patel. Assets under advisory grew 14%…<br><br>Talking point 1 — structured-credit sleeve. Talking point 2 — fee schedule.<br><span style="background:var(--fusion-amber-100); color:var(--fusion-amber-600); padding:1px 4px;">— ends here, no third point —</span></span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:9px; padding:11px 13px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+          <svg style="flex:none; color:var(--fusion-text-muted);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+          <span style="flex:1; min-width:0; font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">Graded on <strong>v3</strong> of this evaluator. Your baseline (v12) was graded on v2 — those two scores are not comparable.</span>
+          <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">WHY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:1240px; display:flex; flex-direction:column; gap:9px; padding:18px 20px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:14px; line-height:1.4; font-weight:700;">What I'd build first, and what I'd defer</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Build:</strong> the header + four chips, the Trace tab with span detail and the rendered prompt, the Evals tab with evidence, and the deep-link contract for those two entries. That's the whole of stage 2 and it's what every other surface links into.</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Defer to Sprint 2:</strong> the Data flow tab — it's the same EdgeRecords the canvas edge inspector needs, so building both at once means designing the payload/diff view once. Open question 4 asked whether Data flow is a tab or a lens on Trace; my answer is <em>lens</em>, which is another reason to hold it.</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Defer to Sprint 3:</strong> the Suite Run batch table. It has no suite to show until 05 exists, and stubbing it would only invite us to design the table twice.</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Timeline view and Logs</strong> I'd keep as tabs but build last — the critical-path visual matters for stage 4, not stage 2, and logs are the fallback when the trace already told you.</div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

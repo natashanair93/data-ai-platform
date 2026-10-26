@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-navy-800: var(--salt-color-blue-700);
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-teal-100: #E1F4F0; --fusion-teal-600: var(--salt-color-teal-600);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: var(--fusion-bg); }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<div style="height:100vh; display:flex; flex-direction:column;">
+
+  <!-- prototype scaffolding: simulate which deep link you arrived by -->
+  <div style="flex:none; background:var(--fusion-navy-800); padding:9px 22px; display:flex; align-items:center; gap:13px; flex-wrap:wrap;">
+    <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:rgba(255,255,255,.6);">ARRIVED FROM</span>
+    <div style="flex:none; display:flex; gap:4px; flex-wrap:wrap;">
+      <sc-for list="{{ entries }}" as="en" hint-placeholder-count="4">
+        <button onClick="{{ en.onClick }}" style="white-space:nowrap; height:26px; padding:0 11px; border:1px solid {{ en.border }}; border-radius:var(--fusion-radius-full); background:{{ en.bg }}; color:{{ en.color }}; font-size:11.5px; font-weight:{{ en.weight }};">{{ en.label }}</button>
+      </sc-for>
+    </div>
+    <span style="flex:1; min-width:100px;"></span>
+    <span style="flex:none; font-size:11px; color:rgba(255,255,255,.55);">Spec 03 · every entry lands focused (J2)</span>
+  </div>
+
+  <!-- run header -->
+  <div style="flex:none; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); padding:13px 22px; display:flex; flex-direction:column; gap:11px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button aria-label="Back" style="flex:none; width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+      </button>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RUN · TODAY 21:14</span>
+          <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:2px 9px;">WHOLE AGENT</span>
+          <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-secondary); background:var(--fusion-bg); border-radius:var(--fusion-radius-full); padding:2px 9px;">v15</span>
+          <span style="flex:none; white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">Inbound client message</span>
+        </div>
+        <div style="font-size:16.5px; line-height:1.35; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">"Hi — still waiting on the Q2 statement I asked about twice. This is getting frustrating."</div>
+      </div>
+      <div style="flex:none; display:flex; align-items:center; gap:7px;">
+        <button style="white-space:nowrap; height:30px; padding:0 12px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">RUN AGAIN</button>
+        <button aria-label="More actions" style="width:30px; height:30px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+        <button onClick="{{ c.onClick }}" title="{{ c.title }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:27px; padding:0 11px; border:1px solid {{ c.border }}; border-radius:var(--fusion-radius-full); background:{{ c.bg }}; color:{{ c.color }}; font-size:11.5px; font-weight:600; box-shadow:{{ c.ring }};">
+          <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.72;">{{ c.dim }}</span>
+          {{ c.value }}</button>
+      </sc-for>
+      <span style="flex:1;"></span>
+      <div style="flex:none; display:flex; align-items:center; gap:8px;">
+        <span style="white-space:nowrap; font-size:11.5px; color:var(--fusion-text-muted);">Run 4 of 9</span>
+        <div style="display:flex; gap:3px;">
+          <button aria-label="Previous run" style="width:26px; height:26px; display:grid; place-items:center; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+          </button>
+          <button aria-label="Next run" style="width:26px; height:26px; display:grid; place-items:center; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tabs -->
+  <div style="flex:none; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); padding:0 22px; display:flex; align-items:stretch; gap:2px;">
+    <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="5">
+      <button onClick="{{ tb.onClick }}" style="white-space:nowrap; height:42px; padding:0 14px; background:none; border:none; border-bottom:2px solid {{ tb.underline }}; color:{{ tb.color }}; font-size:13.5px; font-weight:{{ tb.weight }}; display:inline-flex; align-items:center; gap:7px;">
+        {{ tb.label }}
+        <sc-if value="{{ tb.hasCount }}" hint-placeholder-val="{{ false }}">
+          <span style="display:inline-grid; place-items:center; min-width:17px; height:17px; padding:0 5px; border-radius:var(--fusion-radius-full); background:{{ tb.countBg }}; color:{{ tb.countColor }}; font-size:10px; line-height:1; font-weight:700;">{{ tb.count }}</span>
+        </sc-if>
+      </button>
+    </sc-for>
+    <span style="flex:1;"></span>
+    <sc-if value="{{ isTrace }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; padding:7px 0;">
+        <div style="display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px;">
+          <sc-for list="{{ traceViews }}" as="tv" hint-placeholder-count="2">
+            <button onClick="{{ tv.onClick }}" title="{{ tv.title }}" style="white-space:nowrap; height:26px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:{{ tv.bg }}; color:{{ tv.color }}; font-size:12px; font-weight:{{ tv.weight }}; box-shadow:{{ tv.shadow }};">{{ tv.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- body -->
+  <div style="flex:1; min-height:0; display:flex;">
+
+    <!-- ======== TRACE · TREE ======== -->
+    <sc-if value="{{ isTree }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none; width:448px; border-right:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column; min-height:0;">
+        <div style="flex:none; padding:9px 16px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">6 STEPS · 14 SPANS</span>
+          <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">6.1s</span>
+        </div>
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:6px 0 24px;">
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="9">
+            <button onClick="{{ r.onClick }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:8px; padding:{{ r.pad }}; background:{{ r.bg }}; border:none; border-left:{{ r.leftBar }};">
+              <sc-if value="{{ r.hasKind }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none; white-space:nowrap; font-size:9.5px; line-height:1; font-weight:700; letter-spacing:.05em; color:{{ r.kindColor }}; background:{{ r.kindBg }}; border:1px solid {{ r.kindBorder }}; border-radius:3px; padding:3px 5px;">{{ r.kind }}</span>
+              </sc-if>
+              <sc-if value="{{ r.hasDot }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none; width:14px; height:14px; border-radius:50%; background:{{ r.dotBg }}; color:{{ r.dotColor }}; display:grid; place-items:center;">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.dotD }}"></path></svg>
+                </span>
+              </sc-if>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:{{ r.size }}; font-weight:{{ r.weight }}; font-family:{{ r.family }}; color:{{ r.nameColor }};">{{ r.name }}</span>
+              <sc-if value="{{ r.hasTag }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none; white-space:nowrap; font-size:10.5px; line-height:1; font-weight:700; letter-spacing:.04em; color:{{ r.tagColor }}; background:{{ r.tagBg }}; border:1px solid {{ r.tagBorder }}; border-radius:var(--fusion-radius-full); padding:3px 7px;">{{ r.tag }}</span>
+              </sc-if>
+              <span style="flex:none; white-space:nowrap; font-size:11.5px; font-weight:{{ r.numWeight }}; color:{{ r.numColor }};">{{ r.num }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- span detail -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; min-height:0; background:var(--fusion-surface);">
+        <div style="flex:none; padding:12px 20px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:12px;">
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+            <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ spanKicker }}</span>
+            <span style="font-size:15px; line-height:1.35; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ spanTitle }}</span>
+          </div>
+          <button style="flex:none; white-space:nowrap; height:28px; padding:0 11px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:11px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">SHOW ON CANVAS</button>
+        </div>
+
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:16px 20px 28px; display:flex; flex-direction:column; gap:13px;">
+
+          <sc-if value="{{ spanHasInsight }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md);">
+              <span style="flex:none; width:13px; text-align:center; font-size:14px; line-height:1.25; font-weight:700; color:var(--fusion-amber-600);">!</span>
+              <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.55; color:var(--fusion-amber-600);"><strong>{{ spanInsightLead }}</strong> {{ spanInsightRest }}</span>
+              <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-amber-600); text-decoration:underline;">SEE THE FIX</button>
+            </div>
+          </sc-if>
+
+          <sc-for list="{{ spanBlocks }}" as="bk" hint-placeholder-count="2">
+            <div style="display:flex; flex-direction:column; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+              <div style="flex:none; padding:9px 13px; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+                <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ bk.title }}</span>
+                <sc-if value="{{ bk.hasMeta }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">{{ bk.meta }}</span>
+                </sc-if>
+                <sc-if value="{{ bk.hasAction }}" hint-placeholder-val="{{ false }}">
+                  <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">{{ bk.action }}</button>
+                </sc-if>
+              </div>
+              <sc-for list="{{ bk.rows }}" as="rw" hint-placeholder-count="3">
+                <div style="display:flex; border-bottom:{{ rw.divider }}; background:{{ rw.bg }};">
+                  <span style="flex:none; width:104px; padding:9px 11px; background:{{ rw.labelBg }}; border-right:1px solid {{ rw.labelBorder }}; white-space:nowrap; font-size:9.5px; line-height:1.3; font-weight:700; letter-spacing:.06em; color:{{ rw.labelColor }};">{{ rw.label }}</span>
+                  <span style="flex:1; min-width:0; padding:9px 12px; font:{{ rw.font }}; line-height:1.55; color:{{ rw.color }};">{{ rw.text }}</span>
+                  <sc-if value="{{ rw.hasRight }}" hint-placeholder-val="{{ false }}">
+                    <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:{{ rw.rightWeight }}; color:{{ rw.rightColor }};">{{ rw.right }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ======== TRACE · TIMELINE ======== -->
+    <sc-if value="{{ isTimeline }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; min-width:0; min-height:0; overflow-y:auto; padding:20px 24px 32px; display:flex; flex-direction:column; gap:14px; background:var(--fusion-surface);">
+        <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+          <span style="flex:none; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">WHERE THE 6.1 SECONDS WENT</span>
+          <span style="flex:1; min-width:240px; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">The highlighted chain is the critical path — shortening anything off it won't make the agent faster.</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <sc-for list="{{ gantt }}" as="g" hint-placeholder-count="6">
+            <div style="display:flex; align-items:center; gap:11px;">
+              <span style="flex:none; width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-weight:{{ g.weight }}; color:{{ g.nameColor }};">{{ g.name }}</span>
+              <div style="flex:1; height:22px; position:relative; background:var(--fusion-bg); border-radius:3px;">
+                <div style="position:absolute; top:0; bottom:0; left:{{ g.left }}%; width:{{ g.width }}%; background:{{ g.bar }}; border-radius:3px; display:flex; align-items:center; padding:0 7px;">
+                  <span style="white-space:nowrap; font-size:10.5px; line-height:1; font-weight:700; color:{{ g.labelColor }};">{{ g.label }}</span>
+                </div>
+              </div>
+              <span style="flex:none; width:96px; text-align:right; white-space:nowrap; font-size:11.5px; font-weight:600; color:{{ g.numColor }};">{{ g.num }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex; align-items:center; gap:11px; padding:11px 13px; background:var(--fusion-blue-50); border-radius:var(--fusion-radius-md);">
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fusion-blue-700);"><strong>Checking client history and judging urgency run in parallel.</strong> Urgency finishes 0.9s earlier, so it sits off the critical path — making it faster changes nothing.</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ======== EVALS ======== -->
+    <sc-if value="{{ isEvals }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none; width:552px; border-right:1px solid var(--fusion-border); min-height:0; overflow-y:auto; padding:16px 20px 28px; display:flex; flex-direction:column; gap:11px; background:var(--fusion-surface);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">QUALITY · 3 EVALUATORS</span>
+          <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">MANAGE EVAL SET</button>
+        </div>
+
+        <sc-for list="{{ evals }}" as="ev" hint-placeholder-count="3">
+          <button onClick="{{ ev.onClick }}" style="text-align:left; border:{{ ev.border }}; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); padding:12px 14px; display:flex; flex-direction:column; gap:9px; box-shadow:{{ ev.ring }};">
+            <div style="display:flex; align-items:center; gap:9px;">
+              <sc-if value="{{ ev.bang }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none; width:13px; text-align:center; font-size:14px; line-height:1; font-weight:700; color:{{ ev.tone }};">!</span>
+              </sc-if>
+              <sc-if value="{{ ev.tick }}" hint-placeholder-val="{{ true }}">
+                <svg style="flex:none; color:{{ ev.tone }};" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+              </sc-if>
+              <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; font-weight:{{ ev.weight }};">{{ ev.name }}</span>
+              <span style="flex:none; white-space:nowrap; font-size:10px; line-height:1; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted); background:var(--fusion-bg); border-radius:3px; padding:4px 6px;">{{ ev.method }}</span>
+              <span style="flex:none; white-space:nowrap; font-size:14px; font-weight:700; font-family:var(--fusion-font-mono); color:{{ ev.tone }};">{{ ev.score }}</span>
+            </div>
+            <sc-if value="{{ ev.hasBar }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <div style="flex:1; height:5px; background:var(--fusion-bg); border-radius:var(--fusion-radius-full); position:relative;">
+                  <div style="position:absolute; left:0; top:0; bottom:0; width:{{ ev.pct }}%; background:{{ ev.tone }}; border-radius:var(--fusion-radius-full);"></div>
+                  <div style="position:absolute; left:{{ ev.thresholdPct }}%; top:-3px; bottom:-3px; width:2px; background:var(--fusion-ink);"></div>
+                </div>
+                <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">floor {{ ev.threshold }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ ev.hasWhy }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:9px 11px;"><strong style="color:var(--fusion-ink);">Why:</strong> {{ ev.why }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+
+        <div style="display:flex; align-items:center; gap:9px; padding-top:7px; border-top:1px solid var(--fusion-border);">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">SAFETY · FIRM PACK</span>
+          <span style="flex:none; white-space:nowrap; font-size:11px; color:var(--fusion-text-muted);">can't be switched off</span>
+        </div>
+        <sc-for list="{{ safety }}" as="sf" hint-placeholder-count="2">
+          <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:11px 14px; display:flex; align-items:center; gap:9px;">
+            <svg style="flex:none; color:var(--fusion-green-600);" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13px; font-weight:600;">{{ sf.name }}</span>
+            <svg style="flex:none; color:var(--fusion-text-muted);" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+            <span style="flex:none; white-space:nowrap; font-size:12.5px; font-weight:700; color:var(--fusion-green-600);">{{ sf.verdict }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- evidence -->
+      <div style="flex:1; min-width:0; min-height:0; overflow-y:auto; padding:16px 20px 28px; display:flex; flex-direction:column; gap:12px; background:var(--fusion-bg);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="flex:1; white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">WHAT THE GRADER LOOKED AT</span>
+          <button style="flex:none; white-space:nowrap; height:26px; padding:0 10px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); background:var(--fusion-surface); color:var(--fusion-ink); font-size:10.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-bg);">OPEN THE SPAN</button>
+        </div>
+
+        <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden; display:flex; flex-direction:column;">
+          <sc-for list="{{ evidence }}" as="ed" hint-placeholder-count="4">
+            <div style="display:flex; border-bottom:{{ ed.divider }}; background:{{ ed.bg }};">
+              <span style="flex:none; width:104px; padding:9px 11px; background:{{ ed.labelBg }}; border-right:1px solid {{ ed.labelBorder }}; white-space:nowrap; font-size:9.5px; line-height:1.3; font-weight:700; letter-spacing:.06em; color:{{ ed.labelColor }};">{{ ed.label }}</span>
+              <span style="flex:1; min-width:0; padding:9px 12px; font-size:12.5px; line-height:1.6; color:{{ ed.color }};">{{ ed.text }}</span>
+              <sc-if value="{{ ed.hasVerdict }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none; padding:9px 11px; white-space:nowrap; font-size:11px; font-weight:700; color:{{ ed.verdictColor }};">{{ ed.verdict }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:11px 13px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+          <svg style="flex:none; margin-top:1px; color:var(--fusion-text-muted);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+          <span style="flex:1; min-width:0; font-size:12px; line-height:1.55; color:var(--fusion-text-secondary);">Graded by <strong>{{ graderName }}</strong> ({{ graderVersion }}). Your baseline was graded on an earlier version of this grader, so the two scores aren't directly comparable.</span>
+          <button style="flex:none; white-space:nowrap; background:none; border:none; padding:0; font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-blue-700);" style-hover="text-decoration:underline;">SEE THE GRADER</button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:9px;">
+          <button style="white-space:nowrap; height:30px; padding:0 13px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:transparent; color:var(--fusion-blue-700); font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="background:var(--fusion-blue-50);">THIS GRADE IS WRONG</button>
+          <span style="flex:1;"></span>
+          <button style="white-space:nowrap; height:30px; padding:0 13px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.04em;" style-hover="filter:brightness(0.93);">KEEP AS A TEST CASE</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ======== COST & LATENCY ======== -->
+    <sc-if value="{{ isCost }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; min-width:0; min-height:0; overflow-y:auto; padding:20px 24px 32px; display:flex; flex-direction:column; gap:16px; background:var(--fusion-surface);">
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px; padding:14px 16px; background:var(--fusion-bg); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:4px;">
+            <span style="white-space:nowrap; font-size:11.5px; font-weight:600; color:var(--fusion-text-secondary);">This run cost</span>
+            <span style="font-size:22px; line-height:1.2; font-weight:700; letter-spacing:-.01em;">$0.041</span>
+            <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-green-600);">31% under the v12 baseline</span>
+          </div>
+          <div style="flex:1; min-width:200px; padding:14px 16px; background:var(--fusion-bg); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:4px;">
+            <span style="white-space:nowrap; font-size:11.5px; font-weight:600; color:var(--fusion-text-secondary);">Wall-clock</span>
+            <span style="font-size:22px; line-height:1.2; font-weight:700; letter-spacing:-.01em;">6.1s</span>
+            <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">4.9s of it on the critical path</span>
+          </div>
+          <div style="flex:1; min-width:200px; padding:14px 16px; background:var(--fusion-bg); border-radius:var(--fusion-radius-md); display:flex; flex-direction:column; gap:4px;">
+            <span style="white-space:nowrap; font-size:11.5px; font-weight:600; color:var(--fusion-text-secondary);">Tokens</span>
+            <span style="font-size:22px; line-height:1.2; font-weight:700; letter-spacing:-.01em;">14.2k</span>
+            <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-amber-600);">9.1k of it is client history</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">BY STEP</span>
+          <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+            <div style="display:flex; background:var(--fusion-bg); border-bottom:1px solid var(--fusion-border);">
+              <span style="flex:1.6; padding:9px 13px; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">STEP</span>
+              <span style="flex:1; padding:9px 13px; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">MODEL TIME</span>
+              <span style="flex:1; padding:9px 13px; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">TOOL WAIT</span>
+              <span style="flex:1; padding:9px 13px; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">TOKENS</span>
+              <span style="flex:1.1; padding:9px 13px; white-space:nowrap; font-size:10px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">COST</span>
+            </div>
+            <sc-for list="{{ costRows }}" as="cr" hint-placeholder-count="6">
+              <div style="display:flex; border-bottom:{{ cr.divider }}; background:{{ cr.bg }};">
+                <span style="flex:1.6; padding:10px 13px; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12.5px; font-weight:{{ cr.weight }}; color:{{ cr.nameColor }};">{{ cr.name }}</span>
+                <span style="flex:1; padding:10px 13px; white-space:nowrap; font-size:12.5px; color:var(--fusion-text-secondary);">{{ cr.model }}</span>
+                <span style="flex:1; padding:10px 13px; white-space:nowrap; font-size:12.5px; color:{{ cr.waitColor }};">{{ cr.wait }}</span>
+                <span style="flex:1; padding:10px 13px; white-space:nowrap; font-size:12.5px; font-family:var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ cr.tokens }}</span>
+                <span style="flex:1.1; padding:10px 13px; display:flex; align-items:center; gap:8px; min-width:0;">
+                  <span style="flex:none; white-space:nowrap; font-size:12.5px; font-weight:600; color:{{ cr.costColor }};">{{ cr.cost }}</span>
+                  <span style="flex:1; min-width:24px; height:6px; background:var(--fusion-bg); border-radius:3px; overflow:hidden;">
+                    <span style="display:block; width:{{ cr.pct }}%; height:100%; background:{{ cr.bar }};"></span>
+                  </span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 14px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md);">
+          <span style="flex:none; width:13px; text-align:center; font-size:14px; line-height:1.25; font-weight:700; color:var(--fusion-amber-600);">!</span>
+          <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.55; color:var(--fusion-amber-600);"><strong>Drafting the reply is 61% of the cost</strong> and two-thirds of its prompt is client history the model barely uses. Trimming the history window to the last 3 exchanges is the single biggest saving available.</span>
+          <button style="flex:none; white-space:nowrap; height:28px; padding:0 12px; border:none; border-radius:var(--fusion-radius-md); background:var(--fusion-amber-600); color:#fff; font-size:11px; font-weight:700; letter-spacing:.04em;" style-hover="filter:brightness(0.94);">SEE THE FIX</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ======== DEFERRED TABS ======== -->
+    <sc-if value="{{ isDeferred }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1; min-width:0; display:flex; align-items:center; justify-content:center; padding:40px; background:var(--fusion-surface);">
+        <div style="max-width:440px; display:flex; flex-direction:column; gap:11px; align-items:flex-start;">
+          <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ deferredKicker }}</span>
+          <span style="font-size:19px; line-height:1.35; font-weight:700; letter-spacing:-.01em;">{{ deferredTitle }}</span>
+          <span style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary);">{{ deferredBody }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1320,&quot;height&quot;:880}}">
+const C = {
+  green: 'var(--fusion-green-600)', amber: 'var(--fusion-amber-600)', red: 'var(--fusion-red-600)',
+  greenBg: 'var(--fusion-green-100)', amberBg: 'var(--fusion-amber-100)', redBg: 'var(--fusion-red-100)',
+  ink: 'var(--fusion-ink)', sec: 'var(--fusion-text-secondary)', muted: 'var(--fusion-text-muted)',
+  blue: 'var(--fusion-blue-700)', blueBg: 'var(--fusion-blue-50)',
+  surface: 'var(--fusion-surface)', bg: 'var(--fusion-bg)',
+  border: 'var(--fusion-border)', strong: 'var(--fusion-border-strong)',
+  mono: '400 12px var(--fusion-font-mono)', body: '400 12.5px var(--fusion-font)',
+};
+
+// One run of Client Communication Triage, v15.
+const STEPS = [
+  { id: 'n1', name: 'Read message', dur: '0.3s', cost: 0.001, ok: true, spans: [
+      { id: 'n1s1', kind: 'MODEL', name: 'parse + normalise', dur: '0.3s' } ] },
+  { id: 'n2', name: 'Work out the topic', dur: '0.9s', cost: 0.004, ok: true, spans: [
+      { id: 'n2s1', kind: 'MODEL', name: 'classify intent', dur: '0.9s' } ] },
+  { id: 'n3', name: 'Check client history', dur: '2.4s', cost: 0.006, ok: true, warn: '2 retries', spans: [
+      { id: 'n3s1', kind: 'TOOL', name: 'crm.getClient', dur: '1.2s', fail: true, note: 'timeout' },
+      { id: 'n3s2', kind: 'TOOL', name: 'crm.getClient · retry 2', dur: '1.2s' },
+      { id: 'n3s3', kind: 'RETRIEVAL', name: '18 months of correspondence', dur: '0.0s' } ] },
+  { id: 'n4', name: 'Judge urgency', dur: '1.5s', cost: 0.008, ok: true, spans: [
+      { id: 'n4s1', kind: 'MODEL', name: 'score urgency', dur: '1.5s' } ] },
+  { id: 'n5', name: 'Draft the reply', dur: '2.2s', cost: 0.025, ok: true, driver: true, spans: [
+      { id: 'n5s1', kind: 'MODEL', name: 'draft reply', dur: '2.1s' },
+      { id: 'n5s2', kind: 'CACHE', name: 'prefix miss', dur: '0.0s' } ] },
+  { id: 'n6', name: 'Compliance check', dur: '0.8s', cost: 0.000, ok: true, guard: true, spans: [
+      { id: 'n6s1', kind: 'GUARDRAIL', name: '7 checks · all pass', dur: '0.8s' } ] },
+];
+
+class Component extends DCLogic {
+  state = { entry: 'node', tab: 'trace', traceView: 'tree', spanId: 'n5s1', evalId: 'tone' };
+
+  // Deep-link entries: each sets the tab AND the selection, so nothing lands cold.
+  applyEntry(key) {
+    if (key === 'node') this.setState({ entry: key, tab: 'trace', traceView: 'tree', spanId: 'n5s1' });
+    if (key === 'quality') this.setState({ entry: key, tab: 'evals', evalId: 'tone' });
+    if (key === 'cost') this.setState({ entry: key, tab: 'cost' });
+    if (key === 'cold') this.setState({ entry: key, tab: 'trace', traceView: 'tree', spanId: 'n1s1' });
+  }
+
+  spanById(id) {
+    for (const st of STEPS) {
+      for (const sp of st.spans) if (sp.id === id) return { step: st, span: sp };
+    }
+    return { step: STEPS[0], span: STEPS[0].spans[0] };
+  }
+
+  // ---- trace tree ----
+  traceRows() {
+    const rows = [];
+    for (const st of STEPS) {
+      const openStep = st.spans.some(sp => sp.id === this.state.spanId);
+      const tone = st.warn ? C.amber : C.green;
+      rows.push({
+        onClick: () => this.setState({ spanId: st.spans[0].id }),
+        pad: '9px 16px', bg: openStep ? C.blueBg : 'transparent',
+        leftBar: openStep ? '3px solid var(--fusion-blue-700)' : '3px solid transparent',
+        hasKind: false, kind: '', kindColor: '', kindBg: '', kindBorder: '',
+        hasDot: true, dotBg: st.warn ? C.amberBg : C.greenBg, dotColor: tone,
+        dotD: st.warn ? 'M12 8v4M12 16h.01' : 'M20 6L9 17l-5-5',
+        name: st.name, size: '13.5px', weight: 700, family: 'inherit',
+        nameColor: openStep ? C.blue : (st.warn ? C.amber : C.ink),
+        hasTag: !!(st.warn || st.driver || st.guard),
+        tag: st.warn || (st.driver ? '61% COST' : (st.guard ? 'GUARDRAIL' : '')),
+        tagColor: st.warn ? C.amber : (st.driver ? '#fff' : C.green),
+        tagBg: st.warn ? C.amberBg : (st.driver ? 'var(--fusion-navy-800)' : C.greenBg),
+        tagBorder: st.warn ? C.amber : 'transparent',
+        num: st.dur, numWeight: 600, numColor: st.warn ? C.amber : C.sec,
+      });
+      if (!openStep) continue;
+      for (const sp of st.spans) {
+        const sel = sp.id === this.state.spanId;
+        rows.push({
+          onClick: () => this.setState({ spanId: sp.id }),
+          pad: '7px 16px 7px 46px', bg: sel ? C.blueBg : 'transparent',
+          leftBar: sel ? '3px solid var(--fusion-blue-700)' : '3px solid transparent',
+          hasKind: true, kind: sp.kind,
+          kindColor: sp.kind === 'MODEL' ? 'var(--fusion-purple-600)' : C.muted,
+          kindBg: sp.kind === 'MODEL' ? 'var(--fusion-lilac-100)' : C.surface,
+          kindBorder: sp.kind === 'MODEL' ? 'transparent' : C.border,
+          hasDot: false, dotBg: '', dotColor: '', dotD: '',
+          name: sp.name, size: '12.5px', weight: sel ? 700 : 400,
+          family: 'var(--fusion-font-mono)', nameColor: sel ? C.blue : C.ink,
+          hasTag: !!sp.fail, tag: sp.note || '', tagColor: C.red, tagBg: C.redBg, tagBorder: 'transparent',
+          num: sp.dur, numWeight: 400, numColor: C.muted,
+        });
+      }
+    }
+    return rows;
+  }
+
+  // ---- span detail ----
+  row(label, text, o) {
+    o = o || {};
+    return {
+      label, text,
+      divider: o.last ? 'none' : '1px solid var(--fusion-border)',
+      bg: o.tone ? o.toneBg : 'transparent',
+      labelBg: o.tone ? 'transparent' : C.surface,
+      labelBorder: o.tone ? o.tone : C.border,
+      labelColor: o.tone || C.muted,
+      font: o.mono ? C.mono : C.body,
+      color: o.tone || C.ink,
+      hasRight: !!o.right, right: o.right || '',
+      rightWeight: o.rightBold ? 700 : 400, rightColor: o.tone || C.muted,
+    };
+  }
+  spanBlocks() {
+    const { span } = this.spanById(this.state.spanId);
+    if (span.kind === 'MODEL' && span.id === 'n5s1') return [{
+      title: 'THE PROMPT, EXACTLY AS SENT', hasMeta: true, meta: '14,204 tokens',
+      hasAction: true, action: 'SEARCH',
+      rows: [
+        this.row('SYSTEM', 'You draft replies to inbound client messages. Match the client\u2019s tone, never promise dates you cannot verify\u2026', { mono: true, right: '380', rightBold: false }),
+        this.row('SKILL', 'reply-tone@1.4 \u2014 acknowledge the frustration first, then state what happens next and by when.', { mono: true, right: '520' }),
+        this.row('CLIENT HISTORY', '18 months of correspondence \u00b7 42 messages. The model referenced the last 2.', { mono: true, tone: C.amber, toneBg: C.amberBg, right: '9,140', rightBold: true }),
+        this.row('UPSTREAM', 'topic: statement_request \u00b7 urgency: high \u00b7 repeat_contact: true', { mono: true, right: '160' }),
+        this.row('MESSAGE', '"Hi \u2014 still waiting on the Q2 statement I asked about twice. This is getting frustrating."', { mono: true, right: '38', last: true }),
+      ],
+    }, {
+      title: 'WHAT CAME BACK', hasMeta: true, meta: '1,120 tokens', hasAction: false, action: '',
+      rows: [
+        this.row('REPLY', 'Thanks for following up, and I\u2019m sorry you\u2019ve had to ask twice \u2014 that\u2019s not the experience we want. Your Q2 statement is being reissued and I\u2019ll have it with you before end of day.', { last: true }),
+      ],
+    }];
+    if (span.kind === 'TOOL') return [{
+      title: 'REQUEST', hasMeta: false, meta: '', hasAction: false, action: '',
+      rows: [this.row('CALL', 'crm.getClient({ id: "MRD-4417", window: "18m" })', { mono: true, last: true })],
+    }, {
+      title: 'RESPONSE', hasMeta: true, meta: span.fail ? 'failed after 1.2s' : '1.2s',
+      hasAction: false, action: '',
+      rows: span.fail
+        ? [this.row('ERROR', 'ETIMEDOUT \u2014 no response from crm-gateway after 1200ms. Retried automatically.', { mono: true, tone: C.red, toneBg: C.redBg, last: true })]
+        : [this.row('BODY', '{ client: "Meridian Holdings", tier: "priority", open_requests: 2, last_contact: "2026-07-24" }', { mono: true, last: true })],
+    }];
+    if (span.kind === 'RETRIEVAL') return [{
+      title: 'WHAT WAS PULLED IN', hasMeta: true, meta: '42 messages \u00b7 9,140 tokens', hasAction: false, action: '',
+      rows: [
+        this.row('QUERY', 'correspondence for MRD-4417, last 18 months', { mono: true }),
+        this.row('USED', '2 of 42 messages appeared in the drafting prompt\u2019s reasoning', { tone: C.amber, toneBg: C.amberBg, last: true }),
+      ],
+    }];
+    if (span.kind === 'GUARDRAIL') return [{
+      title: 'CHECKS THAT RAN', hasMeta: true, meta: '7 checks \u00b7 all passed', hasAction: false, action: '',
+      rows: [
+        this.row('PLATFORM', 'toxicity \u00b7 PII leak \u00b7 prompt injection \u00b7 harmful content \u00b7 policy language', { right: 'PASS', rightBold: true, tone: C.green, toneBg: 'transparent' }),
+        this.row('FIRM', 'client-name disclosure \u00b7 regulated-advice disclaimer', { right: 'PASS', rightBold: true, tone: C.green, toneBg: 'transparent', last: true }),
+      ],
+    }];
+    return [{
+      title: 'DETAIL', hasMeta: false, meta: '', hasAction: false, action: '',
+      rows: [this.row('SUMMARY', span.name + ' \u00b7 ' + span.dur, { last: true })],
+    }];
+  }
+
+  // ---- evals ----
+  evalData() {
+    return [
+      { id: 'tone', name: 'Acknowledges the frustration', method: 'LLM JUDGE v3', score: '0.58', num: 58, threshold: '0.75', fail: true,
+        why: 'The reply apologises but leads with logistics. The rubric asks for the acknowledgement to come first, before any explanation.' },
+      { id: 'route', name: 'Routed to the right desk', method: 'RULE', score: 'Pass', num: 100, threshold: '', fail: false, why: '' },
+      { id: 'ground', name: 'No unverifiable promises', method: 'LLM JUDGE v1', score: '0.91', num: 91, threshold: '0.70', fail: false, why: '' },
+    ];
+  }
+
+  renderVals() {
+    const s = this.state;
+    const entryDefs = [
+      { key: 'node', label: 'Draft-the-reply node badge' },
+      { key: 'quality', label: 'Quality chip' },
+      { key: 'cost', label: 'Cost chip' },
+      { key: 'cold', label: 'Run history (cold)' },
+    ];
+    const tabDefs = [
+      { key: 'trace', label: 'Trace' },
+      { key: 'dataflow', label: 'Data flow' },
+      { key: 'evals', label: 'Evals', count: '1', countBg: C.amberBg, countColor: C.amber },
+      { key: 'cost', label: 'Cost & latency' },
+      { key: 'logs', label: 'Logs' },
+    ];
+    const chipDefs = [
+      { dim: 'Functionality', value: 'Passed', tone: C.green, bg: C.greenBg, tab: 'trace', title: 'All 6 steps completed \u2014 one retried twice' },
+      { dim: 'Cost \u00b7 latency', value: '$0.041 \u00b7 6.1s', tone: C.ink, bg: C.surface, border: C.strong, tab: 'cost', title: 'Cost and wall-clock for this run' },
+      { dim: 'Quality', value: '2 of 3 pass', tone: C.amber, bg: C.amberBg, tab: 'evals', title: 'One evaluator scored below its floor' },
+      { dim: 'Safety', value: 'Pass', tone: C.green, bg: C.greenBg, tab: 'evals', title: '7 checks, all passed' },
+    ];
+    const { step, span } = this.spanById(s.spanId);
+    const evals = this.evalData();
+    const activeEval = evals.find(e => e.id === s.evalId) || evals[0];
+
+    const deferred = s.tab === 'dataflow'
+      ? { kicker: 'ARRIVES IN SPRINT 2', title: 'Data flow is a lens on the trace, not a separate tab.',
+          body: 'It shows the payload handed between each step, what each one added or dropped, and whether the shape matched what the next step expected. It shares its data with the canvas edge inspector, so we design the payload view once and use it in both places.' }
+      : { kicker: 'ARRIVES LAST', title: 'Logs are the fallback when the trace already told you.',
+          body: 'Platform events \u2014 retries, cache hits, guardrail triggers \u2014 timestamp-aligned with the spans above, so selecting a log entry highlights its span. Deliberately last: everything a builder needs for this run is already on the other tabs.' };
+
+    return {
+      entries: entryDefs.map(e => {
+        const on = s.entry === e.key;
+        return { label: e.label, onClick: () => this.applyEntry(e.key),
+          bg: on ? '#fff' : 'transparent',
+          color: on ? 'var(--fusion-navy-800)' : 'rgba(255,255,255,.8)',
+          border: on ? '1px solid #fff' : '1px solid rgba(255,255,255,.32)',
+          weight: on ? 700 : 600 };
+      }),
+      tabs: tabDefs.map(t => {
+        const on = s.tab === t.key;
+        return { label: t.label, onClick: () => this.setState({ tab: t.key }),
+          underline: on ? C.blue : 'transparent',
+          color: on ? C.blue : C.sec, weight: on ? 700 : 600,
+          hasCount: !!t.count, count: t.count || '', countBg: t.countBg || C.bg, countColor: t.countColor || C.muted };
+      }),
+      chips: chipDefs.map(c => ({
+        dim: c.dim, value: c.value, title: c.title,
+        onClick: () => this.setState({ tab: c.tab }),
+        bg: c.bg, color: c.tone, border: c.border || 'transparent',
+        ring: s.tab === c.tab ? '0 0 0 2px var(--fusion-blue-50)' : 'none',
+      })),
+      isTrace: s.tab === 'trace',
+      isTree: s.tab === 'trace' && s.traceView === 'tree',
+      isTimeline: s.tab === 'trace' && s.traceView === 'timeline',
+      isEvals: s.tab === 'evals',
+      isCost: s.tab === 'cost',
+      isDeferred: s.tab === 'dataflow' || s.tab === 'logs',
+      deferredKicker: deferred.kicker, deferredTitle: deferred.title, deferredBody: deferred.body,
+
+      traceViews: [
+        { key: 'tree', label: 'Tree', title: 'What called what' },
+        { key: 'timeline', label: 'Timeline', title: 'Where the time went' },
+      ].map(v => {
+        const on = s.traceView === v.key;
+        return { label: v.label, title: v.title, onClick: () => this.setState({ traceView: v.key }),
+          bg: on ? C.surface : 'transparent', color: on ? C.ink : C.sec,
+          weight: on ? 700 : 600, shadow: on ? '0 1px 2px rgba(0,0,0,.06)' : 'none' };
+      }),
+
+      rows: this.traceRows(),
+      spanKicker: span.kind + ' \u00b7 ' + step.name.toUpperCase(),
+      spanTitle: span.id === 'n5s1' ? 'claude-opus \u00b7 temp 0.3 \u00b7 2.1s \u00b7 $0.025' : (span.name + ' \u00b7 ' + span.dur),
+      spanHasInsight: span.id === 'n5s1' || span.kind === 'RETRIEVAL',
+      spanInsightLead: 'Most of this prompt is unused history.',
+      spanInsightRest: '9,140 of 14,204 tokens are 18 months of correspondence; the reply drew on the last two messages. A 3-message window would cut this step\u2019s cost by about two thirds.',
+      spanBlocks: this.spanBlocks(),
+
+      gantt: [
+        { name: 'Read message', left: 0, width: 5, label: '', bar: C.strong, labelColor: '#fff', num: '0.3s', weight: 400, nameColor: C.sec, numColor: C.sec },
+        { name: 'Work out the topic', left: 5, width: 15, label: '', bar: C.strong, labelColor: '#fff', num: '0.9s', weight: 400, nameColor: C.sec, numColor: C.sec },
+        { name: 'Check client history', left: 20, width: 39, label: '2 retries', bar: C.amber, labelColor: '#fff', num: '2.4s', weight: 700, nameColor: C.amber, numColor: C.amber },
+        { name: 'Judge urgency', left: 20, width: 25, label: 'parallel', bar: '#C9D0D8', labelColor: C.ink, num: '1.5s', weight: 400, nameColor: C.sec, numColor: C.sec },
+        { name: 'Draft the reply', left: 59, width: 28, label: 'critical path', bar: 'var(--fusion-navy-800)', labelColor: '#fff', num: '2.2s', weight: 700, nameColor: C.ink, numColor: C.ink },
+        { name: 'Compliance check', left: 87, width: 13, label: '', bar: C.strong, labelColor: '#fff', num: '0.8s', weight: 400, nameColor: C.sec, numColor: C.sec },
+      ],
+
+      evals: evals.map(e => {
+        const sel = e.id === s.evalId;
+        return {
+          name: e.name, method: e.method, score: e.score,
+          onClick: () => this.setState({ evalId: e.id }),
+          tone: e.fail ? C.amber : C.green,
+          weight: e.fail ? 700 : 600,
+          border: e.fail ? '1.5px solid var(--fusion-amber-600)' : '1px solid var(--fusion-border)',
+          ring: sel ? '0 0 0 3px var(--fusion-blue-50)' : 'none',
+          bang: e.fail, tick: !e.fail,
+          hasBar: !!e.threshold, pct: e.num, thresholdPct: e.threshold ? Math.round(parseFloat(e.threshold) * 100) : 0,
+          threshold: e.threshold,
+          hasWhy: !!e.why && sel, why: e.why,
+        };
+      }),
+      safety: [
+        { name: '5 platform checks', verdict: 'All pass' },
+        { name: '2 firm checks', verdict: 'All pass' },
+      ],
+      graderName: activeEval.name, graderVersion: activeEval.method,
+      evidence: activeEval.fail ? [
+        this.row('CRITERION 1', 'Acknowledgement comes before explanation', { right: 'NOT MET', rightBold: true, tone: C.amber, toneBg: C.amberBg }),
+        this.row('CRITERION 2', 'Names a concrete next step', { right: 'MET', rightBold: true }),
+        this.row('CRITERION 3', 'No unverifiable commitment', { right: 'MET', rightBold: true }),
+        this.row('THE REPLY', 'Thanks for following up, and I\u2019m sorry you\u2019ve had to ask twice \u2014 that\u2019s not the experience we want. Your Q2 statement is being reissued\u2026', { last: true }),
+      ].map(r => ({ ...r, hasVerdict: r.hasRight, verdict: r.right, verdictColor: r.rightColor })) : [
+        this.row('RESULT', 'Every criterion met. Nothing to look at here.', { last: true }),
+      ].map(r => ({ ...r, hasVerdict: false, verdict: '', verdictColor: '' })),
+
+      costRows: [
+        { name: 'Read message', model: '0.3s', wait: '\u2014', tokens: '410', cost: '$0.001', pct: 3, weight: 400, nameColor: C.sec, waitColor: C.muted, costColor: C.sec, bar: C.strong, divider: '1px solid var(--fusion-border)', bg: 'transparent' },
+        { name: 'Work out the topic', model: '0.9s', wait: '\u2014', tokens: '980', cost: '$0.004', pct: 10, weight: 400, nameColor: C.sec, waitColor: C.muted, costColor: C.sec, bar: C.strong, divider: '1px solid var(--fusion-border)', bg: 'transparent' },
+        { name: 'Check client history', model: '\u2014', wait: '2.4s', tokens: '9,140', cost: '$0.006', pct: 15, weight: 600, nameColor: C.amber, waitColor: C.amber, costColor: C.sec, bar: C.strong, divider: '1px solid var(--fusion-border)', bg: 'transparent' },
+        { name: 'Judge urgency', model: '1.5s', wait: '\u2014', tokens: '1,240', cost: '$0.008', pct: 20, weight: 400, nameColor: C.sec, waitColor: C.muted, costColor: C.sec, bar: C.strong, divider: '1px solid var(--fusion-border)', bg: 'transparent' },
+        { name: 'Draft the reply', model: '2.1s', wait: '\u2014', tokens: '14,204', cost: '$0.025', pct: 61, weight: 700, nameColor: C.ink, waitColor: C.muted, costColor: C.amber, bar: C.amber, divider: '1px solid var(--fusion-border)', bg: C.amberBg },
+        { name: 'Compliance check', model: '\u2014', wait: '0.8s', tokens: '\u2014', cost: '$0.000', pct: 0, weight: 400, nameColor: C.sec, waitColor: C.muted, costColor: C.muted, bar: 'transparent', divider: 'none', bg: 'transparent' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

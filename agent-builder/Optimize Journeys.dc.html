@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #EEF1F4; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<section style="padding:40px 44px 80px; display:flex; flex-direction:column; gap:34px;">
+
+  <div style="max-width:1000px; display:flex; flex-direction:column; gap:10px;">
+    <span style="font-size:11px; font-weight:700; letter-spacing:.09em; color:var(--fusion-text-muted);">TURN 3 · OPTIMIZE</span>
+    <h1 style="margin:0; font-family:var(--font-heading); font-size:29px; font-weight:700; letter-spacing:-.01em;">Eight doors, end to end</h1>
+    <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">Each row is one entry point played out from arrival to ending. The panel is the same panel throughout — what changes is how many screens you see before Compare, and how much of it was already answered when you walked in.</p>
+    <p style="margin:0; font-size:15.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">Grey rows are facts the door brought with it. Blue is the one thing that screen is asking. Read down the left edge and the doors sort themselves into three lengths: <b>four screens</b> when nothing is known, <b>three</b> when the door names a target, <b>two</b> when it hands over a candidate.</p>
+  </div>
+
+  <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="8">
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:12px; font-weight:700;">{{ j.id }}</span>
+        <span style="font-size:19px; font-weight:700; font-family:var(--font-heading);">{{ j.name }}</span>
+        <span style="font-size:13px; color:var(--fusion-text-muted);">{{ j.where }}</span>
+        <span style="margin-left:auto; font-size:12px; font-weight:600; color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-full); padding:4px 12px;">{{ j.len }}</span>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:stretch; flex-wrap:wrap;">
+        <sc-for list="{{ j.states }}" as="st" hint-placeholder-count="3">
+          <div style="width:316px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:0 6px 18px rgba(20,40,70,.06); display:flex; flex-direction:column; overflow:hidden;">
+
+            <div style="padding:13px 16px 12px; border-bottom:1px solid var(--fusion-border); display:flex; flex-direction:column; gap:5px; background:{{ st.headBg }};">
+              <span style="font-size:9.5px; font-weight:700; letter-spacing:.08em; color:{{ st.eyebrowColor }};">{{ st.eyebrow }}</span>
+              <span style="font-size:14.5px; font-weight:700; line-height:1.35;">{{ st.title }}</span>
+              <span style="font-size:12px; line-height:1.45; color:var(--fusion-text-secondary);">{{ st.sub }}</span>
+            </div>
+
+            <div style="padding:13px 16px; display:flex; flex-direction:column; gap:9px; flex:1;">
+              <sc-for list="{{ st.rows }}" as="r" hint-placeholder-count="3">
+                <div style="display:flex; flex-direction:column; gap:3px; padding:{{ r.pad }}; background:{{ r.bg }}; border-left:{{ r.accent }}; border-radius:var(--fusion-radius-sm);">
+                  <span style="display:flex; align-items:baseline; gap:8px;">
+                    <span style="font-size:9.5px; font-weight:700; letter-spacing:.06em; color:{{ r.kColor }};">{{ r.k }}</span>
+                    <span style="margin-left:auto; font-size:10.5px; font-weight:600; color:{{ r.rColor }}; font-family:{{ r.rFont }};">{{ r.r }}</span>
+                  </span>
+                  <span style="font-size:12.5px; line-height:1.45; color:{{ r.vColor }}; font-weight:{{ r.vWeight }}; font-family:{{ r.vFont }};">{{ r.v }}</span>
+                  <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">{{ r.note }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="padding:11px 16px 13px; border-top:1px solid var(--fusion-border); display:flex; gap:8px; flex-wrap:wrap; align-items:center; background:var(--fusion-bg);">
+              <sc-for list="{{ st.actions }}" as="a" hint-placeholder-count="2">
+                <span style="display:inline-flex; align-items:center; height:27px; padding:0 12px; border-radius:var(--fusion-radius-full); font-size:11px; font-weight:700; letter-spacing:.04em; background:{{ a.bg }}; color:{{ a.color }}; border:{{ a.border }};">{{ a.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="width:660px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); padding:20px 22px; display:flex; flex-direction:column; gap:11px;">
+    <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">WHAT PLAYING THEM OUT SHOWED</span>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <span style="font-size:13.5px; font-weight:700;">Compare carries the whole flow</span>
+        <span style="font-size:13px; line-height:1.55; color:var(--fusion-text-secondary);">Every door spends most of its screens getting to one place. Compare is where the work happens and the only screen that needs real depth — the earlier screens are just narrowing.</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <span style="font-size:13.5px; font-weight:700;">The two-screen doors are the ones worth promoting</span>
+        <span style="font-size:13px; line-height:1.55; color:var(--fusion-text-secondary);">Flag, resource card and overview item land on a drafted candidate. They're the fastest path from noticing something to proving a fix, and they're the doors most likely to be used repeatedly.</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <span style="font-size:13.5px; font-weight:700;">Door 5 needs its detour designed, not hidden</span>
+        <span style="font-size:13px; line-height:1.55; color:var(--fusion-text-secondary);">Optimizing for a metric that isn't attached means attaching it and grading a run before anything can be compared. That's a real wait, and pretending otherwise makes the session feel broken.</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const INK = 'var(--fusion-ink)', SEC = 'var(--fusion-text-secondary)', MUT = 'var(--fusion-text-muted)';
+const BLUE = 'var(--fusion-blue-600)', AMB = 'var(--fusion-amber-600)', GRN = 'var(--fusion-green-600)';
+const MONO = 'var(--fusion-font-mono)';
+
+function row(o) {
+  return {
+    k: o.k || '', v: o.v || '', r: o.r || '', note: o.note || '',
+    pad: o.pad || '8px 10px',
+    bg: o.bg || 'var(--fusion-bg)',
+    accent: o.accent || 'none',
+    kColor: o.kColor || MUT, vColor: o.vColor || INK, rColor: o.rColor || MUT,
+    vWeight: o.vWeight || '600', vFont: o.vFont || 'inherit', rFont: o.rFont || 'inherit',
+  };
+}
+// a fact the door brought with it
+const fact = (k, v, note) => row({ k, v, note, r: 'CHANGE' , rColor: BLUE });
+// the one thing this screen asks
+const ask = (k, v, note) => row({ k, v, note, bg: 'var(--fusion-blue-50)', accent: '3px solid var(--fusion-blue-700)', kColor: BLUE });
+// a proposed change
+const diff = (k, v, note) => row({ k, v, note, vFont: MONO, vColor: INK, bg: 'var(--fusion-surface)', accent: '3px solid var(--fusion-border-strong)' });
+// a measured result
+const res = (k, v, r, tone) => row({ k, v, r, vFont: MONO, rColor: tone || SEC,
+  bg: tone === GRN ? 'var(--fusion-green-100)' : 'var(--fusion-surface)',
+  accent: tone === GRN ? '3px solid var(--fusion-green-600)' : '3px solid var(--fusion-border)' });
+const note = (k, v) => row({ k, v, vWeight: '400', vColor: SEC, bg: 'var(--fusion-amber-100)', kColor: AMB });
+
+const act = { primary: (l) => ({ label: l, bg: 'var(--fusion-blue-700)', color: '#fff', border: 'none' }),
+  ghost: (l) => ({ label: l, bg: 'transparent', color: SEC, border: '1px solid var(--fusion-border-strong)' }),
+  quiet: (l) => ({ label: l, bg: 'transparent', color: MUT, border: 'none' }) };
+
+function screen(eyebrow, title, sub, rows, actions, tone) {
+  return { eyebrow, title, sub, rows, actions,
+    eyebrowColor: tone === 'ask' ? BLUE : tone === 'end' ? GRN : MUT,
+    headBg: tone === 'ask' ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)' };
+}
+
+// shared endings — Decide is identical at every door
+const DECIDE = screen('STEP 4 · DECIDE', 'Four ways this can end', 'Whatever you pick is recorded against the session.', [
+  row({ k: 'ACCEPT', v: 'Stage the diff on the canvas', note: 'Proven on one input only — a suite check is attached to the change', bg: 'var(--fusion-green-100)', accent: '3px solid var(--fusion-green-600)', kColor: GRN }),
+  row({ k: 'DISMISS', v: 'Not worth it', note: 'Won\u2019t come back until the evidence changes' }),
+  row({ k: 'HAND OFF', v: 'Let it try 8 more on its own', note: 'Needs a suite and a quality metric' }),
+  row({ k: 'LEAVE IT', v: 'Come back later', note: 'Kept until the agent is edited underneath it' }),
+], [act.primary('ACCEPT'), act.ghost('DISMISS'), act.quiet('Hand off')], 'end');
+
+const COMPARE_EMPTY = screen('STEP 3 · COMPARE', 'Nothing to compare yet', 'Pick one of the suggestions, or change something yourself and measure it.', [
+  row({ k: 'CURRENT', v: 'fusion-frontier-1 · 20 chunks · prompt v14', vFont: MONO, vWeight: '400', vColor: SEC }),
+  ask('YOUR MOVE', 'Take a suggestion, or edit a copy', 'Editing opens the node\u2019s settings on a scratch copy — nothing touches the agent'),
+], [act.primary('EDIT A COPY'), act.ghost('BACK')], 'ask');
+
+function compareDrafted(sub, rows) {
+  return screen('STEP 3 · COMPARE', 'Ready to measure', sub, rows,
+    [act.primary('RUN THE COMPARISON'), act.ghost('EDIT')]);
+}
+
+const RESULTS_ROWS = [
+  res('COST · WHAT YOU ASKED FOR', '$0.31 → $0.13', '−58%', GRN),
+  res('GROUNDEDNESS', '71% → 74%', 'holds'),
+  res('TIME', '24.8s → 19.1s', 'holds'),
+  res('SAFETY', '7 checks · clear', 'clear'),
+  row({ k: 'HOW SURE', v: 'One input. Not proof.', note: 'Run it against the full suite to call it proven', bg: 'var(--fusion-amber-100)', kColor: AMB, vWeight: '600' }),
+];
+
+const JOURNEYS = [
+  { id: '1', name: 'From a node on the canvas', where: 'the node\u2019s own menu', len: '4 screens',
+    states: [
+      screen('ARRIVED', 'Optimize · Draft briefing', 'You opened this from the node, so the node is the scope.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing', 'One step. Widen it to the whole agent if you\u2019d rather.'),
+      ], [act.primary('CONTINUE')]),
+      screen('STEP 2 · TARGET', 'Better at what?', 'One thing only. Everything else is held where it is.', [
+        ask('PICK ONE', 'Cost · Speed · A quality score · Reliability', 'Cost selected'),
+        row({ k: 'HELD WHERE THEY ARE', v: 'Groundedness ≥ 70% · Time ≤ 24.8s · Safety', note: 'Cost isn\u2019t here — it\u2019s what you\u2019re changing' }),
+      ], [act.primary('CONTINUE'), act.ghost('BACK')], 'ask'),
+      screen('STEP 3 · SUGGESTIONS', '2 things worth trying here', 'Both measured on this step\u2019s last 10 runs.', [
+        row({ k: 'BIGGEST', v: 'Carry 5 research chunks instead of 20', note: 'Cited 3 of 20 in 9 of the last 10 runs · saves about half the cost' }),
+        row({ k: 'SMALLER', v: 'Use the mid-tier model here', note: 'Price-sheet math · about −30%, quality unmeasured' }),
+      ], [act.primary('TRY THE FIRST'), act.ghost('EDIT A COPY')]),
+      DECIDE,
+    ] },
+
+  { id: '2', name: 'Straight after a test, in the chat', where: 'the run\u2019s result footer', len: '4 screens',
+    states: [
+      screen('ARRIVED', 'Optimize · the whole agent', 'Started from run #128, so that run\u2019s input is ready to replay.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'The whole agent', 'Narrow it to one step if you know where the problem is'),
+        row({ k: 'WHAT IT\u2019LL RUN AGAINST', v: 'Run #128\u2019s input', note: '\u201CPrep me for the Meridian Capital quarterly review\u2026\u201D' }),
+      ], [act.primary('CONTINUE')]),
+      screen('STEP 2 · TARGET', 'Better at what?', 'One thing only.', [
+        ask('PICK ONE', 'Cost · Speed · A quality score · Reliability', 'Speed selected'),
+        row({ k: 'HELD WHERE THEY ARE', v: 'Cost ≤ $0.31 · Groundedness ≥ 70% · Safety' }),
+      ], [act.primary('CONTINUE'), act.ghost('BACK')], 'ask'),
+      screen('STEP 3 · SUGGESTIONS', '3 things worth trying', 'Ranked by how much they\u2019d help.', [
+        row({ k: 'BIGGEST', v: 'Fetch CRM and research at the same time', note: 'They don\u2019t depend on each other · about −3.2s' }),
+        row({ k: 'NEXT', v: 'Say all three rules up front in the drafting prompt', note: 'Four validate-refine passes last run, one rule each · about −4.1s' }),
+        row({ k: 'SMALLEST', v: 'Faster model for parsing', note: 'Price sheet · about −0.4s' }),
+      ], [act.primary('TRY THE FIRST'), act.ghost('EDIT A COPY')]),
+      DECIDE,
+    ] },
+
+  { id: '3', name: 'From the run\u2019s report card', where: 'Optimize, beside Fix', len: '3 screens',
+    states: [
+      screen('ARRIVED', 'What\u2019s worth improving', 'No question asked — you came here without a specific intent, so it opens with what the runs show.', [
+        row({ k: 'CHEAPER', v: 'Carry 5 research chunks instead of 20', note: 'Cited 3 of 20 in 9 of 10 runs · about half the run cost' }),
+        row({ k: 'FASTER', v: 'Fetch CRM and research at the same time', note: 'Independent inputs · about −3.2s' }),
+        row({ k: 'STEADIER', v: 'Give the CRM tool longer to answer', note: 'Retried in 4 of the last 10 runs · one run failed outright' }),
+        row({ k: 'NONE OF THESE', v: 'Choose a goal yourself', note: 'Falls back to the scope-and-target questions', bg: 'var(--fusion-surface)' }),
+      ], [act.primary('PICK ONE')]),
+      compareDrafted('Picking a suggestion sets the goal and drafts the change in one move.', [
+        fact('GOAL', 'Cost', 'Everything else held where it is'),
+        diff('THE CHANGE', 'Retrieve research · chunks 20 → 5', 'Nothing is edited until you accept'),
+        row({ k: 'MEASURE IT ON', v: 'This run\u2019s input · about $0.13, seconds', note: 'Or 5 saved inputs, or the full suite' }),
+      ]),
+      DECIDE,
+    ] },
+
+  { id: '4', name: 'From a step you drilled into', where: 'arrived via the cost or speed lens', len: '4 screens',
+    states: [
+      screen('ARRIVED', 'Optimize · Draft briefing', 'You got here through the cost lens, so cost is the assumed goal — say so if it isn\u2019t.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing'),
+        fact('GOAL', 'Cost — because you came from the cost view', 'Change it if you\u2019re actually after something else'),
+      ], [act.primary('LOOKS RIGHT'), act.ghost('CHANGE THE GOAL')]),
+      screen('STEP 2 · GUARDRAILS', 'What must not get worse', 'Filled in from where the agent is now.', [
+        row({ k: 'HELD', v: 'Groundedness ≥ 70% · Time ≤ 24.8s' }),
+        row({ k: 'ALWAYS HELD', v: 'Safety checks', note: 'Not editable, at any goal' }),
+      ], [act.primary('CONTINUE'), act.ghost('BACK')]),
+      screen('STEP 3 · SUGGESTIONS', '2 things worth trying here', 'Scoped to this step.', [
+        row({ k: 'BIGGEST', v: 'Carry 5 research chunks instead of 20', note: 'About half the run cost' }),
+        row({ k: 'SMALLER', v: 'Use the mid-tier model here', note: 'Price sheet · about −30%' }),
+      ], [act.primary('TRY THE FIRST'), act.ghost('EDIT A COPY')]),
+      DECIDE,
+    ] },
+
+  { id: '5', name: 'From a score that\u2019s failing', where: 'the evaluations view', len: '4 screens · plus a detour',
+    states: [
+      screen('ARRIVED', 'Optimize · Step efficiency', 'The score you clicked is the goal. What it should touch is the open question.', [
+        fact('GOAL', 'Step efficiency — 62%, floor 70%', 'Graded on run #128'),
+        ask('WHAT SHOULD IT TOUCH?', 'The whole agent · The steps this score covers · One step', 'The steps it covers: Validate, Refine'),
+      ], [act.primary('CONTINUE')], 'ask'),
+      screen('DETOUR · ONLY IF NEEDED', 'That score isn\u2019t being measured yet', 'Appears only when the metric isn\u2019t attached to this agent.', [
+        note('WHY YOU\u2019RE SEEING THIS', 'Nothing can be compared against a score that has never been measured.'),
+        row({ k: 'WHAT HAPPENS', v: 'Attach it, grade run #128, come back here', note: 'About 20 seconds and a few cents' }),
+      ], [act.primary('ATTACH AND GRADE'), act.ghost('PICK A DIFFERENT GOAL')]),
+      screen('STEP 3 · SUGGESTIONS', '1 thing worth trying', 'From what the score said, not from cost or timing.', [
+        row({ k: 'FROM THE SCORE', v: 'Fold the three checks into one validation pass', note: 'Each pass caught one rule — disclosure, figures, tone. Saying all three up front should end it in one.' }),
+      ], [act.primary('TRY IT'), act.ghost('EDIT A COPY')]),
+      DECIDE,
+    ] },
+
+  { id: '6', name: 'From a blue flag on a step', where: 'the run detail', len: '2 screens',
+    states: [
+      compareDrafted('The flag already named the problem, the goal and the fix — so this opens ready to measure.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing'),
+        fact('GOAL', 'Cost', 'Groundedness, time and safety held'),
+        diff('THE CHANGE', 'Retrieve research · chunks 20 → 5', 'From the flag: cited 3 of 20 chunks'),
+        row({ k: 'MEASURE IT ON', v: 'Run #128\u2019s input', note: 'A few cents, a few seconds' }),
+      ]),
+      screen('STEP 3 · RESULT', 'Cheaper, and nothing else moved', 'Measured against run #128\u2019s input.', RESULTS_ROWS,
+        [act.primary('ACCEPT'), act.ghost('RUN THE FULL SUITE'), act.quiet('Dismiss')]),
+    ] },
+
+  { id: '7', name: 'From a resource\u2019s card', where: 'a model, tool or knowledge source', len: '2 screens',
+    states: [
+      compareDrafted('You were looking at the tool\u2019s track record, so the fix is drafted from its config.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'getClientProfile — used by 1 step', 'Named explicitly, because \u201Cthe steps that use it\u201D can be wrong'),
+        fact('GOAL', 'Reliability', 'Cost, time and quality held'),
+        diff('THE CHANGE', 'Timeout 2s → 5s · retries 2 → 2', 'Retried in 4 of the last 10 runs; run #127 failed on it'),
+        row({ k: 'MEASURE IT ON', v: 'The 4 inputs where it retried', note: 'The failures are the point — one clean run proves nothing here' }),
+      ]),
+      screen('STEP 3 · RESULT', 'No retries across the 4', 'Ran each of the previously failing inputs three times.', [
+        res('RELIABILITY · WHAT YOU ASKED FOR', '4 retries → 0', 'clean', GRN),
+        res('WORST-CASE TIME', '24.8s → 26.0s', 'within limit'),
+        res('COST', 'unchanged', 'holds'),
+        row({ k: 'THE TRADE', v: 'Slower when the tool is slow, in exchange for not failing', note: 'Recorded on the change so the next person sees why', bg: 'var(--fusion-amber-100)', kColor: AMB }),
+      ], [act.primary('ACCEPT'), act.ghost('RUN THE FULL SUITE'), act.quiet('Dismiss')]),
+    ] },
+
+  { id: '8', name: 'From something on the agent\u2019s overview', where: 'later — the attention list', len: '2 screens',
+    states: [
+      compareDrafted('The overview item carries its own evidence, so it arrives the same way a flag does.', [
+        fact('WHAT YOU\u2019RE CHANGING', 'Draft briefing'),
+        fact('GOAL', 'Cost — it\u2019s been climbing for 3 versions', 'From the overview item'),
+        diff('THE CHANGE', 'Retrieve research · chunks 20 → 5', 'Same waste, seen across runs rather than in one'),
+        row({ k: 'MEASURE IT ON', v: 'The full suite', note: 'The claim is about a trend, so one input won\u2019t settle it' }),
+      ]),
+      screen('STEP 3 · RESULT', 'Cheaper across all 12 cases', 'Full suite against the pinned baseline.', [
+        res('COST · WHAT YOU ASKED FOR', '$0.29 avg → $0.12 avg', '−59%', GRN),
+        res('GROUNDEDNESS', '73% avg → 74% avg', 'holds'),
+        res('CASES PASSED', '12 of 12 → 12 of 12', 'holds'),
+        row({ k: 'HOW SURE', v: 'Proven. Full suite, 12 cases.', note: 'The only level that earns that word', bg: 'var(--fusion-green-100)', kColor: GRN }),
+      ], [act.primary('ACCEPT'), act.quiet('Dismiss')]),
+    ] },
+];
+
+class Component extends DCLogic {
+  renderVals() { return { journeys: JOURNEYS }; }
+}
+</script>
+</body>
+</html>

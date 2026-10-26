@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+/* ====== fusion-tokens.css (inlined per skill instruction) ====== */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+:root {
+  --fusion-navy-900: #12335B; --fusion-navy-800: #1E4E79;
+  --fusion-blue-700: #1B5EA6; --fusion-blue-600: #2166B1; --fusion-blue-500: #3C7DC0;
+  --fusion-blue-100: #E3EAF6; --fusion-blue-50: #F0F5FB;
+  --fusion-ink: #1A1F26; --fusion-text-secondary: #5B6470; --fusion-text-muted: #8A93A0;
+  --fusion-border: #E4E7EC; --fusion-border-strong: #C9CFD8;
+  --fusion-surface: #FFFFFF; --fusion-bg: #F7F8FA; --fusion-bg-subtle: #FBFCFD;
+  --fusion-green-600: #12805C; --fusion-green-100: #E4F3EC;
+  --fusion-amber-600: #B25E09; --fusion-amber-100: #FBEFDD;
+  --fusion-red-600: #B42318; --fusion-red-100: #FBE9E7;
+  --fusion-lilac-100: #F0E7F8; --fusion-purple-600: #7A4FBF;
+  --fusion-olive-100: #EEEEDA; --fusion-olive-600: #6B7238;
+  --fusion-font: "Source Sans 3", "Source Sans Pro", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --fusion-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --fusion-font-wordmark: "Source Serif 4", Georgia, serif;
+  --fusion-radius-sm: 6px; --fusion-radius-md: 10px; --fusion-radius-lg: 14px; --fusion-radius-full: 999px;
+  --fusion-shadow-search: 0 6px 24px rgba(20,40,70,.08), 0 1px 3px rgba(20,40,70,.06);
+  --fusion-shadow-panel: -8px 0 28px rgba(20,40,70,.10);
+  --fusion-shadow-pop: 0 8px 28px rgba(20,40,70,.12);
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: var(--fusion-surface); -webkit-font-smoothing: antialiased; overflow: hidden; }
+h1,h2,h3,h4 { margin: 0; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+code { font-family: var(--fusion-font-mono); }
+button { font-family: inherit; cursor: pointer; }
+input, textarea, select { font-family: inherit; }
+/* Group-hover rules — impossible inline; item-card hover recipe (border-strong + blue name + actions fade in) */
+.fu-card:hover { border-color: var(--fusion-border-strong) !important; }
+.fu-card:hover .fu-name { color: var(--fusion-blue-600); }
+.fu-card:hover .fu-acts { opacity: 1; }
+@keyframes f-typing { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+@keyframes f-slide-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes f-toast-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes f-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fu-edge-pulse { 0%, 40% { background: var(--fusion-blue-500); } 100% { background: var(--fusion-border-strong); } }
+@keyframes fu-card-pulse { 0% { box-shadow: 0 0 0 0 rgba(27,94,166,.35); } 100% { box-shadow: 0 0 0 10px rgba(27,94,166,0); } }
+</style>
+</helmet>
+
+<div style="height:100vh; display:flex; flex-direction:column; overflow:hidden; background:var(--fusion-bg);">
+
+  <!-- ================= TOP BAR — derived from Fusion app header ================= -->
+  <header style="height:64px; flex:none; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 20px; position:relative; z-index:40;">
+    <div style="display:flex; align-items:center; gap:8px; min-width:0; flex:1;">
+      <button onClick="{{ onBackTop }}" aria-label="Back" style="width:38px; height:38px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+      </button>
+      <div style="font-size:18px; font-weight:600; color:var(--fusion-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ systemName }}</div>
+      <button onClick="{{ onRename }}" aria-label="Rename" style="width:32px; height:32px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4L7 21H3v-4L17 3z"></path></svg>
+      </button>
+    </div>
+
+    <!-- New pattern: BUILD/MONITOR segmented toggle — derived from Fusion tabs (blue underline active) adapted into a bordered segmented control -->
+    <div style="display:flex; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden; flex:none;">
+      <button onClick="{{ onBuildTab }}" style="border:none; padding:0 22px; height:40px; font-size:13px; font-weight:{{ buildTabWeight }}; letter-spacing:.06em; color:{{ buildTabColor }}; background:{{ buildTabBg }}; box-shadow:{{ buildTabShadow }};">BUILD</button>
+      <button onClick="{{ onMonitorTab }}" style="border:none; border-left:1px solid var(--fusion-border); padding:0 22px; height:40px; font-size:13px; font-weight:{{ monitorTabWeight }}; letter-spacing:.06em; color:{{ monitorTabColor }}; background:{{ monitorTabBg }}; box-shadow:{{ monitorTabShadow }};">MONITOR</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:12px; flex:1; justify-content:flex-end;">
+      <!-- Global search affordance — derived from header search + Ctrl-K hint chip -->
+      <button onClick="{{ onOpenCmdk }}" style="display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 8px 0 12px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); color:var(--fusion-text-secondary); font-size:13.5px;" style-hover="background:var(--fusion-blue-50);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        Search
+        <span style="font-size:12px; font-weight:600; color:var(--fusion-text-secondary); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); padding:2px 6px;">⌘K</span>
+      </button>
+      <button onClick="{{ onMore }}" style="display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 14px; border:none; border-radius:var(--fusion-radius-full); background:#EFF1F4; color:var(--fusion-ink); font-size:13px; font-weight:600; letter-spacing:.05em;" style-hover="background:var(--fusion-border);">MORE
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <span style="display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; letter-spacing:.05em; color:var(--fusion-green-600); background:var(--fusion-green-100); border-radius:var(--fusion-radius-full); padding:7px 14px;">
+        <span style="width:8px; height:8px; border-radius:50%; background:var(--fusion-green-600); display:inline-block;"></span>HEALTHY</span>
+      <button onClick="{{ onBuildAndTest }}" style="display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 18px; border:1px solid transparent; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:13.5px; font-weight:600; letter-spacing:.05em; transition:background .15s ease-out;" style-hover="background:var(--fusion-navy-800);">BUILD AND TEST</button>
+    </div>
+  </header>
+
+  <!-- ================= BODY GRID ================= -->
+  <div style="flex:1; min-height:0; display:grid; grid-template-columns:{{ gridCols }};">
+
+    <!-- ═══════════ REGION 1 — CONFIGURE ═══════════ -->
+    <aside style="background:var(--fusion-surface); border-right:1px solid var(--fusion-border); min-height:0; display:flex; flex-direction:column; position:relative;">
+
+      <sc-if value="{{ leftCollapsed }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 0;">
+          <button onClick="{{ onToggleLeft }}" aria-label="Expand panel" style="width:34px; height:34px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-md); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+          <div style="width:24px; border-top:1px solid var(--fusion-border); margin:4px 0;"></div>
+          <sc-for list="{{ railIcons }}" as="ri" hint-placeholder-count="6">
+            <button onClick="{{ ri.onClick }}" title="{{ ri.name }}" style="width:34px; height:34px; display:grid; place-items:center; background:transparent; border:none; border-radius:8px; color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-blue-50);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ri.d }}"></path></svg>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ leftExpanded }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column;">
+
+          <!-- Root header -->
+          <sc-if value="{{ isRootView }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:20px 20px 0; display:flex; align-items:center; justify-content:space-between;">
+              <h2 style="font-size:22px; font-weight:600;">Components</h2>
+              <button onClick="{{ onToggleLeft }}" aria-label="Collapse panel" style="width:32px; height:32px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+              </button>
+            </div>
+          </sc-if>
+
+          <!-- Drill header: back + title + count -->
+          <sc-if value="{{ isDrillView }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 20px 0; display:flex; align-items:center; justify-content:space-between;">
+              <button onClick="{{ onBackToRoot }}" style="display:inline-flex; align-items:center; gap:6px; background:none; border:none; padding:0; font-size:16px; font-weight:600; color:var(--fusion-ink);" style-hover="color:var(--fusion-blue-600);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+                {{ drillTitle }} <span style="font-weight:600; color:var(--fusion-text-muted); letter-spacing:0;">({{ drillCount }})</span>
+              </button>
+              <button onClick="{{ onToggleLeft }}" aria-label="Collapse panel" style="width:32px; height:32px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+              </button>
+            </div>
+          </sc-if>
+
+          <!-- Unified search field — header-search pattern; scope chip when drilled in -->
+          <div style="padding:14px 20px 4px;">
+            <div style="display:flex; align-items:center; gap:8px; min-height:44px; padding:0 12px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-lg);">
+              <svg style="flex:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+              <sc-if value="{{ hasScopeChip }}" hint-placeholder-val="{{ false }}">
+                <!-- New pattern: in-field scope chip — derived from status pill badge + close affordance -->
+                <span style="flex:none; display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; background:var(--fusion-blue-100); color:var(--fusion-blue-700); border-radius:var(--fusion-radius-sm); padding:3px 4px 3px 8px; white-space:nowrap;">{{ scopeChipLabel }}
+                  <button onClick="{{ onClearScope }}" aria-label="Search everything" style="width:16px; height:16px; display:grid; place-items:center; background:none; border:none; padding:0; color:inherit; border-radius:3px;" style-hover="background:rgba(27,94,166,.15);">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                  </button>
+                </span>
+              </sc-if>
+              <input value="{{ panelQuery }}" onInput="{{ onPanelInput }}" placeholder="{{ panelPlaceholder }}" style="flex:1; border:none; outline:none; font-size:14px; color:var(--fusion-ink); background:transparent; min-width:0; height:42px;">
+              <sc-if value="{{ panelSearching }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ onClearQuery }}" aria-label="Clear" style="flex:none; width:24px; height:24px; display:grid; place-items:center; background:none; border:none; color:var(--fusion-text-muted); border-radius:var(--fusion-radius-sm);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                </button>
+              </sc-if>
+            </div>
+          </div>
+
+          <!-- ============ PANEL SEARCH RESULTS (unified search, panel entry point) ============ -->
+          <sc-if value="{{ panelSearching }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:8px 12px 24px; display:flex; flex-direction:column; gap:4px;">
+              <sc-for list="{{ panelResults }}" as="grp" hint-placeholder-count="2">
+                <div style="display:flex; flex-direction:column; gap:2px; padding-bottom:10px;">
+                  <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); padding:8px 8px 4px;">{{ grp.eyebrow }}</div>
+                  <sc-for list="{{ grp.items }}" as="r" hint-placeholder-count="3">
+                    <div onClick="{{ r.onClick }}" title="{{ r.tooltip }}" style="display:flex; align-items:flex-start; gap:10px; padding:8px; border-radius:var(--fusion-radius-md); cursor:pointer; opacity:{{ r.opacity }};" style-hover="background:var(--fusion-blue-50);">
+                      <span style="width:28px; height:28px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ r.chipBg }}; color:{{ r.chipColor }};">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.iconD }}"></path></svg>
+                      </span>
+                      <span style="flex:1; min-width:0;">
+                        <span style="display:flex; align-items:center; gap:6px;">
+                          <span style="font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.name }}</span>
+                          <sc-for list="{{ r.badges }}" as="b" hint-placeholder-count="1">
+                            <span style="flex:none; display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:600; letter-spacing:.03em; border-radius:var(--fusion-radius-sm); padding:2px 6px; background:{{ b.bg }}; color:{{ b.color }};">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+                          </sc-for>
+                        </span>
+                        <span style="display:block; font-size:12.5px; color:var(--fusion-text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.desc }}</span>
+                        <sc-if value="{{ r.hasWhy }}" hint-placeholder-val="{{ false }}">
+                          <span style="display:block; font-size:12px; color:var(--fusion-text-muted);">{{ r.why }}</span>
+                        </sc-if>
+                      </span>
+                      <button onClick="{{ r.onInfo }}" aria-label="Details" style="flex:none; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-blue-100); color:var(--fusion-blue-700);">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+                      </button>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ grp.hasViewAll }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ grp.onViewAll }}" style="align-self:flex-start; background:none; border:none; padding:4px 8px; font-size:13px; font-weight:600; color:var(--fusion-blue-600);" style-hover="color:var(--fusion-blue-500);">{{ grp.viewAllLabel }}</button>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ panelZero }}" hint-placeholder-val="{{ false }}">
+                <!-- Zero results — empty-state recipe; never a dead end -->
+                <div style="margin:12px 8px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); padding:28px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;">
+                  <span style="width:48px; height:48px; border-radius:12px; display:grid; place-items:center; background:var(--fusion-blue-100); color:var(--fusion-blue-600);">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                  </span>
+                  <div style="font-size:16px; font-weight:700;">No components match "{{ panelQuery }}"</div>
+                  <div style="font-size:13.5px; color:var(--fusion-text-secondary);">Try different words, or let AI Builder find it.</div>
+                  <div style="display:flex; gap:8px; margin-top:4px;">
+                    <button onClick="{{ onAskAI }}" style="display:inline-flex; align-items:center; gap:7px; height:36px; padding:0 14px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:13.5px; font-weight:600;" style-hover="background:var(--fusion-blue-50);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+                      Ask AI Builder</button>
+                    <button onClick="{{ onBrowseAll }}" style="height:36px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:#EFF1F4; color:var(--fusion-ink); font-size:13.5px; font-weight:600;" style-hover="background:var(--fusion-border);">Browse categories</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ============ ROOT VIEW ============ -->
+          <sc-if value="{{ showRootContent }}" hint-placeholder-val="{{ true }}">
+            <p style="margin:6px 20px 8px; font-size:14px; line-height:1.5; color:var(--fusion-text-secondary);">Choose a component category to explore available building blocks.</p>
+            <nav style="display:flex; flex-direction:column; gap:2px; padding:4px 12px 8px;">
+              <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="6">
+                <button onClick="{{ cat.onClick }}" style="display:flex; align-items:center; gap:12px; text-align:left; background:none; border:none; border-radius:var(--fusion-radius-md); padding:10px 10px; width:100%;" style-hover="background:var(--fusion-blue-50);">
+                  <span style="width:32px; height:32px; flex:none; border-radius:8px; display:grid; place-items:center; background:{{ cat.chipBg }}; color:{{ cat.chipColor }};">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ cat.d }}"></path></svg>
+                  </span>
+                  <span style="flex:1; min-width:0;">
+                    <span style="display:block; font-size:15px; font-weight:600; color:var(--fusion-ink);">{{ cat.name }}</span>
+                    <span style="display:block; font-size:13px; color:var(--fusion-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ cat.desc }}</span>
+                  </span>
+                  <span style="flex:none; font-size:12px; font-weight:600; color:var(--fusion-text-muted); background:var(--fusion-bg); border-radius:var(--fusion-radius-full); padding:2px 9px;">{{ cat.count }}</span>
+                  <svg style="flex:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+                </button>
+              </sc-for>
+            </nav>
+            <sc-if value="{{ hasRecents }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:10px 20px 20px;">
+                <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); padding-bottom:6px; border-top:1px solid var(--fusion-border); padding-top:14px;">Recently used</div>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                  <sc-for list="{{ recentRows }}" as="rr" hint-placeholder-count="2">
+                    <div onClick="{{ rr.onClick }}" title="Click to add" style="display:flex; align-items:center; gap:10px; padding:7px 8px; margin:0 -8px; border-radius:var(--fusion-radius-md); cursor:pointer;" style-hover="background:var(--fusion-blue-50);">
+                      <span style="width:26px; height:26px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ rr.chipBg }}; color:{{ rr.chipColor }};">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ rr.iconD }}"></path></svg>
+                      </span>
+                      <span style="flex:1; min-width:0; font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ rr.name }}</span>
+                      <span style="flex:none; font-size:12px; color:var(--fusion-text-muted);">{{ rr.sub }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <!-- ============ AGENTS / MODELS DRILL: item card list ============ -->
+          <sc-if value="{{ showCardList }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:8px 20px 24px; display:flex; flex-direction:column; gap:10px;">
+              <sc-if value="{{ isAgentsView }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted);">Core</div>
+                  <div style="font-size:13px; color:var(--fusion-text-secondary); margin-top:4px;">Foundation agents maintained by the Fusion platform team.</div>
+                </div>
+              </sc-if>
+              <sc-for list="{{ cardListItems }}" as="it" hint-placeholder-count="4">
+                <!-- Item card — derived from entity card: no top-accent (palette item), 16px padding, hover = border-strong + blue name + actions fade in -->
+                <div class="fu-card" draggable="{{ it.draggable }}" onDragStart="{{ it.onDragStart }}" title="{{ it.tooltip }}" style="background:var(--fusion-surface); border:1px solid {{ it.borderColor }}; box-shadow:{{ it.ring }}; border-radius:var(--fusion-radius-lg); padding:16px; display:flex; flex-direction:column; gap:7px; cursor:{{ it.cursor }}; opacity:{{ it.opacity }}; transition:border-color .15s ease-out, box-shadow .15s ease-out;">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <sc-if value="{{ it.hasCheck }}" hint-placeholder-val="{{ false }}">
+                      <input type="checkbox" checked="{{ it.checked }}" onChange="{{ it.onCheck }}" style="width:16px; height:16px; flex:none; accent-color:var(--fusion-blue-700); margin:0;">
+                    </sc-if>
+                    <span style="width:28px; height:28px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ it.chipBg }}; color:{{ it.chipColor }};">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ it.iconD }}"></path></svg>
+                    </span>
+                    <span class="fu-name" style="flex:1; min-width:0; font-size:15px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:color .15s ease-out;">{{ it.name }}</span>
+                    <span style="flex:none; display:flex; gap:5px;">
+                      <sc-for list="{{ it.badges }}" as="b" hint-placeholder-count="2">
+                        <span title="{{ b.title }}" style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:600; letter-spacing:.03em; border-radius:var(--fusion-radius-sm); padding:3px 7px; background:{{ b.bg }}; color:{{ b.color }};">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+                      </sc-for>
+                    </span>
+                  </div>
+                  <div style="font-size:13.5px; line-height:1.5; color:var(--fusion-text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ it.desc }}</div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                    <span style="font-size:12px; color:var(--fusion-text-muted);">{{ it.metaLine }}</span>
+                    <span class="fu-acts" style="display:flex; gap:6px; opacity:0; transition:opacity .15s ease-out;">
+                      <button onClick="{{ it.onInfo }}" style="display:inline-flex; align-items:center; gap:5px; height:28px; padding:0 10px; border:none; border-radius:var(--fusion-radius-sm); background:#EFF1F4; color:var(--fusion-ink); font-size:12.5px; font-weight:600;" style-hover="background:var(--fusion-border);">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+                        Details</button>
+                      <sc-if value="{{ it.addable }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ it.onAdd }}" style="height:28px; padding:0 12px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:12px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-navy-800);">ADD</button>
+                      </sc-if>
+                    </span>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ cardListEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:14px; color:var(--fusion-text-muted); padding:12px 2px;">Nothing matches the current filters.</div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- ============ CONNECTORS & TOOLS DRILL ============ -->
+          <sc-if value="{{ showConnectorsList }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:8px 20px 24px; display:flex; flex-direction:column; gap:10px;">
+              <!-- Filter row: status select + CDO toggle -->
+              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <div style="position:relative; display:inline-flex; align-items:center;">
+                  <select value="{{ statusFilter }}" onChange="{{ onStatusChange }}" aria-label="Status filter" style="appearance:none; -webkit-appearance:none; height:36px; padding:0 30px 0 12px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); font-size:13.5px; font-weight:600; color:var(--fusion-ink); cursor:pointer; outline:none;">
+                    <option value="all">Status: All</option>
+                    <option value="verified">Status: Verified</option>
+                    <option value="unverified">Status: Unverified</option>
+                    <option value="comingSoon">Status: Coming Soon</option>
+                  </select>
+                  <svg style="position:absolute; right:10px; pointer-events:none;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B6470" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </div>
+                <label style="display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; color:var(--fusion-text-secondary); cursor:pointer;">
+                  <button onClick="{{ onCdoToggle }}" role="switch" aria-checked="{{ cdoOnlyStr }}" style="width:38px; height:22px; flex:none; border:none; border-radius:var(--fusion-radius-full); background:{{ cdoToggleBg }}; position:relative; transition:background .15s ease-out; padding:0;">
+                    <span style="position:absolute; top:3px; left:3px; width:16px; height:16px; background:#fff; border-radius:50%; transition:transform .15s ease-out; transform:{{ cdoKnob }}; display:block;"></span>
+                  </button>
+                  Managed by CDO</label>
+              </div>
+              <sc-if value="{{ hasFilterChips }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <sc-for list="{{ filterChips }}" as="fc" hint-placeholder-count="1">
+                    <span style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; background:var(--fusion-blue-50); color:var(--fusion-blue-700); border-radius:var(--fusion-radius-full); padding:4px 6px 4px 10px;">{{ fc.label }}
+                      <button onClick="{{ fc.onClear }}" aria-label="Remove filter" style="width:16px; height:16px; display:grid; place-items:center; background:none; border:none; padding:0; color:inherit; border-radius:50%;" style-hover="background:var(--fusion-blue-100);">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                      </button>
+                    </span>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <!-- Collapsible tool groups — accordion derived from filter-sidebar group + entity-card children -->
+              <div style="display:flex; flex-direction:column;">
+                <sc-for list="{{ toolGroups }}" as="tg" hint-placeholder-count="4">
+                  <div style="border-bottom:1px solid var(--fusion-border);">
+                    <button onClick="{{ tg.onToggle }}" style="display:flex; align-items:center; gap:10px; width:100%; background:none; border:none; padding:13px 4px; text-align:left;" style-hover="background:var(--fusion-bg-subtle);">
+                      <svg style="flex:none; transform:{{ tg.chevRot }}; transition:transform .15s ease-out;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5B6470" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+                      <span style="flex:1; min-width:0;">
+                        <span style="display:block; font-size:15px; font-weight:600;">{{ tg.name }}</span>
+                        <span style="display:block; font-size:12.5px; color:var(--fusion-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ tg.desc }}</span>
+                      </span>
+                      <span style="flex:none; font-size:12px; font-weight:600; color:var(--fusion-text-muted);">{{ tg.count }}</span>
+                      <sc-if value="{{ tg.allVerified }}" hint-placeholder-val="{{ false }}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+                      </sc-if>
+                    </button>
+                    <sc-if value="{{ tg.expanded }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex; flex-direction:column; gap:8px; padding:0 0 14px;">
+                        <label style="display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:var(--fusion-text-secondary); padding:0 4px; cursor:pointer;">
+                          <input type="checkbox" checked="{{ tg.allSelected }}" onChange="{{ tg.onSelectAll }}" style="width:15px; height:15px; accent-color:var(--fusion-blue-700); margin:0;">
+                          Select all</label>
+                        <sc-for list="{{ tg.items }}" as="it" hint-placeholder-count="3">
+                          <div class="fu-card" draggable="{{ it.draggable }}" onDragStart="{{ it.onDragStart }}" title="{{ it.tooltip }}" style="background:var(--fusion-surface); border:1px solid {{ it.borderColor }}; box-shadow:{{ it.ring }}; border-radius:var(--fusion-radius-lg); padding:16px; display:flex; flex-direction:column; gap:7px; cursor:{{ it.cursor }}; opacity:{{ it.opacity }}; transition:border-color .15s ease-out, box-shadow .15s ease-out;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                              <input type="checkbox" checked="{{ it.checked }}" onChange="{{ it.onCheck }}" style="width:16px; height:16px; flex:none; accent-color:var(--fusion-blue-700); margin:0;">
+                              <span style="width:28px; height:28px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ it.chipBg }}; color:{{ it.chipColor }};">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ it.iconD }}"></path></svg>
+                              </span>
+                              <span class="fu-name" style="flex:1; min-width:0; font-size:15px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:color .15s ease-out;">{{ it.name }}</span>
+                              <span style="flex:none; display:flex; gap:5px;">
+                                <sc-for list="{{ it.badges }}" as="b" hint-placeholder-count="2">
+                                  <span title="{{ b.title }}" style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:600; letter-spacing:.03em; border-radius:var(--fusion-radius-sm); padding:3px 7px; background:{{ b.bg }}; color:{{ b.color }};">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+                                </sc-for>
+                              </span>
+                            </div>
+                            <div style="font-size:13.5px; line-height:1.5; color:var(--fusion-text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ it.desc }}</div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                              <span style="font-size:12px; color:var(--fusion-text-muted);">{{ it.metaLine }}</span>
+                              <span class="fu-acts" style="display:flex; gap:6px; opacity:0; transition:opacity .15s ease-out;">
+                                <button onClick="{{ it.onInfo }}" style="display:inline-flex; align-items:center; gap:5px; height:28px; padding:0 10px; border:none; border-radius:var(--fusion-radius-sm); background:#EFF1F4; color:var(--fusion-ink); font-size:12.5px; font-weight:600;" style-hover="background:var(--fusion-border);">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+                                  Details</button>
+                                <sc-if value="{{ it.addable }}" hint-placeholder-val="{{ true }}">
+                                  <button onClick="{{ it.onAdd }}" style="height:28px; padding:0 12px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:12px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-navy-800);">ADD</button>
+                                </sc-if>
+                              </span>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ EMPTY-STATE DRILL (Flow / Guardrails / Knowledge) ============ -->
+          <sc-if value="{{ showCatEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:16px 20px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); padding:40px 24px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;">
+              <span style="width:56px; height:56px; border-radius:12px; display:grid; place-items:center; background:{{ catEmptyChipBg }}; color:{{ catEmptyChipColor }};">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ catEmptyIconD }}"></path></svg>
+              </span>
+              <div style="font-size:18px; font-weight:700;">No {{ drillTitle }} browser yet</div>
+              <div style="font-size:14px; color:var(--fusion-text-secondary); max-width:230px;">These components are searchable today; a full browser arrives in a later phase.</div>
+              <button onClick="{{ onFocusSearch }}" style="margin-top:8px; display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 14px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:14px; font-weight:600;" style-hover="background:var(--fusion-blue-50);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+                Search everything</button>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- Multi-select sticky footer — derived from footer bar + primary/ghost buttons -->
+        <sc-if value="{{ hasMultiSel }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:none; border-top:1px solid var(--fusion-border); background:var(--fusion-surface); padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:13.5px; font-weight:600; color:var(--fusion-ink);">{{ multiCount }} selected</span>
+            <span style="display:flex; gap:8px;">
+              <button onClick="{{ onClearMulti }}" style="height:32px; padding:0 12px; border:none; border-radius:var(--fusion-radius-md); background:#EFF1F4; color:var(--fusion-ink); font-size:12.5px; font-weight:600;" style-hover="background:var(--fusion-border);">Clear</button>
+              <button onClick="{{ onAddAll }}" style="height:32px; padding:0 14px; border:1px solid transparent; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:12.5px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-navy-800);">ADD ALL</button>
+            </span>
+          </div>
+        </sc-if>
+      </sc-if>
+    </aside>
+
+    <!-- ═══════════ REGION 2 — CANVAS ═══════════ -->
+    <main ref="{{ canvasRef }}" onDragOver="{{ onCanvasDragOver }}" onDragLeave="{{ onCanvasDragLeave }}" onDrop="{{ onCanvasDrop }}" onClick="{{ onCanvasClick }}" style="position:relative; min-height:0; overflow:auto; background-color:{{ canvasBg }}; background-image:radial-gradient(var(--fusion-border) 1px, transparent 1px); background-size:24px 24px; transition:background-color .15s ease-out;">
+
+      <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; padding:24px;">
+          <button onClick="{{ onDropTile }}" title="Browse agents" style="width:120px; height:120px; border:2px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-lg); background:none; display:grid; place-items:center; color:var(--fusion-text-muted); transition:border-color .15s ease-out, background .15s ease-out;" style-hover="border-color:var(--fusion-blue-700); background:var(--fusion-blue-50); color:var(--fusion-blue-700);">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
+          </button>
+          <div style="font-size:18px; font-weight:700;">Welcome to Fusion Agent Studio!</div>
+          <div style="font-size:15px; color:var(--fusion-text-secondary); margin-top:-8px;">Add your first agent to start building your agentic system.</div>
+          <button onClick="{{ onStartWithAI }}" style="display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:14px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-blue-50);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+            START WITH AI</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ populated }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; align-items:center; padding:48px 24px 120px; transform:scale({{ zoom }}); transform-origin:top center;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="width:72px; height:72px; border-radius:50%; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); display:grid; place-items:center; color:var(--fusion-blue-700);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l1.8-3.2A8.5 8.5 0 1 1 21 11.5z"></path></svg>
+            </div>
+            <div style="font-size:13px; font-weight:600; color:var(--fusion-text-secondary);">Chat Input</div>
+          </div>
+
+          <sc-for list="{{ chainNodes }}" as="nd" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; align-items:center;">
+              <div style="display:flex; flex-direction:column; align-items:center;">
+                <div style="width:1px; height:16px; background:var(--fusion-border-strong);"></div>
+                <span style="font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--fusion-text-muted); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-full); padding:2px 10px;">Sequence</span>
+                <div style="width:1px; height:16px; background:var(--fusion-border-strong);"></div>
+              </div>
+              <sc-if value="{{ nd.isRootAgent }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--fusion-blue-700); background:var(--fusion-blue-100); border-radius:var(--fusion-radius-full); padding:3px 10px; margin-bottom:6px;">Root Agent</span>
+              </sc-if>
+              <!-- Agent node card — entity card WITH navy top-accent (the entities of this surface) -->
+              <div onClick="{{ nd.onSelect }}" style="width:300px; background:var(--fusion-surface); border:1px solid {{ nd.borderColor }}; border-radius:var(--fusion-radius-lg); box-shadow:{{ nd.ring }}; position:relative; overflow:hidden; padding:24px 20px 16px; cursor:pointer; transition:border-color .15s ease-out, box-shadow .15s ease-out;">
+                <div style="position:absolute; top:0; left:0; right:0; height:4px; background:var(--fusion-navy-800);"></div>
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <svg style="flex:none; color:var(--fusion-blue-700);" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+                  <div style="font-size:16px; font-weight:700; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ nd.name }}</div>
+                </div>
+                <div style="margin-top:8px; font-size:13.5px; line-height:1.5; color:var(--fusion-text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ nd.desc }}</div>
+                <div style="margin-top:14px; display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-size:11.5px; font-weight:600; letter-spacing:.04em; border-radius:var(--fusion-radius-sm); padding:3px 8px; background:var(--fusion-blue-100); color:var(--fusion-blue-600);">LLM</span>
+                  <div style="display:flex; gap:2px; color:var(--fusion-text-muted);">
+                    <button onClick="{{ nd.onRun }}" aria-label="Run" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg></button>
+                    <button onClick="{{ nd.onEdit }}" aria-label="Edit" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4L7 21H3v-4L17 3z"></path></svg></button>
+                    <button onClick="{{ nd.onDelete }}" aria-label="Delete" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-red-100); color:var(--fusion-red-600);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg></button>
+                    <button onClick="{{ nd.onMore }}" aria-label="More" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+                  </div>
+                </div>
+              </div>
+              <!-- Attachment points — caps meta labels + outlined "+" stubs; now open slot-scoped pickers -->
+              <div style="width:300px; display:flex; justify-content:space-between; padding:8px 6px 0;">
+                <sc-for list="{{ nd.slots }}" as="sl" hint-placeholder-count="4">
+                  <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+                    <span style="font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--fusion-text-muted);">{{ sl.label }}</span>
+                    <button onClick="{{ sl.onClick }}" aria-label="Add {{ sl.label }}" style="width:28px; height:28px; display:grid; place-items:center; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted); transition:border-color .15s ease-out;" style-hover="border-color:var(--fusion-blue-700); color:var(--fusion-blue-700);">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>
+                    </button>
+                  </div>
+                </sc-for>
+              </div>
+              <!-- Attached components — mini-card stack (pattern 16 dataset mini-cards); edge pulses blue on add -->
+              <sc-for list="{{ nd.attached }}" as="at" hint-placeholder-count="0">
+                <div style="display:flex; flex-direction:column; align-items:center;">
+                  <div style="width:1px; height:14px; background:var(--fusion-border-strong); animation:{{ at.edgeAnim }};"></div>
+                  <div style="width:240px; display:flex; align-items:center; gap:10px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px 12px; animation:{{ at.cardAnim }};">
+                    <span style="width:26px; height:26px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ at.chipBg }}; color:{{ at.chipColor }};">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ at.iconD }}"></path></svg>
+                    </span>
+                    <span style="flex:1; min-width:0;">
+                      <span style="display:block; font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ at.name }}</span>
+                      <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--fusion-text-muted);">{{ at.slotLabel }}</span>
+                    </span>
+                    <button onClick="{{ at.onRemove }}" aria-label="Remove" style="flex:none; width:24px; height:24px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-red-100); color:var(--fusion-red-600);">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    </button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-for list="{{ freeNodes }}" as="fn" hint-placeholder-count="0">
+        <div onClick="{{ fn.onSelect }}" style="position:absolute; left:{{ fn.x }}px; top:{{ fn.y }}px; width:260px; background:var(--fusion-surface); border:1px solid {{ fn.borderColor }}; box-shadow:{{ fn.ring }}; border-radius:var(--fusion-radius-lg); overflow:hidden; padding:22px 18px 14px; cursor:pointer;">
+        <div style="position:absolute; top:0; left:0; right:0; height:4px; background:var(--fusion-navy-800);"></div>
+        <div style="display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-blue-700);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+          <div style="font-size:15px; font-weight:700; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ fn.name }}</div>
+        </div>
+        <div style="margin-top:6px; font-size:13px; color:var(--fusion-text-secondary); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ fn.desc }}</div>
+        <div style="margin-top:10px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--fusion-text-muted);">Unconnected</div>
+        </div>
+      </sc-for>
+
+      <div style="position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:10px;">
+        <div style="display:flex; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-full); padding:3px; box-shadow:var(--fusion-shadow-search);">
+          <sc-for list="{{ canvasControls }}" as="ctl" hint-placeholder-count="5">
+            <button onClick="{{ ctl.onClick }}" aria-label="{{ ctl.label }}" title="{{ ctl.label }}" style="width:34px; height:34px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ctl.d }}"></path></svg>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ onLoadDemo }}" style="height:32px; padding:0 14px; border:none; border-radius:var(--fusion-radius-full); background:#EFF1F4; color:var(--fusion-text-secondary); font-size:13px; font-weight:600;" style-hover="background:var(--fusion-border); color:var(--fusion-ink);">Load demo graph</button>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ chatClosed }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onStartWithAI }}" style="position:absolute; right:16px; top:16px; display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; border-radius:var(--fusion-radius-full); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:13.5px; font-weight:600; box-shadow:var(--fusion-shadow-search);" style-hover="background:var(--fusion-blue-50);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+          AI Builder</button>
+      </sc-if>
+    </main>
+
+    <!-- ═══════════ REGION 3 — AI BUILDER CHAT ═══════════ -->
+    <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+      <aside style="background:var(--fusion-surface); border-left:1px solid var(--fusion-border); min-height:0; display:flex; flex-direction:column; animation:f-slide-in .24s ease-out;">
+        <div style="flex:none; padding:16px 18px 12px; border-bottom:1px solid var(--fusion-border);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <svg style="flex:none; color:var(--fusion-blue-700);" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+            <div style="font-size:18px; font-weight:700; flex:none;">AI Builder</div>
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--fusion-green-600); flex:none;" title="Active"></span>
+            <div style="flex:1;"></div>
+            <button onClick="{{ onExpandChat }}" aria-label="Expand" style="width:32px; height:32px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>
+            </button>
+            <button onClick="{{ onCloseChat }}" aria-label="Close" style="width:32px; height:32px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            </button>
+          </div>
+          <sc-if value="{{ hasContext }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:6px; font-size:14px; color:var(--fusion-text-secondary);">Agent: <span style="font-weight:600; color:var(--fusion-ink);">{{ contextName }}</span></div>
+          </sc-if>
+        </div>
+
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:18px; display:flex; flex-direction:column; gap:16px;">
+          <sc-if value="{{ chatEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="margin:auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:10px; padding:24px;">
+              <span style="width:48px; height:48px; border-radius:12px; display:grid; place-items:center; background:var(--fusion-blue-100); color:var(--fusion-blue-600);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+              </span>
+              <div style="font-size:15px; font-weight:600;">Chat to build</div>
+              <div style="font-size:13.5px; color:var(--fusion-text-secondary); max-width:260px;">Describe the agentic system you want and AI Builder will assemble it on the canvas.</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showUserMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-end; max-width:85%; background:var(--fusion-bg); border-radius:var(--fusion-radius-lg); padding:12px 16px; font-size:14.5px; line-height:1.5; color:var(--fusion-ink);">{{ userMsgText }}</div>
+          </sc-if>
+
+          <sc-if value="{{ working }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-start; display:flex; align-items:center; gap:12px; padding:4px 2px;">
+              <span style="display:inline-flex; gap:4px;">
+                <span style="width:7px; height:7px; border-radius:50%; background:var(--fusion-text-muted); animation:f-typing 1.2s infinite;"></span>
+                <span style="width:7px; height:7px; border-radius:50%; background:var(--fusion-text-muted); animation:f-typing 1.2s .2s infinite;"></span>
+                <span style="width:7px; height:7px; border-radius:50%; background:var(--fusion-text-muted); animation:f-typing 1.2s .4s infinite;"></span>
+              </span>
+              <button onClick="{{ onPause }}" aria-label="Pause" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 5v14M14 5v14"></path></svg>
+              </button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showSummary }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-start; max-width:95%; display:flex; flex-direction:column; gap:8px;">
+              <div style="font-size:14.5px; line-height:1.6; color:var(--fusion-ink);">I've assembled a three-agent sequence on the canvas. <strong>FeedbackAnalyzer</strong> (root agent) ingests raw user feedback and classifies it into themes, <strong>RecommendationGenerator</strong> turns those themes into ranked recommendations, and <strong>ActionPlanPrioritizer</strong> sequences them into an actionable plan. Review the graph, then run a test when you're ready.</div>
+              <div style="display:flex; gap:2px; color:var(--fusion-text-muted);">
+                <button onClick="{{ onCopyMsg }}" aria-label="Copy" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg></button>
+                <button onClick="{{ onDownloadMsg }}" aria-label="Download" style="width:28px; height:28px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:inherit;" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 11l6 6 6-6M4 21h16"></path></svg></button>
+              </div>
+              <div style="border-top:1px solid var(--fusion-border); margin-top:6px;">
+                <button onClick="{{ onToggleInfo }}" style="display:flex; align-items:center; justify-content:space-between; width:100%; background:none; border:none; padding:10px 2px; font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted);" style-hover="color:var(--fusion-ink);">
+                  Information
+                  <svg style="transform:{{ infoChevRot }}; transition:transform .15s ease-out;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </button>
+                <sc-if value="{{ infoOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; align-items:center; gap:8px; padding:2px 2px 12px; font-size:14px; color:var(--fusion-green-600); font-weight:600;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+                    Agent created</div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showCallout }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:none; background:var(--fusion-blue-50); border-radius:var(--fusion-radius-md); padding:14px 16px; position:relative;">
+              <button onClick="{{ onDismissCallout }}" aria-label="Dismiss" style="position:absolute; top:8px; right:8px; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-blue-100); color:var(--fusion-ink);">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+              </button>
+              <div style="font-size:15px; font-weight:600; color:var(--fusion-blue-700);">Ready to test?</div>
+              <div style="font-size:13.5px; color:var(--fusion-text-secondary); margin:4px 0 12px;">Run a conversation against this system to see how the agents hand off.</div>
+              <button onClick="{{ onTestAgent }}" style="display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 14px; border:1px solid transparent; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:13px; font-weight:600; letter-spacing:.05em;" style-hover="background:var(--fusion-navy-800);">TEST AGENT</button>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:none; border-top:1px solid var(--fusion-border); padding:12px 16px 10px; display:flex; flex-direction:column; gap:8px; position:relative;">
+          <sc-if value="{{ modeOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; bottom:96px; left:16px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); box-shadow:var(--fusion-shadow-pop); padding:6px; z-index:10; min-width:180px;">
+              <button onClick="{{ onPickBuild }}" style="display:flex; align-items:center; gap:8px; width:100%; background:none; border:none; border-radius:var(--fusion-radius-sm); padding:9px 10px; font-size:14px; font-weight:600; text-align:left; color:var(--fusion-ink);" style-hover="background:var(--fusion-blue-50);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4L7 21H3v-4L17 3z"></path></svg>
+                Build</button>
+              <div title="Coming soon" style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 10px; font-size:14px; color:var(--fusion-text-muted); opacity:.7; cursor:default;">
+                <span style="display:flex; align-items:center; gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg> Test</span>
+                <span style="font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase;">Soon</span>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display:flex; align-items:flex-end; gap:10px;">
+            <button onClick="{{ onToggleMode }}" style="flex:none; display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 12px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); font-size:13.5px; font-weight:600; color:var(--fusion-ink);" style-hover="background:var(--fusion-blue-50);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4L7 21H3v-4L17 3z"></path></svg>
+              Build
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            </button>
+            <textarea ref="{{ composerRef }}" value="{{ composerValue }}" onInput="{{ onComposerInput }}" onKeyDown="{{ onComposerKey }}" disabled="{{ working }}" placeholder="{{ composerPlaceholder }}" rows="{{ 1 }}" style="flex:1; min-height:44px; max-height:120px; resize:none; padding:11px 14px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md); font-size:14.5px; line-height:1.45; color:var(--fusion-ink); outline:none; background:{{ composerBg }};" style-focus="border-color:var(--fusion-blue-700); box-shadow:0 0 0 3px var(--fusion-blue-50);"></textarea>
+            <button onClick="{{ onSend }}" disabled="{{ working }}" aria-label="Send" style="flex:none; width:42px; height:42px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-blue-100); color:var(--fusion-blue-700); display:grid; place-items:center; transition:background .15s ease-out; opacity:{{ sendOpacity }};" style-hover="background:#D3E0F2;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+            </button>
+          </div>
+          <div style="font-size:12.5px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </aside>
+    </sc-if>
+  </div>
+
+  <!-- ================= FOOTER BAR ================= -->
+  <footer style="height:52px; flex:none; background:var(--fusion-surface); border-top:1px solid var(--fusion-border); display:flex; align-items:center; justify-content:space-between; padding:0 20px; position:relative; z-index:40;">
+    <div style="display:flex; align-items:center; gap:8px; font-size:14px; color:var(--fusion-text-secondary); visibility:{{ dirtyVisibility }};">
+      <span style="width:8px; height:8px; border-radius:50%; background:var(--fusion-amber-600); display:inline-block;"></span>
+      Unsaved changes
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button onClick="{{ onCancel }}" style="height:36px; padding:0 16px; border:none; border-radius:var(--fusion-radius-md); background:#EFF1F4; color:var(--fusion-ink); font-size:13.5px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-border);">CANCEL</button>
+      <button onClick="{{ onSave }}" style="height:36px; padding:0 20px; border:1px solid transparent; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:13.5px; font-weight:600; letter-spacing:.04em; transition:background .15s ease-out;" style-hover="background:var(--fusion-navy-800);">SAVE</button>
+    </div>
+  </footer>
+
+  <!-- ================= SLOT PICKER POPOVER — derived from details slide-in panel + header search, anchored to the slot ================= -->
+  <sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onClosePicker }}" style="position:fixed; inset:0; z-index:120;"></div>
+    <div style="position:fixed; left:{{ pickerX }}px; top:{{ pickerY }}px; z-index:121; width:380px; max-height:480px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:var(--fusion-shadow-pop); display:flex; flex-direction:column; overflow:hidden; animation:f-toast-in .15s ease-out;">
+      <div style="flex:none; padding:12px 14px 10px; border-bottom:1px solid var(--fusion-border);">
+        <div style="display:flex; align-items:center; gap:8px; min-height:40px; padding:0 10px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-md);">
+          <svg style="flex:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <span style="flex:none; display:inline-flex; align-items:center; font-size:11.5px; font-weight:600; background:var(--fusion-blue-100); color:var(--fusion-blue-700); border-radius:var(--fusion-radius-sm); padding:3px 8px; white-space:nowrap;">{{ pickerScopeLabel }}</span>
+          <input value="{{ pickerQuery }}" onInput="{{ onPickerInput }}" autoFocus="{{ true }}" placeholder="Search…" style="flex:1; border:none; outline:none; font-size:13.5px; color:var(--fusion-ink); background:transparent; min-width:0; height:38px;">
+        </div>
+        <div style="margin-top:6px; font-size:12px; color:var(--fusion-text-muted);">Adding to <span style="font-weight:600; color:var(--fusion-text-secondary);">{{ pickerNodeName }}</span></div>
+      </div>
+      <div style="flex:1; min-height:0; overflow-y:auto; padding:8px;">
+        <sc-for list="{{ pickerGroups }}" as="pg" hint-placeholder-count="2">
+          <div style="display:flex; flex-direction:column; gap:2px; padding-bottom:8px;">
+            <div style="font-size:11px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); padding:6px 8px 3px;">{{ pg.eyebrow }}</div>
+            <sc-for list="{{ pg.items }}" as="r" hint-placeholder-count="3">
+              <div onClick="{{ r.onClick }}" title="{{ r.tooltip }}" style="display:flex; align-items:flex-start; gap:10px; padding:7px 8px; border-radius:var(--fusion-radius-md); cursor:pointer; opacity:{{ r.opacity }};" style-hover="background:var(--fusion-blue-50);">
+                <span style="width:26px; height:26px; flex:none; border-radius:7px; display:grid; place-items:center; background:{{ r.chipBg }}; color:{{ r.chipColor }};">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.iconD }}"></path></svg>
+                </span>
+                <span style="flex:1; min-width:0;">
+                  <span style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.name }}</span>
+                    <sc-for list="{{ r.badges }}" as="b" hint-placeholder-count="1">
+                      <span style="flex:none; display:inline-flex; align-items:center; gap:3px; font-size:10px; font-weight:600; border-radius:var(--fusion-radius-sm); padding:2px 5px; background:{{ b.bg }}; color:{{ b.color }};">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+                    </sc-for>
+                  </span>
+                  <span style="display:block; font-size:12px; color:var(--fusion-text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.desc }}</span>
+                </span>
+                <button onClick="{{ r.onInfo }}" aria-label="Details" style="flex:none; width:24px; height:24px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-blue-100); color:var(--fusion-blue-700);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+        <sc-if value="{{ pickerZero }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:20px 12px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px;">
+            <div style="font-size:14px; font-weight:600;">No matches for "{{ pickerQuery }}"</div>
+            <button onClick="{{ onAskAIPicker }}" style="display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:12.5px; font-weight:600;" style-hover="background:var(--fusion-blue-50);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+              Ask AI Builder</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= DETAILS FLYOUT — right slide-in panel (pattern 16) ================= -->
+  <sc-if value="{{ detailsOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseDetails }}" style="position:fixed; inset:0; z-index:130; background:rgba(18,31,48,.20); animation:f-fade-in .15s ease-out;"></div>
+    <div style="position:fixed; top:64px; right:0; bottom:52px; width:440px; max-width:92vw; z-index:131; background:var(--fusion-surface); box-shadow:var(--fusion-shadow-panel); display:flex; flex-direction:column; animation:f-slide-in .24s ease-out;">
+      <div style="flex:none; padding:24px 24px 16px; border-bottom:1px solid var(--fusion-border); position:relative;">
+        <button onClick="{{ onCloseDetails }}" aria-label="Close" style="position:absolute; top:16px; right:16px; width:34px; height:34px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-full); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+        <div style="display:flex; align-items:center; gap:12px; padding-right:36px;">
+          <span style="width:44px; height:44px; flex:none; border-radius:11px; display:grid; place-items:center; background:{{ detChipBg }}; color:{{ detChipColor }};">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ detIconD }}"></path></svg>
+          </span>
+          <div style="min-width:0;">
+            <div style="font-size:20px; font-weight:700;">{{ detName }}</div>
+            <div style="display:flex; gap:5px; margin-top:5px; flex-wrap:wrap;">
+              <sc-for list="{{ detBadges }}" as="b" hint-placeholder-count="2">
+                <span style="display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; letter-spacing:.03em; border-radius:var(--fusion-radius-sm); padding:3px 8px; background:{{ b.bg }}; color:{{ b.color }};">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1; min-height:0; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:20px;">
+        <p style="margin:0; font-size:15px; line-height:1.6; color:var(--fusion-text-secondary);">{{ detDesc }}</p>
+        <div>
+          <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); margin-bottom:10px;">What it needs / what it returns</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; gap:12px; font-size:14px;"><span style="flex:none; width:64px; color:var(--fusion-text-secondary);">Input</span><span style="font-weight:600;">{{ detInput }}</span></div>
+            <div style="display:flex; gap:12px; font-size:14px;"><span style="flex:none; width:64px; color:var(--fusion-text-secondary);">Output</span><span style="font-weight:600;">{{ detOutput }}</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); margin-bottom:8px;">Example use</div>
+          <div style="font-size:14px; font-style:italic; color:var(--fusion-text-secondary); line-height:1.55;">{{ detExample }}</div>
+        </div>
+        <!-- Governance block — inline-alert recipe (tint fill, status text/icon, no border) -->
+        <sc-if value="{{ detShowUnmanaged }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--fusion-amber-100); border-radius:var(--fusion-radius-md); padding:14px 16px; display:flex; gap:10px;">
+            <svg style="flex:none; color:var(--fusion-amber-600); margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+            <div style="font-size:13.5px; line-height:1.5; color:var(--fusion-amber-600);"><span style="font-weight:600;">Not managed by the CDO.</span> Your agent can use this tool, but its outputs aren't governance-reviewed.</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ detShowLock }}" hint-placeholder-val="{{ false }}">
+          <!-- Blocked-state legend — inline alert (blue tint) + outlined request action -->
+          <div style="background:var(--fusion-blue-50); border-radius:var(--fusion-radius-md); padding:14px 16px; display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; gap:10px;">
+              <svg style="flex:none; color:var(--fusion-blue-700); margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h12v9H6zM9 11V7a3 3 0 0 1 6 0v4"></path></svg>
+              <div style="font-size:13.5px; line-height:1.5; color:var(--fusion-blue-700);"><span style="font-weight:600;">Requires access.</span> {{ detLockReason }} You can read everything about it now; adding it is enabled once access is granted.</div>
+            </div>
+            <button onClick="{{ onRequestAccess }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 14px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:13px; font-weight:600;" style-hover="background:var(--fusion-blue-100);">Request access</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ detShowSoon }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#EFF1F4; border-radius:var(--fusion-radius-md); padding:14px 16px; display:flex; gap:10px;">
+            <svg style="flex:none; color:var(--fusion-text-secondary); margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+            <div style="font-size:13.5px; line-height:1.5; color:var(--fusion-text-secondary);"><span style="font-weight:600;">Planned — not yet available.</span> This component is on the platform roadmap and can't be added yet.</div>
+          </div>
+        </sc-if>
+      </div>
+      <div style="flex:none; border-top:1px solid var(--fusion-border); padding:14px 24px; display:flex; justify-content:flex-end; gap:10px;">
+        <button onClick="{{ onCloseDetails }}" style="height:40px; padding:0 16px; border:none; border-radius:var(--fusion-radius-md); background:#EFF1F4; color:var(--fusion-ink); font-size:14px; font-weight:600;" style-hover="background:var(--fusion-border);">Close</button>
+        <sc-if value="{{ detAddable }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ onAddFromDetails }}" style="height:40px; padding:0 18px; border:1px solid transparent; border-radius:var(--fusion-radius-md); background:var(--fusion-blue-700); color:#fff; font-size:13.5px; font-weight:600; letter-spacing:.04em;" style-hover="background:var(--fusion-navy-800);">ADD TO CANVAS</button>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= ⌘K OVERLAY — command palette derived from hero search pill on a light scrim ================= -->
+  <sc-if value="{{ cmdkOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseCmdk }}" style="position:fixed; inset:0; z-index:200; background:rgba(18,31,48,.30); animation:f-fade-in .15s ease-out;"></div>
+    <div style="position:fixed; top:12vh; left:50%; transform:translateX(-50%); z-index:201; width:640px; max-width:94vw; display:flex; flex-direction:column; gap:0; animation:f-toast-in .18s ease-out;">
+      <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); box-shadow:var(--fusion-shadow-search); overflow:hidden; display:flex; flex-direction:column; max-height:70vh;">
+        <div style="flex:none; display:flex; align-items:center; gap:12px; padding:0 18px; border-bottom:1px solid var(--fusion-border);">
+          <svg style="flex:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A93A0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <input value="{{ cmdkQuery }}" onInput="{{ onCmdkInput }}" onKeyDown="{{ onCmdkKey }}" autoFocus="{{ true }}" placeholder="Search everything — try 'news' or 'summarize PDFs'" style="flex:1; border:none; outline:none; font-size:16px; color:var(--fusion-ink); background:transparent; height:56px; min-width:0;">
+          <span style="flex:none; font-size:12px; font-weight:600; color:var(--fusion-text-secondary); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); padding:3px 7px;">ESC</span>
+        </div>
+        <div style="flex:none; display:flex; gap:6px; padding:10px 16px; border-bottom:1px solid var(--fusion-border); overflow-x:auto;">
+          <sc-for list="{{ cmdkScopes }}" as="sp" hint-placeholder-count="7">
+            <button onClick="{{ sp.onClick }}" style="flex:none; height:28px; padding:0 12px; border:1px solid {{ sp.border }}; border-radius:var(--fusion-radius-full); background:{{ sp.bg }}; color:{{ sp.color }}; font-size:12.5px; font-weight:600;" style-hover="border-color:var(--fusion-blue-700);">{{ sp.label }}</button>
+          </sc-for>
+        </div>
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:10px;">
+          <sc-for list="{{ cmdkGroups }}" as="grp" hint-placeholder-count="2">
+            <div style="display:flex; flex-direction:column; gap:2px; padding-bottom:8px;">
+              <div style="font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--fusion-text-muted); padding:8px 10px 4px;">{{ grp.eyebrow }}</div>
+              <sc-for list="{{ grp.items }}" as="r" hint-placeholder-count="4">
+                <div onClick="{{ r.onClick }}" title="{{ r.tooltip }}" style="display:flex; align-items:center; gap:12px; padding:9px 10px; border-radius:var(--fusion-radius-md); cursor:pointer; opacity:{{ r.opacity }}; background:{{ r.bg }};" style-hover="background:var(--fusion-blue-50);">
+                  <span style="width:30px; height:30px; flex:none; border-radius:8px; display:grid; place-items:center; background:{{ r.chipBg }}; color:{{ r.chipColor }};">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ r.iconD }}"></path></svg>
+                  </span>
+                  <span style="flex:1; min-width:0;">
+                    <span style="display:flex; align-items:baseline; gap:8px;">
+                      <span style="font-size:14.5px; font-weight:600; white-space:nowrap;">{{ r.name }}</span>
+                      <span style="font-size:13px; color:var(--fusion-text-secondary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.desc }}</span>
+                    </span>
+                    <sc-if value="{{ r.hasWhy }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:block; font-size:12px; color:var(--fusion-text-muted);">{{ r.why }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="flex:none; display:flex; gap:5px;">
+                    <sc-for list="{{ r.badges }}" as="b" hint-placeholder-count="1">
+                      <span style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:600; border-radius:var(--fusion-radius-sm); padding:3px 7px; background:{{ b.bg }}; color:{{ b.color }};">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d }}"></path></svg>{{ b.label }}</span>
+                    </sc-for>
+                  </span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ grp.hasViewAll }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ grp.onViewAll }}" style="align-self:flex-start; background:none; border:none; padding:4px 10px; font-size:13px; font-weight:600; color:var(--fusion-blue-600);" style-hover="color:var(--fusion-blue-500);">{{ grp.viewAllLabel }}</button>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ cmdkZero }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:10px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); padding:32px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center;">
+              <span style="width:48px; height:48px; border-radius:12px; display:grid; place-items:center; background:var(--fusion-blue-100); color:var(--fusion-blue-600);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+              </span>
+              <div style="font-size:16px; font-weight:700;">No components match "{{ cmdkQuery }}"</div>
+              <div style="font-size:13.5px; color:var(--fusion-text-secondary);">Try different words, or let AI Builder find it.</div>
+              <div style="display:flex; gap:8px; margin-top:4px;">
+                <button onClick="{{ onAskAICmdk }}" style="display:inline-flex; align-items:center; gap:7px; height:36px; padding:0 14px; border-radius:var(--fusion-radius-md); background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); color:var(--fusion-blue-700); font-size:13.5px; font-weight:600;" style-hover="background:var(--fusion-blue-50);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
+                  Ask AI Builder</button>
+                <button onClick="{{ onBrowseAllCmdk }}" style="height:36px; padding:0 14px; border:none; border-radius:var(--fusion-radius-md); background:#EFF1F4; color:var(--fusion-ink); font-size:13.5px; font-weight:600;" style-hover="background:var(--fusion-border);">Browse all categories</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="flex:none; display:flex; gap:16px; padding:9px 18px; border-top:1px solid var(--fusion-border); font-size:12px; color:var(--fusion-text-muted);">
+          <span><strong style="color:var(--fusion-text-secondary);">↑↓</strong> navigate</span>
+          <span><strong style="color:var(--fusion-text-secondary);">↵</strong> add</span>
+          <span><strong style="color:var(--fusion-text-secondary);">esc</strong> close</span>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Toast — docked above footer, never over Save -->
+  <sc-if value="{{ toastVisible }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; right:20px; bottom:64px; z-index:250; background:var(--fusion-surface); border-radius:var(--fusion-radius-md); box-shadow:var(--fusion-shadow-pop); border-left:4px solid {{ toastAccent }}; padding:13px 16px; display:flex; align-items:center; gap:10px; max-width:380px; animation:f-toast-in .2s ease-out;">
+      <svg style="flex:none; color:{{ toastAccent }};" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M12 11v5"></path></svg>
+      <span style="font-size:14.5px; color:var(--fusion-ink);">{{ toastText }}</span>
+      <button onClick="{{ onDismissToast }}" aria-label="Dismiss" style="flex:none; width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+      </button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startPopulated&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Demo state&quot;}, &quot;aiBuilderOpen&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Demo state&quot;}}">
+const ICONS = {
+  agents: 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z',
+  connectors: 'M9 7V3M15 7V3M7 7h10v4a5 5 0 0 1-10 0V7zM12 16v5',
+  models: 'M6 6h12v12H6zM9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4',
+  flow: 'M6 3v3a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v9M6 9v12M4 3h4',
+  guardrails: 'M12 3l8 3v6c0 4.5-3.5 7.5-8 9-4.5-1.5-8-4.5-8-9V6l8-3z',
+  knowledge: 'M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5zM20 19H6a2 2 0 0 0-2 2',
+};
+
+const BADGE_DEFS = {
+  verified: { label: 'Verified', bg: 'var(--fusion-green-100)', color: 'var(--fusion-green-600)', d: 'M20 6L9 17l-5-5', title: 'Passed platform governance review' },
+  beta: { label: 'Beta', bg: 'var(--fusion-amber-100)', color: 'var(--fusion-amber-600)', d: 'M12 7v5l3 3', title: 'In beta — behavior may change' },
+  comingSoon: { label: 'Coming Soon', bg: '#EFF1F4', color: 'var(--fusion-text-muted)', d: 'M12 7v5l3 3', title: 'Planned — not yet available' },
+  cdo: { label: 'CDO Managed', bg: 'var(--fusion-blue-100)', color: 'var(--fusion-blue-600)', d: 'M12 3l8 3v6c0 4.5-3.5 7.5-8 9-4.5-1.5-8-4.5-8-9V6l8-3z', title: 'Managed and reviewed by the CDO' },
+  unmanaged: { label: 'Unmanaged', bg: '#EFF1F4', color: 'var(--fusion-text-secondary)', d: 'M12 8h.01M12 11v5', title: 'Not managed by the CDO' },
+  lock: { label: 'Requires access', bg: '#EFF1F4', color: 'var(--fusion-text-secondary)', d: 'M6 11h12v9H6zM9 11V7a3 3 0 0 1 6 0v4', title: 'Access must be requested' },
+};
+
+const CATS = {
+  agents: { label: 'Agents', chipBg: 'var(--fusion-blue-100)', chipColor: 'var(--fusion-blue-600)', icon: ICONS.agents, slot: 'Sub-Agent' },
+  connectors: { label: 'Connectors & Tools', chipBg: 'var(--fusion-lilac-100)', chipColor: 'var(--fusion-purple-600)', icon: ICONS.connectors, slot: 'Tool' },
+  models: { label: 'Models', chipBg: 'var(--fusion-blue-100)', chipColor: 'var(--fusion-blue-600)', icon: ICONS.models, slot: 'Model' },
+  flow: { label: 'Flow', chipBg: 'var(--fusion-olive-100)', chipColor: 'var(--fusion-olive-600)', icon: ICONS.flow, slot: null },
+  guardrails: { label: 'Guardrails', chipBg: 'var(--fusion-amber-100)', chipColor: 'var(--fusion-amber-600)', icon: ICONS.guardrails, slot: null },
+  knowledge: { label: 'Knowledge', chipBg: 'var(--fusion-olive-100)', chipColor: 'var(--fusion-olive-600)', icon: ICONS.knowledge, slot: 'Source' },
+};
+const CAT_ORDER = ['agents', 'connectors', 'models', 'flow', 'guardrails', 'knowledge'];
+const SLOT_TO_CAT = { 'Sub-Agent': 'agents', 'Tool': 'connectors', 'Model': 'models', 'Source': 'knowledge' };
+
+// ===== Single source of truth: the component catalog =====
+const CATALOG = [
+  { id: 'agent', name: 'Agent', cat: 'agents', desc: 'A general-purpose agent you instruct with a prompt and tools.', syn: ['custom', 'basic', 'prompt', 'assistant'], badges: ['verified', 'cdo'], input: 'Instructions and a task', output: 'A completed task or answer', example: 'An agent that triages inbound support tickets each morning.' },
+  { id: 'harnessed', name: 'Harnessed Agent', cat: 'agents', desc: 'An agent wrapped in a test harness for repeatable, evaluated runs.', syn: ['harness', 'eval', 'evaluation', 'test'], badges: ['verified', 'cdo'], input: 'Instructions plus an evaluation set', output: 'Task results with quality scores', example: 'A summarizer whose accuracy is re-checked on every run.' },
+  { id: 'planner', name: 'Planner Agent', cat: 'agents', desc: 'Breaks a big goal into steps and coordinates other agents to finish it.', syn: ['orchestrate', 'coordinate', 'multi-agent', 'plan', 'workflow'], badges: ['beta', 'cdo'], input: 'A high-level goal', output: 'A step-by-step plan and delegated results', example: 'A research goal split across search, analysis, and writing agents.' },
+  { id: 'selector', name: 'Selector Agent', cat: 'agents', desc: 'Routes each request to the best agent or tool for the job.', syn: ['route', 'router', 'dispatch', 'choose', 'triage'], badges: ['verified', 'cdo'], input: 'Any incoming request', output: 'The request, handed to the right specialist', example: 'A front door that sends billing questions to the billing agent.' },
+
+  { id: 'bing', name: 'Bing Grounding Mcp', cat: 'connectors', group: 'Web & Content', desc: 'Searches the web for current news and information.', syn: ['news', 'headlines', 'current events', 'web', 'internet', 'search'], badges: ['verified', 'cdo'], input: 'A search query', output: 'List of articles with summaries and links', example: 'An agent that monitors morning market news and drafts a summary email.' },
+  { id: 'confluence', name: 'Confluence Mcp', cat: 'connectors', group: 'Web & Content', desc: "Reads pages and docs from your team's Confluence space.", syn: ['wiki', 'confluence', 'docs', 'documentation', 'pages'], badges: ['verified', 'cdo', 'lock'], lockReason: 'Confluence spaces hold restricted team content, so each builder is entitled individually.', input: 'A space or page reference', output: 'Page content as readable text', example: 'An agent that answers onboarding questions from the team wiki.' },
+  { id: 'barchart', name: 'Create Bar Chart', cat: 'connectors', group: 'Charts And Plots', desc: 'Draws a bar chart comparing categories from your data.', syn: ['chart', 'graph', 'plot', 'visualize', 'bar'], badges: ['verified', 'cdo'], input: 'Labeled numeric data', output: 'A rendered bar chart image', example: 'Complaint counts by product line, charted for a weekly review.' },
+  { id: 'linechart', name: 'Create Line Chart', cat: 'connectors', group: 'Charts And Plots', desc: 'Plots trends over time from time-series data.', syn: ['chart', 'graph', 'plot', 'visualize', 'trend', 'time series'], badges: ['verified', 'cdo'], input: 'Time-stamped numeric data', output: 'A rendered line chart image', example: 'Weekly sentiment scores plotted across the quarter.' },
+  { id: 'scatter', name: 'Create Scatter Plot', cat: 'connectors', group: 'Charts And Plots', desc: 'Maps two numeric dimensions to reveal correlation.', syn: ['chart', 'graph', 'plot', 'visualize', 'correlation', 'scatter'], badges: ['verified', 'cdo'], input: 'Paired numeric data', output: 'A rendered scatter plot image', example: 'Ticket volume vs. resolution time across teams.' },
+  { id: 'heatmap', name: 'Create Heatmap', cat: 'connectors', group: 'Charts And Plots', desc: 'Shows density and intensity across two categorical axes.', syn: ['chart', 'plot', 'visualize', 'heatmap', 'density'], badges: ['beta', 'cdo'], input: 'A two-dimensional grid of values', output: 'A rendered heatmap image', example: 'Feedback theme intensity by region and month.' },
+  { id: 'docext', name: 'Document Extraction', cat: 'connectors', group: 'Documents & Files', desc: 'Pulls text and tables out of PDFs, scans, and images.', syn: ['pdf', 'document', 'extract', 'ocr', 'file', 'summarize pdfs', 'read'], badges: ['verified', 'cdo'], input: 'A PDF, scan, or image file', output: 'Clean text and structured tables', example: 'An agent that reads vendor invoices and extracts totals.' },
+  { id: 'fileconv', name: 'File Conversion', cat: 'connectors', group: 'Documents & Files', desc: 'Converts files between formats like PDF, Word, and HTML.', syn: ['pdf', 'document', 'file', 'convert', 'format'], badges: ['unmanaged'], input: 'A file and a target format', output: 'The converted file', example: 'Turning drafted HTML reports into shareable PDFs.' },
+  { id: 'filestore', name: 'File Storage', cat: 'connectors', group: 'Documents & Files', desc: 'Saves and retrieves files your agents produce.', syn: ['file', 'storage', 'save', 'upload', 'store'], badges: ['comingSoon'], input: 'A file to store or a file reference', output: 'A stored file or its contents', example: 'Archiving every generated weekly report automatically.' },
+  { id: 'checkers', name: 'Checkers And Validators', cat: 'connectors', group: 'Utilities', desc: 'Checks facts, formats, and outputs before they leave your agent.', syn: ['check', 'validate', 'verify', 'quality', 'fact', 'lint'], badges: ['verified', 'cdo'], input: 'Any agent output', output: 'Pass/fail results with reasons', example: 'Validating that a drafted email contains no client identifiers.' },
+  { id: 'datetime', name: 'Date And Time', cat: 'connectors', group: 'Utilities', desc: 'Gives agents the current date, time, and timezone math.', syn: ['date', 'time', 'timezone', 'calendar', 'schedule'], badges: ['unmanaged'], input: 'A date/time question', output: 'The computed date or time', example: 'Scheduling follow-ups relative to regional business days.' },
+  { id: 'encoding', name: 'Encoding And Base64', cat: 'connectors', group: 'Utilities', desc: 'Encodes and decodes text, URLs, and Base64 data.', syn: ['encode', 'decode', 'base64', 'url'], badges: ['unmanaged'], input: 'Text or encoded data', output: 'The encoded or decoded result', example: 'Decoding Base64 attachments before document extraction.' },
+
+  { id: 'gpt5mini', name: 'GPT-5 Mini', cat: 'models', desc: 'Fast, low-cost model for routine steps.', cost: '1× cost', syn: ['cheap', 'fast', 'model', 'gpt', 'mini'], badges: ['verified', 'cdo'], input: 'A prompt', output: 'A completion', example: 'Classifying feedback themes at high volume.' },
+  { id: 'sonnet', name: 'Claude Sonnet', cat: 'models', desc: 'Balanced model for most agent reasoning.', cost: '2× cost', syn: ['model', 'claude', 'balanced', 'sonnet'], badges: ['verified', 'cdo'], input: 'A prompt', output: 'A completion', example: 'The default reasoning model for most agents.' },
+  { id: 'opus', name: 'Claude Opus', cat: 'models', desc: 'Deepest reasoning for complex, high-stakes steps.', cost: '5× cost', syn: ['model', 'claude', 'reasoning', 'complex', 'opus'], badges: ['verified', 'cdo', 'lock'], lockReason: 'High-cost models are entitled per team to keep spend predictable.', input: 'A prompt', output: 'A completion', example: 'Final review of a client-facing recommendation.' },
+
+  { id: 'sequence', name: 'Sequence', cat: 'flow', desc: 'Runs agents one after another, passing results along.', syn: ['sequence', 'chain', 'pipeline', 'order', 'series'], badges: ['verified', 'cdo'], input: 'An ordered list of agents', output: 'The final result of the chain', example: 'Analyze, then recommend, then prioritize — in order.' },
+  { id: 'parallel', name: 'Parallel', cat: 'flow', desc: 'Runs several agents at once and gathers their results.', syn: ['parallel', 'fan out', 'concurrent', 'simultaneous'], badges: ['verified', 'cdo'], input: 'A set of agents and one task', output: 'All results, collected together', example: 'Three research agents covering different regions at once.' },
+
+  { id: 'pii', name: 'PII Redaction', cat: 'guardrails', desc: 'Removes names, accounts, and personal data from agent output.', syn: ['pii', 'privacy', 'redact', 'sensitive', 'mask', 'personal data'], badges: ['verified', 'cdo'], input: 'Any agent output', output: 'The same output with personal data removed', example: 'Scrubbing customer names before feedback is summarized.' },
+  { id: 'policy', name: 'Content Policy Check', cat: 'guardrails', desc: 'Blocks output that violates firm communication policy.', syn: ['policy', 'compliance', 'moderation', 'safety', 'block'], badges: ['verified', 'cdo'], input: 'Any outbound message', output: 'Approved message, or a block with the reason', example: 'Holding back a draft that mentions unreleased figures.' },
+
+  { id: 'doclib', name: 'Document Library', cat: 'knowledge', desc: 'A curated set of documents your agents can cite.', syn: ['knowledge', 'library', 'documents', 'rag', 'source', 'cite'], badges: ['verified', 'cdo'], input: 'A question', output: 'Relevant passages with citations', example: 'Product policy answers grounded in the official handbook.' },
+  { id: 'sharepoint', name: 'SharePoint Site', cat: 'knowledge', desc: 'Connects a SharePoint site as a live knowledge source.', syn: ['sharepoint', 'intranet', 'site', 'knowledge', 'share'], badges: ['comingSoon'], input: 'A site URL and a question', output: 'Relevant pages and files', example: 'Answering HR questions straight from the intranet.' },
+];
+
+const GROUPS = [
+  { name: 'Charts And Plots', desc: 'Turn agent output into visual charts.' },
+  { name: 'Web & Content', desc: 'Reach the web and your content platforms.' },
+  { name: 'Documents & Files', desc: 'Read, convert, and store files.' },
+  { name: 'Utilities', desc: 'Small helpers for everyday agent chores.' },
+];
+
+const SUGGESTED = { 'Sub-Agent': ['planner', 'selector', 'agent'], 'Model': ['gpt5mini', 'sonnet', 'opus'], 'Tool': ['checkers', 'barchart', 'docext'], 'Source': ['doclib', 'sharepoint', 'confluence'] };
+
+const CHAIN = [
+  { id: 'n1', name: 'FeedbackAnalyzer', desc: 'Classifies and clusters raw user feedback into themes.', isRootAgent: true },
+  { id: 'n2', name: 'RecommendationGenerator', desc: 'Turns feedback themes into ranked recommendations.', isRootAgent: false },
+  { id: 'n3', name: 'ActionPlanPrioritizer', desc: 'Sequences recommendations into an actionable plan.', isRootAgent: false },
+];
+
+const MOCK_PROMPT = 'Build an agent that converts user feedback into actionable recommendations for our product team.';
+
+function itemById(id) { return CATALOG.find(i => i.id === id); }
+function isSoon(it) { return it.badges.includes('comingSoon'); }
+function governanceLabel(it) {
+  if (it.badges.includes('cdo')) return 'CDO Managed';
+  if (it.badges.includes('unmanaged')) return 'Unmanaged';
+  return '—';
+}
+
+// Synonym/intent + fuzzy matching. Instant, honest, client-side.
+function matchItem(it, q) {
+  const tokens = q.toLowerCase().split(/\s+/).filter(t => t.length >= 2);
+  if (!tokens.length) return null;
+  let score = 0; let why = null;
+  for (const t of tokens) {
+    if (it.name.toLowerCase().includes(t)) score += 3;
+    if (it.desc.toLowerCase().includes(t)) score += 2;
+    for (const syn of it.syn) {
+      if (syn.includes(t) || t.includes(syn)) {
+        score += 4;
+        if (!it.name.toLowerCase().includes(t)) why = "matches '" + syn + "'";
+      }
+    }
+  }
+  return score > 0 ? { score, why } : null;
+}
+
+function searchCatalog(q, scope) {
+  const hits = [];
+  for (const it of CATALOG) {
+    if (scope && scope !== 'all' && it.cat !== scope) continue;
+    const m = matchItem(it, q);
+    if (m) hits.push({ it, ...m });
+  }
+  hits.sort((a, b) => b.score - a.score);
+  const byCat = {};
+  for (const h of hits) { (byCat[h.it.cat] = byCat[h.it.cat] || []).push(h); }
+  const groups = Object.keys(byCat).map(cat => ({
+    cat, hits: byCat[cat], best: byCat[cat][0].score,
+  }));
+  groups.sort((a, b) => b.best - a.best);
+  return groups;
+}
+
+class Component extends DCLogic {
+  state = {
+    systemName: 'New Agentic System',
+    view: 'root',
+    panelQuery: '',
+    leftCollapsed: false,
+    chatOpen: null, populated: null, chainNodes: null,
+    freeNodes: [], attachments: {}, selectedId: null, pulseKey: null,
+    dirty: false, dragHover: false, zoom: 1, monitor: false,
+    expandedGroups: { 'Charts And Plots': true },
+    statusFilter: 'all', cdoOnly: false,
+    multiSel: {},
+    recents: [], highlightId: null,
+    detailsId: null,
+    picker: null, pickerQuery: '',
+    cmdkOpen: false, cmdkQuery: '', cmdkScope: 'all', cmdkIndex: 0,
+    composer: '', showUserMsg: false, userMsgText: '', working: false,
+    showSummary: false, calloutDismissed: false, infoOpen: false, modeOpen: false,
+    toast: null,
+  };
+
+  canvasRef = React.createRef();
+  composerRef = React.createRef();
+  _nextId = 100;
+
+  componentDidMount() {
+    this._onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        this.setState(st => ({ cmdkOpen: !st.cmdkOpen, cmdkQuery: '', cmdkIndex: 0 }));
+      } else if (e.key === 'Escape') {
+        if (this.state.cmdkOpen) this.setState({ cmdkOpen: false });
+        else if (this.state.picker) this.setState({ picker: null, pickerQuery: '' });
+        else if (this.state.detailsId) this.setState({ detailsId: null });
+        else if (this.state.modeOpen) this.setState({ modeOpen: false });
+      }
+    };
+    window.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._onKey);
+    clearTimeout(this._toastTimer); clearTimeout(this._flowTimer); clearTimeout(this._pulseTimer); clearTimeout(this._hlTimer);
+  }
+
+  toast(text, accent) {
+    clearTimeout(this._toastTimer);
+    this.setState({ toast: { text, accent: accent || 'var(--fusion-blue-700)' } });
+    this._toastTimer = setTimeout(() => this.setState({ toast: null }), 2800);
+  }
+  markDirty() { if (!this.state.dirty) this.setState({ dirty: true }); }
+  isPopulated() { return this.state.populated ?? (this.props.startPopulated ?? false); }
+  isChatOpen() { return this.state.chatOpen ?? (this.props.aiBuilderOpen ?? false); }
+  getChain() { return this.state.chainNodes || (this.isPopulated() ? CHAIN : []); }
+
+  pushRecent(itemId) {
+    this.setState(st => ({ recents: [itemId, ...st.recents.filter(r => r !== itemId)].slice(0, 4) }));
+  }
+
+  // ---- Add routing ----
+  attachToNode(item, nodeId, slotLabel) {
+    const node = this.getChain().concat(this.state.freeNodes).find(n => n.id === nodeId);
+    const key = 'a' + (this._nextId++);
+    this.markDirty(); this.pushRecent(item.id);
+    this.setState(st => ({
+      attachments: { ...st.attachments, [nodeId]: [...(st.attachments[nodeId] || []), { key, itemId: item.id, slot: slotLabel }] },
+      pulseKey: key,
+      populated: true,
+    }));
+    clearTimeout(this._pulseTimer);
+    this._pulseTimer = setTimeout(() => this.setState({ pulseKey: null }), 1400);
+    this.toast(item.name + ' added to ' + (node ? node.name : 'the canvas'));
+  }
+  addChainNode(item) {
+    this.markDirty(); this.pushRecent(item.id);
+    const id = 'n' + (this._nextId++);
+    const chain = this.getChain().slice();
+    const idx = chain.findIndex(n => n.id === this.state.selectedId);
+    const node = { id, name: item.name, desc: item.desc, isRootAgent: chain.length === 0 };
+    if (idx >= 0) chain.splice(idx + 1, 0, node); else chain.push(node);
+    this.setState({ chainNodes: chain, populated: true, selectedId: id });
+    this.toast(item.name + ' added to canvas');
+  }
+  addFreeNode(item, x, y) {
+    this.markDirty(); this.pushRecent(item.id);
+    const id = 'n' + (this._nextId++);
+    this.setState(st => ({ freeNodes: [...st.freeNodes, { id, name: item.name, desc: item.desc, x, y }], selectedId: id }));
+    this.toast(item.name + ' added to canvas');
+  }
+  canvasCenter() {
+    const el = this.canvasRef.current;
+    if (!el) return { x: 200, y: 120 };
+    return { x: Math.max(8, el.clientWidth / 2 - 130 + el.scrollLeft), y: 120 + el.scrollTop + Math.random() * 60 };
+  }
+  // Smart routing: agents extend the chain; slot-typed items attach to the selected node; otherwise drop free.
+  smartAdd(item) {
+    if (isSoon(item)) { this.toast('Planned — not yet available'); return; }
+    const sel = this.state.selectedId;
+    const slot = CATS[item.cat].slot;
+    if (item.cat === 'agents' && !sel) { this.addChainNode(item); return; }
+    if (sel && slot) { this.attachToNode(item, sel, slot); return; }
+    if (item.cat === 'agents') { this.addChainNode(item); return; }
+    const c = this.canvasCenter();
+    this.addFreeNode(item, c.x, c.y);
+  }
+
+  playBuildFlow(prefillText) {
+    const text = (prefillText || this.state.composer).trim() || MOCK_PROMPT;
+    this.setState({ showUserMsg: true, userMsgText: text, composer: '', working: true, showSummary: false, calloutDismissed: false, dirty: true, chatOpen: true });
+    clearTimeout(this._flowTimer);
+    this._flowTimer = setTimeout(() => {
+      this.setState({ working: false, showSummary: true, populated: true, chainNodes: CHAIN.slice(), selectedId: 'n1', infoOpen: false });
+    }, 1500);
+  }
+
+  askAI(query) {
+    this.setState({
+      cmdkOpen: false, panelQuery: '', pickerQuery: '', picker: null,
+      chatOpen: true, composer: 'find me something that can ' + query,
+    });
+    setTimeout(() => { const el = this.composerRef.current; if (el) el.focus(); }, 260);
+  }
+
+  openDetails(id) { this.setState({ detailsId: id, cmdkOpen: false }); }
+
+  highlightInCategory(item) {
+    const browsable = { agents: 'agents', connectors: 'connectors', models: 'models' };
+    if (browsable[item.cat]) {
+      this.setState({ view: item.cat, panelQuery: '', highlightId: item.id, cmdkOpen: false, expandedGroups: item.group ? { ...this.state.expandedGroups, [item.group]: true } : this.state.expandedGroups });
+      clearTimeout(this._hlTimer);
+      this._hlTimer = setTimeout(() => this.setState({ highlightId: null }), 2200);
+    } else {
+      this.openDetails(item.id);
+    }
+  }
+
+  // ---- Row/card val builders ----
+  badgeVals(it, max) {
+    let list = it.badges;
+    if (max) list = list.slice(0, max);
+    return list.map(b => ({ ...BADGE_DEFS[b] }));
+  }
+  rowVals(it, m, onPick) {
+    const soon = isSoon(it);
+    const c = CATS[it.cat];
+    return {
+      name: it.name, desc: it.desc, iconD: c.icon, chipBg: c.chipBg, chipColor: c.chipColor,
+      badges: this.badgeVals(it, 2),
+      hasWhy: !!(m && m.why), why: m ? m.why : '',
+      opacity: soon ? 0.6 : 1,
+      tooltip: soon ? 'Planned — not yet available' : '',
+      bg: 'transparent',
+      onClick: () => onPick(it),
+      onInfo: (e) => { e.stopPropagation(); this.openDetails(it.id); },
+    };
+  }
+  cardVals(it, opts) {
+    const s = this.state;
+    const soon = isSoon(it);
+    const c = CATS[it.cat];
+    const highlighted = s.highlightId === it.id;
+    const cost = it.cost ? (' · ' + it.cost) : '';
+    return {
+      name: it.name, desc: it.desc, iconD: c.icon, chipBg: c.chipBg, chipColor: c.chipColor,
+      badges: this.badgeVals(it),
+      metaLine: c.label + ' · ' + governanceLabel(it) + cost,
+      opacity: soon ? 0.6 : 1,
+      cursor: soon ? 'default' : 'grab',
+      tooltip: soon ? 'Planned — not yet available' : 'Drag onto the canvas, or use ADD',
+      addable: !soon,
+      draggable: !soon,
+      borderColor: highlighted ? 'var(--fusion-blue-700)' : 'var(--fusion-border)',
+      ring: highlighted ? '0 0 0 3px var(--fusion-blue-50)' : 'none',
+      hasCheck: !!(opts && opts.check),
+      checked: !!s.multiSel[it.id],
+      onCheck: (e) => { e.stopPropagation(); this.setState(st => { const ms = { ...st.multiSel }; if (e.target.checked) ms[it.id] = true; else delete ms[it.id]; return { multiSel: ms }; }); },
+      onDragStart: (e) => {
+        if (soon) { e.preventDefault(); return; }
+        this._dragItem = it;
+        try { e.dataTransfer.setData('text/plain', it.name); e.dataTransfer.effectAllowed = 'copy'; } catch (_) {}
+        const el = e.currentTarget; el.style.opacity = '0.85';
+        const restore = () => { el.style.opacity = ''; el.removeEventListener('dragend', restore); };
+        el.addEventListener('dragend', restore);
+      },
+      onAdd: (e) => { e.stopPropagation(); this.smartAdd(it); },
+      onInfo: (e) => { e.stopPropagation(); this.openDetails(it.id); },
+    };
+  }
+
+  connectorsFiltered() {
+    const s = this.state;
+    return CATALOG.filter(it => {
+      if (it.cat !== 'connectors') return false;
+      if (s.cdoOnly && !it.badges.includes('cdo')) return false;
+      if (s.statusFilter === 'verified' && !it.badges.includes('verified')) return false;
+      if (s.statusFilter === 'unverified' && (it.badges.includes('verified') || isSoon(it))) return false;
+      if (s.statusFilter === 'comingSoon' && !isSoon(it)) return false;
+      return true;
+    });
+  }
+
+  resultGroups(q, scope, onPick, maxPer) {
+    const groups = searchCatalog(q, scope);
+    return groups.map(g => {
+      const c = CATS[g.cat];
+      const shown = g.hits.slice(0, maxPer);
+      return {
+        eyebrow: c.label,
+        items: shown.map(h => this.rowVals(h.it, h, onPick)),
+        hasViewAll: g.hits.length > maxPer,
+        viewAllLabel: 'View all ' + g.hits.length + ' in ' + c.label + ' →',
+        onViewAll: () => this.highlightInCategory(g.hits[0].it),
+        _flat: shown.map(h => h.it),
+      };
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const populated = this.isPopulated();
+    const chatOpen = this.isChatOpen();
+    const chain = this.getChain();
+    const leftW = s.leftCollapsed ? '48px' : '320px';
+    const gridCols = chatOpen ? leftW + ' 1fr 400px' : leftW + ' 1fr';
+    const selNode = chain.concat(s.freeNodes).find(n => n.id === s.selectedId);
+    const view = s.view;
+    const q = s.panelQuery.trim();
+
+    const openCat = (v) => () => this.setState({ view: v, panelQuery: '', leftCollapsed: false });
+
+    const catCounts = {};
+    for (const it of CATALOG) catCounts[it.cat] = (catCounts[it.cat] || 0) + 1;
+    const catDescs = {
+      agents: 'Prebuilt and custom agents that orchestrate work.',
+      connectors: 'APIs, MCPs, and utilities your agents can call.',
+      models: 'Approved LLMs with clear cost tiers.',
+      flow: 'Sequence, parallel, and routing primitives.',
+      guardrails: 'Policy, safety, and compliance checks.',
+      knowledge: 'Document sources your agents can cite.',
+    };
+    const categories = CAT_ORDER.map(k => ({
+      name: CATS[k].label, desc: catDescs[k], count: catCounts[k] || 0,
+      d: CATS[k].icon, chipBg: CATS[k].chipBg, chipColor: CATS[k].chipColor,
+      onClick: openCat(k === 'flow' || k === 'guardrails' || k === 'knowledge' ? k : k),
+    }));
+    const railIcons = CAT_ORDER.map(k => ({ name: CATS[k].label, d: CATS[k].icon, onClick: () => this.setState({ view: k, leftCollapsed: false, panelQuery: '' }) }));
+
+    // Panel search
+    const panelScope = view === 'root' ? 'all' : view;
+    const panelSearching = q.length > 0;
+    const panelPick = (it) => {
+      if (isSoon(it)) { this.toast('Planned — not yet available'); return; }
+      this.highlightInCategory(it);
+    };
+    const panelResults = panelSearching ? this.resultGroups(q, panelScope, panelPick, 4) : [];
+
+    // Drill config
+    const drillTitles = { agents: 'Agents', connectors: 'Connectors & Tools', models: 'Models', flow: 'Flow', guardrails: 'Guardrails', knowledge: 'Knowledge' };
+    const isDrill = view !== 'root';
+    const isCatEmptyView = view === 'flow' || view === 'guardrails' || view === 'knowledge';
+
+    // Card lists (agents / models)
+    let cardListItems = [];
+    if (view === 'agents' && !panelSearching) cardListItems = CATALOG.filter(i => i.cat === 'agents').map(it => this.cardVals(it));
+    if (view === 'models' && !panelSearching) cardListItems = CATALOG.filter(i => i.cat === 'models').map(it => this.cardVals(it));
+
+    // Connector groups
+    const connItems = this.connectorsFiltered();
+    const toolGroups = GROUPS.map(g => {
+      const items = connItems.filter(it => it.group === g.name);
+      const all = CATALOG.filter(it => it.group === g.name);
+      const expanded = !!s.expandedGroups[g.name];
+      const selectable = items.filter(it => !isSoon(it));
+      const allSelected = selectable.length > 0 && selectable.every(it => s.multiSel[it.id]);
+      return {
+        name: g.name, desc: g.desc, count: items.length,
+        allVerified: all.length > 0 && all.every(it => it.badges.includes('verified')),
+        expanded, chevRot: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+        onToggle: () => this.setState(st => ({ expandedGroups: { ...st.expandedGroups, [g.name]: !st.expandedGroups[g.name] } })),
+        allSelected,
+        onSelectAll: (e) => {
+          const on = e.target.checked;
+          this.setState(st => { const ms = { ...st.multiSel }; for (const it of selectable) { if (on) ms[it.id] = true; else delete ms[it.id]; } return { multiSel: ms }; });
+        },
+        items: items.map(it => this.cardVals(it, { check: true })),
+      };
+    }).filter(g => g.count > 0);
+
+    const multiIds = Object.keys(s.multiSel);
+
+    // Slot picker
+    const picker = s.picker;
+    let pickerGroups = [], pickerZero = false;
+    if (picker) {
+      const scopeCat = SLOT_TO_CAT[picker.slot];
+      const pq = s.pickerQuery.trim();
+      const pick = (it) => {
+        if (isSoon(it)) { this.toast('Planned — not yet available'); return; }
+        this.attachToNode(it, picker.nodeId, picker.slot);
+        this.setState({ picker: null, pickerQuery: '' });
+      };
+      if (pq) {
+        const groups = this.resultGroups(pq, scopeCat, pick, 8);
+        pickerGroups = groups.map(g => ({ eyebrow: 'Results', items: g.items, }));
+        pickerZero = groups.length === 0;
+      } else {
+        const sug = (SUGGESTED[picker.slot] || []).map(itemById).filter(Boolean);
+        const all = CATALOG.filter(it => it.cat === scopeCat && !sug.includes(it));
+        pickerGroups = [
+          { eyebrow: 'Suggested', items: sug.map(it => this.rowVals(it, null, pick)) },
+          { eyebrow: 'All', items: all.map(it => this.rowVals(it, null, pick)) },
+        ].filter(g => g.items.length > 0);
+      }
+    }
+
+    // Details flyout
+    const det = s.detailsId ? itemById(s.detailsId) : null;
+    const detCat = det ? CATS[det.cat] : null;
+
+    // ⌘K
+    const ckq = s.cmdkQuery.trim();
+    const cmdkPick = (it) => {
+      if (isSoon(it)) { this.toast('Planned — not yet available'); return; }
+      this.setState({ cmdkOpen: false, cmdkQuery: '' });
+      this.smartAdd(it);
+    };
+    let cmdkGroups = [], cmdkFlat = [];
+    if (s.cmdkOpen) {
+      if (ckq) {
+        cmdkGroups = this.resultGroups(ckq, s.cmdkScope, cmdkPick, 4);
+        for (const g of cmdkGroups) cmdkFlat.push(...g._flat);
+      } else {
+        const rec = s.recents.map(itemById).filter(Boolean);
+        const pool = rec.length ? rec : ['agent', 'bing', 'docext', 'sonnet'].map(itemById);
+        cmdkGroups = [{ eyebrow: rec.length ? 'Recently used' : 'Suggestions', items: pool.map(it => this.rowVals(it, null, cmdkPick)), hasViewAll: false }];
+        cmdkFlat = pool;
+      }
+      // keyboard active row
+      let i = 0;
+      for (const g of cmdkGroups) for (const r of g.items) { if (i === s.cmdkIndex) r.bg = 'var(--fusion-blue-50)'; i++; }
+    }
+    const cmdkScopes = [{ key: 'all', label: 'All' }].concat(CAT_ORDER.map(k => ({ key: k, label: CATS[k].label }))).map(sc => ({
+      label: sc.label,
+      bg: s.cmdkScope === sc.key ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+      color: s.cmdkScope === sc.key ? 'var(--fusion-blue-700)' : 'var(--fusion-text-secondary)',
+      border: s.cmdkScope === sc.key ? 'var(--fusion-blue-700)' : 'var(--fusion-border-strong)',
+      onClick: () => this.setState({ cmdkScope: sc.key, cmdkIndex: 0 }),
+    }));
+
+    // Canvas nodes
+    const slotsFor = (nd) => ['Sub-Agent', 'Model (1)', 'Tool', 'Source'].map(label => {
+      const slot = label.replace(/ \(\d+\)$/, '');
+      return {
+        label,
+        onClick: (e) => {
+          e.stopPropagation();
+          const rect = e.currentTarget.getBoundingClientRect();
+          let x = rect.right + 14;
+          if (x + 380 > window.innerWidth - 12) x = rect.left - 394;
+          let y = Math.min(rect.top - 80, window.innerHeight - 480 - 64);
+          y = Math.max(74, y);
+          this.setState({ picker: { nodeId: nd.id, nodeName: nd.name, slot }, pickerQuery: '', selectedId: nd.id });
+          this._pickerPos = { x, y };
+        },
+      };
+    });
+    const nodeVals = (nd) => {
+      const selected = s.selectedId === nd.id;
+      const atts = (s.attachments[nd.id] || []).map(a => {
+        const it = itemById(a.itemId); const c = CATS[it.cat];
+        return {
+          name: it.name, iconD: c.icon, chipBg: c.chipBg, chipColor: c.chipColor, slotLabel: a.slot,
+          edgeAnim: s.pulseKey === a.key ? 'fu-edge-pulse 1.2s ease-out' : 'none',
+          cardAnim: s.pulseKey === a.key ? 'fu-card-pulse 1.2s ease-out' : 'none',
+          onRemove: (e) => {
+            e.stopPropagation(); this.markDirty();
+            this.setState(st => ({ attachments: { ...st.attachments, [nd.id]: (st.attachments[nd.id] || []).filter(x => x.key !== a.key) } }));
+          },
+        };
+      });
+      return {
+        ...nd,
+        borderColor: selected ? 'var(--fusion-blue-700)' : 'var(--fusion-border)',
+        ring: selected ? '0 0 0 3px var(--fusion-blue-50)' : 'none',
+        slots: slotsFor(nd),
+        attached: atts,
+        onSelect: (e) => { e.stopPropagation(); this.setState({ selectedId: nd.id }); },
+        onRun: (e) => { e.stopPropagation(); this.toast('Run arrives with Test Mode in a later phase'); },
+        onEdit: (e) => { e.stopPropagation(); this.setState({ selectedId: nd.id, chatOpen: true }); },
+        onMore: (e) => { e.stopPropagation(); },
+        onDelete: (e) => {
+          e.stopPropagation(); this.markDirty();
+          this.setState(st => ({
+            chainNodes: (st.chainNodes || chain).filter(n => n.id !== nd.id),
+            freeNodes: st.freeNodes.filter(n => n.id !== nd.id),
+            selectedId: st.selectedId === nd.id ? null : st.selectedId,
+          }));
+        },
+      };
+    };
+
+    const recentRows = s.recents.map(itemById).filter(Boolean).map(it => {
+      const c = CATS[it.cat];
+      return { name: it.name, sub: c.label, iconD: c.icon, chipBg: c.chipBg, chipColor: c.chipColor, onClick: () => this.smartAdd(it) };
+    });
+
+    const canSend = !s.working && s.composer.trim().length > 0;
+    const pos = this._pickerPos || { x: 400, y: 120 };
+
+    return {
+      systemName: s.systemName,
+      onBackTop: () => this.toast('Back navigates to the systems list (stub)'),
+      onRename: () => {
+        const name = window.prompt('System name', s.systemName);
+        if (name && name.trim()) { this.setState({ systemName: name.trim() }); this.markDirty(); }
+      },
+      onBuildTab: () => this.setState({ monitor: false }),
+      onMonitorTab: () => { this.setState({ monitor: true }); this.toast('Monitor arrives in a later phase'); },
+      buildTabWeight: s.monitor ? 500 : 600,
+      buildTabColor: s.monitor ? 'var(--fusion-text-secondary)' : 'var(--fusion-ink)',
+      buildTabBg: s.monitor ? 'var(--fusion-surface)' : 'var(--fusion-blue-50)',
+      buildTabShadow: s.monitor ? 'none' : 'inset 0 -3px 0 var(--fusion-blue-700)',
+      monitorTabWeight: s.monitor ? 600 : 500,
+      monitorTabColor: s.monitor ? 'var(--fusion-ink)' : 'var(--fusion-text-secondary)',
+      monitorTabBg: s.monitor ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+      monitorTabShadow: s.monitor ? 'inset 0 -3px 0 var(--fusion-blue-700)' : 'none',
+      onMore: () => {},
+      onBuildAndTest: () => this.toast('Build & Test arrives in a later phase'),
+      onOpenCmdk: () => this.setState({ cmdkOpen: true, cmdkQuery: '', cmdkIndex: 0 }),
+
+      gridCols,
+      leftCollapsed: s.leftCollapsed,
+      leftExpanded: !s.leftCollapsed,
+      onToggleLeft: () => this.setState(st => ({ leftCollapsed: !st.leftCollapsed })),
+      railIcons,
+
+      isRootView: view === 'root',
+      isDrillView: isDrill,
+      drillTitle: drillTitles[view] || '',
+      drillCount: catCounts[view] || 0,
+      onBackToRoot: () => this.setState({ view: 'root', panelQuery: '' }),
+
+      panelQuery: s.panelQuery,
+      onPanelInput: (e) => this.setState({ panelQuery: e.target.value }),
+      panelPlaceholder: view === 'root' ? "Search everything — try 'news' or 'summarize PDFs'" : ('Search ' + (drillTitles[view] || '').toLowerCase() + '…'),
+      hasScopeChip: isDrill,
+      scopeChipLabel: drillTitles[view] || '',
+      onClearScope: () => this.setState({ view: 'root' }),
+      onClearQuery: () => this.setState({ panelQuery: '' }),
+      panelSearching,
+      panelResults,
+      panelZero: panelSearching && panelResults.length === 0,
+      onAskAI: () => this.askAI(q),
+      onBrowseAll: () => this.setState({ panelQuery: '', view: 'root' }),
+
+      showRootContent: view === 'root' && !panelSearching,
+      categories,
+      hasRecents: recentRows.length > 0,
+      recentRows,
+
+      showCardList: (view === 'agents' || view === 'models') && !panelSearching,
+      isAgentsView: view === 'agents',
+      cardListItems,
+      cardListEmpty: cardListItems.length === 0,
+
+      showConnectorsList: view === 'connectors' && !panelSearching,
+      statusFilter: s.statusFilter,
+      onStatusChange: (e) => this.setState({ statusFilter: e.target.value }),
+      cdoOnlyStr: s.cdoOnly ? 'true' : 'false',
+      cdoToggleBg: s.cdoOnly ? 'var(--fusion-blue-700)' : '#2A3440',
+      cdoKnob: s.cdoOnly ? 'translateX(16px)' : 'translateX(0)',
+      onCdoToggle: (e) => { e.preventDefault(); this.setState(st => ({ cdoOnly: !st.cdoOnly })); },
+      hasFilterChips: s.statusFilter !== 'all' || s.cdoOnly,
+      filterChips: [
+        ...(s.statusFilter !== 'all' ? [{ label: 'Status: ' + (s.statusFilter === 'comingSoon' ? 'Coming Soon' : s.statusFilter.charAt(0).toUpperCase() + s.statusFilter.slice(1)), onClear: () => this.setState({ statusFilter: 'all' }) }] : []),
+        ...(s.cdoOnly ? [{ label: 'Managed by CDO', onClear: () => this.setState({ cdoOnly: false }) }] : []),
+      ],
+      toolGroups,
+
+      showCatEmpty: isCatEmptyView && !panelSearching,
+      catEmptyChipBg: isCatEmptyView ? CATS[view].chipBg : 'var(--fusion-blue-100)',
+      catEmptyChipColor: isCatEmptyView ? CATS[view].chipColor : 'var(--fusion-blue-600)',
+      catEmptyIconD: isCatEmptyView ? CATS[view].icon : ICONS.models,
+      onFocusSearch: () => this.setState({ view: 'root', panelQuery: '' }),
+
+      hasMultiSel: multiIds.length > 0 && view === 'connectors',
+      multiCount: multiIds.length,
+      onClearMulti: () => this.setState({ multiSel: {} }),
+      onAddAll: () => {
+        const items = multiIds.map(itemById).filter(it => it && !isSoon(it));
+        for (const it of items) {
+          const sel = this.state.selectedId;
+          if (sel) this.attachToNode(it, sel, 'Tool');
+          else { const c = this.canvasCenter(); this.addFreeNode(it, c.x + Math.random() * 80, c.y + Math.random() * 80); }
+        }
+        this.setState({ multiSel: {} });
+        this.toast(items.length + ' components added');
+      },
+
+      // canvas
+      populated,
+      showEmpty: !populated && s.freeNodes.length === 0,
+      chainNodes: chain.map(nodeVals),
+      freeNodes: s.freeNodes.map(nodeVals),
+      canvasRef: this.canvasRef,
+      canvasBg: s.dragHover ? 'var(--fusion-blue-50)' : '#FBFCFD',
+      zoom: s.zoom,
+      onCanvasDragOver: (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; if (!s.dragHover) this.setState({ dragHover: true }); },
+      onCanvasDragLeave: () => { if (s.dragHover) this.setState({ dragHover: false }); },
+      onCanvasDrop: (e) => {
+        e.preventDefault();
+        this.setState({ dragHover: false });
+        const item = this._dragItem; this._dragItem = null;
+        if (!item) return;
+        const el = this.canvasRef.current;
+        const rect = el.getBoundingClientRect();
+        const x = Math.max(8, e.clientX - rect.left + el.scrollLeft - 130);
+        const y = Math.max(8, e.clientY - rect.top + el.scrollTop - 40);
+        this.addFreeNode(item, x, y);
+      },
+      onCanvasClick: () => { if (s.selectedId) this.setState({ selectedId: null }); },
+      onDropTile: () => this.setState({ view: 'agents', leftCollapsed: false }),
+      onStartWithAI: () => {
+        this.setState({ chatOpen: true, composer: s.composer || MOCK_PROMPT });
+        setTimeout(() => { const el = this.composerRef.current; if (el) el.focus(); }, 260);
+      },
+      onLoadDemo: () => { this.setState({ populated: true, chainNodes: CHAIN.slice() }); this.markDirty(); },
+      canvasControls: [
+        { label: 'Zoom out', d: 'M5 12h14', onClick: () => this.setState(st => ({ zoom: Math.max(0.5, +(st.zoom - 0.1).toFixed(2)) })) },
+        { label: 'Zoom in', d: 'M12 5v14M5 12h14', onClick: () => this.setState(st => ({ zoom: Math.min(1.5, +(st.zoom + 0.1).toFixed(2)) })) },
+        { label: 'Undo', d: 'M3 7v6h6M3 13a9 9 0 1 0 2.6-6.4L3 9', onClick: () => this.toast('Undo history arrives in a later phase') },
+        { label: 'Redo', d: 'M21 7v6h-6M21 13a9 9 0 1 1-2.6-6.4L21 9', onClick: () => this.toast('Redo history arrives in a later phase') },
+        { label: 'Auto-layout', d: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z', onClick: () => this.setState({ zoom: 1 }) },
+      ],
+
+      // picker
+      pickerOpen: !!picker,
+      pickerX: pos.x, pickerY: pos.y,
+      pickerScopeLabel: picker ? CATS[SLOT_TO_CAT[picker.slot]].label : '',
+      pickerNodeName: picker ? picker.nodeName + ' · ' + picker.slot : '',
+      pickerQuery: s.pickerQuery,
+      onPickerInput: (e) => this.setState({ pickerQuery: e.target.value }),
+      onClosePicker: () => this.setState({ picker: null, pickerQuery: '' }),
+      pickerGroups, pickerZero,
+      onAskAIPicker: () => this.askAI(s.pickerQuery.trim()),
+
+      // details
+      detailsOpen: !!det,
+      detName: det ? det.name : '',
+      detDesc: det ? (det.desc + ' ' + det.example.replace(/\.$/, '') + ' is a typical use.') : '',
+      detIconD: detCat ? detCat.icon : '',
+      detChipBg: detCat ? detCat.chipBg : '#fff',
+      detChipColor: detCat ? detCat.chipColor : '#000',
+      detBadges: det ? this.badgeVals(det) : [],
+      detInput: det ? det.input : '',
+      detOutput: det ? det.output : '',
+      detExample: det ? '"' + det.example + '"' : '',
+      detShowUnmanaged: det ? det.badges.includes('unmanaged') : false,
+      detShowLock: det ? det.badges.includes('lock') : false,
+      detLockReason: det && det.lockReason ? det.lockReason : '',
+      detShowSoon: det ? isSoon(det) : false,
+      detAddable: det ? !isSoon(det) : false,
+      onCloseDetails: () => this.setState({ detailsId: null }),
+      onRequestAccess: () => this.toast('Access request submitted for review'),
+      onAddFromDetails: () => { const it = det; this.setState({ detailsId: null }); if (it) this.smartAdd(it); },
+
+      // cmdk
+      cmdkOpen: s.cmdkOpen,
+      cmdkQuery: s.cmdkQuery,
+      onCmdkInput: (e) => this.setState({ cmdkQuery: e.target.value, cmdkIndex: 0 }),
+      onCmdkKey: (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(st => ({ cmdkIndex: Math.min(st.cmdkIndex + 1, Math.max(0, cmdkFlat.length - 1)) })); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(st => ({ cmdkIndex: Math.max(0, st.cmdkIndex - 1) })); }
+        else if (e.key === 'Enter') { e.preventDefault(); const it = cmdkFlat[s.cmdkIndex]; if (it) cmdkPick(it); }
+      },
+      onCloseCmdk: () => this.setState({ cmdkOpen: false }),
+      cmdkScopes, cmdkGroups,
+      cmdkZero: !!ckq && cmdkGroups.length === 0,
+      onAskAICmdk: () => this.askAI(ckq),
+      onBrowseAllCmdk: () => this.setState({ cmdkOpen: false, view: 'root', panelQuery: '', leftCollapsed: false }),
+
+      // chat
+      chatOpen, chatClosed: !chatOpen,
+      onCloseChat: () => this.setState({ chatOpen: false, modeOpen: false }),
+      onExpandChat: () => this.toast('Expanded chat view arrives in a later phase'),
+      hasContext: !!selNode,
+      contextName: selNode ? selNode.name : '',
+      chatEmpty: !s.showUserMsg && !s.working && !s.showSummary,
+      showUserMsg: s.showUserMsg,
+      userMsgText: s.userMsgText,
+      working: s.working,
+      onPause: () => { clearTimeout(this._flowTimer); this.setState({ working: false }); },
+      showSummary: s.showSummary,
+      onCopyMsg: () => this.toast('Response copied'),
+      onDownloadMsg: () => this.toast('Download arrives in a later phase'),
+      infoOpen: s.infoOpen,
+      infoChevRot: s.infoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+      onToggleInfo: () => this.setState(st => ({ infoOpen: !st.infoOpen })),
+      showCallout: s.showSummary && !s.calloutDismissed,
+      onDismissCallout: () => this.setState({ calloutDismissed: true }),
+      onTestAgent: () => this.toast('Test Mode arrives in a later phase'),
+
+      composerRef: this.composerRef,
+      composerValue: s.composer,
+      composerPlaceholder: s.working ? 'Waiting for task completion…' : 'Describe what to build, or /test to run (↑↓ for history)',
+      composerBg: s.working ? 'var(--fusion-bg)' : 'var(--fusion-surface)',
+      onComposerInput: (e) => this.setState({ composer: e.target.value }),
+      onComposerKey: (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); if (canSend) this.playBuildFlow(); } },
+      sendOpacity: canSend ? 1 : 0.5,
+      onSend: () => { if (canSend) this.playBuildFlow(); },
+      modeOpen: s.modeOpen,
+      onToggleMode: () => this.setState(st => ({ modeOpen: !st.modeOpen })),
+      onPickBuild: () => this.setState({ modeOpen: false }),
+
+      dirtyVisibility: s.dirty ? 'visible' : 'hidden',
+      onCancel: () => this.setState({ dirty: false }),
+      onSave: () => { this.setState({ dirty: false }); this.toast('Changes saved', 'var(--fusion-green-600)'); },
+
+      toastVisible: !!s.toast,
+      toastText: s.toast ? s.toast.text : '',
+      toastAccent: s.toast ? s.toast.accent : 'var(--fusion-blue-700)',
+      onDismissToast: () => this.setState({ toast: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

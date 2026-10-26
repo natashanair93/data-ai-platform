@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-navy-800: var(--salt-color-blue-700);
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: var(--fusion-bg); }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; font-weight: 600; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<div ref="{{ shellRef }}" style="height:{{ shellHeight }}; display:flex; flex-direction:column; background:var(--fusion-bg); position:relative; overflow:hidden;">
+
+  <!-- app header — hidden when embedded, the host already has one -->
+  <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:none; height:56px; padding:0 22px; display:flex; align-items:center; gap:16px; background:var(--fusion-surface); border-bottom:1px solid var(--fusion-border);">
+    <span style="flex:none; font-family:var(--font-heading, var(--fusion-font)); font-size:19px; line-height:1.2; font-weight:700; letter-spacing:-.01em;">Fusion</span>
+    <div style="flex:1; min-width:0; display:flex; align-items:center; gap:7px; font-size:13px; color:var(--fusion-text-secondary);">
+      <span style="white-space:nowrap;">Agent Builder</span>
+      <span style="color:var(--fusion-text-muted);">/</span>
+      <span style="white-space:nowrap; font-weight:700; color:var(--fusion-ink);">{{ agentName }}</span>
+    </div>
+    <div style="flex:none; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:3px; gap:2px;">
+      <button style="height:28px; padding:0 15px; border:none; border-radius:var(--fusion-radius-full); background:none; color:var(--fusion-text-secondary); font-size:12.5px; font-weight:500;">Build</button>
+      <button style="height:28px; padding:0 15px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12.5px; font-weight:700; box-shadow:0 1px 2px rgba(16,24,40,.10);">Testing</button>
+    </div>
+    <span style="white-space:nowrap; flex:none; font-size:12px; color:var(--fusion-text-muted);">{{ agentVersion }}</span>
+  </div>
+  </sc-if>
+
+  <div style="flex:1; min-height:0; display:flex;">
+
+    <!-- run history rail -->
+    <div style="flex:none; width:{{ railWidth }}; border-right:1px solid var(--fusion-border); background:var(--fusion-surface); display:flex; flex-direction:column; overflow:hidden; transition:width .22s cubic-bezier(.4,0,.2,1);">
+      <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:none; padding:14px 14px 10px; display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="flex:1; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RUNS</span>
+            <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ onNewTest }}" style="white-space:nowrap; height:26px; padding:0 11px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:12px; font-weight:600;">New test</button>
+            </sc-if>
+            <button onClick="{{ onCollapseRail }}" aria-label="Collapse run history" title="Collapse" style="flex:none; width:24px; height:24px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 6-6 6 6 6"></path></svg>
+            </button>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" style="flex:none; color:var(--fusion-text-muted);"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4-4"></path></svg>
+            <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-muted);">Search runs</span>
+          </div>
+        </div>
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:0 8px 14px; display:flex; flex-direction:column; gap:2px;">
+          <sc-for list="{{ runList }}" as="r" hint-placeholder-count="5">
+            <button onClick="{{ r.onClick }}" style="width:100%; text-align:left; display:flex; gap:9px; padding:9px 10px; border:none; border-left:3px solid {{ r.bar }}; border-radius:var(--fusion-radius-sm); background:{{ r.bg }};">
+              <span style="flex:none; width:7px; height:7px; margin-top:5px; border-radius:50%; background:{{ r.dot }};"></span>
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; line-height:1.4; font-weight:{{ r.weight }}; color:{{ r.color }};">{{ r.title }}</span>
+                <span style="font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ r.meta }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ railShut }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1; min-height:0; padding:14px 0; display:flex; flex-direction:column; align-items:center; gap:12px;">
+          <button onClick="{{ onExpandRail }}" aria-label="Show run history" title="Run history" style="flex:none; width:32px; height:32px; display:grid; place-items:center; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-text-secondary);" style-hover="border-color:var(--fusion-blue-700); color:var(--fusion-blue-700);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 6 6 6-6 6"></path></svg>
+          </button>
+          <span style="writing-mode:vertical-rl; font-size:10.5px; font-weight:700; letter-spacing:.09em; color:var(--fusion-text-muted);">RUNS</span>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- main -->
+    <div ref="{{ scrollRef }}" style="flex:1; min-width:0; overflow-y:auto; padding:18px 22px 40px;">
+      <div style="max-width:1220px; margin:0 auto; display:flex; flex-direction:column; gap:16px;">
+
+        <!-- day 0: the agent exists, nothing has been run against it -->
+        <sc-if value="{{ isEmptyRun }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+            <div style="padding:14px 20px 12px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--fusion-border);">
+              <span style="white-space:nowrap; flex:none; font-size:17px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">Run #0</span>
+              <span style="white-space:nowrap; font-size:13.5px; color:var(--fusion-text-secondary);">not run yet</span>
+              <span style="white-space:nowrap; margin-left:auto; font-size:12px; color:var(--fusion-text-muted);">{{ agentVersion }}</span>
+            </div>
+            <div style="padding:34px 20px 38px; display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;">
+              <span style="width:46px; height:46px; border-radius:50%; display:grid; place-items:center; background:var(--fusion-bg); border:1px solid var(--fusion-border); color:var(--fusion-text-muted);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+              </span>
+              <span style="font-size:17px; line-height:1.3; font-weight:700;">Run a test to unlock insights</span>
+              <span style="max-width:440px; font-size:13.5px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">Nothing has run against {{ agentName }} yet. The first test fills this page in: what came out, how it scored, and where in the agent to look.</span>
+              <button onClick="{{ onRunTest }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 18px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:12.5px; font-weight:700; letter-spacing:.04em;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+                NEW TEST</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- report card -->
+        <sc-if value="{{ hasRun }}" hint-placeholder-val="{{ true }}">
+        <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+
+          <div style="padding:14px 20px 12px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+            <span style="white-space:nowrap; flex:none; font-size:17px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">{{ runLabel }}</span>
+            <span style="white-space:nowrap; font-size:13.5px; color:var(--fusion-text-secondary);">{{ runWhen }}</span>
+            <span style="white-space:nowrap; margin-left:auto; font-size:12px; color:var(--fusion-text-muted);">{{ runVersion }}</span>
+          </div>
+
+          <div style="padding:0 20px 14px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+            <span style="flex:none; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">TESTED</span>
+            <span style="font-size:13.5px; line-height:1.4; font-weight:600;">{{ scopeWhat }}</span>
+            <span style="white-space:nowrap; font-size:13px; color:var(--fusion-text-secondary);">{{ scopeDetail }}</span>
+          </div>
+
+          <div style="padding:0 20px 16px; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RESULT</span>
+              <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-secondary);">{{ resultCaption }}</span>
+            </div>
+            <sc-if value="{{ hasResult }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; align-items:center; gap:13px; padding:13px 15px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); background:var(--fusion-bg);">
+                <span style="flex:none; width:38px; height:38px; border-radius:9px; background:var(--fusion-surface); border:1px solid var(--fusion-border); color:var(--fusion-blue-700); display:grid; place-items:center;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>
+                </span>
+                <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:14.5px; line-height:1.35; font-weight:700;">{{ resultName }}</span>
+                  <span style="font-size:12.5px; color:var(--fusion-text-secondary);">{{ resultMeta }}</span>
+                </div>
+                <button onClick="{{ onDownload }}" aria-label="Download result" title="Download" style="flex:none; width:32px; height:32px; display:grid; place-items:center; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-blue-700);" style-hover="background:var(--fusion-blue-50); border-color:var(--fusion-blue-700);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 11 5 5 5-5"></path><path d="M4 20h16"></path></svg>
+                </button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noResult }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; gap:11px; padding:13px 15px; border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-red-600); border-radius:var(--fusion-radius-md); background:var(--fusion-surface);">
+                <span style="flex:1; min-width:0; font-size:13px; line-height:1.55; color:var(--fusion-text-secondary);">{{ failLine }}</span>
+                <button onClick="{{ onRerun }}" style="white-space:nowrap; flex:none; height:30px; padding:0 13px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:12.5px; font-weight:600;">Run again</button>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="padding:0 20px 16px; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">EVALUATIONS</span>
+              <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-secondary);">{{ evalSummary }}</span>
+              <span style="margin-left:auto; display:flex; gap:8px;">
+                <button onClick="{{ onOpenEdit }}" style="white-space:nowrap; height:28px; padding:0 12px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:12.5px; font-weight:600;">Edit</button>
+                <button onClick="{{ onOpenView }}" style="white-space:nowrap; height:28px; padding:0 12px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:12.5px; font-weight:600;">View</button>
+              </span>
+            </div>
+            <sc-if value="{{ hasEvalRows }}" hint-placeholder-val="{{ true }}">
+              <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                <sc-for list="{{ cardEvalRows }}" as="e" hint-placeholder-count="4">
+                  <button onClick="{{ e.onClick }}" style="width:100%; text-align:left; display:flex; align-items:center; gap:12px; padding:9px 14px; border:none; border-top:{{ e.sep }}; background:var(--fusion-surface);">
+                    <span style="flex:none; width:8px; height:8px; border-radius:50%; background:{{ e.dot }};"></span>
+                    <span style="flex:none; width:168px; font-size:13px; line-height:1.4; font-weight:600;">{{ e.name }}</span>
+                    <span style="flex:none; width:52px; font:500 12.5px var(--fusion-font-mono);">{{ e.score }}</span>
+                    <span style="flex:none; width:78px; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ e.threshold }}</span>
+                    <span style="flex:1; min-width:0; font-size:12.5px; color:var(--fusion-text-secondary);">{{ e.why }}</span>
+                  </button>
+                </sc-for>
+                <sc-if value="{{ hasMoreEvals }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ onOpenView }}" style="width:100%; text-align:left; padding:9px 14px 9px 34px; border:none; border-top:1px solid var(--fusion-border); background:var(--fusion-bg); font-size:12.5px; font-weight:600; color:var(--fusion-blue-700);">{{ moreEvalsLabel }}</button>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ hasTiles }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:0 20px 4px; display:flex; align-items:center; gap:10px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">AREAS TO REVIEW</span>
+              <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-secondary);">select one to collapse the run to the steps it concerns</span>
+            </div>
+            <div style="padding:8px 20px 16px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+              <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="4">
+                <button onClick="{{ t.onClick }}" style="display:flex; flex-direction:column; align-items:flex-start; text-align:left; gap:4px; padding:11px 13px; border:1px solid {{ t.border }}; border-radius:var(--fusion-radius-md); background:{{ t.bg }};">
+                  <span style="display:flex; align-items:center; gap:7px;">
+                    <sc-if value="{{ t.hasDot }}" hint-placeholder-val="{{ false }}">
+                      <span style="flex:none; width:7px; height:7px; border-radius:50%; background:{{ t.dot }};"></span>
+                    </sc-if>
+                    <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ t.k }}</span>
+                  </span>
+                  <span style="font-size:15px; line-height:1.3; font-weight:700;">{{ t.v }}</span>
+                  <span style="font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ t.d }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasDrill }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:11px 20px 13px; border-top:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <span style="flex:1; min-width:220px; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">{{ drillNote }}</span>
+                <sc-for list="{{ drillActions }}" as="a" hint-placeholder-count="1">
+                  <button onClick="{{ a.onClick }}" style="white-space:nowrap; border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">{{ a.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+
+        <!-- working view -->
+        <div ref="{{ workRef }}" style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+          <div style="display:flex; align-items:center; gap:12px; padding:11px 18px; border-bottom:1px solid var(--fusion-border);">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">HOW IT RAN</span>
+            <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-secondary);">{{ howItRan }}</span>
+            <sc-if value="{{ lensOn }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ onClearLens }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:7px; height:26px; padding:0 11px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-full); background:var(--fusion-blue-50); color:var(--fusion-blue-700); font-size:12px; font-weight:600;">{{ lensLabel }} ✕</button>
+            </sc-if>
+            <div style="margin-left:auto; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px;">
+              <sc-for list="{{ viewModes }}" as="m" hint-placeholder-count="2">
+                <button onClick="{{ m.onClick }}" style="white-space:nowrap; height:28px; padding:0 15px; border:none; border-radius:var(--fusion-radius-full); background:{{ m.bg }}; color:{{ m.color }}; font-size:12.5px; font-weight:{{ m.weight }}; box-shadow:{{ m.shadow }};">{{ m.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:stretch;">
+            <!-- tree column fills the panel; the list inside it stays pinned as the steps scroll -->
+            <div style="align-self:stretch; flex:none; width:208px; border-right:1px solid var(--fusion-border); border-bottom-left-radius:var(--fusion-radius-lg); background:var(--fusion-bg);">
+            <div style="position:sticky; top:0; max-height:{{ treeMaxH }}; overflow-y:auto; padding:14px 8px 16px 6px; display:flex; flex-direction:column; gap:1px;">
+              <span style="padding:0 8px 9px 6px; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ treeHeading }}</span>
+              <sc-for list="{{ treeRows }}" as="t" hint-placeholder-count="9">
+                <div style="display:flex; align-items:stretch; opacity:{{ t.opacity }};">
+                  <span style="flex:none; width:{{ t.gutter }}; margin-left:{{ t.indentLeft }}; border-left:{{ t.guide }};"></span>
+                  <button onClick="{{ t.onClick }}" style="flex:1; min-width:0; text-align:left; display:flex; align-items:center; gap:7px; padding:7px 8px 7px 5px; border:none; border-left:3px solid {{ t.bar }}; border-radius:var(--fusion-radius-sm); background:{{ t.bg }};">
+                    <span style="flex:none; width:6px; height:6px; border-radius:50%; background:{{ t.dot }};"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none; margin-left:-1px; color:{{ t.iconColor }};"><path d="{{ t.d1 }}"></path><path d="{{ t.d2 }}"></path></svg>
+                    <span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; font-weight:{{ t.weight }}; color:{{ t.color }};">{{ t.name }}</span>
+                    <span style="flex:none; font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ t.ms }}</span>
+                  </button>
+                </div>
+              </sc-for>
+              <div style="margin-top:10px; padding:11px 8px 0 6px; border-top:1px solid var(--fusion-border); display:flex; flex-direction:column; gap:6px;">
+                <div style="display:flex; align-items:center; gap:8px;"><span style="flex:none; width:7px; height:7px; border-radius:50%; background:var(--fusion-amber-600);"></span><span style="font-size:11.5px; color:var(--fusion-text-secondary);">needs a look</span></div>
+                <div style="display:flex; align-items:center; gap:8px;"><span style="flex:none; width:7px; height:7px; border-radius:50%; background:var(--fusion-blue-700);"></span><span style="font-size:11.5px; color:var(--fusion-text-secondary);">could be better</span></div>
+                <span style="font-size:11.5px; color:var(--fusion-text-muted);">no mark · ran clean</span>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:7px; padding-top:9px; border-top:1px solid var(--fusion-border);">
+                  <sc-for list="{{ typeLegend }}" as="k" hint-placeholder-count="4">
+                    <span style="display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--fusion-text-secondary);">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none; color:var(--fusion-text-muted);"><path d="{{ k.d1 }}"></path><path d="{{ k.d2 }}"></path></svg>{{ k.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <!-- steps -->
+            <sc-if value="{{ isSteps }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1; min-width:0; padding:18px 22px 26px; display:flex; flex-direction:column;">
+                <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="6">
+                  <div style="display:flex; align-items:stretch; gap:14px; opacity:{{ b.opacity }};">
+                    <div style="flex:none; width:30px; display:flex; flex-direction:column; align-items:center;">
+                      <sc-if value="{{ b.hasNode }}" hint-placeholder-val="{{ true }}">
+                        <span style="flex:none; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--fusion-surface); border:2px solid {{ b.nodeBorder }}; color:{{ b.nodeBorder }};">
+                          <sc-if value="{{ b.hasNodeIcon }}" hint-placeholder-val="{{ false }}">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ b.d1 }}"></path><path d="{{ b.d2 }}"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ b.hasNodeDot }}" hint-placeholder-val="{{ true }}">
+                            <span style="width:7px; height:7px; border-radius:50%; background:{{ b.nodeDot }};"></span>
+                          </sc-if>
+                        </span>
+                      </sc-if>
+                      <span style="flex:1; width:2px; background:var(--fusion-border);"></span>
+                    </div>
+                    <div style="flex:1; min-width:0; padding-bottom:14px;">
+
+                      <sc-if value="{{ b.isMarker }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex; align-items:center; gap:10px; padding:6px 0 0;">
+                          <span style="flex:none; font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ b.markerText }}</span>
+                          <span style="flex:1; height:1px; background:var(--fusion-border);"></span>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ b.isCards }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:grid; grid-template-columns:{{ b.cols }}; gap:12px; align-items:start;">
+                          <sc-for list="{{ b.cards }}" as="c" hint-placeholder-count="1">
+                            <div ref="{{ c.ref }}" style="min-width:0; display:flex; flex-direction:column; gap:8px; padding:14px 16px; background:var(--fusion-surface); border:1px solid {{ c.cardBorder }}; border-radius:var(--fusion-radius-md); box-shadow:{{ c.cardRing }};">
+                              <div style="display:flex; align-items:center; gap:8px;">
+                                <sc-if value="{{ c.hasDot }}" hint-placeholder-val="{{ false }}">
+                                  <span style="flex:none; width:7px; height:7px; border-radius:50%; background:{{ c.dot }};"></span>
+                                </sc-if>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none; color:var(--fusion-text-muted);"><path d="{{ c.d1 }}"></path><path d="{{ c.d2 }}"></path></svg>
+                                <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ c.kind }}</span>
+                                <span style="margin-left:auto; font:400 11px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ c.stamp }}</span>
+                              </div>
+                              <span style="font-size:15px; line-height:1.3; font-weight:700;">{{ c.name }}</span>
+                              <span style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ c.summary }}</span>
+                              <div style="display:flex; gap:7px; flex-wrap:wrap;">
+                                <sc-for list="{{ c.deltas }}" as="d" hint-placeholder-count="2">
+                                  <span style="max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11.5px; font-weight:500; color:var(--fusion-text-secondary); background:var(--fusion-bg); border-radius:var(--fusion-radius-sm); padding:3px 8px;">{{ d }}</span>
+                                </sc-for>
+                              </div>
+                              <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                                <sc-for list="{{ c.vitals }}" as="v" hint-placeholder-count="3">
+                                  <span style="max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ v }}</span>
+                                </sc-for>
+                              </div>
+                              <sc-for list="{{ c.flags }}" as="f" hint-placeholder-count="0">
+                                <div style="display:flex; flex-direction:column; gap:4px; padding:11px 13px; border:1px solid var(--fusion-border); border-left:3px solid {{ f.tone }}; border-radius:var(--fusion-radius-md); background:var(--fusion-surface);">
+                                  <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:{{ f.tone }};">{{ f.kind }}</span>
+                                  <span style="font-size:13.5px; line-height:1.4; font-weight:700;">{{ f.title }}</span>
+                                  <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ f.body }}</span>
+                                  <div style="display:flex; gap:14px; flex-wrap:wrap; padding-top:3px;">
+                                    <sc-for list="{{ f.actions }}" as="a" hint-placeholder-count="2">
+                                      <button onClick="{{ a.onClick }}" style="white-space:nowrap; border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">{{ a.label }}</button>
+                                    </sc-for>
+                                  </div>
+                                </div>
+                              </sc-for>
+                              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                <sc-for list="{{ c.drawers }}" as="dr" hint-placeholder-count="2">
+                                  <button onClick="{{ dr.onClick }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:8px; height:28px; padding:0 11px; border:1px solid {{ dr.border }}; border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); font-size:12px; font-weight:600; color:{{ dr.color }};">
+                                    <span style="font-size:11px; color:var(--fusion-text-muted);">{{ dr.chev }}</span>{{ dr.label }}<span style="font-weight:400; font-size:11px; color:var(--fusion-text-muted);">{{ dr.hint }}</span></button>
+                                </sc-for>
+                              </div>
+                              <sc-if value="{{ c.drawerOpen }}" hint-placeholder-val="{{ false }}">
+                                <div style="display:flex; flex-direction:column; gap:10px; padding:12px 13px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); background:var(--fusion-bg);">
+                                  <div style="display:grid; grid-template-columns:{{ c.drawerCols }}; gap:12px;">
+                                    <sc-for list="{{ c.drawerPanes }}" as="p" hint-placeholder-count="2">
+                                      <div style="min-width:0; display:flex; flex-direction:column; gap:6px;">
+                                        <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ p.caps }}</span>
+                                        <span style="white-space:pre-wrap; font:400 11.5px/1.65 var(--fusion-font-mono); color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); padding:10px 11px;">{{ p.body }}</span>
+                                      </div>
+                                    </sc-for>
+                                  </div>
+                                  <sc-if value="{{ c.drawerFoot }}" hint-placeholder-val="{{ false }}">
+                                    <div style="display:flex; gap:16px; flex-wrap:wrap; padding-top:2px; border-top:1px solid var(--fusion-border); margin-top:2px;">
+                                      <sc-for list="{{ c.drawerActions }}" as="a" hint-placeholder-count="2">
+                                        <button onClick="{{ a.onClick }}" style="white-space:nowrap; border:none; background:none; padding:8px 0 0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">{{ a.label }}</button>
+                                      </sc-for>
+                                    </div>
+                                  </sc-if>
+                                </div>
+                              </sc-if>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ b.isLoop }}" hint-placeholder-val="{{ false }}">
+                        <div ref="{{ b.ref }}" style="border:1px solid {{ b.loopBorder }}; border-radius:var(--fusion-radius-md); background:var(--fusion-bg); padding:14px 16px; display:flex; flex-direction:column; gap:10px; box-shadow:{{ b.loopRing }};">
+                          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <span style="flex:none; width:7px; height:7px; border-radius:50%; background:var(--fusion-blue-700);"></span>
+                            <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">LOOP · REPEATED UNTIL VALID</span>
+                            <span style="margin-left:auto; display:flex; align-items:center; gap:7px;">
+                              <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">PASS</span>
+                              <sc-for list="{{ passes }}" as="p" hint-placeholder-count="4">
+                                <button onClick="{{ p.onClick }}" style="width:26px; height:26px; border-radius:50%; border:1.5px solid {{ p.border }}; background:{{ p.bg }}; color:{{ p.color }}; font-size:12px; font-weight:600;">{{ p.n }}</button>
+                              </sc-for>
+                            </span>
+                          </div>
+                          <span style="font-size:15px; line-height:1.3; font-weight:700;">Validate &amp; refine</span>
+                          <span style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ loopSummary }}</span>
+                          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                            <sc-for list="{{ loopVitals }}" as="v" hint-placeholder-count="3">
+                              <span style="white-space:nowrap; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ v }}</span>
+                            </sc-for>
+                          </div>
+                          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div style="min-width:0; display:flex; flex-direction:column; gap:5px; padding:12px 14px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+                              <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">RULE CHECK</span>
+                              <span style="font-size:14px; line-height:1.3; font-weight:700;">Validate draft</span>
+                              <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">{{ passValidate }}</span>
+                            </div>
+                            <div style="min-width:0; display:flex; flex-direction:column; gap:5px; padding:12px 14px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+                              <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">MODEL</span>
+                              <span style="font-size:14px; line-height:1.3; font-weight:700;">Refine draft</span>
+                              <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">{{ passRefine }}</span>
+                            </div>
+                          </div>
+                          <div style="display:flex; flex-direction:column; gap:4px; padding:11px 13px; border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:var(--fusion-surface);">
+                            <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:var(--fusion-blue-700);">COULD BE BETTER</span>
+                            <span style="font-size:13.5px; line-height:1.4; font-weight:700;">Four passes to reach a valid draft, the ceiling is five</span>
+                            <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">Each failure was a different rule — disclosure, figures, tone. All three are things the drafting prompt could state up front, which would fold four passes into one.</span>
+                            <div style="display:flex; gap:14px; padding-top:3px;">
+                              <button onClick="{{ onLoopTrace }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">See the three rules →</button>
+                            </div>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ b.isSkipped }}" hint-placeholder-val="{{ false }}">
+                        <div style="padding:12px 15px; border:1px dashed var(--fusion-border-strong); border-radius:var(--fusion-radius-md); font-size:13px; line-height:1.55; color:var(--fusion-text-muted);">{{ b.skipText }}</div>
+                      </sc-if>
+
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <!-- trace -->
+            <sc-if value="{{ isTrace }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1; min-width:0; padding:16px 22px 24px; display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                  <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted); margin-right:2px;">SHOW</span>
+                  <span style="position:relative;">
+                    <button onClick="{{ onFilterToggle }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:7px; height:28px; padding:0 11px; border:1px solid {{ filterBorder }}; border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12.5px; font-weight:600;">{{ filterLabel }}<span style="font-size:9px; color:var(--fusion-text-muted);">▾</span></button>
+                    <sc-if value="{{ filterOpen }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute; top:31px; left:0; z-index:20; min-width:140px; display:flex; flex-direction:column; padding:4px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); box-shadow:0 6px 18px rgba(20,40,70,.14);">
+                        <sc-for list="{{ filterOptions }}" as="o" hint-placeholder-count="5">
+                          <button onClick="{{ o.onClick }}" style="white-space:nowrap; text-align:left; padding:7px 9px; border:none; border-radius:var(--fusion-radius-sm); background:{{ o.bg }}; font-size:12.5px; font-weight:{{ o.weight }}; color:var(--fusion-ink);">{{ o.label }}</button>
+                        </sc-for>
+                      </span>
+                    </sc-if>
+                  </span>
+                  <span style="width:1px; height:18px; background:var(--fusion-border); margin:0 4px;"></span>
+                  <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted); margin-right:2px;">MEASURE</span>
+                  <span style="position:relative;">
+                    <button onClick="{{ onMetricToggle }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:7px; height:28px; padding:0 11px; border:1px solid {{ metricBorder }}; border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12.5px; font-weight:600;">{{ metricLabel }}<span style="font-size:9px; color:var(--fusion-text-muted);">▾</span></button>
+                    <sc-if value="{{ metricOpen }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute; top:31px; left:0; z-index:20; min-width:120px; display:flex; flex-direction:column; padding:4px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); box-shadow:0 6px 18px rgba(20,40,70,.14);">
+                        <sc-for list="{{ metricOptions }}" as="o" hint-placeholder-count="3">
+                          <button onClick="{{ o.onClick }}" style="white-space:nowrap; text-align:left; padding:7px 9px; border:none; border-radius:var(--fusion-radius-sm); background:{{ o.bg }}; font-size:12.5px; font-weight:{{ o.weight }}; color:var(--fusion-ink);">{{ o.label }}</button>
+                        </sc-for>
+                      </span>
+                    </sc-if>
+                  </span>
+                  <span style="margin-left:auto; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">{{ traceTotal }}</span>
+                </div>
+
+                <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:-4px; padding-bottom:10px; border-bottom:1px solid var(--fusion-border);">
+                  <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4">
+                    <span style="display:inline-flex; align-items:center; gap:7px; font-size:11.5px; color:var(--fusion-text-secondary);">
+                      <span style="flex:none; width:14px; height:8px; border-radius:4px; background:{{ l.color }}; opacity:{{ l.opacity }};"></span>{{ l.label }}</span>
+                  </sc-for>
+                </div>
+
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ traceRows }}" as="r" hint-placeholder-count="12">
+                    <sc-if value="{{ r.isGroup }}" hint-placeholder-val="{{ false }}">
+                      <span style="padding:12px 0 4px; font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ r.label }}</span>
+                    </sc-if>
+                    <sc-if value="{{ r.isRow }}" hint-placeholder-val="{{ true }}">
+                      <button ref="{{ r.ref }}" onClick="{{ r.onClick }}" style="width:100%; text-align:left; display:grid; grid-template-columns:250px 1fr 66px; gap:12px; align-items:center; padding:5px 6px; border:none; border-radius:var(--fusion-radius-sm); background:{{ r.rowBg }};">
+                        <span style="display:flex; align-items:center; gap:8px; min-width:0;">
+                          <span style="flex:none; padding:1px 5px; border:1px solid var(--fusion-border); border-radius:3px; font-size:9px; font-weight:700; letter-spacing:.05em; color:var(--fusion-text-muted);">{{ r.type }}</span>
+                          <span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; font-weight:500;">{{ r.name }}</span>
+                        </span>
+                        <span style="position:relative; height:11px; background:var(--fusion-bg); border-radius:6px;">
+                          <span style="position:absolute; top:0; bottom:0; left:{{ r.left }}; width:{{ r.width }}; border-radius:6px; background:{{ r.barColor }}; opacity:{{ r.barOpacity }};"></span>
+                        </span>
+                        <span style="text-align:right; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ r.value }}</span>
+                      </button>
+                    </sc-if>
+                    <sc-if value="{{ r.isOpen }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin:4px 0 8px; padding:13px 15px; border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); background:var(--fusion-bg); display:flex; flex-direction:column; gap:10px;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                          <div style="display:flex; flex-direction:column; gap:6px; min-width:0;">
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">INPUT</span>
+                            <span style="white-space:pre-wrap; font:400 11.5px/1.6 var(--fusion-font-mono); color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); padding:10px 11px;">{{ r.detIn }}</span>
+                          </div>
+                          <div style="display:flex; flex-direction:column; gap:6px; min-width:0;">
+                            <span style="font-size:9.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">OUTPUT</span>
+                            <span style="white-space:pre-wrap; font:400 11.5px/1.6 var(--fusion-font-mono); color:var(--fusion-text-secondary); background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); padding:10px 11px;">{{ r.detOut }}</span>
+                          </div>
+                        </div>
+                        <div style="display:flex; gap:18px; flex-wrap:wrap; font-size:12px; color:var(--fusion-text-secondary);">
+                          <sc-for list="{{ r.detMeta }}" as="m" hint-placeholder-count="3">
+                            <span>{{ m }}</span>
+                          </sc-for>
+                        </div>
+                        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                          <button onClick="{{ r.onReadInSteps }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">Read in steps →</button>
+                          <button onClick="{{ r.onFixture }}" style="border:none; background:none; padding:0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">Pin input as fixture</button>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit evaluations -->
+  <sc-if value="{{ editOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseEdit }}" style="position:absolute; inset:0; z-index:60; background:rgba(18,31,48,.20);"></div>
+    <div style="position:absolute; top:{{ dialogTop }}; left:50%; transform:translateX(-50%); z-index:61; width:min(1080px,94%); height:{{ dialogH }}; display:grid; grid-template-columns:minmax(0,1fr) 340px; background:var(--fusion-surface); border-radius:var(--fusion-radius-lg); box-shadow:0 18px 48px rgba(20,40,70,.22); overflow:hidden;">
+      <div style="min-width:0; min-height:0; overflow-y:auto; padding:20px 24px 24px; display:flex; flex-direction:column; gap:16px;">
+        <div style="display:flex; flex-direction:column; gap:3px;">
+          <span style="font-size:17px; line-height:1.3; font-weight:700;">Evaluation metrics</span>
+          <span style="font-size:12.5px; color:var(--fusion-text-secondary);">Shared library. Attaching a metric applies it to this agent only.</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; padding:7px 11px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" style="flex:none; color:var(--fusion-text-muted);"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4-4"></path></svg>
+          <span style="white-space:nowrap; font-size:12.5px; color:var(--fusion-text-muted);">Search metrics</span>
+        </div>
+
+        <sc-if value="{{ hasRecs }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-blue-700);">SUGGESTED FOR THIS AGENT</span>
+            <div style="border:1px solid var(--fusion-blue-100); border-radius:var(--fusion-radius-md); background:#F7FAFD; overflow:hidden;">
+              <sc-for list="{{ recRows }}" as="m" hint-placeholder-count="2">
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 14px; border-top:{{ m.sep }};">
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:13.5px; line-height:1.4; font-weight:600;">{{ m.name }}</span>
+                    <span style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">{{ m.desc }}</span>
+                    <span style="font-size:12px; line-height:1.5; color:var(--fusion-blue-700);">{{ m.why }}</span>
+                  </span>
+                  <button onClick="{{ m.onClick }}" style="white-space:nowrap; flex:none; height:30px; padding:0 13px; border:1px solid {{ m.btnBorder }}; border-radius:var(--fusion-radius-sm); background:{{ m.btnBg }}; color:{{ m.btnColor }}; font-size:12.5px; font-weight:600;">{{ m.btnLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-for list="{{ catGroups }}" as="g" hint-placeholder-count="3">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ g.name }}</span>
+            <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+              <sc-for list="{{ g.items }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex; align-items:center; gap:12px; padding:11px 14px; border-top:{{ m.sep }};">
+                  <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:13.5px; line-height:1.4; font-weight:600;">{{ m.name }}</span>
+                    <span style="font-size:12px; line-height:1.5; color:var(--fusion-text-secondary);">{{ m.desc }}</span>
+                  </span>
+                  <sc-if value="{{ m.isButton }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ m.onClick }}" style="white-space:nowrap; flex:none; height:30px; padding:0 13px; border:1px solid {{ m.btnBorder }}; border-radius:var(--fusion-radius-sm); background:{{ m.btnBg }}; color:{{ m.btnColor }}; font-size:12.5px; font-weight:600;">{{ m.btnLabel }}</button>
+                  </sc-if>
+                  <sc-if value="{{ m.isState }}" hint-placeholder-val="{{ false }}">
+                    <span style="white-space:nowrap; flex:none; font-size:12px; color:var(--fusion-text-muted);">{{ m.stateLabel }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="min-height:0; border-left:1px solid var(--fusion-border); background:var(--fusion-bg); display:flex; flex-direction:column;">
+        <div style="flex:1; min-height:0; overflow-y:auto; padding:20px 20px 12px; display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+              <span style="font-size:14px; line-height:1.3; font-weight:700;">This agent’s set</span>
+              <span style="font-size:12px; color:var(--fusion-text-secondary);">{{ setSummary }}</span>
+            </div>
+            <button onClick="{{ onCloseEdit }}" aria-label="Close" style="flex:none; width:28px; height:28px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-muted);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+            </button>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">YOUR METRICS</span>
+            <sc-for list="{{ setRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:9px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+                <span style="flex:1; min-width:0; font-size:13px; line-height:1.4; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.name }}</span>
+                <sc-if value="{{ r.hasThreshold }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none; position:relative;">
+                    <button onClick="{{ r.onToggleMenu }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 9px; border:1px solid {{ r.menuBorder }}; border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font:400 11.5px var(--fusion-font-mono);">{{ r.thresholdLabel }}<span style="font-size:9px; color:var(--fusion-text-muted);">▾</span></button>
+                    <sc-if value="{{ r.menuOpen }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute; top:29px; right:0; z-index:20; min-width:112px; display:flex; flex-direction:column; padding:4px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); box-shadow:0 6px 18px rgba(20,40,70,.14);">
+                        <sc-for list="{{ r.options }}" as="o" hint-placeholder-count="5">
+                          <button onClick="{{ o.onClick }}" style="white-space:nowrap; text-align:left; padding:6px 9px; border:none; border-radius:var(--fusion-radius-sm); background:{{ o.bg }}; color:var(--fusion-ink); font:400 11.5px var(--fusion-font-mono);">{{ o.label }}</button>
+                        </sc-for>
+                      </span>
+                    </sc-if>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ r.isContract }}" hint-placeholder-val="{{ false }}">
+                  <span style="white-space:nowrap; flex:none; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">contract</span>
+                </sc-if>
+                <button onClick="{{ r.onRemove }}" aria-label="Remove metric" style="flex:none; width:24px; height:24px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">ALWAYS ON</span>
+            <sc-for list="{{ alwaysRows }}" as="r" hint-placeholder-count="2">
+              <div style="display:flex; align-items:center; gap:9px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+                <span style="flex:1; min-width:0; font-size:13px; line-height:1.4; font-weight:600;">{{ r.name }}</span>
+                <span style="flex:none; display:grid; place-items:center; color:var(--fusion-text-muted);" title="Runs on every agent">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                </span>
+              </div>
+            </sc-for>
+            <span style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-muted);">These run on every agent in the firm. You can add to your set, but not remove these.</span>
+          </div>
+
+          <sc-if value="{{ hasQueue }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:7px;">
+              <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-blue-700);">ADDING</span>
+              <sc-for list="{{ queueRows }}" as="r" hint-placeholder-count="1">
+                <div style="display:flex; align-items:center; gap:9px; padding:9px 11px; background:var(--fusion-surface); border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md);">
+                  <span style="flex:1; min-width:0; font-size:13px; line-height:1.4; font-weight:600;">{{ r.name }}</span>
+                  <span style="white-space:nowrap; flex:none; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted);">needs grading</span>
+                  <button onClick="{{ r.onRemove }}" aria-label="Remove" style="flex:none; width:24px; height:24px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-muted);">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:none; border-top:1px solid var(--fusion-border); background:var(--fusion-surface); padding:14px 20px; display:flex; flex-direction:column; gap:10px;">
+          <span style="font-size:11.5px; line-height:1.55; color:var(--fusion-text-secondary);">{{ editFootNote }}</span>
+          <div style="display:flex; gap:9px; justify-content:flex-end;">
+            <button onClick="{{ onSaveOnly }}" style="white-space:nowrap; height:34px; padding:0 14px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:13px; font-weight:600;">Save</button>
+            <button onClick="{{ onCommitEdit }}" style="white-space:nowrap; height:34px; padding:0 16px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:{{ commitBg }}; color:#fff; font-size:13px; font-weight:600;">{{ commitLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- evaluation results -->
+  <sc-if value="{{ viewOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:{{ overlayTop }} 0 0 0; z-index:55; background:var(--fusion-bg); overflow-y:auto;">
+      <div style="max-width:960px; margin:22px auto 60px; padding:0 24px; display:flex; flex-direction:column; gap:14px;">
+        <div style="background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); overflow:hidden;">
+          <div style="padding:16px 22px 14px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:flex-start; gap:14px;">
+            <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+              <button onClick="{{ onCloseView }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; border:none; background:none; padding:0; font-size:12.5px; font-weight:600; color:var(--fusion-blue-700);">{{ backLabel }}</button>
+              <span style="font-size:17px; line-height:1.3; font-weight:700;">Evaluation results</span>
+              <span style="font-size:12.5px; color:var(--fusion-text-secondary);">{{ viewSub }}</span>
+            </div>
+            <button onClick="{{ onOpenEdit }}" style="white-space:nowrap; flex:none; height:30px; padding:0 13px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-blue-700); font-size:12.5px; font-weight:600;">Edit</button>
+          </div>
+          <div style="padding:16px 22px 20px; display:flex; flex-direction:column; gap:18px;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">YOUR METRICS</span>
+              <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                <sc-for list="{{ viewRows }}" as="r" hint-placeholder-count="5">
+                  <div style="display:flex; align-items:flex-start; gap:12px; padding:11px 14px; border-top:{{ r.sep }}; background:{{ r.bg }};">
+                    <span style="flex:none; width:8px; height:8px; margin-top:5px; border-radius:50%; background:{{ r.dot }};"></span>
+                    <span style="flex:none; width:168px; font-size:13px; line-height:1.4; font-weight:600;">{{ r.name }}</span>
+                    <span style="flex:none; width:52px; font:500 12.5px var(--fusion-font-mono);">{{ r.score }}</span>
+                    <span style="flex:none; width:74px; font:400 11.5px var(--fusion-font-mono); color:var(--fusion-text-muted); padding-top:1px;">{{ r.threshold }}</span>
+                    <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+                      <span style="font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">{{ r.why }}</span>
+                      <sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:11.5px; line-height:1.5; color:var(--fusion-amber-600);">{{ r.note }}</span>
+                      </sc-if>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">ALWAYS ON</span>
+              <div style="border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); overflow:hidden;">
+                <sc-for list="{{ alwaysResults }}" as="r" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-top:{{ r.sep }};">
+                    <span style="flex:none; width:168px; margin-left:20px; font-size:13px; line-height:1.4; font-weight:600;">{{ r.name }}</span>
+                    <span style="flex:none; width:52px; font:500 12.5px var(--fusion-font-mono);">{{ r.score }}</span>
+                    <span style="flex:1; min-width:0; font-size:12.5px; color:var(--fusion-text-secondary);">{{ r.why }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">WHAT THIS RUN SUGGESTS</span>
+              <sc-for list="{{ insights }}" as="n" hint-placeholder-count="3">
+                <div style="display:flex; flex-direction:column; gap:4px; padding:12px 14px; border:1px solid var(--fusion-border); border-left:3px solid {{ n.tone }}; border-radius:var(--fusion-radius-md);">
+                  <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:{{ n.tone }};">{{ n.kind }}</span>
+                  <span style="font-size:13px; line-height:1.55; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ n.body }}</span>
+                  <button onClick="{{ n.onClick }}" style="align-self:flex-start; border:none; background:none; padding:2px 0 0; font-size:12.5px; font-weight:700; color:var(--fusion-blue-700);">{{ n.action }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- compare -->
+  <sc-if value="{{ compareOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseCompare }}" style="position:absolute; inset:{{ overlayTop }} 0 0 0; z-index:58; background:rgba(18,31,48,.18);"></div>
+    <div style="position:absolute; top:{{ overlayTop }}; right:0; bottom:0; z-index:59; width:min(560px,96vw); background:var(--fusion-surface); box-shadow:-10px 0 30px rgba(20,40,70,.14); overflow-y:auto; padding:22px 24px 30px; display:flex; flex-direction:column; gap:14px;">
+      <div style="display:flex; align-items:flex-start; gap:12px;">
+        <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+          <span style="font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">{{ compareKicker }}</span>
+          <span style="font-size:18px; line-height:1.3; font-weight:700; letter-spacing:-.01em;">Compare a variant</span>
+          <span style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Runs against this step’s captured inputs. A scratch run — it is not saved to history and does not affect trends or baselines.</span>
+        </div>
+        <button onClick="{{ onCloseCompare }}" aria-label="Close" style="flex:none; width:30px; height:30px; display:grid; place-items:center; border:none; border-radius:var(--fusion-radius-sm); background:none; color:var(--fusion-text-muted);" style-hover="background:var(--fusion-bg); color:var(--fusion-ink);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start;">
+        <div style="min-width:0; display:flex; flex-direction:column; gap:9px; padding:14px; border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+          <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-text-muted);">AS IT RAN</span>
+          <sc-for list="{{ compareOriginal }}" as="f" hint-placeholder-count="3">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+              <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">{{ f.label }}</span>
+              <span style="white-space:nowrap; flex:none; font-size:12.5px; font-weight:700; text-align:right;">{{ f.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="min-width:0; display:flex; flex-direction:column; gap:9px; padding:14px; border:1px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md);">
+          <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:var(--fusion-blue-700);">VARIANT</span>
+          <sc-for list="{{ compareVariant }}" as="f" hint-placeholder-count="3">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <span style="flex:1; min-width:0; font-size:12.5px; line-height:1.5; color:var(--fusion-text-secondary);">{{ f.label }}</span>
+              <sc-if value="{{ f.editable }}" hint-placeholder-val="{{ true }}">
+                <span style="position:relative;">
+                  <button onClick="{{ f.onToggle }}" style="white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 10px; border:1px solid {{ f.border }}; border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:12.5px; font-weight:600;">{{ f.value }}<span style="font-size:9px; color:var(--fusion-text-muted);">▾</span></button>
+                  <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute; top:31px; right:0; z-index:20; min-width:150px; display:flex; flex-direction:column; padding:4px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-sm); box-shadow:0 6px 18px rgba(20,40,70,.14);">
+                      <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="2">
+                        <button onClick="{{ o.onClick }}" style="white-space:nowrap; text-align:left; padding:7px 9px; border:none; border-radius:var(--fusion-radius-sm); background:{{ o.bg }}; font-size:12.5px; font-weight:{{ o.weight }}; color:var(--fusion-ink);">{{ o.label }}</button>
+                      </sc-for>
+                    </span>
+                  </sc-if>
+                </span>
+              </sc-if>
+              <sc-if value="{{ f.isStatic }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:12.5px; font-weight:700;">{{ f.value }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:9px;">
+        <button onClick="{{ onRunVariant }}" style="white-space:nowrap; height:36px; padding:0 16px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:13px; font-weight:600;">{{ runVariantLabel }}</button>
+        <button onClick="{{ onCloseCompare }}" style="white-space:nowrap; height:36px; padding:0 14px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:13px; font-weight:600;">Cancel</button>
+      </div>
+
+      <sc-if value="{{ compareRan }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex; flex-direction:column; gap:12px; padding-top:14px; border-top:1px solid var(--fusion-border);">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <sc-for list="{{ compareResults }}" as="col" hint-placeholder-count="2">
+              <div style="min-width:0; display:flex; flex-direction:column; gap:6px; padding:13px; border:1px solid {{ col.border }}; border-radius:var(--fusion-radius-md);">
+                <span style="font-size:10px; font-weight:700; letter-spacing:.07em; color:{{ col.headColor }};">{{ col.head }}</span>
+                <sc-for list="{{ col.lines }}" as="l" hint-placeholder-count="3">
+                  <span style="font:400 12px var(--fusion-font-mono); color:var(--fusion-text-secondary);">{{ l }}</span>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <span style="font-size:13px; line-height:1.6; color:var(--fusion-text-secondary); text-wrap:pretty;">{{ compareVerdict }}</span>
+          <div style="display:flex; gap:9px;">
+            <button onClick="{{ onPropose }}" style="white-space:nowrap; height:36px; padding:0 16px; border:1px solid transparent; border-radius:var(--fusion-radius-sm); background:var(--fusion-blue-700); color:#fff; font-size:13px; font-weight:600;">Propose to canvas →</button>
+            <button onClick="{{ onDiscard }}" style="white-space:nowrap; height:36px; padding:0 14px; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-sm); background:var(--fusion-surface); color:var(--fusion-ink); font-size:13px; font-weight:600;">Discard</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; right:22px; bottom:20px; z-index:80; padding:12px 16px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-left:3px solid var(--fusion-blue-700); border-radius:var(--fusion-radius-md); box-shadow:0 10px 28px rgba(20,40,70,.16); font-size:13.5px; font-weight:500;">{{ toast }}</div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;chrome&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;on&quot;,&quot;off&quot;],&quot;default&quot;:&quot;on&quot;,&quot;tsType&quot;:&quot;'on' | 'off'&quot;,&quot;section&quot;:&quot;Embedding&quot;},&quot;agentName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Client Meeting Prep&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Embedding&quot;},&quot;agentVersion&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;v14 · draft&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Embedding&quot;}}">
+const AMBER = 'var(--fusion-amber-600)', RED = 'var(--fusion-red-600)', BLUE = 'var(--fusion-blue-700)',
+      SEC = 'var(--fusion-text-secondary)', MUT = 'var(--fusion-text-muted)',
+      BRD = 'var(--fusion-border)', BRDS = 'var(--fusion-border-strong)', NONE = 'transparent';
+
+const ICONS = {
+  model: ['M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z'],
+  tool: ['M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z'],
+  knowledge: ['M4 19.5A2.5 2.5 0 0 1 6.5 17H20', 'M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'],
+  rule: ['M4 4h16v16H4z', 'm9 12 2 2 4-4'],
+  loop: ['M3 12a9 9 0 1 0 2.6-6.4L3 8', 'M3 3v5h5'],
+  agent: ['M12 2.4 20 7v10l-8 4.6L4 17V7z', 'M12 9.4 15.5 11.5v4.2L12 17.8 8.5 15.7v-4.2z'],
+  parallel: ['M6 4v6a4 4 0 0 0 4 4h8', 'M6 20v-6a4 4 0 0 1 4-4h8'],
+  transform: ['m8 3-4 4 4 4M4 7h16', 'm16 21 4-4-4-4M20 17H4'],
+  input: ['m9 6 8 6-8 6z'],
+  result: ['M6 6h12v12H6z'],
+};
+
+const FILTER_OPTS = [
+  { v: 'all', label: 'All spans' }, { v: 'model', label: 'Model' }, { v: 'tool', label: 'Tool' },
+  { v: 'retrieval', label: 'Retrieval' }, { v: 'rule', label: 'Rules' },
+];
+const METRIC_OPTS = [{ v: 'tokens', label: 'Tokens' }, { v: 'time', label: 'Time' }, { v: 'cost', label: 'Cost' }];
+
+// ---------------------------------------------------------------------------
+// The run. Spans carry the numbers; step durations, the waterfall, the tiles and
+// the tree all derive from them, so no two surfaces can disagree.
+// ---------------------------------------------------------------------------
+const sp = (o) => ({ tokens: 0, cost: 0, warn: false, ...o });
+
+const STEPS_128 = [
+  { id: 'parse', name: 'Parse request', kind: 'MODEL', icon: 'model',
+    summary: 'Turned the free-text ask into a structured request — client, meeting type, date and two focus topics. Nothing dropped.',
+    deltas: ['text → 4 fields', 'client resolved to CRM record'],
+    resource: 'fusion-small-2',
+    spans: [
+      sp({ id: 'parse-model', type: 'model', name: 'model_call · fusion-small-2', s: 0, d: 1.15, cost: 0.004, tokens: 608,
+        in: '"Prep me for the Meridian Capital quarterly review on Thursday…"', out: '{ client, client_id, meeting, date, topics[2] }', ev: 'cache: miss' }),
+      sp({ id: 'parse-rule', type: 'rule', name: 'contract check · RequestSpec v3', s: 1.15, d: 0.05, in: 'parsed object', out: 'valid', ev: '—' }),
+    ],
+    dataHint: '0.3 KB → 0.2 KB',
+    data: [['IN', '"Prep me for the Meridian Capital\nquarterly review on Thursday — focus\non their FX hedging program and any\nopen service issues."'],
+           ['OUT', '{\n  client: "Meridian Capital",\n  client_id: "MER-4402",\n  meeting: "Quarterly review",\n  date: "2026-08-06",\n  topics: [2 items]\n}']],
+    inspect: [['MODEL · fusion-small-2 · temp 0', 'Rendered prompt: system 210 tok · input 88 tok.'],
+              ['CONTRACT', 'RequestSpec v3 — valid.']] },
+  { parallel: true, ids: ['crm', 'research'] },
+  { id: 'crm', name: 'Fetch CRM data', kind: 'TOOL', icon: 'tool',
+    summary: 'Pulled the client profile — 214 fields returned, 9 carried forward. The first call timed out; the second succeeded.',
+    deltas: ['42.3 KB returned', '214 fields → 9 used'],
+    resource: 'getClientProfile',
+    signals: { retries: 1, retryHistory: 4, of: 10 },
+    spans: [
+      sp({ id: 'crm-1', type: 'tool', name: 'getClientProfile · attempt 1', s: 1.2, d: 2.1, warn: true,
+        in: '{ client_id: "MER-4402", include: [contacts, holdings, tickets] }', out: 'timeout at 2.10s', ev: 'retry scheduled' }),
+      sp({ id: 'crm-2', type: 'tool', name: 'getClientProfile · attempt 2', s: 3.3, d: 1.9,
+        in: '{ client_id: "MER-4402", include: [contacts, holdings, tickets] }', out: '200 OK · 42.3 KB · 214 fields', ev: 'cache: miss' }),
+      sp({ id: 'crm-parse', type: 'rule', name: 'parse response', s: 5.2, d: 0.1, in: '42.3 KB json', out: 'crm_profile { 9 fields }', ev: '—' }),
+    ],
+    dataHint: 'preview of 42.3 KB',
+    data: [['THE 9 FIELDS USED', '{\n  relationship_manager: "D. Okafor",\n  aum_usd: 2.4e9,\n  open_tickets: [3 items],\n  holdings_summary: { … },\n  last_meeting: "2026-05-12",\n  … 205 more fields unused\n}']],
+    inspect: [['REQUEST', '{ client_id: "MER-4402",\n  include: [contacts, holdings, tickets] }'],
+              ['EVENTS', 'attempt 1 → timeout 2.10s\nattempt 2 → 200 OK 1.90s\ncache: miss']] },
+  { id: 'research', name: 'Retrieve research', kind: 'RETRIEVAL', icon: 'knowledge',
+    summary: 'Searched the research knowledge base for FX-hedging context and pulled 20 chunks into the run.',
+    deltas: ['+20 chunks · 18.2k tok', 'query: “Meridian FX hedging outlook”'],
+    resource: 'Research KB',
+    signals: { stepEval: { name: 'Retrieval relevance', score: 0.62, threshold: 0.70, offTopic: 7, of: 20, topic: 'equity strategy' } },
+    spans: [
+      sp({ id: 'res-1', type: 'retrieval', name: 'vector search · k=20 · hybrid', s: 1.2, d: 0.7, tokens: 620,
+        in: 'query: "Meridian FX hedging outlook Q3"', out: '20 chunks · top 0.91 · floor 0.44', ev: '—' }),
+      sp({ id: 'res-2', type: 'retrieval', name: 'rerank', s: 1.9, d: 0.2, in: '20 chunks', out: '20 chunks (reordered)', ev: '—' }),
+      sp({ id: 'res-3', type: 'rule', name: 'grade · retrieval relevance', s: 2.1, d: 0.4, cost: 0.002, warn: true,
+        in: 'query + 20 chunks', out: '0.62 against a 0.70 threshold — 7 chunks off topic', ev: 'graded off the critical path' }),
+    ],
+    dataHint: '1 grading ran',
+    data: [['GRADING', 'Retrieval relevance · 0.62 (min 0.70)\nJudge: llm-judge v2\n13 of 20 chunks on topic; 7 match the\nclient name but cover equity strategy.\nEvidence: chunks 3, 7, 9, 11, 14, 17, 20']],
+    inspect: [['RETRIEVAL', 'k=20 · hybrid · Research KB (2,481 docs)\ntop score 0.91 · floor score 0.44']] },
+  { id: 'draft', name: 'Draft briefing', kind: 'MODEL', icon: 'model',
+    summary: 'Wrote the briefing from everything gathered: 24k tokens of context in, a 1,900-word draft out. Three of the 20 research chunks were cited.',
+    deltas: ['24k tok → 1,900 words', 'assembled from 3 sources'],
+    resource: 'fusion-frontier-1',
+    signals: { carried: 20, cited: 3, carriedTok: 18204, promptTok: 21410 },
+    spans: [
+      sp({ id: 'draft-asm', type: 'rule', name: 'assemble context', s: 5.3, d: 0.3, in: 'parse + CRM + research', out: '24k tok context', ev: 'fan-in: 3 sources' }),
+      sp({ id: 'draft-model', type: 'model', name: 'model_call · fusion-frontier-1', s: 5.6, d: 9.6, cost: 0.21, tokens: 23314,
+        in: 'rendered prompt · 4 sections\nsystem 412 · skill 380\nknowledge 18,204 (85%)\ninput 2,410', out: 'draft_briefing v1\n1,912 words · 4 sections', ev: 'cache: 412 tok hit' }),
+      sp({ id: 'draft-rule', type: 'rule', name: 'contract check · Draft v2', s: 15.2, d: 0.1, in: 'draft markdown', out: 'valid', ev: '—' }),
+    ],
+    dataHint: '24.1 KB → 11.6 KB',
+    data: [['IN (ASSEMBLED)', 'structured_request { 5 fields }\ncrm_profile { 9 fields }\nresearch_chunks [ 20 × ~900 tok ]'],
+           ['OUT', 'draft_briefing (markdown, v1)\n  1. Relationship snapshot\n  2. FX hedging program review\n  3. Market outlook\n  4. Open service issues\n  1,912 words']],
+    inspect: [['SYSTEM · 412 tok', 'You are a client-briefing assistant for institutional coverage teams…'],
+              ['SKILL · briefing-format · 380 tok', 'Briefings follow: snapshot → program review → outlook → open items…'],
+              ['KNOWLEDGE · 20 chunks · 18,204 tok', '85% of the prompt. [1/20] "Q3 FX outlook: EUR hedging costs…" · [2/20] "Meridian equity strategy review…"'],
+              ['INPUT · 2,410 tok', '{ structured_request…, crm_profile… }']] },
+  { id: 'loop', name: 'Validate & refine', kind: 'LOOP', icon: 'loop', isLoop: true,
+    signals: { loops: 4, ceiling: 5 },
+    spans: [
+      sp({ id: 'l-v1', type: 'rule', name: 'validate · pass 1', s: 15.3, d: 0.3, warn: true, in: 'draft v1', out: 'FAIL — disclosure missing', ev: '—' }),
+      sp({ id: 'l-r1', type: 'model', name: 'refine · pass 1', s: 15.6, d: 1.1, cost: 0.02, tokens: 1480, in: 'draft v1 + violation', out: 'draft v2', ev: '—' }),
+      sp({ id: 'l-v2', type: 'rule', name: 'validate · pass 2', s: 16.7, d: 0.3, warn: true, in: 'draft v2', out: 'FAIL — AUM mismatch', ev: '—' }),
+      sp({ id: 'l-r2', type: 'model', name: 'refine · pass 2', s: 17.0, d: 1.1, cost: 0.02, tokens: 1520, in: 'draft v2 + violation', out: 'draft v3', ev: '—' }),
+      sp({ id: 'l-v3', type: 'rule', name: 'validate · pass 3', s: 18.1, d: 0.3, warn: true, in: 'draft v3', out: 'FAIL — tone', ev: '—' }),
+      sp({ id: 'l-r3', type: 'model', name: 'refine · pass 3', s: 18.4, d: 1.1, cost: 0.02, tokens: 1460, in: 'draft v3 + violation', out: 'draft v4', ev: '—' }),
+      sp({ id: 'l-v4', type: 'rule', name: 'validate · pass 4', s: 19.5, d: 0.3, in: 'draft v4', out: 'PASS — 12 of 12 rules', ev: 'loop exit' }),
+    ],
+    passes: [
+      { validate: 'Failed — no risk-disclosure section after the program review.', refine: 'Added the disclosure from firm boilerplate, tailored to FX forwards.' },
+      { validate: 'Failed — AUM in the snapshot ($2.1B) does not match the CRM record ($2.4B).', refine: 'Rewrote the snapshot from the CRM figure; corrected two derived percentages.' },
+      { validate: 'Failed — the executive summary reads informally (“a great quarter for the FX book”).', refine: 'Rewrote the summary in the firm register. No factual changes.' },
+      { validate: 'Passed — all 12 validator rules satisfied. Draft released to compliance.', refine: 'Not needed — validation passed, so no refinement ran on this pass.' },
+    ] },
+  { id: 'compliance', name: 'Compliance check', kind: 'AGENT', icon: 'agent',
+    summary: 'A compliance agent reviewed the draft against firm policy and returned it approved, with one redaction.',
+    deltas: ['approved', '1 redaction — client name in appendix'],
+    resource: 'compliance-reviewer v3',
+    spans: [
+      sp({ id: 'c-scan', type: 'model', name: 'policy scan', s: 19.8, d: 0.9, cost: 0.015, tokens: 1180, in: 'draft v4 + 12 rules', out: 'no violations', ev: '—' }),
+      sp({ id: 'c-disc', type: 'rule', name: 'disclosure check', s: 20.7, d: 0.3, in: 'draft v4', out: 'satisfied', ev: '—' }),
+      sp({ id: 'c-red', type: 'model', name: 'redaction', s: 21.0, d: 1.1, cost: 0.015, tokens: 1140, in: 'draft v4', out: 'draft v4r — client name shortened in appendix', ev: 'toxicity and bias clear' }),
+    ],
+    dataHint: 'in: draft v4 → out: approved + 1 edit',
+    data: [['AGENT STEPS', 'a · Policy scan — 12 rules, no violations\nb · Disclosure check — satisfied\nc · Redaction — legal name → short name']],
+    inspect: [['AGENT', 'compliance-reviewer v3 · 12 firm policy rules'],
+              ['ALWAYS-ON CHECKS', 'Toxicity and bias ran inside this step · no findings']] },
+  { id: 'format', name: 'Format document', kind: 'TRANSFORM', icon: 'transform',
+    summary: 'The approved markdown became the deliverable: a 9-page Word document on the firm template.',
+    deltas: ['markdown → .docx', 'template: client-briefing-v2'],
+    spans: [
+      sp({ id: 'fmt', type: 'rule', name: 'transform · markdown → docx', s: 22.1, d: 0.7,
+        in: 'draft v4r (markdown)', out: 'briefing_meridian_2026-08-06.docx · 9 pages', ev: 'contract: Document v1' }),
+    ],
+    dataHint: 'markdown → .docx',
+    data: [['OUT', 'briefing_meridian_2026-08-06.docx\n9 pages · 1,847 words · firm template']],
+    inspect: [['TRANSFORM', 'template: client-briefing-v2\ncontract: Document v1 — satisfied']] },
+];
+
+const STEPS_127 = [
+  { id: 'parse', name: 'Parse request', kind: 'MODEL', icon: 'model',
+    summary: 'Ran normally and produced the same structured request as run #128.',
+    deltas: ['text → 4 fields'], resource: 'fusion-small-2',
+    spans: [sp({ id: 'p1', type: 'model', name: 'model_call · fusion-small-2', s: 0, d: 1.2, cost: 0.004, tokens: 608, in: 'free text', out: 'structured request', ev: '—' })] },
+  { id: 'crm', name: 'Fetch CRM data', kind: 'TOOL', icon: 'tool',
+    summary: 'The CRM tool errored on both attempts, so the run stopped here.',
+    deltas: ['2 attempts, both errored'], resource: 'getClientProfile',
+    signals: { failed: true },
+    spans: [
+      sp({ id: 'c1', type: 'tool', name: 'getClientProfile · attempt 1', s: 1.2, d: 2.1, warn: true, in: '{ client_id: "MER-4402" }', out: 'timeout at 2.10s', ev: 'retry scheduled' }),
+      sp({ id: 'c2', type: 'tool', name: 'getClientProfile · attempt 2', s: 3.3, d: 5.6, warn: true, in: '{ client_id: "MER-4402" }', out: '503 Service Unavailable', ev: 'retry budget exhausted · run terminated' }),
+    ] },
+  { skipped: true, text: 'Five steps never ran — Retrieve research, Draft briefing, Validate & refine, Compliance check, Format document.' },
+];
+
+const RUNS = {
+  '128': {
+    id: '128', label: 'Run: Illustrative', when: 'a worked example — parallel work, a retry, a loop, a sub-agent', version: 'agent v14',
+    railTitle: 'Run: Illustrative', railMeta: 'the reference run · full agent · 24.8s',
+    scopeWhat: 'Full agent', scopeDetail: 'all 7 steps ran', wall: 24.8,
+    result: { name: 'briefing_meridian_2026-08-06.docx', meta: '9 pages · 1,847 words · firm template' },
+    steps: STEPS_128, graded: true,
+  },
+  '127': {
+    id: '127', label: 'Run: Illustrative — failed', when: 'a worked example — a tool that ran out of retries', version: 'agent v14',
+    railTitle: 'Run: Illustrative — failed', railMeta: 'the reference failure · stopped at Fetch CRM data',
+    scopeWhat: 'Full agent', scopeDetail: 'stopped at Fetch CRM data — 5 of 7 steps never ran', wall: 8.9,
+    failed: true, failLine: 'No output. getClientProfile returned 503 twice and the retry budget ran out. The same tool succeeded on retry in run #128, which points at gateway flakiness rather than your configuration.',
+    steps: STEPS_127, graded: false,
+  },
+};
+
+const RAIL_EXTRA = [];
+
+const CATALOG = [
+  { name: 'GUARDRAILS', items: [
+    { name: 'Toxicity', desc: 'Detects toxic or harmful language.', always: true },
+    { name: 'Bias detection', desc: 'Detects discriminatory or prejudicial language.', always: true },
+    { name: 'PII presence', desc: 'Detects emails, phone numbers and account identifiers.' },
+  ] },
+  { name: 'OUTPUT QUALITY', items: [
+    { name: 'Groundedness', desc: 'Claims supported by the sources the run retrieved.' },
+    { name: 'Completeness', desc: 'Whether the response covers everything that was asked.' },
+    { name: 'Answer relevance', desc: 'Whether the output answers the request it was given.' },
+    { name: 'Coherence', desc: 'Logical flow and clarity across sections.' },
+  ] },
+  { name: 'HOW IT GOT THERE', items: [
+    { name: 'Instruction adherence', desc: 'How closely the agent followed explicit instructions.' },
+    { name: 'Step efficiency', desc: 'Whether the task finished in the fewest necessary steps.' },
+    { name: 'Tool selection quality', desc: 'Whether the agent reached for the right tool.' },
+  ] },
+];
+const RECS = [
+  { name: 'Step efficiency', why: 'this agent loops — Validate & refine ran four times on the last run' },
+  { name: 'Tool selection quality', why: 'two tools in the graph, one of them flaky' },
+];
+const LOCKED = ['Toxicity', 'Bias detection'];
+const RAW_SCORES = {
+  'Groundedness': { raw: 0.71, why: 'two outlook claims cite no source' },
+  'Answer relevance': { raw: 0.88, why: 'stays on the request; minor drift in the outlook section' },
+  'Completeness': { raw: 0.86, why: 'all four required sections present' },
+  'Instruction adherence': { raw: 0.84, why: 'follows the briefing format; date format deviates once' },
+  'Structure': { raw: null, why: 'document contract satisfied' },
+  'Step efficiency': { raw: 0.62, why: 'four refine passes for a task the validator clears in one' },
+  'Tool selection quality': { raw: 0.91, why: 'tools matched the task' },
+  'PII presence': { raw: 0.99, why: 'no personal identifiers in the output' },
+  'Coherence': { raw: 0.93, why: 'sections follow the briefing structure' },
+};
+const CARD_CAP = 4;
+
+class Component extends DCLogic {
+  state = {
+    run: '128', mode: 'steps', lens: null, pass: 3,
+    tfilter: 'all', tmetric: 'tokens', tspan: null,
+    drawer: null, menu: null, flash: null,
+    editOpen: false, viewOpen: false, grading: false,
+    thresholds: { 'Groundedness': 0.70, 'Answer relevance': 0.80, 'Completeness': 0.75, 'Instruction adherence': 0.75, 'Structure': 0 },
+    queue: [], added: [], toast: null, railCollapsed: false, active: null, shellH: null,
+    compare: null, compareRan: false, vModel: 'fusion-standard-2', vChunks: '5 (top-ranked)',
+  };
+
+  constructor(p) { super(p); this.els = {}; this.scrollRef = React.createRef(); this.workRef = React.createRef(); this.shellRef = React.createRef(); }
+
+  // Embedded, the surface fills a host container, so viewport units are meaningless —
+  // measure the shell and size the tree and the dialog from it.
+  observeShell() {
+    const el = this.shellRef.current;
+    if (!el || this._ro) return;
+    const set = () => {
+      const h = Math.round(el.getBoundingClientRect().height);
+      if (h && h !== this.state.shellH) this.setState({ shellH: h });
+    };
+    set();
+    if (typeof ResizeObserver !== 'undefined') { this._ro = new ResizeObserver(set); this._ro.observe(el); }
+  }
+
+  // The rail collapses once the working view (and its own tree) reaches the top of the
+  // scroller — two vertical navigators never compete for the same attention.
+  componentDidMount() {
+    this.observeShell();
+    const sc = this.scrollRef.current;
+    if (!sc) return;
+    this._onScroll = () => {
+      const work = this.workRef.current;
+      if (!work) return;
+      const should = work.offsetTop - sc.scrollTop < 90;
+      const patch = {};
+      if (should !== this.state.railCollapsed) patch.railCollapsed = should;
+      // scroll-spy: the step nearest the top of the viewport owns the tree highlight
+      if (this.state.mode === 'steps' && !this._holdSpy) {
+        const probe = sc.scrollTop + 140;
+        let cur = null;
+        this.steps.forEach(st => {
+          const el = this.els[st.id] && this.els[st.id].current;
+          if (el && el.offsetTop <= probe) cur = st.id;
+        });
+        if (cur && cur !== this.state.active) patch.active = cur;
+      }
+      if (Object.keys(patch).length) this.setState(patch);
+    };
+    sc.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() {
+    if (this._ro) { this._ro.disconnect(); this._ro = null; }
+    const sc = this.scrollRef.current;
+    if (sc && this._onScroll) sc.removeEventListener('scroll', this._onScroll);
+    clearTimeout(this._t); clearTimeout(this._f);
+  }
+  ref(id) { if (!this.els[id]) this.els[id] = React.createRef(); return this.els[id]; }
+
+  // Real runs arrive from the host (one per test of the agent on the canvas). The two
+  // illustrative runs stay at the bottom of the rail as a worked reference.
+  get allRuns() {
+    const host = Array.isArray(this.props.hostRuns) ? this.props.hostRuns : [];
+    const out = {};
+    host.forEach(r => { out[r.id] = r; });
+    out['0'] = { id: '0', empty: true, label: 'Run #0', railTitle: 'Run #0 · not run yet',
+      railMeta: 'run a test to unlock insights', attention: false, steps: [] };
+    out['128'] = RUNS['128']; out['127'] = RUNS['127'];
+    return out;
+  }
+  get runOrder() {
+    const host = Array.isArray(this.props.hostRuns) ? this.props.hostRuns : [];
+    // day 0: the agent exists but nothing has run against it
+    if (!host.length && this.props.chrome === 'off') return ['0', '128', '127'];
+    return host.map(r => r.id).concat(['128', '127']);
+  }
+  get runId() {
+    const order = this.runOrder;
+    return (this.state.run && this.allRuns[this.state.run]) ? this.state.run : order[0];
+  }
+  get run() { return this.allRuns[this.runId]; }
+  get steps() { return this.run.steps.filter(s => !s.parallel && !s.skipped); }
+
+  toast(msg) { clearTimeout(this._t); this.setState({ toast: msg }); this._t = setTimeout(() => this.setState({ toast: null }), 2600); }
+
+  scrollTo(id) {
+    const el = this.els[id] && this.els[id].current, sc = this.scrollRef.current;
+    if (el && sc) sc.scrollTo({ top: Math.max(el.offsetTop - 20, 0), behavior: 'smooth' });
+    clearTimeout(this._f);
+    // hold the spy briefly so a deliberate jump wins over the scroll it triggers
+    this._holdSpy = true;
+    clearTimeout(this._h);
+    this._h = setTimeout(() => { this._holdSpy = false; }, 900);
+    this.setState({ flash: id, active: id });
+    this._f = setTimeout(() => this.setState({ flash: null }), 1400);
+  }
+  jump(id) {
+    if (this.state.mode !== 'steps') { this.setState({ mode: 'steps' }); setTimeout(() => this.scrollTo(id), 60); return; }
+    this.scrollTo(id);
+  }
+  openCompare(stepId) { this.setState({ compare: stepId, compareRan: false, menu: null }); }
+  openTrace(stepId) {
+    const st = this.steps.find(s => s.id === stepId);
+    this.setState({ mode: 'trace', tfilter: 'all', tspan: st ? st.spans[0].id : null, viewOpen: false });
+  }
+
+  stepStats(st) {
+    const start = Math.min(...st.spans.map(s => s.s));
+    const end = Math.max(...st.spans.map(s => s.s + s.d));
+    return {
+      start, dur: end - start,
+      cost: st.spans.reduce((a, s) => a + s.cost, 0),
+      tokens: st.spans.reduce((a, s) => a + s.tokens, 0),
+    };
+  }
+  totals() {
+    const all = this.steps.flatMap(s => s.spans);
+    return {
+      cost: all.reduce((a, s) => a + s.cost, 0),
+      tokens: all.reduce((a, s) => a + s.tokens, 0),
+      spans: all.length,
+      retries: all.filter(s => s.warn && s.type === 'tool').length,
+    };
+  }
+
+  // Flags are rules over signals. The same rules colour the tree dots and the tiles,
+  // so a step that ran clean carries no mark anywhere.
+  flagsFor(st) {
+    const g = st.signals || {}, out = [];
+    if (g.failed) out.push({ tone: RED, kind: 'FAILED',
+      title: 'getClientProfile returned 503 on both attempts',
+      body: 'The first attempt timed out at 2.1s and the second returned 503 from the gateway. With the retry budget spent the run terminated. The same tool succeeded on retry two runs later.',
+      actions: [{ label: 'Raise timeout and retries →', act: () => this.toast('Opens the tool on the canvas') },
+                { label: 'Run again from here', act: () => this.toast('Re-running from Fetch CRM data') }] });
+    if (g.retries) out.push({ tone: AMBER, kind: 'NEEDS A LOOK',
+      title: 'The tool timed out once before succeeding',
+      body: 'getClientProfile hit its 2 second timeout on the first attempt. It has retried in ' + g.retryHistory + ' of the last ' + g.of + ' runs — it may need a longer timeout or a lighter query.',
+      actions: [{ label: 'Show both attempts', act: () => this.openTrace(st.id) },
+                { label: 'Fix the timeout →', act: () => this.toast('Opens the tool on the canvas') }] });
+    if (g.stepEval) {
+      const e = g.stepEval;
+      out.push({ tone: AMBER, kind: 'NEEDS A LOOK',
+        title: e.name + ' ' + Math.round(e.score * 100) + '%, below the ' + Math.round(e.threshold * 100) + '% threshold',
+        body: e.offTopic + ' of ' + e.of + ' chunks are about ' + e.topic + ' rather than the subject asked for. The query looks like it is matching the client name more than the topic. Likely contributor to groundedness on the output.',
+        actions: [{ label: 'Show the grading', act: () => this.setState({ drawer: st.id + ':0' }) },
+                  { label: 'Fix the query →', act: () => this.toast('Opens the step on the canvas') }] });
+    }
+    if (g.cited != null) {
+      const share = Math.round(this.stepStats(st).cost / this.totals().cost * 100);
+      const saving = Math.round(g.carriedTok / g.promptTok * share);
+      out.push({ tone: BLUE, kind: 'COULD BE BETTER',
+        title: 'Carrying ' + g.carried + ' chunks, citing ' + g.cited + ' — around ' + saving + '% of run cost',
+        body: g.carriedTok.toLocaleString() + ' of this step’s ' + g.promptTok.toLocaleString() + ' input tokens are retrieved research. Trimming retrieval to the top 5 would cut cost roughly in half, and would raise groundedness by keeping off-topic chunks out of the prompt.',
+        actions: [{ label: 'Compare a variant →', act: () => this.openCompare(st.id) },
+                  { label: 'Dismiss', act: () => this.toast('Dismissed for this agent version') }] });
+    }
+    return out;
+  }
+  toneOf(st) {
+    const f = this.flagsFor(st);
+    if (f.some(x => x.tone === RED)) return RED;
+    if (f.some(x => x.tone === AMBER)) return AMBER;
+    if (f.some(x => x.tone === BLUE)) return BLUE;
+    return NONE;
+  }
+
+  // ---- evaluations ---------------------------------------------------------
+  // the illustrative runs ship with a worked eval set; a real run starts with only the
+  // always-on pack, and grows when the builder adds metrics in Edit
+  get seeded() { return this.runId === '128' || this.runId === '127'; }
+  evalRows() {
+    const th = this.state.thresholds;
+    const names = (this.seeded ? Object.keys(th) : [])
+      .concat(this.state.added.filter(n => th[n] === undefined));
+    return names.map(n => {
+      const src = RAW_SCORES[n] || { raw: 0.9, why: 'graded after the run' };
+      const t = th[n] !== undefined ? th[n] : 0.70;
+      const pass = src.raw === null ? true : src.raw >= t;
+      const near = pass && src.raw !== null && t > 0 && src.raw - t < 0.05;
+      return { name: n, raw: src.raw, why: src.why, t, pass, near, fresh: this.state.added.includes(n) };
+    }).sort((a, b) => (a.pass ? 1 : 0) - (b.pass ? 1 : 0) || (b.near ? 1 : 0) - (a.near ? 1 : 0));
+  }
+
+  // ---- lenses: computed from the run, never hand-listed ---------------------
+  lensSteps(kind) {
+    const steps = this.steps;
+    if (kind === 'func') return steps.filter(s => this.toneOf(s) === AMBER || this.toneOf(s) === RED);
+    if (kind === 'cost') {
+      const tot = this.totals().cost;
+      const sorted = [...steps].sort((a, b) => this.stepStats(b).cost - this.stepStats(a).cost);
+      const out = []; let acc = 0;
+      for (const s of sorted) { out.push(s); acc += this.stepStats(s).cost; if (acc / tot >= 0.8) break; }
+      return out;
+    }
+    if (kind === 'time') {
+      const sorted = [...steps].sort((a, b) => this.stepStats(b).dur - this.stepStats(a).dur);
+      return sorted.slice(0, 3);
+    }
+    if (kind === 'evals') return steps.filter(s => (s.signals || {}).stepEval);
+    return steps;
+  }
+
+  emptyVals(run) {
+    const s = this.state, cur = this.runId, all = this.allRuns;
+    return {
+      shellRef: this.shellRef, scrollRef: this.scrollRef, workRef: this.workRef,
+      showChrome: this.props.chrome !== 'off',
+      shellHeight: this.props.chrome === 'off' ? '100%' : '100vh',
+      overlayTop: this.props.chrome === 'off' ? '0' : '56px',
+      agentName: this.props.agentName || 'this agent',
+      agentVersion: this.props.agentVersion || 'v1 · draft',
+      isEmptyRun: true, hasRun: false,
+      onRunTest: () => { if (typeof this.props.onRunTest === 'function') this.props.onRunTest(); else this.toast('Opens the test composer'); },
+      onOpenIllustrative: () => this.setState({ run: '128' }),
+      railWidth: s.railCollapsed ? '52px' : '252px',
+      railOpen: !s.railCollapsed, railShut: !!s.railCollapsed,
+      onCollapseRail: () => this.setState({ railCollapsed: true }),
+      onExpandRail: () => this.setState({ railCollapsed: false }),
+      onNewTest: () => { if (typeof this.props.onRunTest === 'function') this.props.onRunTest(); },
+      runList: this.runOrder.map(id => {
+        const r = all[id];
+        return {
+          title: r.railTitle, meta: r.railMeta,
+          dot: r.failed ? RED : (r.attention === false ? NONE : AMBER),
+          bar: cur === id ? BLUE : 'transparent',
+          bg: cur === id ? 'var(--fusion-blue-50)' : 'transparent',
+          color: cur === id ? BLUE : 'var(--fusion-ink)',
+          weight: cur === id ? '700' : '500',
+          onClick: () => this.setState({ run: id, mode: 'steps', lens: null, tspan: null, drawer: null, viewOpen: false, active: null }),
+        };
+      }),
+      hasToast: !!s.toast, toast: s.toast || '',
+    };
+  }
+
+  renderVals() {
+    const s = this.state, run = this.run;
+    if (run.empty) return this.emptyVals(run);
+    const steps = this.steps, tot = this.totals();
+    const pctOf = (v, all) => Math.round(v / all * 100);
+    const money = (v) => '$' + (v >= 0.1 ? v.toFixed(2) : v.toFixed(3));
+
+    // ---- rail
+    const cur = this.runId;
+    const all = this.allRuns;
+    const runList = this.runOrder.map(id => {
+      const r = all[id];
+      return {
+        title: r.railTitle, meta: r.railMeta,
+        dot: r.failed ? RED : (r.attention === false ? NONE : AMBER),
+        bar: cur === id ? BLUE : 'transparent',
+        bg: cur === id ? 'var(--fusion-blue-50)' : 'transparent',
+        color: cur === id ? BLUE : 'var(--fusion-ink)',
+        weight: cur === id ? '700' : '500',
+        onClick: () => this.setState({ run: id, mode: 'steps', lens: null, tspan: null, drawer: null, viewOpen: false, active: null }),
+      };
+    });
+
+    // ---- evaluations on the card
+    const rows = run.graded !== false ? this.evalRows() : [];
+    const failing = rows.filter(r => !r.pass).length;
+    const nearing = rows.filter(r => r.near).length;
+    const shown = rows.slice(0, CARD_CAP - 2);
+    const hidden = rows.length - shown.length;
+    const scoreOf = (r) => r.raw === null ? 'pass' : Math.round(r.raw * 100) + '%';
+    const thOf = (r) => r.t ? 'min ' + Math.round(r.t * 100) + '%' : 'contract';
+    const cardEvalRows = shown.map((r, i) => ({
+      name: r.name, score: scoreOf(r), threshold: thOf(r), why: r.why,
+      dot: r.pass ? (r.near ? AMBER : NONE) : AMBER,
+      sep: i === 0 ? 'none' : '1px solid var(--fusion-border)',
+      onClick: () => this.setState({ viewOpen: true }),
+    })).concat([
+      { name: 'Toxicity', score: 'pass', threshold: 'always on', why: 'no toxic or harmful language found',
+        dot: NONE, sep: shown.length ? '1px solid var(--fusion-border)' : 'none', onClick: () => this.setState({ viewOpen: true }) },
+      { name: 'Bias detection', score: 'pass', threshold: 'always on', why: 'no discriminatory or prejudicial language found',
+        dot: NONE, sep: '1px solid var(--fusion-border)', onClick: () => this.setState({ viewOpen: true }) },
+    ]);
+
+    // ---- tiles
+    const funcSteps = this.lensSteps('func');
+    const retryStep = steps.find(x => (x.signals || {}).retries);
+    const loopStep = steps.find(x => x.isLoop);
+    const costSteps = this.lensSteps('cost');
+    const costShare = pctOf(costSteps.reduce((a, x) => a + this.stepStats(x).cost, 0), tot.cost);
+    const timeSteps = this.lensSteps('time');
+    const critical = timeSteps.reduce((a, x) => a + this.stepStats(x).dur, 0);
+    const evalStep = steps.find(x => (x.signals || {}).stepEval);
+    const se = evalStep ? evalStep.signals.stepEval : null;
+
+    const tileDefs = [
+      { key: 'func', k: 'FUNCTIONALITY',
+        v: funcSteps.length ? (run.failed ? 'Tool failed' : '1 retry, 1 near limit') : 'No issues',
+        d: run.failed ? 'getClientProfile · 2 attempts' : (retryStep ? retryStep.resource + ' · refine loop ×' + (loopStep ? loopStep.signals.loops : 0) : ''),
+        dot: run.failed ? RED : (funcSteps.length ? AMBER : NONE), note: '' },
+      { key: 'cost', k: 'COST', v: money(tot.cost), d: run.failed ? 'partial run' : '+7% vs #126',
+        dot: NONE, note: costSteps.length + ' steps carry ' + costShare + '% of the run — ' + costSteps.map(x => x.name + ' ' + pctOf(this.stepStats(x).cost, tot.cost) + '%').join(', ') },
+      { key: 'time', k: 'LATENCY', v: run.wall.toFixed(1) + 's', d: run.failed ? 'stopped at failure' : '−1.3s vs #126',
+        dot: NONE, note: 'The three longest steps are ' + critical.toFixed(1) + 's of ' + run.wall.toFixed(1) + 's — ' + timeSteps.map(x => x.name).join(', ') },
+      { key: 'evals', k: 'STEP EVALS',
+        v: se ? se.name + ' ' + Math.round(se.score * 100) + '%' : 'None graded',
+        d: se ? 'below threshold at ' + evalStep.name : 'no step-level grading ran',
+        dot: se ? AMBER : NONE, note: '' },
+    ];
+    const tiles = tileDefs.map(t => ({
+      k: t.k, v: t.v, d: t.d, dot: t.dot, hasDot: t.dot !== NONE,
+      border: s.lens === t.key ? BLUE : BRD,
+      bg: s.lens === t.key ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+      // selecting an area both filters the run and lands you on the first step it concerns
+      onClick: () => {
+        const next = s.lens === t.key ? null : t.key;
+        this.setState({ lens: next, mode: 'steps' });
+        if (next) {
+          const first = this.lensSteps(next)[0];
+          if (first) setTimeout(() => this.scrollTo(first.id), 80);
+        }
+      },
+    }));
+    const curTile = tileDefs.find(t => t.key === s.lens);
+    const lensIds = s.lens ? this.lensSteps(s.lens).map(x => x.id) : null;
+
+    // ---- tree
+    const treeRows = [];
+    const pushTree = (o) => treeRows.push(o);
+    run.steps.forEach(entry => {
+      if (entry.parallel) {
+        pushTree({ name: entry.ids.length + ' steps at the same time', icon: 'parallel', ms: '', ids: entry.ids, group: true });
+        entry.ids.forEach(id => { const st = steps.find(x => x.id === id); if (st) pushTree({ st, indent: true }); });
+      } else if (entry.skipped) {
+        pushTree({ name: 'Not reached', icon: 'result', ms: '', dim: true });
+      } else if (!entry.parallel) {
+        const already = run.steps.some(e => e.parallel && e.ids.includes(entry.id));
+        if (!already) pushTree({ st: entry });
+      }
+    });
+    const treeItems = treeRows.map(rowDef => {
+      const st = rowDef.st;
+      const name = st ? st.name : rowDef.name;
+      const icon = st ? st.icon : rowDef.icon;
+      const ic = ICONS[icon] || ICONS.rule;
+      const stat = st ? this.stepStats(st) : null;
+      const tone = st ? this.toneOf(st) : NONE;
+      const inLens = !lensIds || (st ? lensIds.includes(st.id) : (rowDef.ids || []).some(i => lensIds.includes(i)));
+      return {
+        name, ms: stat ? stat.dur.toFixed(1) + 's' : (rowDef.ms || ''),
+        dot: tone, d1: ic[0], d2: ic[1] || '',
+        iconColor: MUT,
+        // one level of nesting: siblings start flush, children hang off a guide drawn
+        // under the parent row's icon
+        indentLeft: rowDef.indent ? '27px' : '0px',
+        gutter: rowDef.indent ? '9px' : '0px',
+        guide: rowDef.indent ? '1px solid var(--fusion-border-strong)' : 'none',
+        bar: st && s.active === st.id ? BLUE : 'transparent',
+        bg: st && s.active === st.id ? 'var(--fusion-blue-50)' : 'transparent',
+        color: rowDef.dim ? MUT : (st && s.active === st.id ? BLUE : 'var(--fusion-ink)'),
+        weight: st && s.active === st.id ? '700' : '500',
+        opacity: inLens ? '1' : '0.35',
+        onClick: () => st ? this.jump(st.id) : null,
+      };
+    });
+
+    // ---- step blocks
+    const blocks = [];
+    const cardOf = (st) => {
+      const stat = this.stepStats(st), tone = this.toneOf(st);
+      const ic = ICONS[st.icon] || ICONS.rule;
+      const drawerKey = st.id + ':0';
+      const vitals = [stat.dur.toFixed(1) + 's'];
+      if (st.resource) vitals.unshift(st.resource);
+      if (stat.cost) vitals.push(money(stat.cost));
+      if (stat.tokens) vitals.push(stat.tokens.toLocaleString() + ' tok');
+      // rung 1 of the ladder: the data. rung 2: the technical detail, which is also
+      // where the jump into trace and the side-by-side live.
+      const inspectKey = st.id + ':inspect';
+      const drawers = [];
+      if (st.data) drawers.push({ key: drawerKey, label: 'Data — in → out', hint: '' });
+      if (st.inspect) drawers.push({ key: inspectKey, label: 'Inspect', hint: '' });
+      const openKey = s.drawer === drawerKey ? 'data' : (s.drawer === inspectKey ? 'inspect' : null);
+      const panes = openKey === 'data' ? st.data : (openKey === 'inspect' ? st.inspect : []);
+      return {
+        ref: this.ref(st.id),
+        kind: st.kind, name: st.name, summary: st.summary,
+        stamp: stat.dur.toFixed(1) + 's',
+        d1: ic[0], d2: ic[1] || '',
+        dot: tone, hasDot: tone !== NONE,
+        deltas: st.deltas || [], vitals,
+        cardBorder: s.flash === st.id ? BLUE : BRD,
+        cardRing: s.flash === st.id ? '0 0 0 3px var(--fusion-blue-50)' : 'none',
+        flags: this.flagsFor(st).map(f => ({
+          tone: f.tone, kind: f.kind, title: f.title, body: f.body,
+          actions: f.actions.map(a => ({ label: a.label, onClick: a.act })),
+        })),
+        drawers: drawers.map(d => ({
+          label: d.label, hint: d.hint,
+          chev: s.drawer === d.key ? '⌄' : '›',
+          border: s.drawer === d.key ? BLUE : BRD,
+          color: s.drawer === d.key ? BLUE : SEC,
+          onClick: () => this.setState({ drawer: s.drawer === d.key ? null : d.key }),
+        })),
+        drawerOpen: !!openKey,
+        drawerCols: openKey === 'data' && st.data.length > 1 ? '1fr 1fr' : '1fr',
+        drawerPanes: (panes || []).map(d => ({ caps: d[0], body: d[1] })),
+        drawerFoot: openKey === 'inspect',
+        drawerActions: [
+          { label: 'Open in trace →', onClick: () => this.openTrace(st.id) },
+          { label: 'Compare a variant →', onClick: () => this.openCompare(st.id) },
+        ],
+      };
+    };
+
+    run.steps.forEach(entry => {
+      if (entry.parallel) {
+        const cards = entry.ids.map(id => steps.find(x => x.id === id)).filter(Boolean);
+        const tone = cards.some(c => this.toneOf(c) === AMBER) ? AMBER : (cards.some(c => this.toneOf(c) === BLUE) ? BLUE : BRDS);
+        const inLens = !lensIds || cards.some(c => lensIds.includes(c.id));
+        blocks.push({ isMarker: true, isCards: false, isLoop: false, isSkipped: false, hasNode: false,
+          markerText: 'THE RUN SPLITS INTO TWO PARALLEL THREADS', opacity: inLens ? '1' : '0.35',
+          hasNodeIcon: false, hasNodeDot: false, d1: '', d2: '', nodeBorder: BRDS, nodeDot: BRDS, cols: '1fr', cards: [] });
+        blocks.push({ isMarker: false, isCards: true, isLoop: false, isSkipped: false, hasNode: true,
+          hasNodeIcon: true, hasNodeDot: false, d1: ICONS.parallel[0], d2: ICONS.parallel[1],
+          nodeBorder: tone === BRDS ? BRDS : tone, nodeDot: tone, opacity: inLens ? '1' : '0.35',
+          cols: '1fr 1fr', cards: cards.map(cardOf), markerText: '' });
+        return;
+      }
+      if (entry.skipped) {
+        blocks.push({ isMarker: false, isCards: false, isLoop: false, isSkipped: true, hasNode: true,
+          hasNodeIcon: false, hasNodeDot: true, nodeDot: BRDS, nodeBorder: BRDS, d1: '', d2: '',
+          skipText: entry.text, opacity: '1', cols: '1fr', cards: [], markerText: '' });
+        return;
+      }
+      const already = run.steps.some(e => e.parallel && e.ids.includes(entry.id));
+      if (already) return;
+      const inLens = !lensIds || lensIds.includes(entry.id);
+      if (entry.isLoop) {
+        blocks.push({ isMarker: false, isCards: false, isLoop: true, isSkipped: false, hasNode: true,
+          hasNodeIcon: true, hasNodeDot: false, d1: ICONS.loop[0], d2: ICONS.loop[1],
+          nodeBorder: BLUE, nodeDot: BLUE, opacity: inLens ? '1' : '0.35',
+          ref: this.ref(entry.id),
+          loopBorder: s.flash === entry.id ? BLUE : BRDS,
+          loopRing: s.flash === entry.id ? '0 0 0 3px var(--fusion-blue-50)' : 'none',
+          cols: '1fr', cards: [], markerText: '' });
+        return;
+      }
+      const tone = this.toneOf(entry);
+      blocks.push({ isMarker: false, isCards: true, isLoop: false, isSkipped: false, hasNode: true,
+        hasNodeIcon: false, hasNodeDot: true, d1: '', d2: '',
+        nodeBorder: tone === NONE ? BRDS : tone, nodeDot: tone === NONE ? BRDS : tone,
+        opacity: inLens ? '1' : '0.35', cols: '1fr', cards: [cardOf(entry)], markerText: '' });
+    });
+
+    // ---- loop chapter content
+    const loop = steps.find(x => x.isLoop);
+    const passes = loop ? loop.passes.map((p, i) => ({
+      n: i + 1, onClick: () => this.setState({ pass: i }),
+      border: s.pass === i ? BLUE : BRDS,
+      bg: s.pass === i ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+      color: s.pass === i ? BLUE : SEC,
+    })) : [];
+    const loopStat = loop ? this.stepStats(loop) : null;
+
+    // ---- trace
+    const T = run.wall;
+    const maxCost = Math.max(...steps.flatMap(x => x.spans.map(y => y.cost)), 0.001);
+    const maxTok = Math.max(...steps.flatMap(x => x.spans.map(y => y.tokens)), 1);
+    const traceRows = [];
+    steps.forEach(st => {
+      const spans = st.spans.filter(r => s.tfilter === 'all' || r.type === s.tfilter);
+      if (!spans.length) return;
+      if (s.tfilter === 'all') traceRows.push({ isGroup: true, isRow: false, isOpen: false, label: st.name });
+      spans.forEach(r => {
+        let left = '0%', width = '2%', value = '—';
+        if (s.tmetric === 'time') {
+          left = (r.s / T * 100).toFixed(2) + '%'; width = (r.d / T * 100).toFixed(2) + '%'; value = r.d.toFixed(2) + 's';
+        } else if (s.tmetric === 'cost') {
+          width = r.cost ? Math.max(r.cost / maxCost * 100, 1.5).toFixed(2) + '%' : '0.8%';
+          value = r.cost ? '$' + r.cost.toFixed(3) : '—';
+        } else {
+          width = r.tokens ? Math.max(r.tokens / maxTok * 100, 1.5).toFixed(2) + '%' : '0.8%';
+          value = r.tokens ? (r.tokens >= 1000 ? (r.tokens / 1000).toFixed(1) + 'k' : String(r.tokens)) : '—';
+        }
+        const dim = (s.tmetric === 'cost' && !r.cost) || (s.tmetric === 'tokens' && !r.tokens);
+        const BARC = { model: BLUE, tool: 'var(--fusion-blue-500)', retrieval: 'var(--fusion-navy-800)', rule: '#B9C0C9' };
+        const BAROP = { model: 1, tool: 0.8, retrieval: 0.62, rule: 1 };
+        traceRows.push({
+          isGroup: false, isRow: true, isOpen: false,
+          ref: this.ref('span-' + r.id),
+          type: r.type.toUpperCase(), name: r.name, left, width, value,
+          barColor: r.warn ? AMBER : BARC[r.type], barOpacity: dim ? '0.25' : String(BAROP[r.type]),
+          rowBg: s.tspan === r.id ? 'var(--fusion-blue-50)' : 'transparent',
+          onClick: () => this.setState({ tspan: s.tspan === r.id ? null : r.id }),
+        });
+        if (s.tspan === r.id) {
+          const meta = ['starts ' + r.s.toFixed(2) + 's · runs ' + r.d.toFixed(2) + 's'];
+          if (r.tokens) meta.push(r.tokens.toLocaleString() + ' tokens');
+          if (r.cost) meta.push(money(r.cost));
+          meta.push('events: ' + r.ev);
+          traceRows.push({
+            isGroup: false, isRow: false, isOpen: true,
+            detIn: r.in, detOut: r.out, detMeta: meta,
+            onReadInSteps: () => { this.setState({ mode: 'steps' }); setTimeout(() => this.scrollTo(st.id), 60); },
+            onFixture: () => this.toast('Pinned as a fixture on ' + st.name),
+          });
+        }
+      });
+    });
+
+    // ---- evaluations: edit modal
+    const th = s.thresholds;
+    const inSet = (n) => th[n] !== undefined || s.added.includes(n);
+    const queued = (n) => s.queue.includes(n);
+    const toggleQueue = (n) => () => this.setState({ queue: queued(n) ? s.queue.filter(x => x !== n) : [...s.queue, n] });
+    const catButton = (n) => inSet(n)
+      ? { isButton: false, isState: true, stateLabel: 'in your set' }
+      : { isButton: true, isState: false, onClick: toggleQueue(n),
+          btnLabel: queued(n) ? 'Added' : 'Add',
+          btnBorder: queued(n) ? BLUE : BRDS,
+          btnBg: queued(n) ? BLUE : 'var(--fusion-surface)',
+          btnColor: queued(n) ? '#fff' : BLUE };
+    const descOf = (n) => (CATALOG.flatMap(g => g.items).find(i => i.name === n) || {}).desc || '';
+    const recRows = RECS.filter(r => !inSet(r.name)).map((r, i) => ({
+      name: r.name, desc: descOf(r.name), why: r.why,
+      sep: i === 0 ? 'none' : '1px solid var(--fusion-blue-100)', ...catButton(r.name),
+    }));
+    const catGroups = CATALOG.map(g => ({
+      name: g.name,
+      items: g.items.map((m, i) => ({
+        name: m.name, desc: m.desc, sep: i === 0 ? 'none' : '1px solid var(--fusion-border)',
+        ...(m.always ? { isButton: false, isState: true, stateLabel: 'always on' } : catButton(m.name)),
+      })),
+    }));
+    const setRows = Object.keys(th).concat(s.added.filter(n => th[n] === undefined)).map(n => ({
+      name: n,
+      thresholdLabel: 'min ' + Math.round((th[n] !== undefined ? th[n] : 0.70) * 100) + '%',
+      hasThreshold: th[n] !== 0,
+      isContract: th[n] === 0,
+      menuOpen: s.menu === 'th:' + n,
+      menuBorder: s.menu === 'th:' + n ? BLUE : BRDS,
+      onToggleMenu: () => this.setState({ menu: s.menu === 'th:' + n ? null : 'th:' + n }),
+      options: [0.60, 0.70, 0.75, 0.80, 0.85].map(v => ({
+        label: 'min ' + Math.round(v * 100) + '%',
+        bg: Math.abs((th[n] || 0) - v) < 0.001 ? 'var(--fusion-blue-50)' : 'transparent',
+        onClick: () => this.setState({ thresholds: { ...this.state.thresholds, [n]: v }, menu: null }),
+      })),
+      onRemove: () => {
+        const next = { ...this.state.thresholds }; delete next[n];
+        this.setState({ thresholds: next, added: this.state.added.filter(x => x !== n) });
+      },
+    }));
+
+    // ---- evaluations: results
+    const viewRows = rows.map((r, i) => ({
+      name: r.name, score: scoreOf(r), threshold: thOf(r), why: r.why,
+      dot: r.pass ? (r.near ? AMBER : NONE) : AMBER,
+      hasNote: !r.pass || r.near,
+      note: r.pass
+        ? 'a point above its threshold — a small regression would put it under'
+        : 'below the threshold you are reading it at. The score has not changed; the threshold has.',
+      bg: r.fresh ? 'var(--fusion-blue-50)' : 'var(--fusion-surface)',
+      sep: i === 0 ? 'none' : '1px solid var(--fusion-border)',
+    }));
+
+    return {
+      // embedded (chrome="off") drops the app header and fills the host's container
+      shellRef: this.shellRef,
+      isEmptyRun: false, hasRun: true,
+      treeMaxH: s.shellH ? Math.max(s.shellH - 12, 200) + 'px' : 'calc(100vh - 76px)',
+      dialogTop: s.shellH ? Math.round(s.shellH * 0.05) + 'px' : '6vh',
+      dialogH: s.shellH ? Math.round(s.shellH * 0.9) + 'px' : '86vh',
+      showChrome: this.props.chrome !== 'off',
+      shellHeight: this.props.chrome === 'off' ? '100%' : '100vh',
+      overlayTop: this.props.chrome === 'off' ? '0' : '56px',
+      agentName: this.props.agentName || 'Client Meeting Prep',
+      agentVersion: this.props.agentVersion || 'v14 · draft',
+      scrollRef: this.scrollRef, workRef: this.workRef,
+      runList,
+      railWidth: s.railCollapsed ? '52px' : '252px',
+      railOpen: !s.railCollapsed, railShut: !!s.railCollapsed,
+      onCollapseRail: () => this.setState({ railCollapsed: true }),
+      onExpandRail: () => this.setState({ railCollapsed: false }),
+
+      runLabel: run.label, runWhen: run.when, runVersion: run.version,
+      scopeWhat: run.scopeWhat, scopeDetail: run.scopeDetail,
+      hasResult: !run.failed, noResult: !!run.failed,
+      resultCaption: run.failed ? 'nothing was produced' : 'what the run produced',
+      resultName: run.result ? run.result.name : '', resultMeta: run.result ? run.result.meta : '',
+      failLine: run.failLine || '',
+      onDownload: () => this.toast('Downloading ' + (run.result ? run.result.name : 'result')),
+      onRerun: () => this.toast('Re-running from Fetch CRM data'),
+      onNewTest: () => this.toast('Opens the test composer'),
+
+      evalSummary: run.graded !== false
+        ? (rows.length + 2) + ' checks · ' + (rows.length + 2 - failing) + ' pass'
+          + (nearing ? ' · ' + nearing + ' within a point of its threshold' : '')
+        : 'not graded — the run produced no output',
+      hasEvalRows: run.graded !== false, cardEvalRows,
+      hasMoreEvals: hidden > 0,
+      moreEvalsLabel: hidden + ' more metric' + (hidden === 1 ? '' : 's') + ' in this set — view all results →',
+      onOpenEdit: () => this.setState({ editOpen: true, viewOpen: false, menu: null }),
+      onOpenView: () => this.setState({ viewOpen: true }),
+
+      hasTiles: true, tiles,
+      hasDrill: !!(curTile && curTile.note),
+      drillNote: curTile ? curTile.note : '',
+      drillActions: curTile && curTile.note
+        ? [{ label: 'Open in trace →', onClick: () => this.setState({ mode: 'trace', tmetric: s.lens === 'cost' ? 'cost' : 'time' }) }]
+        : [],
+
+      howItRan: steps.length + ' steps · ' + tot.spans + ' spans · ' + run.wall.toFixed(1) + 's',
+      lensOn: !!s.lens,
+      lensLabel: curTile ? curTile.k.charAt(0) + curTile.k.slice(1).toLowerCase() : '',
+      onClearLens: () => this.setState({ lens: null }),
+      viewModes: [
+        { label: 'Steps', v: 'steps' }, { label: 'Trace', v: 'trace' },
+      ].map(m => ({
+        label: m.label, onClick: () => this.setState({ mode: m.v }),
+        bg: s.mode === m.v ? 'var(--fusion-surface)' : 'none',
+        color: s.mode === m.v ? 'var(--fusion-ink)' : SEC,
+        weight: s.mode === m.v ? '700' : '500',
+        shadow: s.mode === m.v ? '0 1px 2px rgba(16,24,40,.10)' : 'none',
+      })),
+      isSteps: s.mode === 'steps', isTrace: s.mode === 'trace',
+      treeHeading: 'RUN STRUCTURE',
+      treeRows: treeItems,
+      typeLegend: [
+        { label: 'model', d1: ICONS.model[0], d2: '' },
+        { label: 'tool', d1: ICONS.tool[0], d2: '' },
+        { label: 'knowledge', d1: ICONS.knowledge[0], d2: ICONS.knowledge[1] },
+        { label: 'agent', d1: ICONS.agent[0], d2: ICONS.agent[1] },
+      ],
+      blocks,
+      passes,
+      loopSummary: loop ? 'The draft went round ' + loop.signals.loops + ' times — each pass caught one rule and fixed it. Showing pass ' + (s.pass + 1) + ' of ' + loop.signals.loops + '.' : '',
+      loopVitals: loopStat ? [loopStat.dur.toFixed(1) + 's total', money(loopStat.cost), 'draft v1 → v4'] : [],
+      passValidate: loop ? loop.passes[s.pass].validate : '',
+      passRefine: loop ? loop.passes[s.pass].refine : '',
+      onLoopTrace: () => this.openTrace('loop'),
+
+      filterLabel: FILTER_OPTS.find(o => o.v === s.tfilter).label,
+      filterBorder: s.menu === 'filter' ? BLUE : BRDS,
+      filterOpen: s.menu === 'filter',
+      onFilterToggle: () => this.setState({ menu: s.menu === 'filter' ? null : 'filter' }),
+      filterOptions: FILTER_OPTS.map(o => ({
+        label: o.label, onClick: () => this.setState({ tfilter: o.v, menu: null }),
+        bg: s.tfilter === o.v ? 'var(--fusion-blue-50)' : 'transparent',
+        weight: s.tfilter === o.v ? '700' : '500',
+      })),
+      metricLabel: METRIC_OPTS.find(o => o.v === s.tmetric).label,
+      metricBorder: s.menu === 'metric' ? BLUE : BRDS,
+      metricOpen: s.menu === 'metric',
+      onMetricToggle: () => this.setState({ menu: s.menu === 'metric' ? null : 'metric' }),
+      metricOptions: METRIC_OPTS.map(o => ({
+        label: o.label, onClick: () => this.setState({ tmetric: o.v, menu: null }),
+        bg: s.tmetric === o.v ? 'var(--fusion-blue-50)' : 'transparent',
+        weight: s.tmetric === o.v ? '700' : '500',
+      })),
+      traceTotal: s.tmetric === 'time'
+        ? run.wall.toFixed(1) + 's wall clock'
+        : s.tmetric === 'cost' ? money(tot.cost) + ' total · bars show share of run cost'
+        : tot.tokens.toLocaleString() + ' tokens · bars show share of the run',
+      legend: [
+        { label: 'model', color: BLUE, opacity: '1' },
+        { label: 'tool', color: 'var(--fusion-blue-500)', opacity: '0.8' },
+        { label: 'retrieval', color: 'var(--fusion-navy-800)', opacity: '0.62' },
+        { label: 'rules', color: '#B9C0C9', opacity: '1' },
+        { label: 'retried or failed', color: AMBER, opacity: '1' },
+      ],
+      traceRows,
+
+      editOpen: s.editOpen, viewOpen: s.viewOpen,
+      onCloseEdit: () => this.setState({ editOpen: false, menu: null }),
+      onCloseView: () => this.setState({ viewOpen: false }),
+      backLabel: '‹ Back to ' + run.label.toLowerCase(),
+      hasRecs: recRows.length > 0, recRows, catGroups, setRows,
+      alwaysRows: LOCKED.map(n => ({ name: n })),
+      hasQueue: s.queue.length > 0,
+      queueRows: s.queue.map(n => ({ name: n, onRemove: toggleQueue(n) })),
+      setSummary: (Object.keys(th).length + s.added.filter(n => th[n] === undefined).length + 2) + ' metrics · toxicity and bias always run',
+      editFootNote: s.queue.length
+        ? 'Save keeps the change — new metrics grade on the next test. Run evals grades this run now, about $0.004 a metric.'
+        : 'Your set runs automatically on every future test. Threshold changes apply to past runs immediately, with no re-grading.',
+      // Save keeps the set change without spending a judge pass; Run evals grades this run now.
+      commitLabel: s.grading ? 'Grading…' : 'Run evals',
+      commitBg: s.grading ? 'var(--fusion-blue-500)' : BLUE,
+      onSaveOnly: () => {
+        const names = [...s.queue];
+        this.setState({
+          editOpen: false, queue: [],
+          thresholds: { ...this.state.thresholds, ...Object.fromEntries(names.map(n => [n, 0.70])) },
+        });
+        this.toast(names.length
+          ? names.length + ' metric' + (names.length > 1 ? 's' : '') + ' added — they grade on the next run'
+          : 'Saved — past runs re-verdicted against the new thresholds');
+      },
+      onCommitEdit: () => {
+        if (!s.queue.length) {
+          this.setState({ editOpen: false, viewOpen: true });
+          this.toast('Re-graded run ' + run.label.replace('Run ', '') + ' with the current set');
+          return;
+        }
+        const names = [...s.queue];
+        this.setState({ grading: true, queue: [] });
+        setTimeout(() => {
+          this.setState({
+            grading: false, editOpen: false, viewOpen: true,
+            added: [...this.state.added, ...names],
+            thresholds: { ...this.state.thresholds, ...Object.fromEntries(names.map(n => [n, 0.70])) },
+          });
+          this.toast(names.length + ' metric' + (names.length > 1 ? 's' : '') + ' graded on this run');
+        }, 900);
+      },
+
+      viewSub: run.label + ' · ' + rows.length + ' of your metrics and 2 always-on checks · '
+        + (failing ? failing + ' below threshold' : 'all pass'),
+      viewRows: viewRows.length ? viewRows : [{
+        name: 'No metrics yet', score: '—', threshold: '', why: 'Toxicity and bias run on every agent. Add quality metrics with Edit — they grade this run and every test after it.',
+        dot: NONE, sep: 'none', bg: 'var(--fusion-surface)', fresh: false,
+      }],
+      alwaysResults: [
+        { name: 'Toxicity', score: '96%', why: 'no findings' },
+        { name: 'Bias detection', score: '91%', why: 'no findings' },
+      ].map((r, i) => ({ ...r, sep: i === 0 ? 'none' : '1px solid var(--fusion-border)' })),
+      insights: [
+        { tone: AMBER, kind: 'NEEDS A LOOK', action: 'Open Retrieve research →',
+          body: 'Retrieval relevance 62% at Retrieve research — 7 of 20 chunks are about equity strategy rather than FX hedging. This is the most likely reason groundedness is sitting on its threshold.',
+          onClick: () => { this.setState({ viewOpen: false }); setTimeout(() => this.jump('research'), 60); } },
+        { tone: AMBER, kind: 'NEEDS A LOOK', action: 'Open Fetch CRM data →',
+          body: 'Fetch CRM data timed out once before succeeding. The same tool has retried in 4 of the last 10 runs and caused the failure in run #127.',
+          onClick: () => { this.setState({ viewOpen: false }); setTimeout(() => this.jump('crm'), 60); } },
+        { tone: BLUE, kind: 'COULD BE BETTER', action: 'Open Draft briefing →',
+          body: 'Draft briefing carries 20 retrieved chunks and cites 3, which is around half the run cost. Trimming retrieval would also raise groundedness, since fewer off-topic chunks reach the model.',
+          onClick: () => { this.setState({ viewOpen: false }); setTimeout(() => this.jump('draft'), 60); } },
+      ],
+
+      // ---- compare (scratch run against one step's captured inputs)
+      compareOpen: !!s.compare,
+      compareKicker: s.compare ? 'COMPARE · ' + (steps.find(x => x.id === s.compare) || {}).name : '',
+      onCloseCompare: () => this.setState({ compare: null, compareRan: false, menu: null }),
+      compareOriginal: [
+        { label: 'Model', value: 'fusion-frontier-1' },
+        { label: 'Research chunks', value: '20' },
+        { label: 'Prompt', value: 'v14' },
+      ],
+      compareVariant: [
+        { label: 'Model', value: s.vModel, editable: true, isStatic: false,
+          open: s.menu === 'vmodel', border: s.menu === 'vmodel' ? BLUE : BRDS,
+          onToggle: () => this.setState({ menu: s.menu === 'vmodel' ? null : 'vmodel' }),
+          options: ['fusion-frontier-1', 'fusion-standard-2', 'fusion-small-2'].map(v => ({
+            label: v, bg: s.vModel === v ? 'var(--fusion-blue-50)' : 'transparent', weight: s.vModel === v ? '700' : '500',
+            onClick: () => this.setState({ vModel: v, menu: null, compareRan: false }),
+          })) },
+        { label: 'Research chunks', value: s.vChunks, editable: true, isStatic: false,
+          open: s.menu === 'vchunks', border: s.menu === 'vchunks' ? BLUE : BRDS,
+          onToggle: () => this.setState({ menu: s.menu === 'vchunks' ? null : 'vchunks' }),
+          options: ['20', '10', '5 (top-ranked)'].map(v => ({
+            label: v, bg: s.vChunks === v ? 'var(--fusion-blue-50)' : 'transparent', weight: s.vChunks === v ? '700' : '500',
+            onClick: () => this.setState({ vChunks: v, menu: null, compareRan: false }),
+          })) },
+        { label: 'Prompt', value: 'v14', editable: false, isStatic: true },
+      ],
+      runVariantLabel: s.compareRan ? 'Run again' : 'Run variant',
+      onRunVariant: () => this.setState({ compareRan: true, menu: null }),
+      compareRan: !!s.compareRan,
+      compareResults: [
+        { head: 'AS IT RAN', border: BRD, headColor: MUT, lines: ['10.0s · $0.21', '1,912 words · 4 sections', 'groundedness 71%'] },
+        { head: 'VARIANT', border: BLUE, headColor: BLUE, lines: ['4.2s · $0.09', '1,846 words · 4 sections', 'groundedness 74%'] },
+      ],
+      compareVerdict: 'Same sections and the same figures; the variant drops two uncited outlook sentences and groundedness rises 3 points. −58% cost, −58% time. One input is not proof — propose it, then verify against the test suite.',
+      onPropose: () => { this.setState({ compare: null, compareRan: false }); this.toast('Change proposed — review the diff on the canvas'); },
+      onDiscard: () => { this.setState({ compare: null, compareRan: false }); this.toast('Scratch run discarded'); },
+
+      hasToast: !!s.toast, toast: s.toast || '',
+    };
+  }
+}
+
+</script>
+</body>
+</html>

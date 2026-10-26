@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-teal-100: #E1F4F0; --fusion-teal-600: var(--salt-color-teal-600);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+  --ring: 2px dashed var(--fusion-purple-600);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #F7F7FB; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<!-- ============================ TURN 5 ============================ -->
+<section style="padding:40px 40px 8px; display:flex; flex-direction:column; gap:24px;">
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:900px;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="font-size:11px; font-weight:700; letter-spacing:.09em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">LATEST</span>
+      <span style="font-size:24px; font-weight:700; letter-spacing:-.01em;">2d, rescued — split by what the control governs</span>
+    </div>
+    <div style="font-size:14px; line-height:1.55; color:var(--fusion-text-secondary);">Every sketch below is the same 400×520 panel — header, thread, composer — so they compare directly. The dashed purple ring marks the only thing that differs, and the caption under each panel names it.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:900px; padding:16px 18px; background:var(--fusion-bg); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13px; font-weight:700;">The rule that settles every placement question here</div>
+    <div style="display:flex; flex-direction:column; gap:5px; font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">
+      <span><strong style="color:var(--fusion-ink);">Governs the workspace</strong> — canvas locks, nothing ships → banner or app header. That's <em>mode</em>.</span>
+      <span><strong style="color:var(--fusion-ink);">Governs the next message</strong> — which agents run, what data → composer row. That's <em>scope</em>.</span>
+      <span>Old 2d put mode in the composer, which is why it felt off. Right widget, wrong content.</span>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start;">
+
+    <!-- ===== 5a ===== -->
+    <div id="5a" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">5a</span>
+        <span style="font-size:14px; font-weight:700;">Banner = mode · composer = scope</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:10px;">
+          <div style="flex:none; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:3px; gap:2px; outline:var(--ring); outline-offset:4px;">
+            <button style="height:26px; padding:0 13px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Build</button>
+            <button style="height:26px; padding:0 13px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12.5px; font-weight:700;">Testing</button>
+          </div>
+          <span style="flex:1;"></span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:center; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">ENTERED TEST · v3</div>
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <button style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 11px; background:var(--fusion-surface); border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); font-size:12.5px; font-weight:600; color:var(--fusion-ink); outline:var(--ring); outline-offset:3px;" style-hover="background:var(--fusion-bg);">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"></rect><rect x="14" y="13" width="7" height="7" rx="1.5"></rect><path d="M10 7.5h4a2 2 0 0 1 2 2V13"></path></svg>
+                Entire system
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <button aria-label="Attach" style="flex:none; width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              </button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING 1</span><span style="color:var(--fusion-text-secondary);">Mode toggle in the panel header — governs the workspace.</span></div>
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING 2</span><span style="color:var(--fusion-text-secondary);">Scope picker where a model picker sits — governs the next message.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">No ✕ anywhere: with the toggle two rows up, a dismiss would be a third rendering of one action. Entry and exit are the same gesture, which is easier to teach.</div>
+      </div>
+    </div>
+
+    <!-- ===== 5b ===== -->
+    <div id="5b" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">5b</span>
+        <span style="font-size:14px; font-weight:700;">Your 2d — split chip, scope on the left</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Testing</span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <div style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; height:30px; background:var(--fusion-lilac-100); border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-full); overflow:hidden; outline:var(--ring); outline-offset:3px;">
+                <button title="Choose what this run covers" style="display:inline-flex; align-items:center; gap:6px; height:100%; padding:0 11px; background:transparent; border:none; font-size:12.5px; font-weight:700; color:var(--fusion-purple-600);" style-hover="background:rgba(131,67,161,.10);">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"></rect><rect x="14" y="13" width="7" height="7" rx="1.5"></rect><path d="M10 7.5h4a2 2 0 0 1 2 2V13"></path></svg>
+                  Entire system
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                </button>
+                <span style="width:1px; height:18px; background:var(--fusion-purple-600); opacity:.4;"></span>
+                <button aria-label="Exit test mode" title="Exit test mode — back to building" style="display:grid; place-items:center; width:30px; height:100%; background:transparent; border:none; color:var(--fusion-purple-600);" style-hover="background:var(--fusion-purple-600); color:#fff;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                </button>
+              </div>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">Left half picks scope · right half leaves test. Two jobs, one spot.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">No banner toggle — the panel title carries the state, the ✕ carries the exit. Leaner build, exit under your cursor. Asymmetric: you can get out here but not back in, so entry stays on the header or the canvas pill.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="max-width:900px; display:flex; flex-direction:column; gap:8px; padding:18px 20px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13px; font-weight:700;">Yes to 2d, as <a href="#5b">5b</a> — <a href="#5a">5a</a> if you want symmetric entry</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">Both keep your instinct: one place, adjacent controls, no diagonal hunt. <a href="#5b">5b</a>'s asymmetry is defensible — entering test is deliberate, leaving is a reflex, and reflexes deserve the closer target. Avoid 2d-as-originally-drawn (modes in the menu) and avoid any version with a banner toggle <em>and</em> a ✕.</div>
+  </div>
+
+</section>
+
+<!-- ============================ TURN 4 ============================ -->
+<section style="padding:32px 40px 8px; display:flex; flex-direction:column; gap:24px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:900px;">
+    <div style="font-size:22px; font-weight:700; letter-spacing:-.01em;">Toggle in a banner, not the composer</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">Composer = what you send. Banner = what you're in. All three assume two modes.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:900px; padding:15px 18px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13px; font-weight:700; color:var(--fusion-amber-600);">The decision this forces</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);">The centered <strong>Build | Test</strong> toggle in the app header controls the same state. A second one in the panel banner is duplication again. 4a and 4b assume the header toggle is removed; 4c keeps it and gives the band a different job.</div>
+  </div>
+
+  <div style="display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start;">
+
+    <!-- ===== 4a ===== -->
+    <div id="4a" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">4a</span>
+        <span style="font-size:14px; font-weight:700;">Panel header owns the mode</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:10px;">
+          <div style="flex:none; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:3px; gap:2px; outline:var(--ring); outline-offset:4px;">
+            <button style="height:26px; padding:0 13px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Build</button>
+            <button style="height:26px; padding:0 13px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12.5px; font-weight:700;">Testing</button>
+          </div>
+          <span style="flex:1;"></span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:center; font-size:10.5px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">TESTING · ENTIRE SYSTEM · v3</div>
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <button aria-label="Attach" style="flex:none; width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              </button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">Toggle in the panel header, where chat products put thread context.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Persistent, never scrolls away. Composer returns to pure input — attach and send only. Run context drops into the thread as a divider, where the mode change actually happened.</div>
+      </div>
+    </div>
+
+    <!-- ===== 4b ===== -->
+    <div id="4b" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">4b</span>
+        <span style="font-size:14px; font-weight:700;">Band above composer holds the toggle</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:0 15px;">
+          <div style="background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-md); padding:6px 6px 6px 12px; display:flex; align-items:center; gap:10px; outline:var(--ring); outline-offset:3px;">
+            <span style="flex:1; min-width:0; font-size:11.5px; font-weight:700; letter-spacing:.05em; color:var(--fusion-purple-600); white-space:nowrap;">ENTIRE SYSTEM · v3</span>
+            <div style="flex:none; display:flex; background:var(--fusion-surface); border-radius:var(--fusion-radius-full); padding:3px; gap:2px;">
+              <button style="height:24px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12px; font-weight:600;" style-hover="color:var(--fusion-ink);">Build</button>
+              <button style="height:24px; padding:0 11px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12px; font-weight:700;">Testing</button>
+            </div>
+          </div>
+        </div>
+        <div style="flex:none; padding:11px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <button aria-label="Attach" style="flex:none; width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              </button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">Today's band, filled with the toggle plus the scope it applies to.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Closest to the current layout, so the smallest change to ship, and nearest your eye as you send. Cost: a mode switch sitting that low still reads as a composer control — the confusion we're trying to avoid.</div>
+      </div>
+    </div>
+
+    <!-- ===== 4c ===== -->
+    <div id="4c" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">4c</span>
+        <span style="font-size:14px; font-weight:700;">Header keeps it · banner states scope</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; display:flex; align-items:center; justify-content:center; padding:10px; border-bottom:1px solid var(--fusion-border); background:var(--fusion-bg);">
+          <div style="display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:3px; gap:2px;">
+            <button style="height:26px; padding:0 14px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Build</button>
+            <button style="height:26px; padding:0 14px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12.5px; font-weight:700;">Testing</button>
+          </div>
+        </div>
+        <div style="flex:none; padding:11px 15px 0;">
+          <div style="background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-md); padding:8px 12px; display:flex; align-items:center; gap:9px; outline:var(--ring); outline-offset:3px;">
+            <span style="width:7px; height:7px; flex:none; border-radius:50%; background:var(--fusion-purple-600);"></span>
+            <span style="flex:1; min-width:0; font-size:12px; font-weight:700; letter-spacing:.04em; color:var(--fusion-purple-600); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">TESTING ENTIRE SYSTEM · v3</span>
+            <button style="flex:none; background:none; border:none; padding:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-purple-600);" style-hover="text-decoration:underline;">CHANGE SCOPE</button>
+          </div>
+        </div>
+        <div style="flex:1; min-height:0; padding:14px 15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-bg); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:0 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <button aria-label="Attach" style="flex:none; width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); background:var(--fusion-surface); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"></path></svg>
+              </button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">Band carries scope, not mode — and lets you change it.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">No new toggle: the existing header one stays the single switch. The band stops being redundant without becoming a second control, since scope is information the header can't hold.</div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================ TURN 3 ============================ -->
+<section style="padding:32px 40px 8px; display:flex; flex-direction:column; gap:24px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:900px;">
+    <div style="font-size:22px; font-weight:700; letter-spacing:-.01em;">Two modes only — Build ⇄ Test</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">First pass after folding Evaluate into Test, with the control still in the composer row. Superseded by turns 4 and 5, kept for the reasoning.</div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:8px; max-width:900px; padding:15px 18px; background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:13px; font-weight:700; color:var(--fusion-purple-600);">On "Building" — you already have this rule</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-purple-600);">The header toggle inflects the active segment: <strong>Building | Test</strong> in build, <strong>Build | Testing</strong> in test. So yes — say "Building", and let every other surface follow the header's rule instead of inventing a second one.</div>
+  </div>
+
+  <div style="display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start;">
+
+    <!-- ===== 3a ===== -->
+    <div id="3a" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3a</span>
+        <span style="font-size:14px; font-weight:700;">Two-segment toggle, header's twin</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <div style="flex:none; white-space:nowrap; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:2px; gap:2px; outline:var(--ring); outline-offset:3px;">
+                <button style="height:26px; padding:0 12px; border:none; border-radius:var(--fusion-radius-full); background:transparent; color:var(--fusion-text-secondary); font-size:12.5px; font-weight:600;" style-hover="color:var(--fusion-ink);">Build</button>
+                <button style="height:26px; padding:0 12px; border:none; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12.5px; font-weight:700;">Testing</button>
+              </div>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">The header's control, shrunk to 26px, in the composer row.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Both states visible, one tap either way, no ✕ needed. You ruled this out: a workspace switch inside the composer isn't a chat pattern.</div>
+      </div>
+    </div>
+
+    <!-- ===== 3b ===== -->
+    <div id="3b" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3b</span>
+        <span style="font-size:14px; font-weight:700;">Dismissible state chip</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:8px; padding:6px 8px 8px;">
+              <button title="Exit test mode — back to building" style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; gap:8px; height:30px; padding:0 10px 0 12px; background:var(--fusion-lilac-100); border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-full); font-size:13px; font-weight:700; color:var(--fusion-purple-600); outline:var(--ring); outline-offset:3px;" style-hover="background:var(--fusion-purple-600); color:#fff;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+                Testing
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+              </button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">The whole chip is the exit — one hit target, inverts on hover.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">In build it degrades to a plain "Building" label with no ✕, because there's nothing to dismiss. 5b is this idea with a scope menu added to the left half.</div>
+      </div>
+    </div>
+
+    <!-- ===== 3c ===== -->
+    <div id="3c" style="width:400px; display:flex; flex-direction:column; gap:11px;">
+      <div style="display:flex; align-items:center; gap:9px; min-height:24px;">
+        <span style="display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 8px; border-radius:var(--fusion-radius-full); background:var(--fusion-ink); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em;">3c</span>
+        <span style="font-size:14px; font-weight:700;">Tag states it · button does it</span>
+      </div>
+      <div style="width:400px; height:520px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="flex:none; padding:11px 13px; border-bottom:1px solid var(--fusion-border); display:flex; align-items:center; gap:9px;">
+          <svg style="flex:none; color:var(--fusion-purple-600);" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+          <span style="flex:1; font-size:14px; font-weight:700;">Test</span>
+          <button aria-label="Collapse panel" style="width:26px; height:26px; display:grid; place-items:center; background:none; border:none; border-radius:var(--fusion-radius-sm); color:var(--fusion-text-secondary);" style-hover="background:var(--fusion-bg);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+        <div style="flex:1; min-height:0; background:var(--fusion-bg); padding:15px; display:flex; flex-direction:column; gap:11px;">
+          <div style="align-self:flex-end; max-width:80%; background:var(--fusion-lilac-100); border-radius:10px 10px 3px 10px; padding:9px 12px; font-size:13px; line-height:1.45;">Summarize the top feedback themes for Q2</div>
+          <div style="align-self:flex-start; max-width:85%; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:10px 10px 10px 3px; padding:9px 12px; font-size:13px; line-height:1.45; color:var(--fusion-text-secondary);">Classified 214 items into 6 themes.</div>
+        </div>
+        <div style="flex:none; padding:13px 15px 11px; display:flex; flex-direction:column; gap:9px;">
+          <div style="border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-lg); background:var(--fusion-surface); display:flex; flex-direction:column;">
+            <div style="min-height:48px; padding:11px 14px 8px; font-size:14.5px; line-height:1.45; color:var(--fusion-text-muted);">Send a case to test…</div>
+            <div style="display:flex; align-items:center; gap:9px; padding:6px 8px 8px;">
+              <span style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 11px; background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--fusion-purple-600);">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+                TESTING</span>
+              <button style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 12px; background:transparent; border:1px solid var(--fusion-border-strong); border-radius:var(--fusion-radius-full); font-size:12.5px; font-weight:600; color:var(--fusion-text-secondary); outline:var(--ring); outline-offset:3px;" style-hover="border-color:var(--fusion-blue-700); color:var(--fusion-blue-700); background:var(--fusion-blue-50);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                Back to building</button>
+              <span style="flex:1;"></span>
+              <span style="width:32px; height:32px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; display:grid; place-items:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--fusion-text-muted); text-align:center;">Answers are experimental and should be verified.</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:7px; min-height:132px;">
+        <div style="display:flex; gap:8px; font-size:12px; line-height:1.5;"><span style="flex:none; color:var(--fusion-purple-600); font-weight:700;">RING</span><span style="color:var(--fusion-text-secondary);">A plainly-worded button does the leaving; the flat tag states the mode.</span></div>
+        <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Least guessing of the three, but it spends the most horizontal room and two adjacent pills of different weights make a busy left edge.</div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ============================ REFERENCE + RULED OUT ============================ -->
+<section style="padding:32px 40px 48px; display:flex; flex-direction:column; gap:24px; border-top:1px solid var(--fusion-border);">
+
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:900px;">
+    <div style="font-size:22px; font-weight:700; letter-spacing:-.01em;">Reference &amp; what we ruled out</div>
+    <div style="font-size:13.5px; line-height:1.55; color:var(--fusion-text-secondary);">Earlier turns explored band styling (1a–1d) and a three-mode split chip (2a–2d). Both are settled, so they're recorded as reasoning rather than re-rendered as partial panels.</div>
+  </div>
+
+  <div style="display:flex; gap:22px; flex-wrap:wrap; align-items:stretch;">
+
+    <div style="width:400px; display:flex; flex-direction:column; gap:12px; padding:18px 20px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">REFERENCE — CANVAS GHOST PILL</div>
+      <div style="padding:16px 20px; border-radius:var(--fusion-radius-md); background:#FBFBFD; background-image:radial-gradient(var(--fusion-border) 1px, transparent 1px); background-size:14px 14px;">
+        <button style="display:inline-flex; align-items:center; justify-content:center; gap:7px; height:32px; padding:0 14px; white-space:nowrap; border-radius:var(--fusion-radius-full); background:transparent; border:1.5px dashed var(--fusion-blue-700); color:var(--fusion-blue-700); font-size:11.5px; font-weight:700; letter-spacing:.05em;" style-hover="background:var(--fusion-blue-50); border-style:solid;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          EXIT TEST</button>
+      </div>
+      <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">32px · fully round · 1.5px dashed · transparent · 11.5px/700/.05em. It is currently <strong>blue</strong>, which means build everywhere else in the app — it should be purple regardless of which option you pick.</div>
+    </div>
+
+    <div style="width:400px; display:flex; flex-direction:column; gap:12px; padding:18px 20px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">TODAY — THREE SWITCHES, ONE JOB</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="flex:none; display:flex; background:#EFF1F4; border-radius:var(--fusion-radius-full); padding:3px; gap:2px;">
+            <span style="height:26px; padding:0 12px; border-radius:var(--fusion-radius-full); color:var(--fusion-text-secondary); font-size:12.5px; font-weight:600; display:grid; place-items:center;">Build</span>
+            <span style="height:26px; padding:0 12px; border-radius:var(--fusion-radius-full); background:var(--fusion-purple-600); color:#fff; font-size:12.5px; font-weight:700; display:grid; place-items:center;">Testing</span>
+          </div>
+          <span style="font-size:12px; color:var(--fusion-text-muted);">app header</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="flex:none; display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 12px; background:var(--fusion-surface); border:1px solid var(--fusion-purple-600); border-radius:var(--fusion-radius-full); font-size:13px; font-weight:600; color:var(--fusion-purple-600);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7V5z"></path></svg>
+            Test
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+          <span style="font-size:12px; color:var(--fusion-text-muted);">composer dropdown</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="flex:none; display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 13px; border-radius:var(--fusion-radius-full); border:1.5px dashed var(--fusion-blue-700); color:var(--fusion-blue-700); font-size:11px; font-weight:700; letter-spacing:.05em;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            EXIT TEST</span>
+          <span style="font-size:12px; color:var(--fusion-text-muted);">canvas + panel band</span>
+        </div>
+      </div>
+      <div style="font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">Every option above deletes at least one of these. None adds a fourth.</div>
+    </div>
+
+    <div style="width:400px; display:flex; flex-direction:column; gap:12px; padding:18px 20px; background:var(--fusion-bg); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+      <div style="font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--fusion-text-muted);">RULED OUT</div>
+      <div style="display:flex; flex-direction:column; gap:11px; font-size:12.5px; line-height:1.55; color:var(--fusion-text-secondary);">
+        <div><strong style="color:var(--fusion-ink);">1a–1d · band styling</strong><br>Restyled the lilac band four ways — pill mirror, labeled band, composer header, folder tab. All treated the band as a styling problem. It wasn't: an empty band with one action in the corner needed <em>content</em>, which turns 4 and 5 gave it.</div>
+        <div><strong style="color:var(--fusion-ink);">2a–2d · three-mode controls</strong><br>Assumed Build · Test · Evaluate. Folding Evaluate into Test removed the third destination that justified a menu beside a ✕. 2d's shape survived; its contents didn't.</div>
+        <div><strong style="color:var(--fusion-ink);">"Nothing here ships" copy</strong><br>Cut at your request — the panel needs a way back to build, not reassurance.</div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

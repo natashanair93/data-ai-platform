@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/radius-elevation.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/tokens/base.css">
+<link rel="stylesheet" href="_ds/data-ai-platform-design-system-fa751761-3250-4760-9a34-9fc618cc01c5/styles.css">
+<style>
+:root {
+  --fusion-navy-800: var(--salt-color-blue-700);
+  --fusion-blue-700: var(--accent); --fusion-blue-600: var(--text-link); --fusion-blue-500: var(--salt-color-blue-500);
+  --fusion-blue-100: var(--salt-color-blue-100); --fusion-blue-50: var(--surface-selected);
+  --fusion-ink: var(--text-primary); --fusion-text-secondary: var(--text-secondary); --fusion-text-muted: var(--text-tertiary);
+  --fusion-border: var(--border-subtle); --fusion-border-strong: var(--salt-color-gray-300);
+  --fusion-surface: var(--surface-primary); --fusion-bg: var(--surface-secondary);
+  --fusion-lilac-100: #F1F1FA; --fusion-purple-600: var(--domain-ai-text);
+  --fusion-green-600: var(--status-success-strong); --fusion-green-100: var(--status-success-bg);
+  --fusion-red-600: var(--status-error-strong); --fusion-red-100: var(--status-error-bg);
+  --fusion-amber-600: var(--status-warning-strong); --fusion-amber-100: var(--status-warning-bg);
+  --fusion-teal-100: #E1F4F0; --fusion-teal-600: var(--salt-color-teal-600);
+  --fusion-font: var(--font-body); --fusion-font-mono: var(--font-mono);
+  --fusion-radius-sm: var(--radius-control); --fusion-radius-md: var(--radius-card); --fusion-radius-lg: var(--radius-lg); --fusion-radius-full: var(--radius-pill);
+  --wf: #E4E7EB;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fusion-font); font-size: 15px; color: var(--fusion-ink); background: #F7F7FB; }
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--fusion-blue-600); text-decoration: none; }
+a:hover { color: var(--fusion-blue-500); }
+</style>
+</helmet>
+
+<section style="padding:40px 40px 8px; display:flex; flex-direction:column; gap:20px;">
+
+  <div style="display:flex; flex-direction:column; gap:9px; max-width:1100px;">
+    <div style="font-size:26px; line-height:1.25; font-weight:700; letter-spacing:-.015em;">Journey storyboard — twelve moments, not twelve screens</div>
+    <div style="font-size:14px; line-height:1.6; color:var(--fusion-text-secondary);">Deliberately low fidelity: grey blocks so we argue about <strong>flow and triggers</strong>, not type and colour. One agent, one continuous session — Client Meeting Prep, v14 → v15. Each frame names what <em>caused</em> it, and what it leaves behind for later.</div>
+  </div>
+
+  <div style="max-width:1100px; display:flex; gap:16px; flex-wrap:wrap; padding:14px 17px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md);">
+    <span style="white-space:nowrap; font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--fusion-text-muted);">WIREFRAME KEY</span>
+    <span style="font-size:11.5px; line-height:1.45; color:var(--fusion-text-muted);">Labels inside frames are 10px — below the system's 12px floor, deliberately, because these are miniatures. Nothing at 10px is the only place a fact appears.</span>
+    <span style="display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--fusion-text-secondary);"><span style="width:22px; height:11px; background:var(--wf); border-radius:2px;"></span>existing UI</span>
+    <span style="display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--fusion-text-secondary);"><span style="width:22px; height:11px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:2px;"></span>the thing that matters</span>
+    <span style="display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--fusion-text-secondary);"><span style="width:22px; height:11px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px;"></span>problem surfaced</span>
+    <span style="display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--fusion-text-secondary);"><span style="width:22px; height:11px; background:var(--fusion-green-100); border:1px solid var(--fusion-green-600); border-radius:2px;"></span>artifact created</span>
+  </div>
+
+</section>
+
+<!-- ============ STAGE 1 ============ -->
+<section style="padding:20px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+  <div style="display:flex; align-items:center; gap:11px; max-width:1100px;">
+    <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">STAGE 1 · SECONDS</span>
+    <span style="flex:1; min-width:0; font-size:18px; line-height:1.3; font-weight:700;">"Does this even work?"</span>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">01</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Edits a prompt, hits run on one node</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:14px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="height:30px; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:30px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-blue-700);">RUN THIS NODE</div>
+            <div style="height:30px; background:var(--wf); border-radius:3px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+          <div style="width:96px; background:var(--wf); border-radius:3px;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Trigger:</strong> uncertainty about their own last edit. Zero setup tolerated.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">02</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Strip appears on the node · chips in the panel</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:14px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="height:30px; background:var(--wf); border-radius:3px;"></div>
+            <div style="border:1px solid var(--fusion-green-600); border-radius:3px; overflow:hidden;">
+              <div style="height:24px; background:var(--wf);"></div>
+              <div style="height:19px; background:var(--fusion-green-100); display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600);">RAN OK · 1.8s · 38%</div>
+            </div>
+            <div style="height:30px; background:var(--wf); border-radius:3px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+          <div style="width:96px; display:flex; flex-direction:column; gap:5px;">
+            <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:26px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-blue-700); text-align:center; padding:0 3px;">4 CHIPS</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Answered:</strong> they saw it run. <strong>Left behind:</strong> a Run, silently recorded.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">03</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Whole agent, in chat — cost chip stings</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:14px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+          <div style="width:120px; display:flex; flex-direction:column; gap:5px;">
+            <div style="height:22px; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:34px; background:var(--wf); border-radius:3px;"></div>
+            <div style="display:flex; gap:3px;">
+              <div style="flex:1; height:19px; background:var(--fusion-green-100); border-radius:2px;"></div>
+              <div style="flex:1.4; height:19px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">$0.18</div>
+            </div>
+            <div style="flex:1;"></div>
+            <div style="height:26px; background:var(--wf); border-radius:3px;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>The pivot.</strong> A number they didn't like is the only reason the next nine frames happen.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STAGE 2 ============ -->
+<section style="padding:20px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+  <div style="display:flex; align-items:center; gap:11px; max-width:1100px;">
+    <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">STAGE 2 · MINUTES</span>
+    <span style="flex:1; min-width:0; font-size:18px; line-height:1.3; font-weight:700;">"Why did it do that?"</span>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">04</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Clicks the cost chip → Run Detail, cost tab</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="display:flex; gap:3px;">
+          <div style="flex:1; height:12px; background:var(--wf); border-radius:2px;"></div>
+          <div style="flex:1; height:12px; background:var(--wf); border-radius:2px;"></div>
+          <div style="flex:1; height:12px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:2px;"></div>
+          <div style="flex:1; height:12px; background:var(--wf); border-radius:2px;"></div>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:4px; padding-top:3px;">
+          <div style="height:13px; background:var(--wf); border-radius:2px; width:100%;"></div>
+          <div style="height:19px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px; width:68%; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">DRAFT BRIEFING 68%</div>
+          <div style="height:13px; background:var(--wf); border-radius:2px; width:22%;"></div>
+          <div style="height:13px; background:var(--wf); border-radius:2px; width:14%;"></div>
+          <div style="flex:1;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>J2 in action:</strong> the question travelled. Nobody navigated to a "cost page".</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">05</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Down to the span — the rendered prompt</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:6px;">
+          <div style="width:110px; display:flex; flex-direction:column; gap:4px;">
+            <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:12px; background:var(--fusion-blue-100); border-left:2px solid var(--fusion-blue-700); border-radius:2px;"></div>
+            <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:3px;">
+            <div style="height:11px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:11px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:38px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px; display:grid; place-items:center; text-align:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600); padding:0 4px; line-height:1.3;">KNOWLEDGE<br>20 chunks · 6 used</div>
+            <div style="height:11px; background:var(--wf); border-radius:2px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Answered:</strong> "retrieval stuffs 20 chunks, the prompt uses 6." A cause, in their words.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">06</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">The diagnosis moment offers the case</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+          <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+          <div style="height:32px; background:var(--fusion-green-100); border:1px solid var(--fusion-green-600); border-radius:3px; display:flex; align-items:center; padding:0 8px; gap:6px;">
+            <span style="flex:1; min-width:0; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600); line-height:1.3;">KEEP THIS AS A TEST · was the answer right?</span>
+            <span style="flex:none; white-space:nowrap; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600); border:1px solid var(--fusion-green-600); border-radius:8px; padding:2px 5px;">YES</span>
+            <span style="flex:none; white-space:nowrap; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600); border:1px solid var(--fusion-green-600); border-radius:8px; padding:2px 5px;">NO</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Your point 6, applied:</strong> the run is already saved. The click is the <em>judgment</em>, not the filing.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STAGE 3 ============ -->
+<section style="padding:20px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+  <div style="display:flex; align-items:center; gap:11px; max-width:1100px;">
+    <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">STAGE 3 · HOURS</span>
+    <span style="flex:1; min-width:0; font-size:18px; line-height:1.3; font-weight:700;">"Or did I get lucky?" — the transition where builders stall</span>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">07</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">The nudge — 15 cases they didn't know they had</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:14px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+          <div style="width:120px; display:flex; flex-direction:column; gap:5px;">
+            <div style="height:44px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:3px; display:grid; place-items:center; text-align:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-blue-700); padding:0 5px; line-height:1.35;">You've kept 15 cases.<br>RUN THEM AS A SUITE</div>
+            <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:26px; background:var(--wf); border-radius:3px;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>J3:</strong> rigor accrued as a byproduct. Nobody sat down to author a suite.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">08</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Suite result — 13 pass, 2 fail</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="display:flex; gap:4px;">
+          <div style="flex:1; height:26px; background:var(--fusion-green-100); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600);">13 PASS</div>
+          <div style="flex:1; height:26px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">2 FAIL</div>
+          <div style="flex:1; height:26px; background:var(--wf); border-radius:3px;"></div>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:3px; padding-top:3px;">
+          <div style="height:12px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px;"></div>
+          <div style="height:12px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px;"></div>
+          <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+          <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+          <div style="height:12px; background:var(--wf); border-radius:2px;"></div>
+          <div style="flex:1;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Answered:</strong> "good" finally has a number. Failing rows float to the top.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">09</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Pin it — now there's a floor</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="height:34px; background:var(--fusion-green-100); border:1px solid var(--fusion-green-600); border-radius:3px; display:grid; place-items:center; text-align:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600); line-height:1.35;">PIN AS BASELINE<br>everything compares to this from now on</div>
+        <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Left behind:</strong> a Baseline — the measuring stick stage 4 is impossible without.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STAGE 4 + 5 ============ -->
+<section style="padding:20px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+  <div style="display:flex; align-items:center; gap:11px; max-width:1100px;">
+    <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-purple-600); background:var(--fusion-lilac-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">STAGE 4 → 5</span>
+    <span style="flex:1; min-width:0; font-size:18px; line-height:1.3; font-weight:700;">"Better, cheaper, faster?" then "Can I ship it?"</span>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">10</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">The insight was waiting on the node all along</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:14px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="height:28px; background:var(--wf); border-radius:3px;"></div>
+            <div style="border:1px solid var(--fusion-amber-600); border-radius:3px; overflow:hidden;">
+              <div style="height:24px; background:var(--wf);"></div>
+              <div style="height:19px; background:var(--fusion-amber-100); display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">CONTEXT WASTE · FIX ↗</div>
+            </div>
+            <div style="height:28px; background:var(--wf); border-radius:3px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+          <div style="width:96px; background:var(--wf); border-radius:3px;"></div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>Trigger:</strong> felt pain from frame 03, now anchored where the pain happened.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">11</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Candidate vs baseline — a trade-off, not a winner</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:6px;">
+        <div style="height:20px; background:var(--wf); border-radius:2px;"></div>
+        <div style="flex:1; display:flex; gap:5px;">
+          <div style="width:74px; display:flex; flex-direction:column; gap:4px;">
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+            <div style="height:19px; background:var(--fusion-bg); border:1px solid var(--fusion-border-strong); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-text-secondary);">v14 BASE</div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+            <div style="height:19px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-blue-700);">v15</div>
+            <div style="height:19px; background:var(--fusion-green-100); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600);">−31% $</div>
+            <div style="height:19px; background:var(--fusion-amber-100); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">−2 pts</div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+          </div>
+        </div>
+        <div style="height:22px; background:var(--fusion-bg); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-text-secondary);">no dominant winner — you decide</div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);">Spec 04 req 7: no fake authority when nothing dominates.</div>
+    </div>
+
+    <div style="width:340px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">12</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Promote → back to canvas as a diff to review</span></div>
+      <div style="height:210px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:10px; display:flex; flex-direction:column; gap:8px;">
+        <div style="height:19px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">REVIEWING PROPOSED CHANGES · 2</div>
+        <div style="flex:1; display:flex; gap:8px;">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+            <div style="height:28px; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:28px; background:var(--fusion-surface); border:1.5px dashed var(--fusion-amber-600); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">MODEL SWAP</div>
+            <div style="height:28px; background:var(--wf); border-radius:3px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+          <div style="width:96px; display:flex; flex-direction:column; gap:5px;">
+            <div style="flex:1; background:var(--wf); border-radius:3px;"></div>
+            <div style="height:22px; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-blue-700);">APPLY · DISMISS</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);"><strong>D6:</strong> no dead ends — the result lands where they edit, then the loop restarts at frame 01.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ RE-ENTRY / 08 ============ -->
+<section style="padding:20px 40px 8px; display:flex; flex-direction:column; gap:14px;">
+  <div style="display:flex; align-items:center; gap:11px; max-width:1100px;">
+    <span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; letter-spacing:.07em; color:var(--fusion-teal-600); background:var(--fusion-teal-100); border-radius:var(--fusion-radius-full); padding:4px 11px;">RE-ENTRY · SPEC 08</span>
+    <span style="flex:1; min-width:0; font-size:18px; line-height:1.3; font-weight:700;">Two weeks later — where the Overview earns its place</span>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+    <div style="width:520px; display:flex; flex-direction:column; gap:9px;">
+      <div style="display:flex; align-items:baseline; gap:8px;"><span style="flex:none; white-space:nowrap; font-size:11px; font-weight:700; color:var(--fusion-text-muted);">13</span><span style="flex:1; min-width:0; font-size:13.5px; line-height:1.4; font-weight:700;">Owner opens a shared link · builder returns after a fortnight</span></div>
+      <div style="height:260px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-md); padding:12px; display:flex; flex-direction:column; gap:9px;">
+        <div style="height:26px; background:var(--fusion-green-100); border:1px solid var(--fusion-green-600); border-radius:3px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-green-600);">v15 · PASSING 22/24 · ~$0.11 PER RUN · PROMOTABLE</div>
+        <div style="display:flex; gap:6px;">
+          <div style="flex:1; height:40px; background:var(--wf); border-radius:3px;"></div>
+          <div style="flex:1; height:40px; background:var(--wf); border-radius:3px;"></div>
+          <div style="flex:1; height:40px; background:var(--wf); border-radius:3px;"></div>
+          <div style="flex:1; height:40px; background:var(--wf); border-radius:3px;"></div>
+        </div>
+        <div style="flex:1; display:flex; gap:9px;">
+          <div style="flex:1.3; background:var(--fusion-bg); border-radius:3px; padding:7px; display:flex; align-items:flex-end; gap:4px;">
+            <div style="flex:1; height:36%; background:var(--wf); border-radius:1px;"></div>
+            <div style="flex:1; height:52%; background:var(--wf); border-radius:1px;"></div>
+            <div style="flex:1; height:20%; background:transparent; border:1px dashed var(--fusion-border-strong); border-radius:1px;"></div>
+            <div style="flex:1; height:64%; background:var(--wf); border-radius:1px;"></div>
+            <div style="flex:1; height:58%; background:var(--wf); border-radius:1px;"></div>
+            <div style="flex:1; height:44%; background:var(--fusion-blue-100); border:1px solid var(--fusion-blue-700); border-radius:1px;"></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+            <div style="height:19px; background:var(--wf); border-radius:2px; width:70%;"></div>
+            <div style="height:19px; background:var(--fusion-amber-100); border:1px solid var(--fusion-amber-600); border-radius:2px; display:grid; place-items:center; font-size:10px; line-height:1; font-weight:700; color:var(--fusion-amber-600);">2 CASES REGRESSED</div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="height:19px; background:var(--wf); border-radius:2px;"></div>
+            <div style="flex:1;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11.5px; line-height:1.5; color:var(--fusion-text-secondary);">The dashed bar is v11 — never suite-tested, drawn as a gap, never interpolated. That single rule is what makes the rest of the page trustworthy.</div>
+    </div>
+
+    <div style="flex:1; min-width:420px; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; flex-direction:column; gap:9px; padding:17px 19px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+        <div style="font-size:14px; line-height:1.4; font-weight:700;">Spec 08 — where I think you're right</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);">The three honesty rules are the best things in the pack: <strong>gaps for untested versions</strong> (req 7), <strong>discontinuity at definition changes</strong> (req 6), and <strong>promotability as a literal state</strong> rather than something the owner has to infer (req 3). Also right that "nothing needs you" is a designed state, not an empty one — most dashboards can't say that sentence.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:9px; padding:17px 19px; background:var(--fusion-amber-100); border-radius:var(--fusion-radius-lg);">
+        <div style="font-size:14px; line-height:1.4; font-weight:700; color:var(--fusion-amber-600);">…and four places I'd push</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>1. Two personas, one ranked list, different questions.</strong> The owner asks "can I trust it" — a ranking answers that. The returning builder asks "what changed while I was gone" — that's a <em>diff</em>, and no ordering of req 10 produces it. I'd add a "since you were last here" line rather than pretend one list serves both.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>2. The discontinuity rule may shred the charts.</strong> Evaluators get edited constantly in the first weeks — apply req 6 strictly and early-life trends become confetti. I'd default to "points comparable to today's definitions" and put full history behind a toggle. Same honesty, readable.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>3. Plain-language-first everywhere is too blunt.</strong> Pay the wordiness tax on the four tiles and the attention list, where decisions happen. On the trends, the person reading axis labels has already opted into detail.</div>
+        <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-amber-600);"><strong>4. A missing answer.</strong> "Quality dipped at v15" — the page routes to the SuiteRun, but the real answer is <em>what changed in v15</em>. Version lineage (<span style="font-family:var(--fusion-font-mono); font-size:11.5px;">createdFrom</span>) should hang off every trend point, or the owner's obvious follow-up dead-ends.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1100px; display:flex; flex-direction:column; gap:9px; padding:18px 20px; background:var(--fusion-surface); border:1px solid var(--fusion-border); border-radius:var(--fusion-radius-lg);">
+    <div style="font-size:14px; line-height:1.4; font-weight:700;">What the storyboard settles</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Overview is not a Run Detail tab</strong> (your question 1) — frames 04 and 13 are different jobs at different altitudes. It's a landing surface, and on open question 1 in your spec: <em>builder lands on canvas, owner lands here</em>, because frames 01–12 all start from the canvas and forcing them through a dashboard would tax the inner loop every time.</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Run history</strong> (your question 7) belongs in two places for two reasons: the canvas scrubber for "show me the last run instead" during stages 1–2, and a left rail in Run Detail for "compare these two runs" during stage 2. Frame 04's tab bar is where I'd hang it.</div>
+    <div style="font-size:12.5px; line-height:1.6; color:var(--fusion-text-secondary);"><strong style="color:var(--fusion-ink);">Compare</strong> (question 5) only appears at frame 11 — it's a stage-4 tool. Putting it in the Run Detail header, as my earlier sketch did, offers it two stages early with nothing to compare against.</div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>
